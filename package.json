@@ -1,0 +1,37 @@
+{
+  "name": "serenity-ignited",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Kim Duer",
+  "license": "MIT",
+  "scripts": {
+    "serve": "live-server public/",
+    "build": "webpack",
+    "dev-server": "webpack serve"
+  },
+  "dependencies": {
+    "react-router-dom": "^5.2.0",
+    "validator": "13.5.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.12.17",
+    "@babel/preset-env": "^7.13.9",
+    "@babel/preset-react": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "cross-env": "^7.0.3",
+    "css-loader": "^5.0.2",
+    "jest": "^26.6.3",
+    "node-sass": "^5.0.0",
+    "normalize.css": "^8.0.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-modal": "^3.12.1",
+    "sass-loader": "^11.0.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.23.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
