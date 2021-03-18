@@ -23,7 +23,8 @@ const Login = ({ updateAuth }) => {
         if (value === password) {
             updateAuth(true)
         } else {
-            console.log('Incorrect password!')
+            setError(true)
+            setValue('')
         }
     }
 
@@ -63,6 +64,7 @@ const Login = ({ updateAuth }) => {
                        onChange={handleInputChange}
                        value={value} />
                 <button onClick={onSubmit}/>
+                {error ? (<p>ope... there must be a typo.</p>) : <p>please enter your password</p>}
             </div>
         ) 
     } else {
