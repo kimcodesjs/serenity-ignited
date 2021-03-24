@@ -4,7 +4,7 @@ import Login from './Login'
 
 const Admin = () => {
 
-    const [authenticated, isAuthenticated] = useState(false)
+    const [authenticated, isAuthenticated] = useState(true) // this may end up being implemented using firebase auth
 
     return (
         

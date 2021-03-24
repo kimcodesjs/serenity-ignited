@@ -63,7 +63,7 @@ const Login = ({ updateAuth }) => {
                 <input type='text'
                        onChange={handleInputChange}
                        value={value} />
-                <button onClick={onSubmit}/>
+                <button onClick={onSubmit}>submit</button>
                 {error ? (<p>ope... there must be a typo.</p>) : <p>please enter your password</p>}
             </div>
         ) 
@@ -76,7 +76,7 @@ const Login = ({ updateAuth }) => {
                 <input type='text'
                        onChange={onChange2} 
                        value={new2}/>
-                <button onClick={createPassword} />
+                <button onClick={createPassword}>submit</button>
                 {error ? (<p>ope... there must be a typo.</p>) : <p>please create your password</p>}
             </div>
         )
