@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css'
-import DateTime from 'luxon/src/datetime.js'
-import Interval from 'luxon/src/interval.js'
+
+import {DateTime, Interval, Info} from 'luxon'
+
 
 const ReikiAdmin = () => {
 
     const [disabledDates, setDisabledDates] = useState(null)
     const [activeMgr, setActiveMgr] = useState('')
-    const [appointments, getAppointments] = useState({
-        client: 'John Doe',
-        practitioner: 'Becky Kappell',
-        type: 'sample',
-        // time: Interval() -> see Luxon tuts saved in bookmark
-    })
+    const [practitioners, addPractitioner] = useState([])
+    
 
     // useEffect(() => {
     //     fetchAppointments()
@@ -29,13 +24,7 @@ const ReikiAdmin = () => {
         }
     }
 
-    const getDisabledDates = ({activeStartDate, date, view }) => {
-        if (date.getDay() === 0) {
-            return true
-        } else if (date.getDay() === 1) {
-            return true 
-        }
-    }
+    
     
     // const fetchAppointments = () => {
     //     const appointment = 
@@ -49,19 +38,16 @@ const ReikiAdmin = () => {
         <div>
             <h2>Reiki Admin</h2>
 
-            <Calendar 
-                tileDisabled={getDisabledDates}/>
-
-            <h3>Upcoming Appointments</h3>
-            {appointments ? 
-                <div>
-                    <p>{appointments.client}, {appointments.practitioner}, {appointments.type} </p>
-                </div> : null}
-            <br />
             <h3 onClick={onMgrClick}>Set Appointment Availability</h3>
-            {activeMgr === 'availability' ? <Calendar /> : null}
+
+            {DateTime.local().toLocaleString(DateTime.DATETIME_FULL_WITH_SECONDS)}
+
             <h3 onClick={onMgrClick}>Manage Appointment Types</h3>
             <h3 onClick={onMgrClick}>Manage Practitioners</h3>
+            {activeMgr === 'practitioners' ? 
+                <div>
+                    <button>Add A Practitioner</button>
+                </div> : null}
         </div>
     )
 }
