@@ -10,6 +10,8 @@ import Booking from './Components/ReikiShop/Booking'
 import ContactMe from './Components/ContactMe'
 import AboutMe from './Components/AboutMe'
 import Admin from './Components/Admin/Admin'
+import ReikiAdmin from './Components/Admin/ReikiAdmin'
+import SoapsAdmin from './Components/Admin/SoapsAdmin'
 
 
 
@@ -28,6 +30,8 @@ const App = () => {
                     <Route path="/serenity-in-healing" component={ReikiShop}/>
                     <Route path="/contact-me" component={ContactMe}/>
                     <Route path="/about-me" component={AboutMe}/>
+                    <Route path="/admin/reiki" component={ReikiAdmin} />
+                    <Route path="/admin/soaps" component={SoapsAdmin} />
                     <Route path="/admin" component={Admin}/>
                 </Switch>
                 
