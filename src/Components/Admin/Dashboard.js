@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Overview from './Overview'
-import SoapsAdmin from './SoapsAdmin'
-import ReikiAdmin from './ReikiAdmin'
+import { Link } from 'react-router-dom'
+
 
 const Dashboard = () => {
 
@@ -17,11 +17,9 @@ const Dashboard = () => {
     return (
         <div>
             <h1>Admin Dashboard</h1>
+            <Link to='/admin/soaps'>Soaps Admin</Link>
+            <Link to='/admin/reiki'>Reiki Admin</Link>
             <Overview />
-            <button onClick={handleClick} name='soaps'>Soaps Admin</button>
-            <button onClick={handleClick} name ='reiki'>Reiki Admin</button>
-            {activeAdmin === 'soaps' ? <SoapsAdmin /> : <ReikiAdmin />}
-            
         </div>
     )
 }
