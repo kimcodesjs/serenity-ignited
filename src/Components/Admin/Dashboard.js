@@ -5,7 +5,7 @@ import ReikiAdmin from './ReikiAdmin'
 
 const Dashboard = () => {
 
-    const [activeAdmin, setActive] = useState('soaps')
+    const [activeAdmin, setActive] = useState('reiki')
 
     const handleClick = (event) => {
         if (event.target.name === 'soaps') {
