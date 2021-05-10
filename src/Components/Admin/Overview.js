@@ -11,20 +11,24 @@ const Overview = () => {
         // time: Interval() -> see Luxon tuts saved in bookmark
     })
 
-    const getDisabledDates = ({activeStartDate, date, view }) => {
-        if (date.getDay() === 0) {
-            return true
-        } else if (date.getDay() === 1) {
-            return true 
-        }
-    }
+    // useEffect(() => {
+    //     fetchAppointments()
+    // }),[]
+
+    // const fetchAppointments = () => {
+    //     const appointment = 
+    //     getAppointments(appointment)
+        
+    // }
+    
 
     return (
         <div>
             <h2>Overview</h2>
             <h3>Upcoming Appointments</h3>
             <Calendar 
-                tileDisabled={getDisabledDates}/>
+                //tileDisabled={getDisabledDates}
+                />
             {appointments ? 
                 <div>
                     <p>{appointments.client}, {appointments.practitioner}, {appointments.type} </p>
