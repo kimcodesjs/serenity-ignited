@@ -6,7 +6,7 @@ import SoapsAdmin from './SoapsAdmin'
 
 const Dashboard = () => {
 
-    const [active, setActive] = useState('overview')
+    const [active, setActive] = useState('reiki')
 
     
     const onClick = (e) => {

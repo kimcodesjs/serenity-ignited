@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import AddSoapForm from './AddSoapForm'
+import AddSoapForm from './Forms/AddSoapForm'
 
 const SoapsAdmin = () => {
     const [showAddSoap, setShowAdd] = useState(false)
