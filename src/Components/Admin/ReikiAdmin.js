@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Calendar from 'react-calendar'
+import AvailabilityForm from './Forms/AvailabilityForm'
+import NewPractitioner from './Forms/NewPractitioner'
 
 import {DateTime, Interval, Info} from 'luxon'
 
@@ -7,24 +9,29 @@ import {DateTime, Interval, Info} from 'luxon'
 const ReikiAdmin = () => {
 
     const [disabledDates, setDisabledDates] = useState(null)
-    const [practitioners, addPractitioner] = useState([])
+    const [activePractitioner, setActivePractitioner] = useState('Becky')
     
-    const getDisabledDates = ({activeStartDate, date, view }) => {
-        if (date.getDay() === 0) {
-            return true
-        } else if (date.getDay() === 1) {
-            return true 
+    // useEffect -> fetch practitioners from db, map names to buttons 
+    
+    
+    const onClick = (e) => {
+        if (e.target.innerHTML === 'New Practitioner') {
+            setActivePractitioner(null)
+        } else {
+            setActivePractitioner(e.target.innerHTML)
         }
     }
-    
-    
     return (
         <div>
-            <h2>Serenity In Healing</h2>
-            <Calendar />
-            <h3>Set Appointment Availability</h3>
-            <h3>Manage Appointment Types</h3>
-            <h3>Manage Practitioners</h3>
+            <h2>Manage Practitioners and Appointments </h2>
+            <button onClick={onClick}>Becky</button>
+            <button onClick={onClick}>Kim</button>
+            <button onClick={onClick}>New Practitioner</button>
+            {activePractitioner ? <AvailabilityForm practitioner={activePractitioner}/> : null}
+            {activePractitioner ? <h3>Manage Appointment Types</h3>: null}
+            {!activePractitioner ? <NewPractitioner /> : null}
+            
+            
         </div>
     )
 }
