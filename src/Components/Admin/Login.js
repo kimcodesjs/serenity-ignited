@@ -4,27 +4,30 @@ import firebase from 'firebase'
 const Login = ({ updateAuth }) => {
     
     const [value, setValue] = useState('')
-    const [password, readPassword] = useState(null)
+    const [data, readData] = useState(null)
     const [new1, setNew1] = useState('')
     const [new2, setNew2] = useState('')
     const [error, setError] = useState(false)
 
     useEffect(() => {
-        firebase.firestore().collection('Admin').doc('password').get().then((doc) => {
-            if (doc.exists) {
-                readPassword(doc.data().value)
-            }
+        const getPassword = async () => {
+            const password = await firebase.firestore().collection('Admin').doc('password').get()
+            return password.data().value
+        }
+        getPassword().then(response => {
+            readData(response)
         })
-        
-    })
+    }, [])
     
 
     const onSubmit = () => {
-        if (value === password) {
+
+        if (value === data) {
             updateAuth(true)
         } else {
             setError(true)
             setValue('')
+            console.log(data)
         }
     }
 
@@ -57,7 +60,7 @@ const Login = ({ updateAuth }) => {
         setValue(event.target.value)
     }
 
-    if (password) {
+    if (data) {
         return (
             <div>
                 <input type='text'
