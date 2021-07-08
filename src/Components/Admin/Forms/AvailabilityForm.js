@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {DateTime, Interval, Info} from 'luxon'
 import Calendar from 'react-calendar'
 
+
 class AvailabilityForm extends React.Component {
     // on option change -> show time range picker
     // add appointment buffer setting
@@ -11,7 +12,9 @@ class AvailabilityForm extends React.Component {
 		super()
 		this.state = {
             disabledDays: [],
-            currentSelection: 'Monday'
+            disabledDates: [],
+            aciveWeekday: 'Monday',
+            activeDate: new Date().toDateString()
         }
         
     }
@@ -32,43 +35,66 @@ class AvailabilityForm extends React.Component {
             return true
         } else if (date.getDay() === 6 && this.state.disabledDays.includes('Saturday')) {
             return true
+        } else if (this.state.disabledDates.includes(date.getDate())) {
+            return true
         }
     }
 
-    onClick = () => {
-        !this.state.disabledDays.includes(this.state.currentSelection) ? 
+    updateDisabledDays = () => {
+        !this.state.disabledDays.includes(this.state.aciveWeekday) ? 
             this.setState({
-                disabledDays: [...this.state.disabledDays, this.state.currentSelection]
+                disabledDays: [...this.state.disabledDays, this.state.aciveWeekday]
             }):
             this.setState({
-                disabledDays: this.state.disabledDays.filter(day => day !== this.state.currentSelection)
-            })
-        
-            
+                disabledDays: this.state.disabledDays.filter(day => day !== this.state.aciveWeekday)
+            }) 
     }
 
-    onChange = (e) => {
+    updateActiveWeekday = (e) => {
         this.setState({
-            currentSelection: e.target.value
+            aciveWeekday: e.target.value
         })
     }
 
+    updateActiveDate = (value) => {
+        console.log(value)
+        this.setState({
+            activeDate: value.toDateString()
+        })
+    }
 
+    updateDisabledDates = () => {
+        let extractedDate = this.state.activeDate.match(/(\d+)/)
+        let parsedDate = parseInt(extractedDate[0])
+        !this.state.disabledDates.includes(this.state.activeDate) ? 
+            this.setState({
+                disabledDates: [...this.state.disabledDates, parsedDate]
+            }):
+            this.setState({
+                disabledDates: this.state.disabledDates.filter(date => date !== parsedDate)
+            })
+    }
+    // disabledDates currently disables that date number in all months
     render () {
         return (
         <div>
-            <h3>{this.props.practitioner}'s weekday availability:</h3>
-            <select onChange={this.onChange}>
+            <h3>{this.props.practitioner}'s availability:</h3> 
+            <select onChange={this.updateActiveWeekday}>
                 {Info.weekdays().map(day => {
                 return (
                     <option value={day} key={day}>{day}</option>  
                 )
                 })}
             </select>
-            <button onClick={this.onClick}>{this.state.disabledDays.includes(this.state.currentSelection) ? 'enable' : 'disable'}</button>
+            <button onClick={this.updateDisabledDays}>{this.state.disabledDays.includes(this.state.aciveWeekday) ? 'enable' : 'disable'}</button>
             <Calendar 
-                tileDisabled={this.getDisabledDates}/>
-            
+                tileDisabled={this.getDisabledDates}
+                calendarType='US'
+                minDate={new Date()}
+                onChange={this.updateActiveDate}/>
+            <p>{this.state.activeDate}</p>
+            <button onClick={this.updateDisabledDates}>{this.state.disabledDates.includes(this.state.activeDate) ? 'enable' : 'disable'}</button>
+            {console.log(this.state.disabledDates)}
         </div>
     
         )
