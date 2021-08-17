@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Header from './Components/Header'
 import Welcome from './Components/Welcome'
-import SoapShop from './Components/SoapShop/SoapShop'
 import ReikiShop from './Components/ReikiShop/ReikiShop'
 import Booking from './Components/ReikiShop/Booking'
 import ContactMe from './Components/ContactMe'
@@ -25,7 +24,6 @@ const App = () => {
                 <Header />
                 <Switch>
                     <Route path="/" component={Welcome} exact={true}/>   
-                    <Route path="/serenity-in-soap" component={SoapShop}/>
                     <Route path='/serenity-in-healing/booking' component={Booking} />
                     <Route path="/serenity-in-healing" component={ReikiShop}/>
                     <Route path="/contact-me" component={ContactMe}/>
