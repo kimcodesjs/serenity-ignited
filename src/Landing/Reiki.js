@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const ReikiShop = () => {
+const Reiki = () => {
     return (
         <div>
             <h1>Serenity in Healing</h1>
@@ -17,4 +17,4 @@ const ReikiShop = () => {
     )
 }
 
-export default ReikiShop
+export default Reiki
