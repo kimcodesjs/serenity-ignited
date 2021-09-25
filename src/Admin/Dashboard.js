@@ -20,7 +20,6 @@ const Dashboard = () => {
             <h1>Admin Dashboard</h1>
             <button onClick={onClick}>Overview</button>
             <button onClick={onClick}>Serenity In Healing</button>
-            <button onClick={onClick}>Serenity In Soaps</button>
             {active === 'overview' ? <Overview /> : null}
             {active === 'reiki' ? <ReikiAdmin /> : null}
         </div>
