@@ -8,7 +8,12 @@ import OrderConfirmation from './OrderConfirmation'
 const useStyles = createUseStyles({
     span: {
         marginRight: '10px',
-        '-webkit-box-shadow': '0px 5px 5px #b7d9e9',
+        paddingLeft: '10px',
+        width: '200px',
+        height: '30px',
+        display: 'inline-flex',
+        alignItems: 'center',
+        '-webkit-box-shadow': '5px 5px 5px #b7d9e9',
         '-moz-box-shadow': '0px 1px 1px #b7d9e9',
         '&:hover': {
             '-webkit-box-shadow': '0px 5px 5px #0248ea',
@@ -20,6 +25,11 @@ const useStyles = createUseStyles({
     },
     spanCompleted: {
         marginRight: '10px',
+        paddingLeft: '10px',
+        width: '200px',
+        height: '30px',
+        display: 'inline-flex',
+        alignItems: 'center',
         '-webkit-box-shadow': '0px 5px 5px #35e044',
         '-moz-box-shadow': '0px 1px 1px #35e044',
         '&:hover': {
@@ -71,9 +81,9 @@ const Booking = () => {
     return (
         <>
             <h2>Your Session</h2>
-            <span className={session === '' ? classes.span : classes.spanCompleted} onClick={onClickSession}>Session: {session === '' ? '...' : session}</span>
-            <span className={connection === '' ? classes.span : classes.spanCompleted} onClick={onClickConnection}>Connection: {connection === '' ? '...' : connection}</span>
-            <span className={schedule === null ? classes.span : classes.spanCompleted} onClick={onClickSchedule}>Date/Time: {schedule === null ? '...' : schedule}</span>
+            <div className={session === '' ? classes.span : classes.spanCompleted} onClick={onClickSession}>Session: {session === '' ? '...' : session}</div>
+            <div className={connection === '' ? classes.span : classes.spanCompleted} onClick={onClickConnection}>Connection: {connection === '' ? '...' : connection}</div>
+            <div className={schedule === null ? classes.span : classes.spanCompleted} onClick={onClickSchedule}>Date/Time: {schedule === null ? '...' : schedule}</div>
             {error ? <span>{error}</span> : null}
             
             {view === 1 ? <Session setSession={setSession} updateView={updateView} setError={setError} /> : null}

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { createUseStyles } from 'react-jss'
 import Calendar from 'react-calendar'
+
+// to do - styling calendar? create timeslot picker
 
 const Scheduler = ({ setSchedule }) => {
 
@@ -16,15 +19,14 @@ const Scheduler = ({ setSchedule }) => {
         <>
             <h3>When would you like to receive your healing?</h3>
             <br />
-            
-            <Calendar 
-                calendarType='US'
-                onChange={updateActiveDate}
-                minDate={new Date()}/>
-            <div>
+                <Calendar 
+                    calendarType='US'
+                    onChange={updateActiveDate}
+                    minDate={new Date()}/>
+
                 <span>{activeDate}</span>
                 <span></span>
-            </div>
+            
         </>
     )
 }
