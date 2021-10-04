@@ -1,41 +1,11 @@
 import React, { useState } from 'react'
-import { createUseStyles } from 'react-jss'
+import OptionCard from './OptionCard'
 
-const useStyles = createUseStyles({
-    option: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100px',
-        height: '60px',
-        marginBottom: '10px',
-        '-webkit-box-shadow': '0px 5px 5px #b7d9e9',
-        '-moz-box-shadow': '0px 1px 1px #b7d9e9',
-        boxShadow :'0px 1px 1px',
-        '&:hover': {
-            '-webkit-box-shadow': '0px 5px 5px #0248ea',
-            '-moz-box-shadow': '0px 5px 5px #0248ea'
-        },
-        cursor: 'pointer',
-        userSelect: 'none'
-    },
-    optionSelect: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100px',
-        height: '60px',
-        marginBottom: '10px',
-        '-webkit-box-shadow': '0px 5px 5px #0248ea',
-            '-moz-box-shadow': '0px 5px 5px #0248ea',
-        cursor: 'pointer',
-        userSelect: 'none'
-    }
-})
 
 const Session = ({ setSession, updateView }) => {
     
     const [active, setActive] = useState(null)
+
     const onClick = (e) => {
         setActive(e.target.innerHTML)
     }
@@ -45,21 +15,43 @@ const Session = ({ setSession, updateView }) => {
         updateView(2)
     }
 
-    let classes = useStyles()
+    const options = {
+        sampleSession: {
+            id: 'Sample Session',
+            description: ''
+        },
+        generalHealing: {
+            id: 'General Healing',
+            description: ''
+        },
+        inDepth: {
+            id: 'In-Depth Healing',
+            description: ''
+        },
+        accessBars: {
+            id: 'Access Bars',
+            description: ''
+        },
+        package1: {
+            id: 'Reiki + Access Bars',
+            description: ''
+        }
+    }
+
     return (
         <>
             <h3>Choose your healing session:</h3> 
 
             <h4>Reiki</h4>
-                <div onClick={onClick} className={active === 'Sample Session' ? classes.optionSelect : classes.option}>Sample Session</div>
-                <div onClick={onClick} className={active === 'General Healing' ? classes.optionSelect : classes.option}>General Healing</div>
-                <div onClick={onClick} className={active === 'In-Depth Healing' ? classes.optionSelect : classes.option}>In-Depth Healing</div>
+                <OptionCard option={options.sampleSession} onClick={onClick} active={active === options.sampleSession.id ? true : false} />
+                <OptionCard option={options.generalHealing} onClick={onClick} active={active === options.generalHealing.id ? true : false} />
+                <OptionCard option={options.inDepth} onClick={onClick} active={active === options.inDepth.id ? true : false} />
             
             <h4>Access Consciousness</h4>
-                <div onClick={onClick} className={active === 'Access Bars' ? classes.optionSelect : classes.option}>Access Bars</div>
+                <OptionCard option={options.accessBars} onClick={onClick} active={active === options.accessBars.id ? true : false} />
             
             <h4>Packages</h4>
-                <div onClick={onClick} className={active === 'Reiki + Access Bars' ? classes.optionSelect : classes.option}>Reiki + Access Bars</div>
+                <OptionCard option={options.package1} onClick={onClick} active={active === options.package1.id ? true : false} />
 
             <button onClick={onConfirm}>continue</button>
         </>

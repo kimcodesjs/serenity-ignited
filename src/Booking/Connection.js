@@ -1,44 +1,11 @@
 import React, { useState } from 'react'
+import OptionCard from './OptionCard'
 import { createUseStyles } from 'react-jss'
 
-const useStyles = createUseStyles({
-    option: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100px',
-        height: '60px',
-        marginBottom: '10px',
-        boxShadow :'0px 1px 1px',
-        '-webkit-box-shadow': '0px 5px 5px #b7d9e9',
-        '-moz-box-shadow': '0px 1px 1px #b7d9e9',
-        '&:hover': {
-            '-webkit-box-shadow': '0px 5px 5px #0248ea',
-            '-moz-box-shadow': '0px 5px 5px #0248ea',
-        },
-        cursor: 'pointer',
-        userSelect: 'none'
-    },
-    optionSelect: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100px',
-        height: '60px',
-        marginBottom: '10px',
-        boxShadow :'0px 1px 1px',
-        '-webkit-box-shadow': '0px 5px 5px #0248ea',
-        '-moz-box-shadow': '0px 5px 5px #0248ea',
-        cursor: 'pointer',
-        userSelect: 'none'
-    }
-})
 
 const Connection = ({ setConnection, updateView, session }) => {
     
     const [active, setActive] = useState(null)
-
-    let classes = useStyles()
 
     const onClick = (e) => {
         setActive(e.target.innerHTML)
@@ -47,19 +14,40 @@ const Connection = ({ setConnection, updateView, session }) => {
         setConnection(active)
         updateView(3)
     }
+
+    const options = {
+        inPerson: {
+            id: 'In Person at Serenity Ignited',
+            description: ''
+        },
+        remotePhone: {
+            id: 'Remote by Phone',
+            description: ''
+        },
+        remoteVideo: {
+            id: 'Remote by Video',
+            description: ''
+        },
+        remote: {
+            id: 'Remote',
+            description: ''
+        }
+    }
     return (
         <>
             <h3>Select how you would prefer to connect:</h3>
             {session === 'Sample Session' || session === 'General Healing' || session === 'In-Depth Healing' ?
                 <div> 
-                    <div className={active !== 'In Person' ? classes.option : classes.optionSelect} onClick={onClick}>In Person</div> 
-                    <div className={active !== 'Remote' ? classes.option : classes.optionSelect} onClick={onClick}>Remote</div>
+                    <OptionCard option={options.inPerson} onClick={onClick} active={active === options.inPerson.id ? true : false} />
+                    <OptionCard option={options.remotePhone} onClick={onClick} active={active === options.remotePhone.id ? true : false} />
+                    <OptionCard option={options.remoteVideo} onClick={onClick} active={active === options.remoteVideo.id ? true : false} />
+                    <OptionCard option={options.remote} onClick={onClick} active={active === options.remote.id ? true : false} />
                 </div>
                 : 
                 <div>
-                    <div className={active !== 'In Person' ? classes.option : classes.optionSelect} onClick={onClick}>In Person</div>
+                    <OptionCard option={options.inPerson} onClick={onClick} active={active === options.inPerson.id ? true : false} />
                 </div>}
-            <button onClick={onConfirm}>confirm</button>
+            <button onClick={onConfirm}>Continue</button>
         </>
     )
 }
