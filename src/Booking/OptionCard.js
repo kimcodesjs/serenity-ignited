@@ -47,7 +47,7 @@ const OptionCard = ({ option, setActive, active}) => {
     let classes = useStyles()
 
     const onClick = () => {
-        setActive(option.id)
+        setActive(option)
     }
 
     const currencyFormatter = new Intl.NumberFormat('en-US', {
