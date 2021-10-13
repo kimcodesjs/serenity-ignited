@@ -44,7 +44,7 @@ const useStyles = createUseStyles({
 
 const Booking = () => {
 
-    const [session, setSession] = useState('')
+    const [session, setSession] = useState(null)
     const [connection, setConnection] = useState('')
     const [schedule, setSchedule] = useState(null)
     const [view, updateView] = useState(1)
@@ -59,6 +59,7 @@ const Booking = () => {
     let classes = useStyles()
 
     const onClickSession = () => {
+        setConnection('')
         updateView(1)
     }
 
@@ -81,14 +82,14 @@ const Booking = () => {
     return (
         <>
             <h2>Your Session</h2>
-            <div className={session === '' ? classes.span : classes.spanCompleted} onClick={onClickSession}>Session: {session === '' ? '...' : session}</div>
+            <div className={session === null ? classes.span : classes.spanCompleted} onClick={onClickSession}>Session: {session === null ? '...' : session.id}</div>
             <div className={connection === '' ? classes.span : classes.spanCompleted} onClick={onClickConnection}>Connection: {connection === '' ? '...' : connection}</div>
             <div className={schedule === null ? classes.span : classes.spanCompleted} onClick={onClickSchedule}>Date/Time: {schedule === null ? '...' : schedule}</div>
             {error ? <span>{error}</span> : null}
             
             {view === 1 ? <Session setSession={setSession} updateView={updateView} setError={setError} /> : null}
             {view === 2 ? <Connection setConnection={setConnection} updateView={updateView} session={session} setError={setError} /> : null}
-            {view === 3 ? <Scheduler setSchedule={setSchedule} /> : null}
+            {view === 3 ? <Scheduler setSchedule={setSchedule} session={session} /> : null}
             {view === 4 ? <OrderConfirmation session={session} connection={connection} schedule={schedule}/> : null}
             
         </>
