@@ -3,16 +3,17 @@ import OptionCard from './OptionCard'
 
 
 const Session = ({ setSession, updateView }) => {
-    
+
+    // active is storing the current user selected session type, set with an onClick handler inside of OptionCard.js
     const [active, setActive] = useState(null)
 
+    // onConfirm passes the selected Session Object back to Booking.js, stored in state as session, and updates UI
     const onConfirm = () => {
         setSession(active)
-        console.log(active)
         updateView(2)
     }
 
-    // Session Objects - each contain all info for each session
+    // Session Objects
     const options = {
         sampleSession: {
             id: 'Sample Session',
@@ -51,7 +52,7 @@ const Session = ({ setSession, updateView }) => {
             price: 75
         }
     }
-    // When OptionCard is clicked, Booking.js receives the active session object
+    
     return (
         <>
             <h3>Choose your healing session:</h3> 
