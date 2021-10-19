@@ -9,26 +9,26 @@ const Connection = ({ setConnection, updateView, session }) => {
 
     
     const onConfirm = () => {
-        setConnection(active.id)
+        setConnection(active)
         updateView(3)
     }
 
     const options = {
         inPerson: {
-            id: 'In Person at Serenity Ignited',
-            description: ''
+            id: 'In Person',
+            description: 'Meeting in person can offer a powerful healing experience. Your practitioner will meet you at the Serenity Ignited shop.'
         },
         remotePhone: {
             id: 'Remote by Phone',
-            description: ''
+            description: 'Your practitioner will call you at your chosen time so that you will be able to speak with them during your session.'
         },
         remoteVideo: {
             id: 'Remote by Video',
-            description: ''
+            description: 'Connect with your practitioner on camera via Facebook or Zoom.'
         },
         remote: {
             id: 'Remote',
-            description: ''
+            description: 'Receive your healing at a purely energetic level, with no physical or digital contact.'
         }
     }
     return (
