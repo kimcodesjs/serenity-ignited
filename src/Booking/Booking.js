@@ -43,36 +43,55 @@ const useStyles = createUseStyles({
 })
 
 const Booking = () => {
+    
+    let classes = useStyles()
 
+    // session state holds the user selected session, represented by a Session Object
     const [session, setSession] = useState(null)
-    const [connection, setConnection] = useState('')
+
+    // connection state holds the user selected connection (how a client receives the healing), represented by a Connection Object
+    const [connection, setConnection] = useState(null)
+
+    // schedule state holds an object containing user selected date & time
     const [schedule, setSchedule] = useState(null)
+
+    // view state holds a number referencing the currently displayed UI
     const [view, updateView] = useState(1)
+
+    // error state holds the message displayed if a user attempts to navigate forward in the booking stage before making necessary selections
     const [error, setError] = useState(null)
 
+    
+    // clears an error message once a selection is made, if an error message was set
     useEffect(() => {
         if (error !== null) {
             setError(null)
         }
     }, [session, connection])
 
-    let classes = useStyles()
-
+    
+    // onClickSession clears selections made and navigates back to Session.js
     const onClickSession = () => {
-        setConnection('')
+        setConnection(null)
+        setSchedule(null)
         updateView(1)
     }
 
+    // if a user has not chosen a session type, onClickConnection sets an error message; 
+    // if a session has already been selected, the schedule is cleared and user successfully navigates to Connection.js
     const onClickConnection = () => {
-        if (session === '') {
+        if (session === null) {
             setError('Please select a healing session.')
         } else {
+            setSchedule(null)
             updateView(2)
         }  
     }
 
+    // if user has not selected a session type and connection, error message is displayed
+    // if a user has made preceeding selections, user successfully navigates to Schedule.js
     const onClickSchedule = () => {
-        if (session === '' || connection === '') {
+        if (session === null || connection === null) {
             setError('Please select a healing session and connection.')
         } else {
             updateView(3)
@@ -83,13 +102,13 @@ const Booking = () => {
         <>
             <h2>Your Session</h2>
             <div className={session === null ? classes.span : classes.spanCompleted} onClick={onClickSession}>Session: {session === null ? '...' : session.id}</div>
-            <div className={connection === '' ? classes.span : classes.spanCompleted} onClick={onClickConnection}>Connection: {connection === '' ? '...' : connection}</div>
+            <div className={connection === null ? classes.span : classes.spanCompleted} onClick={onClickConnection}>Connection: {connection === null ? '...' : connection.id}</div>
             <div className={schedule === null ? classes.span : classes.spanCompleted} onClick={onClickSchedule}>Date/Time: {schedule === null ? '...' : schedule}</div>
             {error ? <span>{error}</span> : null}
             
-            {view === 1 ? <Session setSession={setSession} updateView={updateView} setError={setError} /> : null}
-            {view === 2 ? <Connection setConnection={setConnection} updateView={updateView} session={session} setError={setError} /> : null}
-            {view === 3 ? <Scheduler setSchedule={setSchedule} session={session} /> : null}
+            {view === 1 ? <Session setSession={setSession} updateView={updateView} setError={setError}/> : null}
+            {view === 2 ? <Connection setConnection={setConnection} updateView={updateView} session={session.id} setError={setError} /> : null}
+            {view === 3 ? <Scheduler setSchedule={setSchedule} duration={session.duration}/> : null}
             {view === 4 ? <OrderConfirmation session={session} connection={connection} schedule={schedule}/> : null}
             
         </>
