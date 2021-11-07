@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { createUseStyles } from 'react-jss'
+import { DateTime, Interval } from 'luxon'
 import Session from './Session'
 import Connection from './Connection'
 import Scheduler from './Scheduler'
@@ -103,12 +104,12 @@ const Booking = () => {
             <h2>Your Session</h2>
             <div className={session === null ? classes.span : classes.spanCompleted} onClick={onClickSession}>Session: {session === null ? '...' : session.id}</div>
             <div className={connection === null ? classes.span : classes.spanCompleted} onClick={onClickConnection}>Connection: {connection === null ? '...' : connection.id}</div>
-            <div className={schedule === null ? classes.span : classes.spanCompleted} onClick={onClickSchedule}>Date/Time: {schedule === null ? '...' : schedule}</div>
+            <div className={schedule === null ? classes.span : classes.spanCompleted} onClick={onClickSchedule}>Date/Time: {schedule === null ? '...' : schedule.date.toLocaleString(DateTime.DATE_HUGE)+' at '+schedule.time.start.toLocaleString(DateTime.TIME_SIMPLE)}</div>
             {error ? <span>{error}</span> : null}
             
             {view === 1 ? <Session setSession={setSession} updateView={updateView} setError={setError}/> : null}
             {view === 2 ? <Connection setConnection={setConnection} updateView={updateView} session={session.id} setError={setError} /> : null}
-            {view === 3 ? <Scheduler setSchedule={setSchedule} duration={session.duration}/> : null}
+            {view === 3 ? <Scheduler setSchedule={setSchedule} updateView={updateView} duration={session.duration}/> : null}
             {view === 4 ? <OrderConfirmation session={session} connection={connection} schedule={schedule}/> : null}
             
         </>
