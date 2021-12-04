@@ -7,10 +7,41 @@ const useStyles = createUseStyles({
     container: {
         width: '100%',
         justifyContent: 'center',
-        display: 'inline-flex'
+        display: 'inline-flex',
+        '@media (max-width: 920px)': {
+            flexDirection: 'column'
+        }
     },
     timeSlots: {
-        paddingLeft: '10px'
+        paddingLeft: '10px',
+        fontWeight: 'bold'
+    },
+    timePicker: {
+        fontFamily: "'Martel', serif"
+    },
+    continueEnabled: {
+        marginRight: '25%',
+        marginTop: '20px',
+        justifyContent: 'center',
+        background: 'rgba(58, 37, 48, .75)',
+        width: '110px',
+        textAlign: 'center',
+        color: 'white',
+        border: 'solid 2px rgba(56, 17, 17, .7)',
+        borderRadius: '10px',
+        userSelect: 'none',
+        cursor: 'pointer'  
+    },
+    continueDisabled: {
+        marginRight: '25%',
+        marginTop: '20px',
+        justifyContent: 'center',
+        background: 'rgba(130, 150, 188, .7)',
+        width: '110px',
+        textAlign: 'center',
+        border: 'solid 2px rgba(56, 17, 17, .7)',
+        borderRadius: '10px',
+        userSelect: 'none',
     }
     
 })
@@ -62,11 +93,13 @@ const Scheduler = ({ setSchedule, updateView, duration }) => {
     }
 
     const onConfirm = () => {
-        setSchedule({
-            date: activeDate,
-            time: activeTimeslot
-        })
-        updateView(4)
+        if (activeTimeslot) {
+            setSchedule({
+                date: activeDate,
+                time: activeTimeslot
+            })
+            updateView(4)
+        }
     }
 
     // how do I get Timeslots to reset when activeDate changes? 
@@ -86,7 +119,7 @@ const Scheduler = ({ setSchedule, updateView, duration }) => {
                 <div className={classes.timeSlots}> 
                     <h3>{activeDate.toLocaleString(DateTime.DATE_HUGE)}</h3>
 
-                    <select onChange={(e) => {e.preventDefault; setActiveTimeslot(Interval.fromISO(e.target.value))}} defaultValue='default'>
+                    <select onChange={(e) => {e.preventDefault; setActiveTimeslot(Interval.fromISO(e.target.value))}} defaultValue='default' className={classes.timePicker}>
                         <option disabled hidden value='default'>Please select a timeslot.</option>
                         {
                             availableTimeslots.map((timeslot, index) => {
@@ -98,7 +131,8 @@ const Scheduler = ({ setSchedule, updateView, duration }) => {
                             })    
                         }
                     </select>
-                    <button onClick={onConfirm}>Continue</button>
+                    <br />
+                    <div className={activeTimeslot ? classes.continueEnabled : classes.continueDisabled} onClick={onConfirm}>Continue</div>
                 </div>             
             </div>
         </>
