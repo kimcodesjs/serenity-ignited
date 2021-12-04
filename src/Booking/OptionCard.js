@@ -3,12 +3,15 @@ import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({
     option: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        display: 'inline-flex',
+        flexDirection: 'column',
         width: '400px',
-        height: '100px',
+        height: '150px',
+        borderRadius: '10px',
+        marginRight: '20px',
         marginBottom: '10px',
+        background: 'rgba(56, 17, 17, .75)',
+        color: 'white',
         '-webkit-box-shadow': '0px 5px 5px #b7d9e9',
         '-moz-box-shadow': '0px 1px 1px #b7d9e9',
         boxShadow :'0px 1px 1px',
@@ -17,28 +20,46 @@ const useStyles = createUseStyles({
             '-moz-box-shadow': '0px 5px 5px #0248ea'
         },
         cursor: 'pointer',
-        userSelect: 'none'
+        userSelect: 'none',
+        overflow: 'hidden',
+        '@media (max-width: 690px)': {
+            width: '90%',
+            height: '180px'
+        }
     },
     activeOption: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
         width: '400px',
-        height: '100px',
+        height: '150px',
+        borderRadius: '10px',
+        marginRight: '20px',
         marginBottom: '10px',
+        background: 'rgba(56, 17, 17, .75)',
+        color: 'white',
         '-webkit-box-shadow': '0px 5px 5px #0248ea',
             '-moz-box-shadow': '0px 5px 5px #0248ea',
         cursor: 'pointer',
-        userSelect: 'none'
+        userSelect: 'none',
+        '@media (max-width: 690px)': {
+            width: '90%',
+            height: '180px'
+        }
     },
     id: {
-        margin: '10px'  
+        marginTop: '20px',
+        marginLeft: '20px',
+        display: 'inline-block',
     },
     description: {
-        marginRight: '10px'
+        marginLeft: '20px',
+        marginRight: '20px',
+        fontSize: '12px'
     },
     price: {
-        marginRight: '10px'
+        margin: '20px'
+    },
+    duration: {
+        fontStyle: 'italic',
+        margin: '10px',
     }
 })
 
@@ -59,9 +80,12 @@ const OptionCard = ({ option, setActive, active}) => {
 
     return (
         <div onClick={onClick} className={ active ? classes.activeOption : classes.option} id={option.id}>
-            <div className={classes.id}>{option.id}</div>
+            <span className={classes.id}>{option.id}</span>
+            <div>
+                {option.price ? <span className={classes.price}>{currencyFormatter.format(option.price)}</span> : null}
+                {option.duration ? <span className={classes.duration}>{`${option.duration.hours}h ${option.duration.minutes}m`}</span> : null}
+            </div>
             <div className={classes.description}>{option.description}</div>
-            {option.price ? <div className={classes.price}>{currencyFormatter.format(option.price)}</div> : null}
         </div>
     )
 }
