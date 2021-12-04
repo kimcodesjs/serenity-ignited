@@ -1,14 +1,64 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { createUseStyles } from 'react-jss'
+
+const useStyles = createUseStyles({
+    landing: {
+        display: 'inline-flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+        backgroundImage: 'linear-gradient(to right, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0)),url("angel wings chakras 1.jpg")',
+        backgroundAttachment: 'fixed',
+        "@media (max-width: 790px)": {
+            flexDirection: 'column',
+            backgroundImage: 'linear-gradient(to bottom, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0)),url("angel wings chakras 1.jpg")',
+
+        }
+        
+    },
+    greeting: {
+        fontSize: '35px',
+        textAlign: 'center',
+        width: '40%',
+        marginLeft: '80px',
+        marginRight: '40px',
+        filter: 'drop-shadow(5px 5px 1px #443356)',
+        "@media (max-width: 1180px)": {
+            fontSize: '24px'
+        },
+        "@media (max-width: 790px)": {
+            flexDirection: 'column',
+            margin: 0,
+            width: '75%'
+        }
+    },
+    logo: {
+        width: '50%',
+        height: 'auto',
+        filter: 'drop-shadow(7px 7px 1px #443356)',
+        "@media (max-width: 790px)": {
+            marginRight: '50px',
+            width: '60%',
+            height: 'auto'
+        },
+        "@media (max-width: 565px)": {
+            width: '80%',
+            height: 'auto'
+        }
+    }
+})
 
 const Landing = ({ children }) => {
-
+    const classes = useStyles()
     return (
         <>
-            <h1>Welcome! Are you ready to have your serenity ignited?</h1>
-            <p>
-                Whether you are looking for the healing energies of Reiki or handcrafted soaps and lip balms, you will find much to choose from here. Let us walk your journey with you to find peace, happiness, and serenity. To see more information on energy healing, visit the <Link to='/serenity-in-healing'>Reiki Healing</Link> page. If you would like help deciding where to start, head over to the <Link to='/contact-me'>Contact Page</Link>.
+        <div className={classes.landing}>
+            <img src='serenity-ignited-logo.png' width='50%' height='auto' className={classes.logo}/>
+            <p className={classes.greeting}>
+                Let us walk with you on your journey to find peace, happiness, and serenity.
             </p>
+        </div>
             {children}
         </>
     )

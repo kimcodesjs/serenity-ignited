@@ -1,67 +1,110 @@
 import React, { useState } from 'react'
+import OptionCard from './OptionCard'
 import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({
-    option: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100px',
-        height: '60px',
-        marginBottom: '10px',
-        '-webkit-box-shadow': '0px 5px 5px #b7d9e9',
-        '-moz-box-shadow': '0px 1px 1px #b7d9e9',
-        boxShadow :'0px 1px 1px',
-        '&:hover': {
-            '-webkit-box-shadow': '0px 5px 5px #0248ea',
-            '-moz-box-shadow': '0px 5px 5px #0248ea'
-        },
-        cursor: 'pointer',
-        userSelect: 'none'
+    options: {
+        display: 'inline-flex',
+        flexFlow: 'row wrap'
     },
-    optionSelect: {
-        display: 'flex',
+    selected: {
+        fontStyle: 'italic'
+    },
+    continueEnabled: {
         justifyContent: 'center',
-        alignItems: 'center',
-        width: '100px',
-        height: '60px',
-        marginBottom: '10px',
-        '-webkit-box-shadow': '0px 5px 5px #0248ea',
-            '-moz-box-shadow': '0px 5px 5px #0248ea',
-        cursor: 'pointer',
-        userSelect: 'none'
+        background: 'rgba(58, 37, 48, .75)',
+        width: '110px',
+        textAlign: 'center',
+        color: 'white',
+        border: 'solid 2px rgba(56, 17, 17, .7)',
+        borderRadius: '10px',
+        userSelect: 'none',
+        cursor: 'pointer'  
+    },
+    continueDisabled: {
+        marginRight: '25%',
+        marginTop: '20px',
+        justifyContent: 'center',
+        background: 'rgba(130, 150, 188, .7)',
+        width: '110px',
+        textAlign: 'center',
+        border: 'solid 2px rgba(56, 17, 17, .7)',
+        borderRadius: '10px',
+        userSelect: 'none',
     }
 })
 
-const Session = ({ setSession, updateView }) => {
-    
-    const [active, setActive] = useState(null)
-    const onClick = (e) => {
-        setActive(e.target.innerHTML)
-    }
 
+const Session = ({ setSession, updateView }) => {
+
+    const classes = useStyles()
+    // active is storing the current user selected session type, set with an onClick handler inside of OptionCard.js
+    const [active, setActive] = useState(null)
+
+    // onConfirm passes the selected Session Object back to Booking.js, stored in state as session, and updates UI
     const onConfirm = () => {
+        if (active) {
         setSession(active)
         updateView(2)
+        }
     }
 
-    let classes = useStyles()
+    // Session Objects
+    const options = {
+        sampleSession: {
+            id: 'Sample Session',
+            description: 'A short sample session for those who are interested in testing the waters without committing to a full price session.',
+            duration: { hours: 0, minutes: 15 },
+            price: 20
+        },
+        generalHealing: {
+            id: 'General Healing',
+            description: 'A general cleansing session for those in need of a little more than what the sample session offers.',
+            duration: { hours: 0, minutes: 30},
+            price: 40
+        },
+        inDepth: {
+            id: 'In-Depth Healing',
+            description: 'An extensive healing session, typically useful in targeting a specific ailment.',
+            duration: { hours: 1, minutes: 0 },
+            price: 65
+        },
+        accessBars: {
+            id: 'Access Bars',
+            description: 'A full-length Access Bars session to clear energy blockages in your consciousness.',
+            duration: { hours: 1, minutes: 30 },
+            price: 150
+        },
+        accessPartial: {
+            id: 'Partial Access Bars',
+            description: 'A shorter Access Bars session.',
+            duration: { hours: 0, minutes: 45 },
+            price: 75
+        },
+        package1: {
+            id: 'Reiki + Access Bars',
+            description: 'A powerful combo session of Reiki and Access Bars healing.',
+            duration: { hours: 0, minutes: 45 },
+            price: 75
+        }
+    }
+    
     return (
         <>
-            <h3>Choose your healing session:</h3> 
-
-            <h4>Reiki</h4>
-                <div onClick={onClick} className={active === 'Sample Session' ? classes.optionSelect : classes.option}>Sample Session</div>
-                <div onClick={onClick} className={active === 'General Healing' ? classes.optionSelect : classes.option}>General Healing</div>
-                <div onClick={onClick} className={active === 'In-Depth Healing' ? classes.optionSelect : classes.option}>In-Depth Healing</div>
             
+            <h3>Choose your healing session: {active ? <span className={classes.selected}>{active.id}</span> : null}</h3>
+            <div className={active ? classes.continueEnabled : classes.continueDisabled} onClick={onConfirm}>Continue</div>
+            <h4>Reiki</h4>
+                <div className={classes.options}>
+                <OptionCard option={options.sampleSession} setActive={setActive} active={active && active.id === options.sampleSession.id ? true : false} />
+                <OptionCard option={options.generalHealing} setActive={setActive} active={active && active.id === options.generalHealing.id ? true : false} />
+                <OptionCard option={options.inDepth} setActive={setActive} active={active && active.id === options.inDepth.id ? true : false} />
+                </div>
             <h4>Access Consciousness</h4>
-                <div onClick={onClick} className={active === 'Access Bars' ? classes.optionSelect : classes.option}>Access Bars</div>
+                <OptionCard option={options.accessBars} setActive={setActive} active={active && active.id === options.accessBars.id ? true : false} />
             
             <h4>Packages</h4>
-                <div onClick={onClick} className={active === 'Reiki + Access Bars' ? classes.optionSelect : classes.option}>Reiki + Access Bars</div>
-
-            <button onClick={onConfirm}>continue</button>
+                <OptionCard option={options.package1} setActive={setActive} active={active && active.id === options.package1.id ? true : false} />
         </>
     )
 }
