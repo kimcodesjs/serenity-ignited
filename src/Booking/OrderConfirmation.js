@@ -4,7 +4,7 @@ import PaymentForm from './PaymentForm'
 const OrderConfirmation = ({ modality, connection, schedule}) => {
     return (
         <>
-
+            <h3>Order Confirmation</h3>
         </>
     )
 }
