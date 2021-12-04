@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import firebase from 'firebase'
+//import firebase from 'firebase'
 
 const Login = ({ updateAuth }) => {
     
@@ -10,13 +10,13 @@ const Login = ({ updateAuth }) => {
     const [error, setError] = useState(false)
 
     useEffect(() => {
-        const getPassword = async () => {
-            const password = await firebase.firestore().collection('Admin').doc('password').get()
-            return password.data().value
-        }
-        getPassword().then(response => {
-            readData(response)
-        })
+        // const getPassword = async () => {
+        //     const password = await firebase.firestore().collection('Admin').doc('password').get()
+        //     return password.data().value
+        // }
+        // getPassword().then(response => {
+        //     readData(response)
+        // })
     }, [])
     
 
@@ -33,19 +33,19 @@ const Login = ({ updateAuth }) => {
 
     const createPassword = () => {
         
-        if (new1 === new2) {
-            firebase.firestore().collection('Admin').doc('password').set({
-                value: new1
-            })
-            .then(() => {
-                updateAuth(true)
-            })
-        } else {
-            setNew1('')
-            setNew2('')
-            setError(true)
+        // if (new1 === new2) {
+        //     firebase.firestore().collection('Admin').doc('password').set({
+        //         value: new1
+        //     })
+        //     .then(() => {
+        //         updateAuth(true)
+        //     })
+        // } else {
+        //     setNew1('')
+        //     setNew2('')
+        //     setError(true)
 
-        }
+        // }
     }
 
     const onChange1 = (event) => {

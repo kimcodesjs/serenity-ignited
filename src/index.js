@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import firebase from 'firebase'
+import { initializeApp } from 'firebase/app'
 
-firebase.initializeApp({
+initializeApp({
     apiKey: "AIzaSyDKWIvmbNuDngSPMtXPavocpSFLcswEglc",
     authDomain: "serenity-ignited.firebaseapp.com",
     projectId: "serenity-ignited",
