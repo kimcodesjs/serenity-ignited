@@ -13,7 +13,7 @@ const useStyles = createUseStyles({
         }
     },
     timeSlots: {
-        paddingLeft: '10px',
+        paddingLeft: '25px',
         fontWeight: 'bold'
     },
     timePicker: {

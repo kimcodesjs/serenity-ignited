@@ -3,6 +3,23 @@ import OptionCard from './OptionCard'
 import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({
+    
+    optionContainer: {
+        marginTop: '10px',
+        height: '65%',
+        borderRadius: '10px',
+        overflow: 'scroll',
+        overflowX: 'hidden',
+        '&::-webkit-scrollbar': {
+            backgroundColor: '#99bac9',
+            borderRadius: '10px',
+            width: '10px'
+        },
+        '&::-webkit-scrollbar-thumb': {
+            background: '#aa99c9',
+            borderRadius: '10px'
+        }
+    },
     options: {
         display: 'inline-flex',
         flexFlow: 'row wrap'
@@ -59,19 +76,19 @@ const Session = ({ setSession, updateView }) => {
         },
         generalHealing: {
             id: 'General Healing',
-            description: 'A general cleansing session for those in need of a little more than what the sample session offers.',
+            description: 'A general cleansing of the 7 major Chakras, plus one area of focus.',
             duration: { hours: 0, minutes: 30},
             price: 40
         },
         inDepth: {
             id: 'In-Depth Healing',
-            description: 'An extensive healing session, typically useful in targeting a specific ailment.',
+            description: 'An extensive healing session targeting specific areas of improvement.',
             duration: { hours: 1, minutes: 0 },
             price: 65
         },
         accessBars: {
             id: 'Access Bars',
-            description: 'A full-length Access Bars session to clear energy blockages in your consciousness.',
+            description: 'A full-length Access Bars session to clear energy blockages in the subconscious mind.',
             duration: { hours: 1, minutes: 30 },
             price: 150
         },
@@ -83,7 +100,7 @@ const Session = ({ setSession, updateView }) => {
         },
         package1: {
             id: 'Reiki + Access Bars',
-            description: 'A powerful combo session of Reiki and Access Bars healing.',
+            description: 'A powerful combination session of Reiki and Access Bars healing.',
             duration: { hours: 0, minutes: 45 },
             price: 75
         }
@@ -94,17 +111,19 @@ const Session = ({ setSession, updateView }) => {
             
             <h3>Choose your healing session: {active ? <span className={classes.selected}>{active.id}</span> : null}</h3>
             <div className={active ? classes.continueEnabled : classes.continueDisabled} onClick={onConfirm}>Continue</div>
-            <h4>Reiki</h4>
-                <div className={classes.options}>
-                <OptionCard option={options.sampleSession} setActive={setActive} active={active && active.id === options.sampleSession.id ? true : false} />
-                <OptionCard option={options.generalHealing} setActive={setActive} active={active && active.id === options.generalHealing.id ? true : false} />
-                <OptionCard option={options.inDepth} setActive={setActive} active={active && active.id === options.inDepth.id ? true : false} />
-                </div>
-            <h4>Access Consciousness</h4>
-                <OptionCard option={options.accessBars} setActive={setActive} active={active && active.id === options.accessBars.id ? true : false} />
-            
-            <h4>Packages</h4>
-                <OptionCard option={options.package1} setActive={setActive} active={active && active.id === options.package1.id ? true : false} />
+            <div className={classes.optionContainer}>
+                <h4>Reiki</h4>
+                    <div className={classes.options}>
+                    <OptionCard option={options.sampleSession} setActive={setActive} active={active && active.id === options.sampleSession.id ? true : false} />
+                    <OptionCard option={options.generalHealing} setActive={setActive} active={active && active.id === options.generalHealing.id ? true : false} />
+                    <OptionCard option={options.inDepth} setActive={setActive} active={active && active.id === options.inDepth.id ? true : false} />
+                    </div>
+                <h4>Access Consciousness</h4>
+                    <OptionCard option={options.accessBars} setActive={setActive} active={active && active.id === options.accessBars.id ? true : false} />
+                
+                <h4>Packages</h4>
+                    <OptionCard option={options.package1} setActive={setActive} active={active && active.id === options.package1.id ? true : false} />
+            </div>
         </>
     )
 }

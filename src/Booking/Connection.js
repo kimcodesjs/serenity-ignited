@@ -5,7 +5,21 @@ import { createUseStyles } from 'react-jss'
 const useStyles = createUseStyles({
     options: {
         display: 'inline-flex',
-        flexFlow: 'row wrap'
+        flexFlow: 'row wrap',
+        marginTop: '10px',
+        height: '65%',
+        borderRadius: '10px',
+        overflow: 'scroll',
+        overflowX: 'hidden',
+        '&::-webkit-scrollbar': {
+            backgroundColor: '#99bac9',
+            borderRadius: '10px',
+            width: '10px'
+        },
+        '&::-webkit-scrollbar-thumb': {
+            background: '#aa99c9',
+            borderRadius: '10px'
+        }
     },
     selected: {
         fontStyle: 'italic'
