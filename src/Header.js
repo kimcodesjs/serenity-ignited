@@ -70,18 +70,14 @@ const useStyles = createUseStyles({
         textAlign: 'center',
         color: 'black',
         fontSize: '20px',
-        textShadow: '#381111 1px 0px 5px',
-        borderBottom: '2px solid',
-        borderBottomColor: '#443356'
+        textShadow: '#381111 1px 0px 5px'
     },
     span: {
         padding: '10px',
         cursor: 'pointer',
         textAlign: 'center',
         fontSize: '20px',
-        textShadow: '#381111 1px 0px 5px',
-        borderBottom: '2px solid',
-        borderBottomColor: '#443356'
+        textShadow: '#381111 1px 0px 5px'
     }
 })
 
