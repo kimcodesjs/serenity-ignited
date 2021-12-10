@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { createUseStyles } from 'react-jss'
-import { DateTime, Interval } from 'luxon'
 import Session from './Session'
 import Connection from './Connection'
 import Scheduler from './Scheduler'
@@ -14,7 +13,7 @@ const useStyles = createUseStyles({
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         width: '100%',
-        height: '110%'
+        height: '100%'
     },
     bookingContent: {
         width: '75%',
@@ -28,16 +27,16 @@ const useStyles = createUseStyles({
         paddingTop: '15px'
     },
     sessionBuilder: {
-        //backgroundImage: 'url("bg-blue streaks.jpeg")',
+        //backgroundColor: '#2ba6ff',
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
-        paddingBottom: '40px',
+        paddingBottom: '30px',
         borderRadius: '10px',
         width: '90%',
         maxWidth: '880px',
-        //margin: 'auto'
+        height: '90vh'
     },
     h2: {
         margin: 0
@@ -69,51 +68,7 @@ const useStyles = createUseStyles({
         marginLeft: '10px',
         userSelect: 'none',
         cursor: 'pointer'
-    },
-    span: {
-        marginRight: '10px',
-        marginTop: '10px',
-        paddingLeft: '10px',
-        width: '300px',
-        maxWidth: '80%',
-        height: '30px',
-        background: 'rgba(56, 17, 17, .7)',
-        borderRadius: '10px',
-        color: 'white',
-        display: 'inline-flex',
-        alignItems: 'center',
-        '-webkit-box-shadow': '5px 5px 3px #b7d9e9',
-        '-moz-box-shadow': '5px 5px 3px #b7d9e9',
-        '&:hover': {
-            '-webkit-box-shadow': '5px 5px 3px #0248ea',
-            '-moz-box-shadow': '5px 5px 3px #0248ea'
-        },
-        cursor: 'pointer',
-        userSelect: 'none'
-
-    },
-    spanCompleted: {
-        marginRight: '10px',
-        marginTop: '10px',
-        paddingLeft: '10px',
-        width: '300px',
-        maxWidth: '80%',
-        height: '30px',
-        background: 'rgba(56, 17, 17, .7)',
-        borderRadius: '10px',
-        color: 'white',
-        display: 'inline-flex',
-        alignItems: 'center',
-        '-webkit-box-shadow': '5px 5px 3px #443356',
-        '-moz-box-shadow': '5px 5px 3px #443356',
-        '&:hover': {
-            '-webkit-box-shadow': '5px 5px 3px #0248ea',
-            '-moz-box-shadow': '5px 5px 3px #0248ea'
-        },
-        cursor: 'pointer',
-        userSelect: 'none'
     }
-    
 })
 
 const Booking = () => {
@@ -144,31 +99,32 @@ const Booking = () => {
     }, [session, connection])
 
     
-    // onClickSession clears selections made and navigates back to Session.js
-    const onClickSession = () => {
-        setConnection(null)
-        setSchedule(null)
-        updateView(1)
-    }
 
-    // if a user has not chosen a session type, onClickConnection sets an error message; 
-    // if a session has already been selected, the schedule is cleared and user successfully navigates to Connection.js
-    const onClickConnection = () => {
-        if (session === null) {
-            setError('Please select a healing session.')
-        } else {
+    const onClick = (e) => {
+
+        if (e.target.innerHTML == 1) {
+            setConnection(null)
             setSchedule(null)
-            updateView(2)
-        }  
-    }
-
-    // if user has not selected a session type and connection, error message is displayed
-    // if a user has made preceeding selections, user successfully navigates to Schedule.js
-    const onClickSchedule = () => {
-        if (session === null || connection === null) {
-            setError('Please select a healing session and connection.')
-        } else {
-            updateView(3)
+            updateView(1)
+        } else if (e.target.innerHTML == 2) {
+            if (session === null) {
+                setError('Please select a healing session.')
+            } else {
+                setSchedule(null)
+                updateView(2)
+            } 
+        } else if (e.target.innerHTML == 3) {
+            if (session === null || connection === null) {
+                setError('Please select a healing session and connection.')
+            } else {
+                updateView(3)
+            }
+        } else if (e.target.innerHTML == 4) {
+            if (session === null || connection === null || schedule === null) {
+                setError('Please select a healing session, connection, and date/time for your session.')
+            } else {
+                updateView(4)
+            }
         }
     }
 
@@ -185,17 +141,17 @@ const Booking = () => {
             
                 <div className={classes.sessionBuilder}>
                     <h2 className={classes.h2}>Your Session</h2>
-                    <div className={view === 1 ? classes.progressActive : classes.progressBubble}>1</div>
-                    <div className={view === 2 ? classes.progressActive : classes.progressBubble}>2</div>
-                    <div className={view === 3 ? classes.progressActive : classes.progressBubble}>3</div>
-                    <div className={view === 4 ? classes.progressActive : classes.progressBubble}>4</div>
+                    <div className={view === 1 ? classes.progressActive : classes.progressBubble} onClick={onClick}>1</div>
+                    <div className={view === 2 ? classes.progressActive : classes.progressBubble} onClick={onClick}>2</div>
+                    <div className={view === 3 ? classes.progressActive : classes.progressBubble} onClick={onClick}>3</div>
+                    <div className={view === 4 ? classes.progressActive : classes.progressBubble} onClick={onClick}>4</div>
                     <br />
-                    {error ? <span>{error}</span> : null}
-                
-                    {view === 1 ? <Session setSession={setSession} updateView={updateView} setError={setError}/> : null}
-                    {view === 2 ? <Connection setConnection={setConnection} updateView={updateView} session={session.id} setError={setError} /> : null}
-                    {view === 3 ? <Scheduler setSchedule={setSchedule} updateView={updateView} duration={session.duration}/> : null}
-                    {view === 4 ? <OrderConfirmation session={session} connection={connection} schedule={schedule}/> : null}
+                    <div>{error ? <span>{error}</span> : null}</div>
+                    
+                        {view === 1 ? <Session setSession={setSession} updateView={updateView} setError={setError}/> : null}
+                        {view === 2 ? <Connection setConnection={setConnection} updateView={updateView} session={session.id} setError={setError} /> : null}
+                        {view === 3 ? <Scheduler setSchedule={setSchedule} updateView={updateView} duration={session.duration}/> : null}
+                        {view === 4 ? <OrderConfirmation session={session} connection={connection} schedule={schedule}/> : null}
                 </div>
             </div>
         </div>
