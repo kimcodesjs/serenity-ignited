@@ -116,24 +116,25 @@ const Header = ({ setUser }) => {
     }
    
     return (
-        <div id='sidebar' onClick={animateHeader}>
-            <div className={classes.menuToggle} id='menu-toggle'>
-                    <img src='/menu-icon.png' className={classes.menuIcon} id='menu-icon'/>
-            </div>
+        <div>
+            <div id='sidebar' onClick={animateHeader}>
+                <div className={classes.menuToggle} id='menu-toggle'>
+                        <img src='/menu-icon.png' className={classes.menuIcon} id='menu-icon'/>
+                </div>
 
-            <div className={classes.headerDiv} id='header' >
-                    <Link to='/'>
-                        <img src='/serenity-ignited-logo.png' className={classes.headerLogo} id='header-logo'/>
-                            </Link>
-                <div className={classes.navMenu}>
-                    <Link to='/booking' className={classes.navLink} id='book-a-session'>Book a Session</Link>
-                    <Link to='/contact-me' className={classes.navLink} id='contact-me'>Contact Me</Link>
-                    <Link to='/about-me' className={classes.navLink} id='about-me'>About Me</Link>
-                    <span className={classes.span} onClick={onClick} id='log-in'>Log In</span>
-                    <span className={classes.span} onClick={onClick} id='sign-up'>Sign Up</span>
+                <div className={classes.headerDiv} id='header' >
+                        <Link to='/'>
+                            <img src='/serenity-ignited-logo.png' className={classes.headerLogo} id='header-logo'/>
+                                </Link>
+                    <div className={classes.navMenu}>
+                        <Link to='/booking' className={classes.navLink} id='book-a-session'>Book a Session</Link>
+                        <Link to='/contact-me' className={classes.navLink} id='contact-me'>Contact Me</Link>
+                        <Link to='/about-me' className={classes.navLink} id='about-me'>About Me</Link>
+                        <span className={classes.span} onClick={onClick} id='log-in'>Log In</span>
+                        <span className={classes.span} onClick={onClick} id='sign-up'>Sign Up</span>
+                    </div>
                 </div>
             </div>
-
             <SignUpModal display={modalDisplay === 'sign-up' ? true : false} setDisplay={setModalDisplay} setUser={setUser}/>
             <SignInModal display={modalDisplay === 'log-in' ? true : false} setDisplay={setModalDisplay} setUser={setUser} />   
         </div>
