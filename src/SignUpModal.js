@@ -13,7 +13,7 @@ const useStyles = createUseStyles({
         zIndex: '1',
         background: '#443356',
         width: '35vw',
-        height: '50vh',
+        //height: '50vh',
         borderRadius: '.5em',
         boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.69)'
         
@@ -31,15 +31,18 @@ const useStyles = createUseStyles({
         textShadow: '0 0 3px #FF0000, 0 0 5px #0000FF',
     },
     form: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
+        // display: 'flex',
+        // flexDirection: 'column',
+        // justifyContent: 'center',
+        // alignItems: 'center'
     },
     input: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        width: '40%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
     button: {
         width: '20%'
@@ -106,23 +109,19 @@ const SignUpModal = ({ display, setDisplay, setUser }) => {
     }
     return (
         <div id='signup-form-container' className={display ? classes.modal : classes.hidden}>
-            <h4 className={classes.h4}>Sign Up</h4>
             <form id='signup-form' className={classes.form}>
                 <div className={classes.input}>
                     <label htmlFor='email-input'>Email</label>
-                    <br />
                     <input type='email' id='email-input' required onChange={updateEmail} value={email}/>
                 </div>
                 <br />
                 <div className={classes.input}>
                     <label htmlFor='password-input'>Password</label>
-                    <br />
                     <input type='password' id='password-input' required onChange={updatePassword} value={password}/>
                 </div>
                 <br />
                 <div className={classes.input}>
                     <label htmlFor='password-confirm'>Confirm Password</label>
-                    <br />
                     <input type='password' id='password-confirm' required onChange={updatePassConf} value={passConf}/>
                 </div>
                 {error ? <span>{error}</span> : null}

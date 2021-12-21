@@ -21,6 +21,14 @@ const useStyles = createUseStyles({
     hidden: {
         display: 'none' 
     },
+    headerLogo: {
+        filter: 'drop-shadow(5px 5px 1px #443356)',
+        width: '280px',
+        height: 'auto',
+        marginTop: '25px',
+        right: '5px'
+        
+    },
     h4: {
         height: '15%',
         width: '100%',
@@ -99,6 +107,7 @@ const SignInModal = ({ display, setDisplay, setUser }) => {
     }
     return (
         <div id='sign-in-form-container' className={display ? classes.modal : classes.hidden}>
+            <img src='/serenity-ignited-logo.png' className={classes.headerLogo} id='header-logo'/>
             <h4 className={classes.h4}>welcome back!</h4>
             <form id='sign-in-form' className={classes.form}>
                 <div className={classes.input}>
