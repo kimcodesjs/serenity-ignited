@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { createUseStyles } from 'react-jss'
 import { getAuth } from 'firebase/auth'
-import SignInModal from './SignInModal'
-import SignUpModal from './SignUpModal'
+import Authentication from './Authentication'
 
 const useStyles = createUseStyles({
     
@@ -26,7 +25,7 @@ const useStyles = createUseStyles({
         cursor: 'pointer'
         
     },
-    headerDiv: {
+    menuDiv: {
         
         display: 'inline-flex',
         flexDirection: 'column',
@@ -39,13 +38,14 @@ const useStyles = createUseStyles({
         position: 'fixed',
         right: '-310px',
         opacity: 0,
-        transitionProperty: 'right, opacity',
-        transitionDuration: '1s',
-        transitionDelay: '0s',
+        // transitionProperty: 'right, opacity',
+        // transitionDuration: '1s',
+        // transitionDelay: '0s',
+        transition: 'right 1s, opacity 1s',
         boxShadow: '-5px 2px 5px #443356'
         
     },
-    headerLogo: {
+    menuLogo: {
         filter: 'drop-shadow(5px 5px 1px #443356)',
         width: '280px',
         height: 'auto',
@@ -54,15 +54,14 @@ const useStyles = createUseStyles({
         
     },
     navMenu: {
-        // height: '50px',
+        height: '300px',
         display: 'inline-flex',
         flexDirection: 'column',
         // alignItems: 'center',
-        // opacity: 0,
-        // transitionProperty: 'opacity',
-        // transitionDuration: '2s',
-        // transitionDelay: '1'
-        // display: 'none'
+        opacity: 1,
+        transition: 'opacity .5s, height 1s',
+        overflow: 'hidden'
+        
     },
     navLink: {
         textDecoration: 'none',
@@ -77,36 +76,70 @@ const useStyles = createUseStyles({
         cursor: 'pointer',
         textAlign: 'center',
         fontSize: '20px',
-        textShadow: '#381111 1px 0px 5px'
+        textShadow: '#381111 1px 0px 5px',
+        '-webkit-user-select': 'none', /* Safari */        
+        '-moz-user-select': 'none', /* Firefox */
+        '-ms-user-select': 'none', /* IE10+/Edge */
+        userSelect: 'none' 
     }
 })
 
 
-const Header = ({ setUser }) => {
+const NavMenu = ({ setUser }) => {
     const classes = useStyles()
 
-    const [modalDisplay, setModalDisplay] = useState(null)
+    const [navDisplay, setNavDisplay] = useState('nav-menu')
     const [menuToggle, setToggle] = useState(false)
 
-    const animateHeader = () => {
-        const header = document.getElementById('header')
-        if (!menuToggle) {
-            header.style.right = '0'
-            header.style.opacity = 1
-            setToggle(true)
-        } else {
-            header.style.right = '-310px'
-            header.style.opacity = 0
-            setToggle(false)
-        }
+    useEffect(() => {
+        animateNavMenu()
+    },[navDisplay])
+    const toggleMenu = () => {
+        const menu = document.getElementById('menu')
+        
+            if (!menuToggle) {
+                menu.style.right = '0'
+                menu.style.opacity = 1
+                setToggle(true)
+            } else {
+                menu.style.right = '-310px'
+                menu.style.opacity = 0
+                setToggle(false)
+            }
+        
+        
     }
 
+    const handleLinkClicks = (e) => {
+
+        if (e.target.id === 'log-in' || e.target.id === 'sign-up') {
+            animateNavMenu()
+            setNavDisplay(e.target.id)
+        } else {
+            toggleMenu()
+        }
+    }
+    /*
+   
+
+    */
+    const animateNavMenu = () => {
+        const navMenu = document.getElementById('nav-menu')
+        if (navDisplay === 'nav-menu') {
+            navMenu.style.height = '300px'
+            navMenu.style.opacity = '1'
+        } else {
+            navMenu.style.height = '0'
+            navMenu.style.opacity = '0'
+        }
+        
+    }
     const onClick = (e) => {
         e.preventDefault()
         if (e.target.innerHTML === 'Sign Up') {
-            setModalDisplay('sign-up')
+            setNavDisplay('sign-up')
         } else if (e.target.innerHTML === 'Log In') {
-            setModalDisplay('log-in')
+            setNavDisplay('log-in')
         } else {
             const auth = getAuth()
             auth.signOut().then(() => {
@@ -117,28 +150,28 @@ const Header = ({ setUser }) => {
    
     return (
         <div>
-            <div id='sidebar' onClick={animateHeader}>
-                <div className={classes.menuToggle} id='menu-toggle'>
-                        <img src='/menu-icon.png' className={classes.menuIcon} id='menu-icon'/>
+            <div id='sidebar'>
+                <div className={classes.menuToggle} id='menu-toggle' >
+                        <img src='/menu-icon.png' className={classes.menuIcon} id='menu-icon' onClick={toggleMenu} />
                 </div>
 
-                <div className={classes.headerDiv} id='header' >
+                <div className={classes.menuDiv} id='menu' >
                         <Link to='/'>
-                            <img src='/serenity-ignited-logo.png' className={classes.headerLogo} id='header-logo'/>
-                                </Link>
-                    <div className={classes.navMenu}>
+                            <img src='/serenity-ignited-logo.png' className={classes.menuLogo} id='menu-logo' onClick={toggleMenu}/>
+                        </Link>
+                    <div className={classes.navMenu} id='nav-menu' onClick={(e) => {e.preventDefault(); handleLinkClicks(e)}}>
                         <Link to='/booking' className={classes.navLink} id='book-a-session'>Book a Session</Link>
                         <Link to='/contact-me' className={classes.navLink} id='contact-me'>Contact Me</Link>
                         <Link to='/about-me' className={classes.navLink} id='about-me'>About Me</Link>
                         <span className={classes.span} onClick={onClick} id='log-in'>Log In</span>
                         <span className={classes.span} onClick={onClick} id='sign-up'>Sign Up</span>
                     </div>
+                    <Authentication display={navDisplay} setDisplay={setNavDisplay} setUser={setUser}/>
                 </div>
             </div>
-            <SignUpModal display={modalDisplay === 'sign-up' ? true : false} setDisplay={setModalDisplay} setUser={setUser}/>
-            <SignInModal display={modalDisplay === 'log-in' ? true : false} setDisplay={setModalDisplay} setUser={setUser} />   
+               
         </div>
     )
 }
 
-export default Header
+export default NavMenu
