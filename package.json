@@ -28,9 +28,11 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "cross-env": "^7.0.3",
+    "css-loader": "^6.5.1",
     "jest": "^26.6.3",
     "react-dom": "^17.0.1",
     "react-modal": "^3.12.1",
+    "style-loader": "^3.3.1",
     "webpack": "^5.23.0",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"
