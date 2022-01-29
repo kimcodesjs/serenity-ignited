@@ -1,5 +1,8 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
+import EnergyHealing from './EnergyHealing'
+import Reiki from './Reiki'
+import Access from './Access'
 
 const useStyles = createUseStyles({
     landing: {
@@ -59,7 +62,9 @@ const Landing = ({ children }) => {
                 Let us walk with you on your journey to find peace, happiness, and serenity.
             </p>
         </div>
-            {children}
+            <EnergyHealing />
+            <Reiki />
+            <Access />
         </>
     )
 
