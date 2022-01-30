@@ -1,19 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, Suspense } from 'react'
 import './Calendar.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { createUseStyles } from 'react-jss'
-
 import ScrollToTop from './ScrollToTop'
 import NavMenu from './NavMenu'
-import ContactMe from './ContactMe'
-import AboutMe from './AboutMe'
-
-import Landing from './Landing/Landing'
-
-import Booking from './Booking/Booking'
-
-import Admin from './Admin/Admin'
-
+const Landing = React.lazy(() => import('./Landing/Landing'))
+const Booking = React.lazy(() => import('./Booking/Booking'))
+const AboutMe = React.lazy(() => import('./AboutMe'))
+const ContactMe = React.lazy(() => import('./ContactMe'))
+const Admin = React.lazy(() => import('./Admin/Admin'))
 
 const useStyles = createUseStyles({
     app: {
@@ -24,9 +19,6 @@ const useStyles = createUseStyles({
         fontFamily: "'Martel', serif"
     }
 })
-
-
-
 
 const App = () => {
 
@@ -39,7 +31,7 @@ const App = () => {
                 
                 <ScrollToTop>
                     <NavMenu setUser={setUser} />
-
+                    <Suspense fallback={<div>Loading...</div>}>
                     <Routes>
                         <Route path="/" element={<Landing />} /> 
                         <Route path='booking' element={<Booking />} />
@@ -47,6 +39,7 @@ const App = () => {
                         <Route path="about-me" element={<AboutMe />}/>
                         <Route path="admin" element={<Admin />}/>
                     </Routes>
+                    </Suspense>
                 </ScrollToTop> 
             </BrowserRouter>
         </div>
