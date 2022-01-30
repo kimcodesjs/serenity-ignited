@@ -38,9 +38,6 @@ const useStyles = createUseStyles({
         position: 'fixed',
         right: '-310px',
         opacity: 0,
-        // transitionProperty: 'right, opacity',
-        // transitionDuration: '1s',
-        // transitionDelay: '0s',
         transition: 'right 1s, opacity 1s',
         boxShadow: '-5px 2px 5px #443356'
         
@@ -54,14 +51,13 @@ const useStyles = createUseStyles({
         
     },
     navMenu: {
-        height: '300px',
+        height: '600px',
         display: 'inline-flex',
         flexDirection: 'column',
         // alignItems: 'center',
         opacity: 1,
         transition: 'opacity .5s, height 1s',
         overflow: 'hidden'
-        
     },
     navLink: {
         textDecoration: 'none',
@@ -94,6 +90,7 @@ const NavMenu = ({ setUser }) => {
     useEffect(() => {
         animateNavMenu()
     },[navDisplay])
+
     const toggleMenu = () => {
         const menu = document.getElementById('menu')
         
@@ -126,7 +123,7 @@ const NavMenu = ({ setUser }) => {
     const animateNavMenu = () => {
         const navMenu = document.getElementById('nav-menu')
         if (navDisplay === 'nav-menu') {
-            navMenu.style.height = '300px'
+            navMenu.style.height = '600px'
             navMenu.style.opacity = '1'
         } else {
             navMenu.style.height = '0'
@@ -156,15 +153,15 @@ const NavMenu = ({ setUser }) => {
                 </div>
 
                 <div className={classes.menuDiv} id='menu' >
+                    <div id='nav-menu' className={classes.navMenu} onClick={(e) => {e.preventDefault(); handleLinkClicks(e)}}>
                         <Link to='/'>
                             <img src='/serenity-ignited-logo.png' className={classes.menuLogo} id='menu-logo' onClick={toggleMenu}/>
                         </Link>
-                    <div className={classes.navMenu} id='nav-menu' onClick={(e) => {e.preventDefault(); handleLinkClicks(e)}}>
                         <Link to='/booking' className={classes.navLink} id='book-a-session'>Book a Session</Link>
                         <Link to='/contact-me' className={classes.navLink} id='contact-me'>Contact Me</Link>
                         <Link to='/about-me' className={classes.navLink} id='about-me'>About Me</Link>
                         <span className={classes.span} onClick={onClick} id='log-in'>Log In</span>
-                        <span className={classes.span} onClick={onClick} id='sign-up'>Sign Up</span>
+                        <span className={classes.span} onClick={onClick} id='sign-up'>Sign Up</span> 
                     </div>
                     <Authentication display={navDisplay} setDisplay={setNavDisplay} setUser={setUser}/>
                 </div>

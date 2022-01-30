@@ -4,7 +4,8 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 
 const useStyles = createUseStyles({
     
-    modal: {
+    authContainer: {
+        marginTop: '100px',
         display: 'inline-flex',
         height: '0px',
         opacity: '0',
@@ -25,7 +26,7 @@ const useStyles = createUseStyles({
         
     },
     inputLabel: {
-        textShadow: '#381111 1px 0px 5px',
+        textShadow: '#e5d7d7 1px 0px 5px',
         
     },
     input: {
@@ -44,9 +45,11 @@ const useStyles = createUseStyles({
         marginLeft: 'auto',
         marginRight: 'auto',
         marginBottom: '10px',
-        backgroundColor: 'rgba(56, 17, 17, .7)',
-        borderRadius: '10px',
+        backgroundColor: 'transparent',
+        border: 'none',
+        //borderRadius: '10px',
         textShadow: '#e5d7d7 1px 0px 5px',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
         cursor: 'pointer'
     }
 })
@@ -153,7 +156,7 @@ const Authentication = ({ display, setDisplay, setUser }) => {
         }
     }
     return (
-        <div id='authentication-form-container' className={classes.modal}>
+        <div id='authentication-form-container' className={classes.authContainer}>
             <form id='signup-form' className={classes.form}>
                 <div className={classes.formItem}>
                     <label className={classes.inputLabel} htmlFor='email-input'>Email</label>
