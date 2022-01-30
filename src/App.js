@@ -12,10 +12,6 @@ const Admin = React.lazy(() => import('./Admin/Admin'))
 
 const useStyles = createUseStyles({
     app: {
-       // backgroundImage: 'url("angel wings chakras 1.jpg")',
-        //backgroundSize: 'fill',
-        //backgroundRepeat: 'no-repeat',
-        //backgroundAttachment: 'fixed',
         fontFamily: "'Martel', serif"
     }
 })

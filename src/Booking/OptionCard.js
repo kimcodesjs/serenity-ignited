@@ -14,13 +14,14 @@ const useStyles = createUseStyles({
         marginBottom: '10px',
         background: 'rgba(56, 17, 17, .75)',
         color: 'white',
-        '-webkit-box-shadow': '0px 5px 5px #b7d9e9',
-        '-moz-box-shadow': '0px 1px 1px #b7d9e9',
-        boxShadow :'0px 1px 1px',
-        '&:hover': {
-            '-webkit-box-shadow': '0px 5px 5px #0248ea',
-            '-moz-box-shadow': '0px 5px 5px #0248ea'
-        },
+        // '-webkit-box-shadow': '0px 5px 5px #b7d9e9',
+        // '-moz-box-shadow': '0px 1px 1px #b7d9e9',
+        // boxShadow :'0px 1px 1px',
+        // '&:hover': {
+        //     '-webkit-box-shadow': '0px 5px 5px #0248ea',
+        //     '-moz-box-shadow': '0px 5px 5px #0248ea'
+        // },
+        filter: 'drop-shadow(5px 5px 1px #443356)',
         cursor: 'pointer',
         userSelect: 'none',
         overflow: 'hidden',

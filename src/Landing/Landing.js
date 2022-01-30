@@ -11,7 +11,7 @@ const useStyles = createUseStyles({
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',
-        minHeight: '850px',
+        minHeight: '900px',
         backgroundImage: 'linear-gradient(to right, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0)),url("angel wings chakras 1.jpg")',
         backgroundAttachment: 'fixed',
         "@media (max-width: 790px)": {

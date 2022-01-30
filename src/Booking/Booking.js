@@ -8,38 +8,48 @@ import OrderConfirmation from './OrderConfirmation'
 const useStyles = createUseStyles({
     bookingContainer: {
         backgroundImage: 'linear-gradient(to bottom, rgba(62, 109, 216, .62), rgba(60, 23, 89, .0)),url("pastel-sky.jpg")',
-        backgroundAttachment: 'fixed',
+        //backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
+        backgroundPosition: 'left 35% bottom 45%',
         width: '100%',
         height: '100%'
     },
     bookingContent: {
-        width: '75%',
+        width: '90%',
         maxWidth: '960px',
         marginLeft: 'auto',
         marginRight: 'auto',
-        padding: '20px'
+        padding: '10px'
     },
     h1: {
         margin: 0,
         paddingTop: '15px'
     },
     sessionBuilder: {
-        //backgroundColor: '#2ba6ff',
-        backgroundAttachment: 'fixed',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        paddingBottom: '30px',
         borderRadius: '10px',
-        width: '90%',
-        maxWidth: '880px',
-        height: '90vh'
+        height: '90vh',
+        maxWidth: '900px',
+        margin: '0',
+        border: '15px #32a1ce',
+        // backgroundImage: 'linear-gradient(to bottom, rgba(57, 65, 96, .92), rgba(60, 23, 89, .0))',
+        // backgroundAttachment: 'fixed',
+        // backgroundSize: 'fill',
+        // backgroundRepeat: 'no-repeat',
+        // backgroundPosition: 'center',
     },
+    // background: {
+    //     height: '740px',
+    //     width: '100%',
+    //     padding: '30px',
+        
+    //     overflow: 'hidden'
+    // },
     h2: {
-        margin: 0
+        marginBottom: '5px',
+        marginTop: '0px',
+        textShadow: '#e5d7d7 1px 0px 5px',
+        fontSize: '35px'
     },
     progressBubble: {
         display: 'inline-flex',
@@ -53,7 +63,8 @@ const useStyles = createUseStyles({
         borderRadius: '50%',
         marginLeft: '10px',
         userSelect: 'none',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
     },
     progressActive: {
         display: 'inline-flex',
@@ -67,7 +78,8 @@ const useStyles = createUseStyles({
         borderRadius: '50%',
         marginLeft: '10px',
         userSelect: 'none',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
     }
 })
 
@@ -140,21 +152,22 @@ const Booking = () => {
                 
             
                 <div className={classes.sessionBuilder}>
-                    <h2 className={classes.h2}>Your Session</h2>
-                    <div className={view === 1 ? classes.progressActive : classes.progressBubble} onClick={onClick}>1</div>
-                    <div className={view === 2 ? classes.progressActive : classes.progressBubble} onClick={onClick}>2</div>
-                    <div className={view === 3 ? classes.progressActive : classes.progressBubble} onClick={onClick}>3</div>
-                    <div className={view === 4 ? classes.progressActive : classes.progressBubble} onClick={onClick}>4</div>
-                    <br />
-                    <div>{error ? <span>{error}</span> : null}</div>
-                    
-                        {view === 1 ? <Session setSession={setSession} updateView={updateView} setError={setError}/> : null}
-                        {view === 2 ? <Connection setConnection={setConnection} updateView={updateView} session={session.id} setError={setError} /> : null}
-                        {view === 3 ? <Scheduler setSchedule={setSchedule} updateView={updateView} duration={session.duration}/> : null}
-                        {view === 4 ? <OrderConfirmation session={session} connection={connection} schedule={schedule}/> : null}
+                    <div className={classes.background}></div>
+                        <h2 className={classes.h2}>Your Session</h2>
+                        <div className={view === 1 ? classes.progressActive : classes.progressBubble} onClick={onClick}>1</div>
+                        <div className={view === 2 ? classes.progressActive : classes.progressBubble} onClick={onClick}>2</div>
+                        <div className={view === 3 ? classes.progressActive : classes.progressBubble} onClick={onClick}>3</div>
+                        <div className={view === 4 ? classes.progressActive : classes.progressBubble} onClick={onClick}>4</div>
+                        <br />
+                        <div>{error ? <span>{error}</span> : null}</div>
+                        
+                            {view === 1 ? <Session setSession={setSession} updateView={updateView} setError={setError}/> : null}
+                            {view === 2 ? <Connection setConnection={setConnection} updateView={updateView} session={session.id} setError={setError} /> : null}
+                            {view === 3 ? <Scheduler setSchedule={setSchedule} updateView={updateView} duration={session.duration}/> : null}
+                            {view === 4 ? <OrderConfirmation session={session} connection={connection} schedule={schedule}/> : null}
+                    </div>
                 </div>
             </div>
-        </div>
     )
 }
 /*

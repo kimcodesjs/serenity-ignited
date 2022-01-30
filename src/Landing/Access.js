@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({
@@ -39,6 +40,7 @@ const Access = () => {
                 <p>All this and more can be addressed, released and cleansed with an Access Bars session. Basically if you think about your brain as if it were a computer, a Bars session would be comparable to archiving or deleting files you no longer need. It gives you space to expand on what you determine is serving your best good, and makes room for new additions that allow you to be the infinite being you truly are. Another way to look at it is, it gives you back the control of your waking hours rather than running on auto-pilot.</p>
                 <p>The more you get your Bars run, the more you begin to perceive how much effort it actually takes to function from thoughts, feelings, emotions and ideas. You also start to perceive the possibility of functioning from perceiving, knowing, being and receiving. It can open your awareness to areas that were on auto-pilot so you can take control back. You get to decide who you are, what your life is like, and what it means for you to live in peace, joy and happiness; if not everyday, at least more often than you maybe had been before.</p>
                 <p>I encourage you to give Access Bars a try. If you have been feeling like you're stuck, lost or unhappy and can't figure out what to do about it, a Bars session may be able to help you. Worst case, you leave the session feeling like you just had a great massage. And if that's the worst thing that could happen, what do you have to lose?</p>
+                <p>Would you like to <Link to='/booking'>book a session</Link>?</p>
             </div>
         </div>
     )

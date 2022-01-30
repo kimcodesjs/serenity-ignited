@@ -5,7 +5,7 @@ import { createUseStyles } from 'react-jss'
 const useStyles = createUseStyles({
     
     optionContainer: {
-        marginTop: '10px',
+        marginTop: '20px',
         height: '65%',
         borderRadius: '10px',
         overflow: 'scroll',
@@ -36,7 +36,8 @@ const useStyles = createUseStyles({
         border: 'solid 2px rgba(56, 17, 17, .7)',
         borderRadius: '10px',
         userSelect: 'none',
-        cursor: 'pointer'  
+        cursor: 'pointer',
+        filter: 'drop-shadow(2px 2px 1px #443356)',  
     },
     continueDisabled: {
         marginRight: '25%',
@@ -48,6 +49,7 @@ const useStyles = createUseStyles({
         border: 'solid 2px rgba(56, 17, 17, .7)',
         borderRadius: '10px',
         userSelect: 'none',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
     }
 })
 
@@ -107,8 +109,7 @@ const Session = ({ setSession, updateView }) => {
     }
     
     return (
-        <>
-            
+        <>       
             <h3>Choose your healing session: {active ? <span className={classes.selected}>{active.id}</span> : null}</h3>
             <div className={active ? classes.continueEnabled : classes.continueDisabled} onClick={onConfirm}>Continue</div>
             <div className={classes.optionContainer}>
