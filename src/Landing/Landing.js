@@ -10,13 +10,13 @@ const useStyles = createUseStyles({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100vh',
+        height: '100%',
+        minHeight: '850px',
         backgroundImage: 'linear-gradient(to right, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0)),url("angel wings chakras 1.jpg")',
         backgroundAttachment: 'fixed',
         "@media (max-width: 790px)": {
             flexDirection: 'column',
             backgroundImage: 'linear-gradient(to bottom, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0)),url("angel wings chakras 1.jpg")',
-
         }
         
     },

@@ -13,7 +13,7 @@ const useStyles = createUseStyles({
         justifyContent: 'center',
         textAlign: 'center',
         width: '100%',
-        height: '80vh',
+        height: '500px',
         overflow: 'hidden'
     },
     span: {
@@ -51,7 +51,7 @@ const useStyles = createUseStyles({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        height: '80vh',
+        height: '500px',
         backgroundImage: 'url("Water-Fire Yin Yang.png")',
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
