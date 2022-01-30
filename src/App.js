@@ -10,7 +10,6 @@ import AboutMe from './AboutMe'
 
 import Landing from './Landing/Landing'
 
-
 import Booking from './Booking/Booking'
 
 import Admin from './Admin/Admin'
