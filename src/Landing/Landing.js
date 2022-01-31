@@ -6,31 +6,39 @@ import Access from './Access'
 
 const useStyles = createUseStyles({
     landing: {
-        display: 'inline-flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+        //display: 'inline-flex',
+        // flexDirection: 'row',
+        // alignItems: 'center',
+        //justifyContent: 'center',
         height: '100%',
-        minHeight: '900px',
+        minHeight: '915px',
         backgroundImage: 'linear-gradient(to right, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0)),url("angel wings chakras 1.jpg")',
         backgroundAttachment: 'fixed',
-        "@media (max-width: 790px)": {
+        "@media (max-width: 900px)": {
+            display: 'inline-flex',
             flexDirection: 'column',
+            alignItems: 'center',
             backgroundImage: 'linear-gradient(to bottom, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0)),url("angel wings chakras 1.jpg")',
+            minHeight: '700px'
         }
         
     },
     greeting: {
-        fontSize: '35px',
+        fontSize: '28px',
+        fontWeight: 'bold',
         textAlign: 'center',
-        width: '40%',
+        width: '35%',
         marginLeft: '80px',
-        marginRight: '40px',
+        marginRight: '75px',
+        marginTop: '14%',
+        float: 'right',
         filter: 'drop-shadow(5px 5px 1px #443356)',
+        textShadow: '#e5d7d7 1px 0px 5px',
         "@media (max-width: 1180px)": {
-            fontSize: '24px'
+            fontSize: '24px',
+            width: '30%'
         },
-        "@media (max-width: 790px)": {
+        "@media (max-width: 900px)": {
             flexDirection: 'column',
             margin: 0,
             width: '75%'
@@ -42,6 +50,7 @@ const useStyles = createUseStyles({
         filter: 'drop-shadow(7px 7px 1px #443356)',
         "@media (max-width: 790px)": {
             marginRight: '50px',
+            marginTop: '150px',
             width: '60%',
             height: 'auto'
         },
