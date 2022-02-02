@@ -19,7 +19,7 @@ const useStyles = createUseStyles({
 const App = () => {
 
     const [user, setUser] = useState(null)
-
+    // Some comment just for fun. :)
     const classes = useStyles()
     return (
         <div className={classes.app}>
