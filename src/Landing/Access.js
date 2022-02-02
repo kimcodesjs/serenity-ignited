@@ -14,6 +14,8 @@ const useStyles = createUseStyles({
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
+        '-webkit-mask-image': 'linear-gradient(transparent, black 5%, black 95%, transparent)',
+        maskImage: 'linear-gradient(transparent, black 5%, black 95%, transparent)',
         //textAlign: 'center'
         overflow: 'hidden'
     },

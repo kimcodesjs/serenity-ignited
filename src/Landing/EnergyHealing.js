@@ -14,7 +14,8 @@ const useStyles = createUseStyles({
         textAlign: 'center',
         width: '100%',
         height: '500px',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        maskImage: 'linear-gradient(transparent, black 10%, black 90%, transparent)',
     },
     span: {
         fontSize: '28.8px',
@@ -51,12 +52,14 @@ const useStyles = createUseStyles({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        height: '500px',
+        height: '600px',
         backgroundImage: 'url("Water-Fire Yin Yang.png")',
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
+        '-webkit-mask-image': 'linear-gradient(transparent, black 5%, black 95%, transparent)',
+        maskImage: 'linear-gradient(transparent, black 5%, black 95%, transparent)',
         overflow: 'hidden'
     },
     h1: {

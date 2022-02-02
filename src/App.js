@@ -3,7 +3,7 @@ import './Calendar.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { createUseStyles } from 'react-jss'
 import ScrollToTop from './ScrollToTop'
-import NavMenu from './NavMenu'
+import Menu from './Menu/Menu'
 const Landing = React.lazy(() => import('./Landing/Landing'))
 const Booking = React.lazy(() => import('./Booking/Booking'))
 const AboutMe = React.lazy(() => import('./AboutMe'))
@@ -26,7 +26,7 @@ const App = () => {
             <BrowserRouter>
                 
                 <ScrollToTop>
-                    <NavMenu setUser={setUser} />
+                    <Menu user={user} setUser={setUser} />
                     <Suspense fallback={<div>Loading...</div>}>
                     <Routes>
                         <Route path="/" element={<Landing />} /> 
