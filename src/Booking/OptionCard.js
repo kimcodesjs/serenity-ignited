@@ -38,8 +38,7 @@ const useStyles = createUseStyles({
         marginBottom: '10px',
         background: 'rgba(56, 17, 17, .75)',
         color: 'white',
-        '-webkit-box-shadow': '0px 5px 5px #0248ea',
-            '-moz-box-shadow': '0px 5px 5px #0248ea',
+        filter: 'drop-shadow(5px 5px 1px #9ec5d1)',
         cursor: 'pointer',
         userSelect: 'none',
         '@media (max-width: 690px)': {

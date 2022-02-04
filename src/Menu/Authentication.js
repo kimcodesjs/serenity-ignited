@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {createUseStyles} from 'react-jss'
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import UserInfoForm from './UserInfoForm'
 
 const useStyles = createUseStyles({
     
@@ -57,7 +58,10 @@ const useStyles = createUseStyles({
 const Authentication = ({ display, setDisplay, setUser }) => {
 
     const classes = useStyles()
-
+    const [authFlow, setAuthFlow] = useState(display)
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passConf, setPassConf] = useState('')
@@ -88,8 +92,12 @@ const Authentication = ({ display, setDisplay, setUser }) => {
                     setUser(userCredential.user)
                     setEmail('')
                     setPassword('')
-                    setDisplay(null)
+                    setDisplay('nav-menu')
                     console.log(userCredential.user)
+                }).then(() => {
+                    updateProfile(auth.currentUser, {
+                        displayName: `${firstName} ${lastName}`, phoneNumber: phone
+                    })
                 })
                 .catch((error) => {
                     console.log(error.message)
@@ -113,15 +121,13 @@ const Authentication = ({ display, setDisplay, setUser }) => {
                 setUser(userCredential.user)
                 setEmail('')
                 setPassword('')
-                setDisplay(null)
+                setDisplay('nav-menu')
                 console.log(userCredential.user)
             })
             .catch((error) => {
                 console.log(error.message)
                 formatError(error.message)
             })
-            
-        
     }
 
     const formatError = (err) => {
@@ -141,6 +147,8 @@ const Authentication = ({ display, setDisplay, setUser }) => {
         } else if (err === 'Firebase: Error (auth/wrong-password).') {
             setError('ope... wrong password. type slower this time. :P')
             setPassword('')
+        } else {
+            setError('an unknown error occured...')
         }
         
     }
@@ -157,6 +165,8 @@ const Authentication = ({ display, setDisplay, setUser }) => {
     }
     return (
         <div id='authentication-form-container' className={classes.authContainer}>
+            {}
+            {authFlow === 'sign-up' ? <UserInfoForm setFirstName={setFirstName} setLastName={setLastName} setPhone={setPhone} useStyles={useStyles} setAuthFlow={setAuthFlow} /> : (
             <form id='signup-form' className={classes.form}>
                 <div className={classes.formItem}>
                     <label className={classes.inputLabel} htmlFor='email-input'>Email</label>
@@ -168,11 +178,11 @@ const Authentication = ({ display, setDisplay, setUser }) => {
                     <input className={classes.input} type='password' id='password-input' required onChange={updatePassword} value={password}/>
                 </div>
                 <br />
-                {display === 'sign-up' ? 
+                {display === 'sign-up' && (
                 <div className={classes.formItem}>
                     <label className={classes.inputLabel} htmlFor='password-confirm'>Confirm Password</label>
                     <input className={classes.input} type='password' id='password-confirm' required onChange={updatePassConf} value={passConf}/>
-                </div> : null}
+                </div>)}
                 
                 {error ? <span>{error}</span> : null}
                 <br />
@@ -182,6 +192,7 @@ const Authentication = ({ display, setDisplay, setUser }) => {
                     setDisplay('nav-menu')
                 }}>Return to Menu</button>
             </form>
+            )}
         </div>
     )
 }
