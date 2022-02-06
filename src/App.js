@@ -8,7 +8,7 @@ const Landing = React.lazy(() => import('./Landing/Landing'))
 const Booking = React.lazy(() => import('./Booking/Booking'))
 const AboutMe = React.lazy(() => import('./AboutMe'))
 const ContactMe = React.lazy(() => import('./ContactMe'))
-const MySessions  = React.lasy(() => import('./MySessions'))
+const MySessions  = React.lazy(() => import('./MySessions'))
 const Admin = React.lazy(() => import('./Admin/Admin'))
 
 const useStyles = createUseStyles({
