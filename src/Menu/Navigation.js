@@ -17,8 +17,8 @@ const useStyles = createUseStyles({
         display: 'inline-flex',
         flexDirection: 'column',
         // alignItems: 'center',
-        opacity: 1,
-        transition: 'opacity .5s, height 1s',
+        opacity: 0,
+        transition: 'opacity 2s',
         overflow: 'hidden'
     },
     navLink: {
@@ -46,7 +46,7 @@ const useStyles = createUseStyles({
 
 
 
-const Navigation = ({ display, setDisplay, user, toggleMenu }) => {
+const Navigation = ({ display, setDisplay, user, setUser, toggleMenu }) => {
 
     const classes = useStyles()
 
@@ -63,6 +63,7 @@ const Navigation = ({ display, setDisplay, user, toggleMenu }) => {
             auth.signOut().then(() => {
                 setUser(null)
                 setDisplay('auth-change')
+                console.log('user successfully logged out')
             })
         } else {
             toggleMenu()
@@ -72,10 +73,8 @@ const Navigation = ({ display, setDisplay, user, toggleMenu }) => {
     const animateNavMenu = () => {
         const navMenu = document.getElementById('nav-menu')
         if (display === 'nav-menu') {
-            navMenu.style.height = '700px'
             navMenu.style.opacity = '1'
         } else {
-            navMenu.style.height = '0'
             navMenu.style.opacity = '0'
         }
         
@@ -91,6 +90,7 @@ const Navigation = ({ display, setDisplay, user, toggleMenu }) => {
             <Link to='/about-me' className={classes.navLink} id='about-me'>About Me</Link>
             {!user && <span className={classes.span} id='log-in'>Log In</span>}
             {!user && <span className={classes.span} id='sign-up'>Sign Up</span>}
+            {user && <Link to='/my-sessions' className={classes.navLink} id='my-sessions'>My Sessions</Link>}
             {user && <span className={classes.span} id='log-out'>Log Out</span>} 
         </div>
     )

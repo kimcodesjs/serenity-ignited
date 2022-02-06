@@ -8,11 +8,12 @@ const Landing = React.lazy(() => import('./Landing/Landing'))
 const Booking = React.lazy(() => import('./Booking/Booking'))
 const AboutMe = React.lazy(() => import('./AboutMe'))
 const ContactMe = React.lazy(() => import('./ContactMe'))
+const MySessions  = React.lasy(() => import('./MySessions'))
 const Admin = React.lazy(() => import('./Admin/Admin'))
 
 const useStyles = createUseStyles({
     app: {
-        fontFamily: "'Martel', serif"
+        fontFamily: "'Didact Gothic', sans-serif"
     }
 })
 
@@ -34,6 +35,7 @@ const App = () => {
                         <Route path="contact-me" element={<ContactMe />}/>
                         <Route path="about-me" element={<AboutMe />}/>
                         <Route path="admin" element={<Admin />}/>
+                        <Route path='my-sessions' element={<MySessions />}/>
                     </Routes>
                     </Suspense>
                 </ScrollToTop> 

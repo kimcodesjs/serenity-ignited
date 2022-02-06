@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const UserInfoForm = ({ setFirstName, setLastName, setPhone, useStyles, setAuthFlow }) => {
+const UserInfoForm = ({ setFirstName, setLastName, setPhone, useStyles, setAuthFlow, setDisplay }) => {
     const classes = useStyles()
     const onClick = (e) => {
         e.preventDefault()

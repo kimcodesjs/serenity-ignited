@@ -72,36 +72,42 @@ const Session = ({ setSession, updateView }) => {
     const options = {
         sampleSession: {
             id: 'Sample Session',
+            modality: 'Reiki',
             description: 'A short sample session for those who are interested in testing the waters without committing to a full price session.',
             duration: { hours: 0, minutes: 15 },
             price: 20
         },
         generalHealing: {
             id: 'General Healing',
+            modality: 'Reiki',
             description: 'A general cleansing of the 7 major Chakras, plus one area of focus.',
             duration: { hours: 0, minutes: 30},
             price: 40
         },
         inDepth: {
             id: 'In-Depth Healing',
+            modality: 'Reiki',
             description: 'An extensive healing session targeting specific areas of improvement.',
             duration: { hours: 1, minutes: 0 },
             price: 65
         },
         accessBars: {
             id: 'Access Bars',
+            modality: 'Access Consciousness',
             description: 'A full-length Access Bars session to clear energy blockages in the subconscious mind.',
             duration: { hours: 1, minutes: 30 },
             price: 150
         },
         accessPartial: {
             id: 'Partial Access Bars',
+            modality: 'Access Consciousness',
             description: 'A shorter Access Bars session.',
             duration: { hours: 0, minutes: 45 },
             price: 75
         },
         package1: {
             id: 'Reiki + Access Bars',
+            modality: 'Reiki, Access Consciousness',
             description: 'A powerful combination session of Reiki and Access Bars healing.',
             duration: { hours: 0, minutes: 45 },
             price: 75

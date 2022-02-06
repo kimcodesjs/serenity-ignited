@@ -26,18 +26,20 @@ const useStyles = createUseStyles({
         
     },
     greeting: {
-        fontSize: '28px',
+        fontFamily: "'Clicker Script', cursive",
+        fontStyle: 'italic',
+        fontSize: '50px',
         fontWeight: 'bold',
         textAlign: 'center',
         width: '35%',
-        marginLeft: '80px',
+        marginLeft: '85px',
         marginRight: '75px',
         marginTop: '14%',
         float: 'right',
         filter: 'drop-shadow(5px 5px 1px #443356)',
         textShadow: '#e5d7d7 1px 0px 5px',
         "@media (max-width: 1180px)": {
-            fontSize: '24px',
+            fontSize: '32px',
             width: '30%'
         },
         "@media (max-width: 900px)": {
@@ -50,9 +52,9 @@ const useStyles = createUseStyles({
         width: '50%',
         height: 'auto',
         filter: 'drop-shadow(7px 7px 1px #443356)',
-        "@media (max-width: 790px)": {
+        "@media (max-width: 900px)": {
             marginRight: '50px',
-            marginTop: '150px',
+            //marginTop: '50px',
             width: '60%',
             height: 'auto'
         },

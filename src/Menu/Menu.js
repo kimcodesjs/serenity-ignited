@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import Navigation from './Navigation'
 import Authentication from './Authentication'
@@ -43,6 +43,20 @@ const useStyles = createUseStyles({
         boxShadow: '-5px 2px 5px #443356'
         
     },
+    transitionEnter: {
+        opacity: 0
+    },
+    transitionEnterActive: {
+        opacity: 1,
+        transition: 'opacity 1000ms'
+    },
+    transitionExit: {
+        opacity: 1
+    },
+    transitionExitActive: {
+        opacity: 0,
+        transition: 'opacity 1000ms'
+    }
     
     
 })
@@ -74,21 +88,20 @@ const Menu = ({ setUser, user }) => {
     }
    
     return (
-        <div>
-            <div id='sidebar'>
-                <div className={classes.menuToggle} id='menu-toggle' >
-                        <img src='/menu-icon.png' className={classes.menuIcon} id='menu-icon' onClick={toggleMenu} />
-                </div>
+        
+            <div>
+                <div id='sidebar'>
+                    <div className={classes.menuToggle} id='menu-toggle' >
+                            <img src='/menu-icon.png' className={classes.menuIcon} id='menu-icon' onClick={toggleMenu} />
+                    </div>
 
-                <div className={classes.menuDiv} id='menu' >
-                    {user && <span className={classes.span}>Welcome, User!</span>}
-                    {menuDisplay === 'nav-menu' && <Navigation user={user ? true : false} display={menuDisplay} setDisplay={setMenuDisplay} toggleMenu={toggleMenu}/>}
-                    {(menuDisplay === 'log-in' || menuDisplay === 'sign-up') && <Authentication display={menuDisplay} setDisplay={setMenuDisplay} setUser={setUser}/>}
-                    {menuDisplay === 'auth-change' && <AuthChange user={user} />}
+                    <div className={classes.menuDiv} id='menu'>
+                        {menuDisplay === 'nav-menu' && <Navigation user={user ? true : false} setUser={setUser} display={menuDisplay} setDisplay={setMenuDisplay} toggleMenu={toggleMenu}/>}
+                        {(menuDisplay === 'log-in' || menuDisplay === 'sign-up') && <Authentication display={menuDisplay} setDisplay={setMenuDisplay} setUser={setUser}/>}
+                        {menuDisplay === 'auth-change' && <AuthChange user={user} display={menuDisplay} setDisplay={setMenuDisplay} />}
+                    </div>
                 </div>
             </div>
-               
-        </div>
     )
 }
 

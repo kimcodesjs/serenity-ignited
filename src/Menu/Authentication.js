@@ -8,10 +8,10 @@ const useStyles = createUseStyles({
     authContainer: {
         marginTop: '100px',
         display: 'inline-flex',
-        height: '0px',
+        height: '600px',
         opacity: '0',
         overflow: 'hidden',
-        transition: 'height 1s, opacity .5s'
+        transition: 'opacity 1s'
         
     },
     form: {
@@ -39,7 +39,8 @@ const useStyles = createUseStyles({
         borderRadius: '10px',
         paddingLeft: '10px',
         outline: 'none',
-        fontFamily: 'inherit'
+        fontFamily: 'inherit',
+        color: 'white'
     },
     button: {
         width: '40%',
@@ -51,7 +52,11 @@ const useStyles = createUseStyles({
         //borderRadius: '10px',
         textShadow: '#e5d7d7 1px 0px 5px',
         filter: 'drop-shadow(2px 2px 1px #443356)',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        fontFamily: 'inherit'
+    },
+    error: {
+        marginLeft: '10px'
     }
 })
 
@@ -68,8 +73,17 @@ const Authentication = ({ display, setDisplay, setUser }) => {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        animateSignIn()
+        animateAuthView()
     }, [display])
+
+    const animateAuthView = () => {
+        const container = document.getElementById('authentication-form-container')
+        if (display === 'sign-up' || display === 'log-in') {
+            container.style.opacity = '1'
+        } else {
+            container.style.opacity = '0'
+        }
+    }
 
     const updateEmail = (e) => {
         setEmail(e.target.value)
@@ -121,7 +135,7 @@ const Authentication = ({ display, setDisplay, setUser }) => {
                 setUser(userCredential.user)
                 setEmail('')
                 setPassword('')
-                setDisplay('nav-menu')
+                setDisplay('auth-change')
                 console.log(userCredential.user)
             })
             .catch((error) => {
@@ -153,20 +167,10 @@ const Authentication = ({ display, setDisplay, setUser }) => {
         
     }
     
-    const animateSignIn = () => {
-        const container = document.getElementById('authentication-form-container')
-        if (display === 'sign-up' || display === 'log-in') {
-            container.style.height ='400px'
-            container.style.opacity = '1'
-        } else {
-            container.style.height = '0px'
-            container.style.opacity = '0'
-        }
-    }
+    
     return (
         <div id='authentication-form-container' className={classes.authContainer}>
-            {}
-            {authFlow === 'sign-up' ? <UserInfoForm setFirstName={setFirstName} setLastName={setLastName} setPhone={setPhone} useStyles={useStyles} setAuthFlow={setAuthFlow} /> : (
+            {authFlow === 'sign-up' ? <UserInfoForm setFirstName={setFirstName} setLastName={setLastName} setPhone={setPhone} useStyles={useStyles} setAuthFlow={setAuthFlow} setDisplay={setDisplay}/> : (
             <form id='signup-form' className={classes.form}>
                 <div className={classes.formItem}>
                     <label className={classes.inputLabel} htmlFor='email-input'>Email</label>
@@ -184,7 +188,7 @@ const Authentication = ({ display, setDisplay, setUser }) => {
                     <input className={classes.input} type='password' id='password-confirm' required onChange={updatePassConf} value={passConf}/>
                 </div>)}
                 
-                {error ? <span>{error}</span> : null}
+                {error ? <span className={classes.error}>{error}</span> : null}
                 <br />
                 <button className={classes.button} onClick={display === 'sign-up' ? handleSignUp : handleLogIn}>Submit</button>
                 <button className={classes.button} onClick={(e) => {
