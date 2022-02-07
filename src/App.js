@@ -20,25 +20,25 @@ const useStyles = createUseStyles({
 const App = () => {
 
     const [user, setUser] = useState(null)
-    // Some comment just for fun. :)
+    
+    
     const classes = useStyles()
     return (
         <div className={classes.app}>
             <BrowserRouter>
-                
                 <ScrollToTop>
                     <Menu user={user} setUser={setUser} />
                     <Suspense fallback={<div>Loading...</div>}>
                     <Routes>
                         <Route path="/" element={<Landing />} /> 
-                        <Route path='booking' element={<Booking />} />
+                        <Route path='booking' element={<Booking user={user} setUser={setUser} />} />
                         <Route path="contact-me" element={<ContactMe />}/>
                         <Route path="about-me" element={<AboutMe />}/>
                         <Route path="admin" element={<Admin />}/>
-                        <Route path='my-sessions' element={<MySessions />}/>
+                        <Route path='my-sessions' element={<MySessions user={user}/>}/>
                     </Routes>
                     </Suspense>
-                </ScrollToTop> 
+                </ScrollToTop>
             </BrowserRouter>
         </div>
     )

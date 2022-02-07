@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { createUseStyles } from 'react-jss'
 import Navigation from './Navigation'
 import Authentication from './Authentication'
@@ -43,22 +43,19 @@ const useStyles = createUseStyles({
         boxShadow: '-5px 2px 5px #443356'
         
     },
-    transitionEnter: {
-        opacity: 0
-    },
-    transitionEnterActive: {
-        opacity: 1,
-        transition: 'opacity 1000ms'
-    },
-    transitionExit: {
-        opacity: 1
-    },
-    transitionExitActive: {
-        opacity: 0,
-        transition: 'opacity 1000ms'
+    button: {
+        width: '40%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: '10px',
+        backgroundColor: 'transparent',
+        border: 'none',
+        //borderRadius: '10px',
+        textShadow: '#e5d7d7 1px 0px 5px',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
+        cursor: 'pointer',
+        fontFamily: 'inherit'
     }
-    
-    
 })
 
 
@@ -68,7 +65,11 @@ const Menu = ({ setUser, user }) => {
     const [menuDisplay, setMenuDisplay] = useState('nav-menu')
     const [menuToggle, setToggle] = useState(false)
 
-    
+    useEffect(() => {
+        if (menuDisplay === 'log-in' || menuDisplay === 'sign-up') {
+            setMenuDisplay('auth-change')
+        }
+    }, [user])
 
     const toggleMenu = () => {
         const menu = document.getElementById('menu')
@@ -97,7 +98,15 @@ const Menu = ({ setUser, user }) => {
 
                     <div className={classes.menuDiv} id='menu'>
                         {menuDisplay === 'nav-menu' && <Navigation user={user ? true : false} setUser={setUser} display={menuDisplay} setDisplay={setMenuDisplay} toggleMenu={toggleMenu}/>}
-                        {(menuDisplay === 'log-in' || menuDisplay === 'sign-up') && <Authentication display={menuDisplay} setDisplay={setMenuDisplay} setUser={setUser}/>}
+                        {(menuDisplay === 'log-in' || menuDisplay === 'sign-up') && 
+                            <>
+                                <Authentication authFlow={menuDisplay} setUser={setUser}/>
+                                <button className={classes.button} onClick={(e) => {
+                                    e.preventDefault()
+                                    setMenuDisplay('nav-menu')
+                                }}>Return to Menu</button>
+                            </>
+                        }
                         {menuDisplay === 'auth-change' && <AuthChange user={user} display={menuDisplay} setDisplay={setMenuDisplay} />}
                     </div>
                 </div>

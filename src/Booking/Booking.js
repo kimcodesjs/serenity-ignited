@@ -3,7 +3,7 @@ import { createUseStyles } from 'react-jss'
 import Session from './Session'
 import Connection from './Connection'
 import Scheduler from './Scheduler'
-import OrderConfirmation from './OrderConfirmation'
+import SessionConfirmation from './SessionConfirmation'
 
 const useStyles = createUseStyles({
     bookingContainer: {
@@ -83,7 +83,7 @@ const useStyles = createUseStyles({
     }
 })
 
-const Booking = () => {
+const Booking = ({ user, setUser }) => {
     
     let classes = useStyles()
 
@@ -161,10 +161,11 @@ const Booking = () => {
                         <br />
                         <div>{error ? <span>{error}</span> : null}</div>
                         
-                            {view === 1 ? <Session setSession={setSession} updateView={updateView} setError={setError}/> : null}
-                            {view === 2 ? <Connection setConnection={setConnection} updateView={updateView} session={session.id} setError={setError} /> : null}
-                            {view === 3 ? <Scheduler setSchedule={setSchedule} updateView={updateView} duration={session.duration}/> : null}
-                            {view === 4 ? <OrderConfirmation session={session} connection={connection} schedule={schedule}/> : null}
+                            {view === 1 && <Session setSession={setSession} updateView={updateView} setError={setError}/>}
+                            {view === 2 && <Connection setConnection={setConnection} updateView={updateView} session={session.id} setError={setError} />}
+                            {view === 3 && <Scheduler setSchedule={setSchedule} updateView={updateView} duration={session.duration}/>}
+                            {view === 4 && <SessionConfirmation user={user} session={session} connection={connection} schedule={schedule}/>}
+        
                     </div>
                 </div>
             </div>

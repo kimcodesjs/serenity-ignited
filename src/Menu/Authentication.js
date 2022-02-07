@@ -56,61 +56,39 @@ const useStyles = createUseStyles({
         fontFamily: 'inherit'
     },
     error: {
-        marginLeft: '10px'
+        marginLeft: '30px'
     }
 })
 
-const Authentication = ({ display, setDisplay, setUser }) => {
+const Authentication = ({ authFlow, setUser }) => {
 
     const classes = useStyles()
-    const [authFlow, setAuthFlow] = useState(display)
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [phone, setPhone] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [passConf, setPassConf] = useState('')
+    
+    const [userInfo, setUserInfo] = useState(null)
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        animateAuthView()
-    }, [display])
-
-    const animateAuthView = () => {
         const container = document.getElementById('authentication-form-container')
-        if (display === 'sign-up' || display === 'log-in') {
-            container.style.opacity = '1'
-        } else {
-            container.style.opacity = '0'
-        }
-    }
-
-    const updateEmail = (e) => {
-        setEmail(e.target.value)
-    }
-    const updatePassword = (e) => {
-        setPassword(e.target.value)
-    }
-    const updatePassConf = (e) => {
-        setPassConf(e.target.value)
-    }
+        container.style.opacity = '1'
+        console.log('useEffect ran')
+    }, [])
+    
     const handleSignUp = (e) => {
         e.preventDefault()
         const auth = getAuth()
-        if (password === passConf) {
+        const email = document.getElementById('email-input').value
+        const password = document.getElementById('password-input').value
+        if (password === document.getElementById('password-confirm').value) {
             if (error) {
                 setError(null)
             }
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     setUser(userCredential.user)
-                    setEmail('')
-                    setPassword('')
-                    setDisplay('nav-menu')
                     console.log(userCredential.user)
                 }).then(() => {
                     updateProfile(auth.currentUser, {
-                        displayName: `${firstName} ${lastName}`, phoneNumber: phone
+                        displayName: `${firstName} ${lastName}`, phoneNumber: parseInt(phone)
                     })
                 })
                 .catch((error) => {
@@ -120,22 +98,19 @@ const Authentication = ({ display, setDisplay, setUser }) => {
             
         } else {
             setError('Passwords must match.')
-            setPassword('')
-            setPassConf('')
         }
     }
     const handleLogIn = (e) => {
         e.preventDefault()
         const auth = getAuth()
+        const email = document.getElementById('email-input').value
+        const password = document.getElementById('password-input').value
         if (error) {
             setError(null)
         }
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 setUser(userCredential.user)
-                setEmail('')
-                setPassword('')
-                setDisplay('auth-change')
                 console.log(userCredential.user)
             })
             .catch((error) => {
@@ -147,20 +122,12 @@ const Authentication = ({ display, setDisplay, setUser }) => {
     const formatError = (err) => {
         if (err === 'Firebase: Error (auth/invalid-email).') {
             setError('Please enter a valid email address.')
-            setEmail('')
-            setPassword('')
-            setPassConf('')
         } else if (err === 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
             setError('Password should be at least 6 characters.')
-            setPassword('')
-            setPassConf('')
         } else if (err === 'Firebase: Error (auth/user-not-found).') {
             setError('we couldn\'nt find an account for that email address...')
-            setEmail('')
-            setPassword('')
         } else if (err === 'Firebase: Error (auth/wrong-password).') {
             setError('ope... wrong password. type slower this time. :P')
-            setPassword('')
         } else {
             setError('an unknown error occured...')
         }
@@ -170,33 +137,30 @@ const Authentication = ({ display, setDisplay, setUser }) => {
     
     return (
         <div id='authentication-form-container' className={classes.authContainer}>
-            {authFlow === 'sign-up' ? <UserInfoForm setFirstName={setFirstName} setLastName={setLastName} setPhone={setPhone} useStyles={useStyles} setAuthFlow={setAuthFlow} setDisplay={setDisplay}/> : (
-            <form id='signup-form' className={classes.form}>
-                <div className={classes.formItem}>
-                    <label className={classes.inputLabel} htmlFor='email-input'>Email</label>
-                    <input className={classes.input} type='email' id='email-input' required onChange={updateEmail} value={email}/>
-                </div>
-                <br />
-                <div className={classes.formItem}>
-                    <label className={classes.inputLabel} htmlFor='password-input'>Password</label>
-                    <input className={classes.input} type='password' id='password-input' required onChange={updatePassword} value={password}/>
-                </div>
-                <br />
-                {display === 'sign-up' && (
-                <div className={classes.formItem}>
-                    <label className={classes.inputLabel} htmlFor='password-confirm'>Confirm Password</label>
-                    <input className={classes.input} type='password' id='password-confirm' required onChange={updatePassConf} value={passConf}/>
-                </div>)}
-                
-                {error ? <span className={classes.error}>{error}</span> : null}
-                <br />
-                <button className={classes.button} onClick={display === 'sign-up' ? handleSignUp : handleLogIn}>Submit</button>
-                <button className={classes.button} onClick={(e) => {
-                    e.preventDefault()
-                    setDisplay('nav-menu')
-                }}>Return to Menu</button>
-            </form>
-            )}
+            {(authFlow === 'sign-up' && userInfo === null) && <UserInfoForm setUserInfo={setUserInfo} useStyles={useStyles}/>}
+            {(authFlow === 'log-in' || userInfo != null) &&
+                <form id='auth-form' className={classes.form}>
+                    <div className={classes.formItem}>
+                        <label className={classes.inputLabel} htmlFor='email-input'>Email</label>
+                        <input className={classes.input} type='email' id='email-input' required />
+                    </div>
+                    <br />
+                    <div className={classes.formItem}>
+                        <label className={classes.inputLabel} htmlFor='password-input'>Password</label>
+                        <input className={classes.input} type='password' id='password-input' required />
+                    </div>
+                    <br />
+                    {authFlow === 'sign-up' && (
+                    <div className={classes.formItem}>
+                        <label className={classes.inputLabel} htmlFor='password-confirm'>Confirm Password</label>
+                        <input className={classes.input} type='password' id='password-confirm' required />
+                    </div>)}
+                    <br />
+                    <button className={classes.button} onClick={authFlow === 'sign-up' ? handleSignUp : handleLogIn}>Submit</button>
+                    <br />
+                    {error ? <span className={classes.error}>{error}</span> : null}
+                </form>
+            }
         </div>
     )
 }

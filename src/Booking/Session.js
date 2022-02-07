@@ -107,7 +107,7 @@ const Session = ({ setSession, updateView }) => {
         },
         package1: {
             id: 'Reiki + Access Bars',
-            modality: 'Reiki, Access Consciousness',
+            modality: 'Package Session',
             description: 'A powerful combination session of Reiki and Access Bars healing.',
             duration: { hours: 0, minutes: 45 },
             price: 75
