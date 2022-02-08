@@ -18,12 +18,16 @@ const useStyles = createUseStyles({
         maskImage: 'linear-gradient(transparent, black 5%, black 95%, transparent)',
         overflow: 'hidden'
     },
+    h1: {
+        fontFamily: "'Over the Rainbow', cursive",
+    },
     reikiTextBody: {
         width: '75%',
         paddingLeft: '30px',
         paddingRight: '30px',
         margin: 'auto',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        fontSize: '20px'
     } 
 })
 
@@ -34,7 +38,7 @@ const Reiki = () => {
         <div className={classes.reikiContainer}>
             <div className={classes.reikiBanner} />
             <div className={classes.reikiTextBody}>
-            <h1>A Deeper Look at Reiki</h1>
+            <h1 className={classes.h1}>A Deeper Look at Reiki</h1>
             <p>Reiki is a form of energy healing, with its origins in India and the East dating back many thousands of years to the time before Christ and Buddha. The original name, disciplines and techniques of Reiki were lost due to the traditional method of passing knowledge from generation to generation by word of mouth. It was rediscovered in the 19th century by Dr. Mikao Usui, who was a Japanese scholar and monk. It was he who began calling it REIKI.</p>
             <p>Reiki is a two syllable Japanese word meaning ‘universal life force’, and is represented by two Kanji characters - ’Rei’  and ‘Ki’. Although the proper Japanese pronunciation is RYE-KEY, it has been westernized to RAY-KEY.</p>
             <p>REI roughly translates to 'Universe' or 'God', present everywhere at the same time. Esoterically, REI means 'Spiritual Consciousness', the omniscient wisdom from God or the Higher Self.</p>

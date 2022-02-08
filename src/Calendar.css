@@ -3,7 +3,7 @@
   max-width: 100%;
   background: white;
   border: 1px solid #a0a096;
-  font-family: 'Martel', serif;
+  font-family: 'Didact Gothic', sans-serif;
   line-height: 1.125em;
 }
 .react-calendar--doubleView {
@@ -124,6 +124,6 @@ abbr {
 }
 
 button {
-  font-family: 'Martel', serif;
+  font-family: 'Didact Gothic', sans-serif;
   font-weight: bold;
 }

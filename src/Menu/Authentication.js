@@ -6,13 +6,12 @@ import UserInfoForm from './UserInfoForm'
 const useStyles = createUseStyles({
     
     authContainer: {
-        marginTop: '100px',
+        marginTop: '10px',
+        height: '250px',
         display: 'inline-flex',
-        height: '600px',
         opacity: '0',
         overflow: 'hidden',
-        transition: 'opacity 1s'
-        
+        transition: 'opacity 1s'  
     },
     form: {
         width: '100%',
@@ -21,10 +20,7 @@ const useStyles = createUseStyles({
         flexDirection: 'column',
     },
     formItem: {
-        width: '60%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        
+        width: '60%', 
     },
     inputLabel: {
         textShadow: '#e5d7d7 1px 0px 5px',
@@ -40,19 +36,19 @@ const useStyles = createUseStyles({
         paddingLeft: '10px',
         outline: 'none',
         fontFamily: 'inherit',
-        color: 'white'
     },
     button: {
-        width: '40%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
+        width: '10%',
         marginBottom: '10px',
-        backgroundColor: 'transparent',
         border: 'none',
-        //borderRadius: '10px',
+        padding: '0',
+        userSelect: 'none',
+        cursor: 'pointer',
+        background: 'transparent',
         textShadow: '#e5d7d7 1px 0px 5px',
         filter: 'drop-shadow(2px 2px 1px #443356)',
-        cursor: 'pointer',
+        borderRadius: '10px',
+        fontWeight: 'bold',
         fontFamily: 'inherit'
     },
     error: {
@@ -70,9 +66,8 @@ const Authentication = ({ authFlow, setUser }) => {
     useEffect(() => {
         const container = document.getElementById('authentication-form-container')
         container.style.opacity = '1'
-        console.log('useEffect ran')
     }, [])
-    
+    // New User Authentication
     const handleSignUp = (e) => {
         e.preventDefault()
         const auth = getAuth()
@@ -100,6 +95,7 @@ const Authentication = ({ authFlow, setUser }) => {
             setError('Passwords must match.')
         }
     }
+    // Existing User Authentication
     const handleLogIn = (e) => {
         e.preventDefault()
         const auth = getAuth()

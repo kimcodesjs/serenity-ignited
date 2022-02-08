@@ -43,17 +43,23 @@ const useStyles = createUseStyles({
         boxShadow: '-5px 2px 5px #443356'
         
     },
-    button: {
-        width: '40%',
-        marginLeft: 'auto',
+    authDiv: {
+        marginTop: '100px',
+        marginLeft: '50px',
         marginRight: 'auto',
+    },
+    button: {
         marginBottom: '10px',
-        backgroundColor: 'transparent',
+        padding: '0',
         border: 'none',
-        //borderRadius: '10px',
+        textAlign: 'center',
+        userSelect: 'none',
+        cursor: 'pointer',
+        background: 'transparent',
         textShadow: '#e5d7d7 1px 0px 5px',
         filter: 'drop-shadow(2px 2px 1px #443356)',
-        cursor: 'pointer',
+        borderRadius: '10px',
+        fontWeight: 'bold',
         fontFamily: 'inherit'
     }
 })
@@ -100,11 +106,15 @@ const Menu = ({ setUser, user }) => {
                         {menuDisplay === 'nav-menu' && <Navigation user={user ? true : false} setUser={setUser} display={menuDisplay} setDisplay={setMenuDisplay} toggleMenu={toggleMenu}/>}
                         {(menuDisplay === 'log-in' || menuDisplay === 'sign-up') && 
                             <>
-                                <Authentication authFlow={menuDisplay} setUser={setUser}/>
+                                <div className={classes.authDiv}>
+                                    <Authentication authFlow={menuDisplay} setUser={setUser}/>
+                                
                                 <button className={classes.button} onClick={(e) => {
                                     e.preventDefault()
                                     setMenuDisplay('nav-menu')
                                 }}>Return to Menu</button>
+                                </div>
+                                
                             </>
                         }
                         {menuDisplay === 'auth-change' && <AuthChange user={user} display={menuDisplay} setDisplay={setMenuDisplay} />}

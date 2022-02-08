@@ -30,6 +30,8 @@ const useStyles = createUseStyles({
         fontStyle: 'italic',
         fontSize: '50px',
         fontWeight: 'bold',
+        color: 'white',
+        textShadow: '#381111 5px 0px 5px',
         textAlign: 'center',
         width: '35%',
         marginLeft: '85px',
@@ -37,7 +39,6 @@ const useStyles = createUseStyles({
         marginTop: '14%',
         float: 'right',
         filter: 'drop-shadow(5px 5px 1px #443356)',
-        textShadow: '#e5d7d7 1px 0px 5px',
         "@media (max-width: 1180px)": {
             fontSize: '32px',
             width: '30%'

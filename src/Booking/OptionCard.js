@@ -12,16 +12,9 @@ const useStyles = createUseStyles({
         borderRadius: '10px',
         marginRight: '20px',
         marginBottom: '10px',
-        background: 'rgba(56, 17, 17, .75)',
-        color: 'white',
-        // '-webkit-box-shadow': '0px 5px 5px #b7d9e9',
-        // '-moz-box-shadow': '0px 1px 1px #b7d9e9',
-        // boxShadow :'0px 1px 1px',
-        // '&:hover': {
-        //     '-webkit-box-shadow': '0px 5px 5px #0248ea',
-        //     '-moz-box-shadow': '0px 5px 5px #0248ea'
-        // },
-        filter: 'drop-shadow(5px 5px 1px #443356)',
+        background: 'radial-gradient(ellipse at top, rgba(130, 150, 188, .7), transparent), radial-gradient(ellipse at bottom, rgba(130, 150, 188, .7), transparent)',
+        textShadow: '#e5d7d7 1px 0px 5px',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
         cursor: 'pointer',
         userSelect: 'none',
         overflow: 'hidden',
@@ -31,30 +24,35 @@ const useStyles = createUseStyles({
         }
     },
     activeOption: {
+        display: 'inline-flex',
+        flexDirection: 'column',
         width: '400px',
         height: '150px',
         borderRadius: '10px',
         marginRight: '20px',
         marginBottom: '10px',
-        background: 'rgba(56, 17, 17, .75)',
-        color: 'white',
-        filter: 'drop-shadow(5px 5px 1px #9ec5d1)',
+        background: 'radial-gradient(ellipse at top, rgba(58, 127, 150, 1), transparent), radial-gradient(ellipse at bottom, rgba(130, 150, 188, 1), transparent)',
+        textShadow: '#e5d7d7 1px 0px 5px',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
         cursor: 'pointer',
         userSelect: 'none',
+        overflow: 'hidden',
         '@media (max-width: 690px)': {
             width: '90%',
             height: '180px'
         }
     },
     id: {
-        marginTop: '20px',
+        marginTop: '10px',
         marginLeft: '20px',
         display: 'inline-block',
+        fontSize: '25px'
     },
     description: {
         marginLeft: '20px',
         marginRight: '20px',
-        fontSize: '12px'
+        fontSize: '18px',
+        fontStyle: 'italic'
     },
     price: {
         margin: '20px'

@@ -6,7 +6,7 @@ import { DateTime, Duration, Interval } from 'luxon'
 const useStyles = createUseStyles({
     container: {
         width: '100%',
-        justifyContent: 'center',
+        //justifyContent: 'center',
         display: 'inline-flex',
         '@media (max-width: 920px)': {
             flexDirection: 'column'
@@ -17,31 +17,31 @@ const useStyles = createUseStyles({
         fontWeight: 'bold'
     },
     timePicker: {
-        fontFamily: "'Martel', serif"
+        fontFamily: 'inherit'
     },
     continueEnabled: {
         marginRight: '25%',
         marginTop: '20px',
-        justifyContent: 'center',
-        background: 'rgba(58, 37, 48, .75)',
-        width: '110px',
+        width: '85px',
         textAlign: 'center',
-        color: 'white',
-        border: 'solid 2px rgba(56, 17, 17, .7)',
-        borderRadius: '10px',
         userSelect: 'none',
-        cursor: 'pointer'  
+        cursor: 'pointer',
+        background: 'radial-gradient(ellipse at top, rgba(130, 150, 188, .7), transparent), radial-gradient(ellipse at bottom, rgba(130, 150, 188, .7), transparent)',
+        textShadow: '#e5d7d7 1px 0px 5px',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
+        borderRadius: '10px',
     },
     continueDisabled: {
         marginRight: '25%',
         marginTop: '20px',
-        justifyContent: 'center',
-        background: 'rgba(130, 150, 188, .7)',
-        width: '110px',
+        width: '85px',
         textAlign: 'center',
-        border: 'solid 2px rgba(56, 17, 17, .7)',
-        borderRadius: '10px',
         userSelect: 'none',
+        background: 'radial-gradient(ellipse at top, rgba(94, 94, 94, .7), transparent), radial-gradient(ellipse at bottom, rgba(100, 100, 100, .7), transparent)',
+        color: '#b2b2b2',
+        textShadow: '#e5d7d7 1px 0px 5px',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
+        borderRadius: '10px',
     }
     
 })
@@ -88,7 +88,7 @@ const Scheduler = ({ setSchedule, updateView, duration }) => {
                 }
             }
         }
-        // console.log(filteredTimeslots)
+        
         setTimeslots(filteredTimeslots)
     }
 

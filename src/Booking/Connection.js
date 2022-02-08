@@ -25,26 +25,30 @@ const useStyles = createUseStyles({
         fontStyle: 'italic'
     },
     continueEnabled: {
-        justifyContent: 'center',
-        background: 'rgba(58, 37, 48, .75)',
-        width: '110px',
+        marginRight: '25%',
+        marginTop: '20px',
+        width: '85px',
         textAlign: 'center',
-        color: 'white',
-        border: 'solid 2px rgba(56, 17, 17, .7)',
-        borderRadius: '10px',
         userSelect: 'none',
-        cursor: 'pointer'  
+        cursor: 'pointer',
+        background: 'radial-gradient(ellipse at top, rgba(130, 150, 188, .7), transparent), radial-gradient(ellipse at bottom, rgba(130, 150, 188, .7), transparent)',
+        textShadow: '#e5d7d7 1px 0px 5px',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
+        borderRadius: '10px',
+        fontWeight: 'bold'
     },
     continueDisabled: {
         marginRight: '25%',
         marginTop: '20px',
-        justifyContent: 'center',
-        background: 'rgba(130, 150, 188, .7)',
-        width: '110px',
+        width: '85px',
         textAlign: 'center',
-        border: 'solid 2px rgba(56, 17, 17, .7)',
-        borderRadius: '10px',
         userSelect: 'none',
+        background: 'radial-gradient(ellipse at top, rgba(94, 94, 94, .7), transparent), radial-gradient(ellipse at bottom, rgba(100, 100, 100, .7), transparent)',
+        color: '#b2b2b2',
+        textShadow: '#e5d7d7 1px 0px 5px',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
+        borderRadius: '10px',
+        fontWeight: 'bold'
     }
 })
 
@@ -83,7 +87,7 @@ const Connection = ({ setConnection, updateView, session }) => {
     }
     return (
         <>
-            <h3>Select how you would prefer to connect:{active ? <span className={classes.selected}>{active.id}</span> : null}</h3>
+            <h3>Select how you would prefer to connect:</h3>
             <div className={active ? classes.continueEnabled : classes.continueDisabled} onClick={onConfirm}>Continue</div>
             <br />
             {session === 'Sample Session' || session === 'General Healing' || session === 'In-Depth Healing' ?

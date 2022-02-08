@@ -33,7 +33,6 @@ const useStyles = createUseStyles({
         opacity: '0',
         transitionProperty: 'opacity',
         transitionDuration: '2s',
-        trainsitionDelay: '1s',
         "@media (max-width: 1150px)": {
             fontSize: '18px'
         }
@@ -63,6 +62,7 @@ const useStyles = createUseStyles({
         overflow: 'hidden'
     },
     h1: {
+        fontFamily: "'Over the Rainbow', cursive",
         fontSize: '50px',
         textShadow: '#381111 1px 0px 20px',
         "@media (max-width: 1040px)": {
@@ -76,7 +76,8 @@ const useStyles = createUseStyles({
         width: '75%',
         paddingLeft: '30px',
         paddingRight: '30px',
-        margin: 'auto'
+        margin: 'auto',
+        fontSize: '20px'
     }    
 })
 
