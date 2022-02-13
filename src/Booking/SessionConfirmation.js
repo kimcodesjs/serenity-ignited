@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { DateTime } from 'luxon'
 import { createUseStyles } from 'react-jss'
 import Authentication from '../Menu/Authentication'
-import PaymentForm from './PaymentForm'
+import { db } from '../index'
+import { collection, addDoc } from 'firebase/firestore'
 
 const useStyles = createUseStyles({
     appointmentCard: {
@@ -25,6 +26,32 @@ const useStyles = createUseStyles({
         fontSize: '15px',
         cursor: 'pointer',
         userSelect: 'none'
+    },
+    buttonEnabled: {
+        marginRight: '25%',
+        marginTop: '20px',
+        width: '85px',
+        textAlign: 'center',
+        userSelect: 'none',
+        cursor: 'pointer',
+        background: 'radial-gradient(ellipse at top, rgba(130, 150, 188, .7), transparent), radial-gradient(ellipse at bottom, rgba(130, 150, 188, .7), transparent)',
+        textShadow: '#e5d7d7 1px 0px 5px',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
+        borderRadius: '10px',
+        fontWeight: 'bold'
+    },
+    buttonDisabled: {
+        marginRight: '25%',
+        marginTop: '20px',
+        width: '85px',
+        textAlign: 'center',
+        userSelect: 'none',
+        background: 'radial-gradient(ellipse at top, rgba(94, 94, 94, .7), transparent), radial-gradient(ellipse at bottom, rgba(100, 100, 100, .7), transparent)',
+        color: '#b2b2b2',
+        textShadow: '#e5d7d7 1px 0px 5px',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
+        borderRadius: '10px',
+        fontWeight: 'bold'
     }
 })
 const formatDisplayName = (user) => {
@@ -36,7 +63,41 @@ const SessionConfirmation = ({ user, setUser, session, connection, schedule }) =
     const classes = useStyles()
 
     const [authFlow, setAuthFlow] = useState('sign-up')
+    const [paymentMethod, setPaymentMethod] = useState(null)
+    const [newSession, setNewSession] = useState({})
 
+    // useEffect(() => {   
+    //     setNewSession({
+    //         user: user.uid,
+    //         session: session,
+    //         connection: connection,
+    //         schedule: schedule,
+    //         paymentMethod: paymentMethod
+    //     })
+    // }, [paymentMethod])
+
+    /* create Appointments collection in firestore, outline data structure, will not be able to store luxon objects... ISOs instead? */
+
+    const handleSubmit = async () => {
+        await addDoc(collection(db, 'Appointments'), {
+            connection: connection.id,
+            duration: {
+                hours: session.duration.hours,
+                minutes: session.duration.minutes
+            },
+            modality: session.modality,
+            paymentMethod: paymentMethod,
+            price: session.price,
+            sessionID: session.id,
+            DateTimeISO: schedule.time.start.toISO(),
+            userID: user.uid
+        }).then(() => {
+            console.log('Success! New Appointment has been logged in Firestore!')
+        }).catch((error) => {
+            console.log(error)
+            console.log('Something went wrong...')
+        })
+    }
     return (
         <>
             <h2>Session Confirmation</h2>
@@ -55,6 +116,17 @@ const SessionConfirmation = ({ user, setUser, session, connection, schedule }) =
             {user != null && 
                 <div>
                     <h3>Thank you for allowing me to join you on your healing journey, {formatDisplayName(user)}!</h3>
+                    <h4>Specifying your payment method is the final step to securing your appointment. You can choose to pay in person at the time of your appointment, or if you would prefer to pay with your Credit/Debit card, please select the option to receive a payment link via email. The email you receive will contain an invoice for the appointment and a link to Square's secure online payment form. If you would like to pay via PayPal, please select the in person payment method and reach out to me before your session.</h4>
+                    <h3>Please select from the following payment method options:</h3>
+                    <form id='payment-methods' className={classes.payMethodForm}>
+                        <input type='radio' id='in-person' name='payment-method' value='in-person' onChange={(e) => setPaymentMethod(e.target.value)} />
+                        <label htmlFor='in-person'>With Cash/Check at Appointment</label>
+                        <br />
+                        <input type='radio' id='email-link' name='payment-method' value='email-link' onChange={(e) => setPaymentMethod(e.target.value)} />
+                        <label htmlFor='email-link'>Online Payment Link Sent Via Email</label>
+                        <br />
+                        <button className={paymentMethod === null ? classes.buttonDisabled : classes.buttonEnabled} enabled={paymentMethod ? 'true' : 'false'} onClick={(e) => {e.preventDefault(); handleSubmit();}}>Schedule Appointment</button>
+                    </form>
                 </div>
             }
             
