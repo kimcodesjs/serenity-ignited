@@ -2,8 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import { initializeApp } from 'firebase/app'
+import { getFirestore } from 'firebase/firestore'
 
-initializeApp({
+const firebaseApp = initializeApp({
     apiKey: "AIzaSyDKWIvmbNuDngSPMtXPavocpSFLcswEglc",
     authDomain: "serenity-ignited.firebaseapp.com",
     projectId: "serenity-ignited",
@@ -13,6 +14,7 @@ initializeApp({
     measurementID: "G-KQ2T23DTYX"
 })
 
+export const db = getFirestore()
 
 ReactDOM.render(
             <App />, 
