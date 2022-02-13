@@ -46,7 +46,7 @@ const useStyles = createUseStyles({
 
 
 
-const Navigation = ({ display, setDisplay, user, setUser, toggleMenu }) => {
+const Navigation = ({ display, setDisplay, user, toggleMenu }) => {
 
     const classes = useStyles()
 
@@ -61,7 +61,6 @@ const Navigation = ({ display, setDisplay, user, setUser, toggleMenu }) => {
         } else if (e.target.id === 'log-out') {
             const auth = getAuth()
             auth.signOut().then(() => {
-                setUser(null)
                 setDisplay('auth-change')
                 console.log('user successfully logged out')
             })
@@ -79,7 +78,7 @@ const Navigation = ({ display, setDisplay, user, setUser, toggleMenu }) => {
         }
         
     }
-
+    /* add uid url parameter for my-sessions */
     return (
         <div id='nav-menu' className={classes.navMenu} onClick={(e) => {e.preventDefault(); handleLinkClicks(e)}}>
             <Link to='/'>
@@ -90,7 +89,7 @@ const Navigation = ({ display, setDisplay, user, setUser, toggleMenu }) => {
             <Link to='/about-me' className={classes.navLink} id='about-me'>About Me</Link>
             {!user && <span className={classes.span} id='log-in'>Log In</span>}
             {!user && <span className={classes.span} id='sign-up'>Sign Up</span>}
-            {user && <Link to='/my-sessions' className={classes.navLink} id='my-sessions'>My Sessions</Link>}
+            {user && <Link to={`${getAuth().currentUser.uid}/my-sessions`} className={classes.navLink} id='my-sessions'>My Sessions</Link>}
             {user && <span className={classes.span} id='log-out'>Log Out</span>} 
         </div>
     )

@@ -41,7 +41,7 @@ const App = () => {
                         <Route path="contact-me" element={<ContactMe />}/>
                         <Route path="about-me" element={<AboutMe />}/>
                         <Route path="admin" element={<Admin />}/>
-                        <Route path='my-sessions' element={<MySessions user={user}/>}/>
+                        <Route path='/:userID/my-sessions' element={<MySessions />}/>
                     </Routes>
                     </Suspense>
                 </ScrollToTop>
