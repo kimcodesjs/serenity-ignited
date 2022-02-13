@@ -1,22 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { DateTime } from 'luxon'
+
 import { createUseStyles } from 'react-jss'
 import Authentication from '../Menu/Authentication'
+import AppointmentCard from './AppointmentCard'
 import { db } from '../index'
 import { collection, addDoc } from 'firebase/firestore'
 
 const useStyles = createUseStyles({
-    appointmentCard: {
-        marginBottom: '20px',
-        width: '350px',
-        padding: '10px',
-        background: 'radial-gradient(ellipse at top, rgba(130, 150, 188, .7), transparent), radial-gradient(ellipse at bottom, rgba(130, 150, 188, .7), transparent)',
-        textShadow: '#e5d7d7 1px 0px 5px',
-        filter: 'drop-shadow(2px 2px 1px #443356)',
-    },
-    h4: {
-        margin: 0
-    },
+    
     h3: {
         marginBottom: '5px'
     },
@@ -58,7 +49,7 @@ const formatDisplayName = (user) => {
     let firstName = user.displayName.split(' ')[0]
     return firstName
 }
-const SessionConfirmation = ({ user, setUser, session, connection, schedule }) => {
+const SessionConfirmation = ({ user, session, connection, schedule }) => {
     
     const classes = useStyles()
 
@@ -79,17 +70,13 @@ const SessionConfirmation = ({ user, setUser, session, connection, schedule }) =
     /* create Appointments collection in firestore, outline data structure, will not be able to store luxon objects... ISOs instead? */
 
     const handleSubmit = async () => {
+        
         await addDoc(collection(db, 'Appointments'), {
-            connection: connection.id,
-            duration: {
-                hours: session.duration.hours,
-                minutes: session.duration.minutes
-            },
-            modality: session.modality,
+            session: session,
+            connection: connection,
             paymentMethod: paymentMethod,
-            price: session.price,
-            sessionID: session.id,
-            DateTimeISO: schedule.time.start.toISO(),
+            date: schedule.date.toISO(),
+            timeISO: schedule.time.toISO(),
             userID: user.uid
         }).then(() => {
             console.log('Success! New Appointment has been logged in Firestore!')
@@ -101,16 +88,12 @@ const SessionConfirmation = ({ user, setUser, session, connection, schedule }) =
     return (
         <>
             <h2>Session Confirmation</h2>
-            <div className={classes.appointmentCard}>
-                <h4 className={classes.h4}>{session.modality} {session.id}</h4>
-                <h4 className={classes.h4}>{connection.id} on {schedule.date.toLocaleString(DateTime.DATE_HUGE)}</h4>
-                <h4 className={classes.h4}>{schedule.time.start.toLocaleString(DateTime.TIME_SIMPLE)} to {schedule.time.end.toLocaleString(DateTime.TIME_SIMPLE)}</h4>
-            </div>
+            <AppointmentCard session={session} connection={connection} date={schedule.date} time={schedule.time}/>
             {user === null && 
                 <>
                     <h3 className={classes.h3}>Please {authFlow === 'sign-up' ? 'create an account' : 'log in'} to continue finalizing your appointment:</h3>
                     {authFlow === 'sign-up' && <p className={classes.p} onClick={(e) => {e.preventDefault(); setAuthFlow('log-in')}}>I already have an account!</p>}
-                    <Authentication authFlow={authFlow} setUser={setUser} />
+                    <Authentication authFlow={authFlow} />
                     
                 </>}
             {user != null && 

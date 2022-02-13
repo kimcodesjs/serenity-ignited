@@ -164,7 +164,7 @@ const Booking = ({ user, setUser }) => {
                             {view === 1 && <Session setSession={setSession} updateView={updateView} setError={setError}/>}
                             {view === 2 && <Connection setConnection={setConnection} updateView={updateView} session={session.id} setError={setError} />}
                             {view === 3 && <Scheduler setSchedule={setSchedule} updateView={updateView} duration={session.duration}/>}
-                            {view === 4 && <SessionConfirmation user={user} setUser={setUser} session={session} connection={connection} schedule={schedule}/>}
+                            {view === 4 && <SessionConfirmation user={user} session={session} connection={connection.id} schedule={schedule}/>}
         
                     </div>
                 </div>
