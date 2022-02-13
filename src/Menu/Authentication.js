@@ -79,7 +79,6 @@ const Authentication = ({ authFlow, setUser }) => {
             }
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    setUser(userCredential.user)
                     console.log(userCredential.user)
                 }).then(() => {
                     updateProfile(auth.currentUser, {
@@ -106,7 +105,6 @@ const Authentication = ({ authFlow, setUser }) => {
         }
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                setUser(userCredential.user)
                 console.log(userCredential.user)
             })
             .catch((error) => {

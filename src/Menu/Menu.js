@@ -106,15 +106,14 @@ const Menu = ({ setUser, user }) => {
                         {menuDisplay === 'nav-menu' && <Navigation user={user ? true : false} setUser={setUser} display={menuDisplay} setDisplay={setMenuDisplay} toggleMenu={toggleMenu}/>}
                         {(menuDisplay === 'log-in' || menuDisplay === 'sign-up') && 
                             <>
+                                
                                 <div className={classes.authDiv}>
-                                    <Authentication authFlow={menuDisplay} setUser={setUser}/>
-                                
-                                <button className={classes.button} onClick={(e) => {
-                                    e.preventDefault()
-                                    setMenuDisplay('nav-menu')
-                                }}>Return to Menu</button>
+                                    <Authentication authFlow={menuDisplay} />
                                 </div>
-                                
+                                <button className={classes.button} onClick={(e) => {
+                                        e.preventDefault()
+                                        setMenuDisplay('nav-menu')
+                                    }}>Return to Menu</button>
                             </>
                         }
                         {menuDisplay === 'auth-change' && <AuthChange user={user} display={menuDisplay} setDisplay={setMenuDisplay} />}
