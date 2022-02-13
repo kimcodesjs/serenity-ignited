@@ -24,17 +24,17 @@ const UserInfoForm = ({ useStyles, setUserInfo }) => {
         <form className={classes.form}>
             <div className={classes.formItem}>
                 <label className={classes.inputLabel}>First Name</label>
-                <input className={classes.input} id='first-name' required></input>
+                <input type='text' className={classes.input} id='first-name' required></input>
             </div>
             <br />
             <div className={classes.formItem}>
                 <label className={classes.inputLabel}>Last Name</label>
-                <input className={classes.input} id='last-name' required></input>
+                <input type='text' className={classes.input} id='last-name' required></input>
             </div>
             <br />
             <div className={classes.formItem}>
                 <label className={classes.inputLabel}>Phone Number</label>
-                <input className={classes.input} id='phone' required></input>
+                <input type='tel' className={classes.input} id='phone' required></input>
             </div>
             <br />
             <button className={classes.button} onClick={onClick}>Next</button>
