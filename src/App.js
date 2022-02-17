@@ -1,8 +1,9 @@
 import React, { useState, Suspense, useEffect } from 'react'
 import './Calendar.css'
+import '@csstools/normalize.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { createUseStyles } from 'react-jss'
-import { getAuth, getIdToken } from 'firebase/auth'
+import { getAuth } from 'firebase/auth'
 import ScrollToTop from './ScrollToTop'
 import Menu from './Menu/Menu'
 const Landing = React.lazy(() => import('./Landing/Landing'))
@@ -14,7 +15,9 @@ const Admin = React.lazy(() => import('./Admin/Admin'))
 
 const useStyles = createUseStyles({
     app: {
-        fontFamily: "'Didact Gothic', sans-serif"
+        fontFamily: "'Didact Gothic', sans-serif",
+        height: '100%',
+        width: '100%'
     }
 })
 
