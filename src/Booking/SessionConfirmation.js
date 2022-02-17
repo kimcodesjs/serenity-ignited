@@ -5,6 +5,7 @@ import Authentication from '../Menu/Authentication'
 import AppointmentCard from './AppointmentCard'
 import { db } from '../index'
 import { collection, addDoc } from 'firebase/firestore'
+import { Link } from 'react-router-dom'
 
 const useStyles = createUseStyles({
     
@@ -55,7 +56,7 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
 
     const [authFlow, setAuthFlow] = useState('sign-up')
     const [paymentMethod, setPaymentMethod] = useState(null)
-    const [newSession, setNewSession] = useState({})
+    const [sessionConfirmed, setConfirmation] = useState(false)
 
     // useEffect(() => {   
     //     setNewSession({
@@ -80,6 +81,7 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
             userID: user.uid
         }).then(() => {
             console.log('Success! New Appointment has been logged in Firestore!')
+            setConfirmation(true)
         }).catch((error) => {
             console.log(error)
             console.log('Something went wrong...')
@@ -96,7 +98,7 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
                     <Authentication authFlow={authFlow} />
                     
                 </>}
-            {user != null && 
+            {(user != null && sessionConfirmed === false) && 
                 <div>
                     <h3>Thank you for allowing me to join you on your healing journey, {formatDisplayName(user)}!</h3>
                     <h4>Specifying your payment method is the final step to securing your appointment. You can choose to pay in person at the time of your appointment, or if you would prefer to pay with your Credit/Debit card, please select the option to receive a payment link via email. The email you receive will contain an invoice for the appointment and a link to Square's secure online payment form. If you would like to pay via PayPal, please select the in person payment method and reach out to me before your session.</h4>
@@ -110,6 +112,12 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
                         <br />
                         <button className={paymentMethod === null ? classes.buttonDisabled : classes.buttonEnabled} enabled={paymentMethod ? 'true' : 'false'} onClick={(e) => {e.preventDefault(); handleSubmit();}}>Schedule Appointment</button>
                     </form>
+                </div>
+            }
+            {sessionConfirmed === true && 
+                <div>
+                    <h3>Your appointment has been booked! Here are some tips to keep in mind while preparing for your session.</h3>
+                    <h4>Please visit the <Link to={`/${user.uid}/my-sessions`}>My Sessions</Link> page to view your upcoming appointments and edit or reschedule if need be.</h4>                
                 </div>
             }
             
