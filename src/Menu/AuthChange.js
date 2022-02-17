@@ -25,7 +25,7 @@ const formatDisplayName = (user) => {
     let firstName = user.displayName.split(' ')[0]
     return firstName
 }
-const AuthChange = ({ user, display, setDisplay}) => {
+const AuthChange = ({ user, display, setDisplay }) => {
     
     const classes = useStyles()
 
@@ -45,7 +45,7 @@ const AuthChange = ({ user, display, setDisplay}) => {
         <>
             <div className={classes.authMessage} id='auth-message'>
                 {user ? <h2 className={classes.h2}>Welcome, {formatDisplayName(user)}!</h2> : <h2 className={classes.h2}>Until next time...</h2>}
-                <img src='Chakra Mandala.png' className={classes.img} />
+                <img src='/Chakra Mandala.png' className={classes.img} />
             </div>
             
         </>

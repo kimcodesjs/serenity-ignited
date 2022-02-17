@@ -27,10 +27,9 @@ const useStyles = createUseStyles({
         
     },
     menuDiv: {
-        
         display: 'inline-flex',
         flexDirection: 'column',
-        backgroundImage: 'linear-gradient(to bottom, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0)),url("bg-pastelcosmos.jpg")',
+        backgroundImage: 'linear-gradient(to bottom, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0)),url("/bg-pastelcosmos.jpg")',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         width: '300px',
@@ -63,7 +62,6 @@ const useStyles = createUseStyles({
         fontFamily: 'inherit'
     }
 })
-
 
 const Menu = ({ setUser, user }) => {
     const classes = useStyles()

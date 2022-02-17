@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { createUseStyles } from 'react-jss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { getAuth } from 'firebase/auth'
 
 const useStyles = createUseStyles({
@@ -46,10 +46,10 @@ const useStyles = createUseStyles({
 
 
 
-const Navigation = ({ display, setDisplay, user, toggleMenu }) => {
+const Navigation = ({ display, setDisplay, user, setUser, toggleMenu }) => {
 
     const classes = useStyles()
-
+    let navigate= useNavigate()
     useEffect(() => {
         animateNavMenu()
     },[display])
@@ -61,7 +61,9 @@ const Navigation = ({ display, setDisplay, user, toggleMenu }) => {
         } else if (e.target.id === 'log-out') {
             const auth = getAuth()
             auth.signOut().then(() => {
+                setUser(null)
                 setDisplay('auth-change')
+                navigate('/')
                 console.log('user successfully logged out')
             })
         } else {
