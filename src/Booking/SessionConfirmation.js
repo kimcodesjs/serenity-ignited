@@ -46,6 +46,22 @@ const useStyles = createUseStyles({
         fontWeight: 'bold'
     }
 })
+
+const useAppointmentCardStyles = createUseStyles({
+    appointmentCard: {
+        margin: '20px',
+        width: '400px',
+        padding: '10px',
+        background: 'radial-gradient(ellipse at top, rgba(130, 150, 188, .7), transparent), radial-gradient(ellipse at bottom, rgba(130, 150, 188, .7), transparent)',
+        textShadow: '#e5d7d7 1px 0px 5px',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
+        userSelect: 'none'
+    },
+    h4: {
+        margin: 0
+    },
+})
+
 const formatDisplayName = (user) => {
     let firstName = user.displayName.split(' ')[0]
     return firstName
@@ -90,7 +106,7 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
     return (
         <>
             <h2>Session Confirmation</h2>
-            <AppointmentCard session={session} connection={connection} date={schedule.date} time={schedule.time}/>
+            <AppointmentCard session={session} connection={connection} date={schedule.date} time={schedule.time} useStyles={useAppointmentCardStyles}/>
             {user === null && 
                 <>
                     <h3 className={classes.h3}>Please {authFlow === 'sign-up' ? 'create an account' : 'log in'} to continue finalizing your appointment:</h3>
