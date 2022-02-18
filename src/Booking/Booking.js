@@ -7,13 +7,18 @@ import SessionConfirmation from './SessionConfirmation'
 
 const useStyles = createUseStyles({
     bookingContainer: {
-        backgroundImage: 'linear-gradient(to bottom, rgba(62, 109, 216, .62), rgba(60, 23, 89, .0)),url("pastel-sky.jpg")',
-        //backgroundAttachment: 'fixed',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'left 35% bottom 45%',
+        // backgroundImage: 'linear-gradient(to bottom, rgba(62, 109, 216, .62), rgba(60, 23, 89, .0)),url("pastel-sky.jpg")',
+        // backgroundAttachment: 'fixed',
+        // backgroundSize: 'cover',
+        // backgroundRepeat: 'no-repeat',
+        // backgroundPosition: 'left 35% bottom 45%',
+        // width: '100%',
+        // height: '100%'
+        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92), transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent), url("/angel wings chakras 1.jpg")',
+        backgroundAttachment: 'fixed',
+        paddingTop: '50px',
         width: '100%',
-        height: '100%'
+        minHeight: '100%'
     },
     bookingContent: {
         width: '90%',
@@ -24,11 +29,12 @@ const useStyles = createUseStyles({
     },
     h1: {
         margin: 0,
-        paddingTop: '15px'
+        paddingTop: '15px',
+        fontFamily: "'Over the Rainbow', cursive",
     },
     sessionBuilder: {
         borderRadius: '10px',
-        height: '90vh',
+        height: '100%',
         maxWidth: '900px',
         margin: '0',
         border: '15px #32a1ce',
@@ -152,23 +158,22 @@ const Booking = ({ user, setUser }) => {
                 
             
                 <div className={classes.sessionBuilder}>
-                    <div className={classes.background}></div>
-                        <h2 className={classes.h2}>Your Session</h2>
-                        <div className={view === 1 ? classes.progressActive : classes.progressBubble} onClick={onClick}>1</div>
-                        <div className={view === 2 ? classes.progressActive : classes.progressBubble} onClick={onClick}>2</div>
-                        <div className={view === 3 ? classes.progressActive : classes.progressBubble} onClick={onClick}>3</div>
-                        <div className={view === 4 ? classes.progressActive : classes.progressBubble} onClick={onClick}>4</div>
-                        <br />
-                        <div>{error ? <span>{error}</span> : null}</div>
+                    <h2 className={classes.h2}>Your Session</h2>
+                    <div className={view === 1 ? classes.progressActive : classes.progressBubble} onClick={onClick}>1</div>
+                    <div className={view === 2 ? classes.progressActive : classes.progressBubble} onClick={onClick}>2</div>
+                    <div className={view === 3 ? classes.progressActive : classes.progressBubble} onClick={onClick}>3</div>
+                    <div className={view === 4 ? classes.progressActive : classes.progressBubble} onClick={onClick}>4</div>
+                    <br />
+                    <div>{error ? <span>{error}</span> : null}</div>
                         
-                            {view === 1 && <Session setSession={setSession} updateView={updateView} setError={setError}/>}
-                            {view === 2 && <Connection setConnection={setConnection} updateView={updateView} session={session.id} setError={setError} />}
-                            {view === 3 && <Scheduler setSchedule={setSchedule} updateView={updateView} duration={session.duration}/>}
-                            {view === 4 && <SessionConfirmation user={user} session={session} connection={connection.id} schedule={schedule}/>}
-        
-                    </div>
+                    {view === 1 && <Session setSession={setSession} updateView={updateView} setError={setError}/>}
+                    {view === 2 && <Connection setConnection={setConnection} updateView={updateView} session={session.id} setError={setError} />}
+                    {view === 3 && <Scheduler setSchedule={setSchedule} updateView={updateView} duration={session.duration}/>}
+                    {view === 4 && <SessionConfirmation user={user} session={session} connection={connection.id} schedule={schedule}/>}
+
                 </div>
             </div>
+        </div>
     )
 }
 /*
