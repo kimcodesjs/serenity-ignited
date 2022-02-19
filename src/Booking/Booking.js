@@ -18,7 +18,7 @@ const useStyles = createUseStyles({
         backgroundAttachment: 'fixed',
         paddingTop: '50px',
         width: '100%',
-        minHeight: window.screen.availHeight
+        minHeight: window.screen.availHeight+60
     },
     bookingContent: {
         width: '90%',
@@ -89,9 +89,7 @@ const useStyles = createUseStyles({
     }
 })
 
-const calcScreenHeight = () => {
-    return 
-}
+console.log(window.screen.availHeight+60)
 
 const Booking = ({ user, setUser }) => {
     
