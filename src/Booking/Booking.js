@@ -89,7 +89,7 @@ const useStyles = createUseStyles({
     }
 })
 
-console.log(window.screen.availHeight+60)
+
 
 const Booking = ({ user, setUser }) => {
     
@@ -118,6 +118,11 @@ const Booking = ({ user, setUser }) => {
         }
     }, [session, connection])
 
+    useEffect(() => {
+        window.addEventListener('resize', () => {
+            document.getElementById('booking-container').style.minHeight = window.screen.availHeight
+        })
+    },[])
     
 
     const onClick = (e) => {
@@ -149,7 +154,7 @@ const Booking = ({ user, setUser }) => {
     }
 
     return (
-        <div className={classes.bookingContainer}>
+        <div className={classes.bookingContainer} id='booking-container'>
             <div className={classes.bookingContent}>
                 <h1 className={classes.h1}>Let's create your healing session!</h1>
                 <p>If you are new to energy healing, take a look at more information on Reiki and Access Consciousness.</p>
