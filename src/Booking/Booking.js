@@ -18,7 +18,7 @@ const useStyles = createUseStyles({
         backgroundAttachment: 'fixed',
         paddingTop: '50px',
         width: '100%',
-        minHeight: window.screen.availHeight+60
+        minHeight: window.screen.availHeight*1.5
     },
     bookingContent: {
         width: '90%',
