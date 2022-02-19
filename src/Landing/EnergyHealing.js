@@ -54,7 +54,7 @@ const useStyles = createUseStyles({
         height: '600px',
         backgroundImage: 'url("Water-Fire Yin Yang.png")',
         backgroundAttachment: 'fixed',
-        backgroundSize: '100% auto',
+        backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         '-webkit-mask-image': 'linear-gradient(transparent, black 5%, black 95%, transparent)',

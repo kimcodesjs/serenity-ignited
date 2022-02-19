@@ -18,7 +18,7 @@ const useStyles = createUseStyles({
         backgroundAttachment: 'fixed',
         paddingTop: '50px',
         width: '100%',
-        minHeight: '100%'
+        minHeight: window.screen.availHeight
     },
     bookingContent: {
         width: '90%',
@@ -88,6 +88,10 @@ const useStyles = createUseStyles({
         filter: 'drop-shadow(2px 2px 1px #443356)',
     }
 })
+
+const calcScreenHeight = () => {
+    return 
+}
 
 const Booking = ({ user, setUser }) => {
     
