@@ -54,7 +54,7 @@ const useStyles = createUseStyles({
         height: '600px',
         backgroundImage: 'url("Water-Fire Yin Yang.png")',
         backgroundAttachment: 'fixed',
-        backgroundSize: 'cover',
+        backgroundSize: '100% auto',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         '-webkit-mask-image': 'linear-gradient(transparent, black 5%, black 95%, transparent)',
@@ -110,7 +110,9 @@ const EnergyHealing = () => {
                 <h2 className={classes.h2}>“A healer's power stems not from any special ability, but from maintaining the courage and awareness to <span id='emph-1' className={classes.span}>embody and express</span> the <span id='emph-2' className={classes.span}>universal healing</span> power that every human being naturally possesses.”</h2>
                 <h3 className={classes.h3}>- Eric Micha'el Leventhal</h3>
             </div>
-            <div className={classes.banner} />
+            <div className={classes.banner}>
+                
+            </div>
             <div className={classes.ehText}>
             <h1 className={classes.h1}>Experience Serenity in Healing</h1>
                 <p>Put simply, Energy Healing is the means by which we restore energetic harmony within ourselves, to promote peace and well-being. Whether you are new to this experience or a seasoned recipient, my intention is to serve you in the best way I can to help you ignite your serenity! Just know that you and I are on this journey together. Some may be further along on their healing journey than others, but we all have opportunity every day to heal one more thing or two that will move us even further forward on our own paths.</p>
