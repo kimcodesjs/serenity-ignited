@@ -6,19 +6,19 @@ const useStyles = createUseStyles({
     
     optionContainer: {
         marginTop: '20px',
-        height: '65%',
+        height: '78vh',
         borderRadius: '10px',
-        // overflow: 'scroll',
-        // overflowX: 'hidden',
-        // '&::-webkit-scrollbar': {
-        //     backgroundColor: '#99bac9',
-        //     borderRadius: '10px',
-        //     width: '10px'
-        // },
-        // '&::-webkit-scrollbar-thumb': {
-        //     background: '#aa99c9',
-        //     borderRadius: '10px'
-        // }
+        overflow: 'scroll',
+        overflowX: 'hidden',
+        '&::-webkit-scrollbar': {
+            backgroundColor: '#99bac9',
+            borderRadius: '10px',
+            width: '10px'
+        },
+        '&::-webkit-scrollbar-thumb': {
+            background: '#aa99c9',
+            borderRadius: '10px'
+        }
     },
     options: {
         display: 'inline-flex',
