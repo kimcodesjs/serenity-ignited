@@ -117,14 +117,15 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
             {(user != null && sessionConfirmed === false) && 
                 <div>
                     <h3>Thank you for allowing me to join you on your healing journey, {formatDisplayName(user)}!</h3>
-                    <h4>Specifying your payment method is the final step to securing your appointment. You can choose to pay in person at the time of your appointment, or if you would prefer to pay with your Credit/Debit card, please select the option to receive a payment link via email. The email you receive will contain an invoice for the appointment and a link to Square's secure online payment form. If you would like to pay via PayPal, please select the in person payment method and reach out to me before your session.</h4>
+                    <h4>Specifying your payment method is the final step to securing your appointment. If your session will take place in person you can choose to pay at the time of your appointment, otherwise you will receive an invoice via email with a link to Square's secure online payment form to pay with your Credit/Debit card. If you would like to pay via PayPal, please contact me and we will make those arrangements.</h4>
                     <h3>Please select from the following payment method options:</h3>
                     <form id='payment-methods' className={classes.payMethodForm}>
-                        <input type='radio' id='in-person' name='payment-method' value='in-person' onChange={(e) => setPaymentMethod(e.target.value)} />
-                        <label htmlFor='in-person'>With Cash/Check at Appointment</label>
+                        {connection === 'In Person' && 
+                        (<><input type='radio' id='in-person' name='payment-method' value='in-person' onChange={(e) => setPaymentMethod(e.target.value)} />
+                        <label htmlFor='in-person'>{` With Cash/Check at Appointment`}</label></>)}
                         <br />
-                        <input type='radio' id='email-link' name='payment-method' value='email-link' onChange={(e) => setPaymentMethod(e.target.value)} />
-                        <label htmlFor='email-link'>Online Payment Link Sent Via Email</label>
+                        <input default='selected' type='radio' id='email-link' name='payment-method' value='email-link' onChange={(e) => setPaymentMethod(e.target.value)} />
+                        <label htmlFor='email-link'>{` Online Payment Link Sent Via Email`}</label>
                         <br />
                         <button className={paymentMethod === null ? classes.buttonDisabled : classes.buttonEnabled} enabled={paymentMethod ? 'true' : 'false'} onClick={(e) => {e.preventDefault(); handleSubmit();}}>Schedule Appointment</button>
                     </form>

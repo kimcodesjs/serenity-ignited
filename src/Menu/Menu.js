@@ -11,7 +11,6 @@ const useStyles = createUseStyles({
         zIndex: '3',
         position: 'fixed',
         width: '100%',
-        
     },
     menuIcon: {
         transitionProperty: 'opacity',

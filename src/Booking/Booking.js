@@ -29,8 +29,8 @@ const useStyles = createUseStyles({
     },
     h1: {
         margin: 0,
-        paddingTop: '15px',
         fontFamily: "'Over the Rainbow', cursive",
+        textShadow: '#381111 1px 0px 20px',
     },
     sessionBuilder: {
         borderRadius: '10px',
@@ -38,19 +38,8 @@ const useStyles = createUseStyles({
         maxWidth: '900px',
         margin: '0',
         border: '15px #32a1ce',
-        // backgroundImage: 'linear-gradient(to bottom, rgba(57, 65, 96, .92), rgba(60, 23, 89, .0))',
-        // backgroundAttachment: 'fixed',
-        // backgroundSize: 'fill',
-        // backgroundRepeat: 'no-repeat',
-        // backgroundPosition: 'center',
     },
-    // background: {
-    //     height: '740px',
-    //     width: '100%',
-    //     padding: '30px',
-        
-    //     overflow: 'hidden'
-    // },
+    
     h2: {
         marginBottom: '5px',
         marginTop: '0px',
@@ -117,13 +106,6 @@ const Booking = ({ user, setUser }) => {
             setError(null)
         }
     }, [session, connection])
-
-    useEffect(() => {
-        window.addEventListener('resize', () => {
-            document.getElementById('booking-container').style.minHeight = window.screen.availHeight
-        })
-    },[])
-    
 
     const onClick = (e) => {
 

@@ -19,7 +19,6 @@ const useStyles = createUseStyles({
         fontSize: '40px',
         marginTop: 0,
         marginLeft: '10%',
-        width: '400px'
     },
     mySessionsContnent: {
         display: 'inline-flex',
@@ -31,7 +30,7 @@ const useStyles = createUseStyles({
     apptCardContainer: {
         display: 'inline-flex',
         flexFlow: 'row wrap',
-        width: '50%',
+        width: '100%',
         
     },
     apptEditContainer: {
@@ -113,9 +112,6 @@ const MySessions = () => {
                                     onCancel={(e) => {e.preventDefault(); onCancel(appointment.id)}}
                                 />
                     })}
-                </div>
-                <div className={classes.apptEditContainer}>
-                    
                 </div>
             </div>
         </div>

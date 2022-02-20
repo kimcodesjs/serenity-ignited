@@ -78,9 +78,7 @@ const Authentication = ({ authFlow, setUser }) => {
                 setError(null)
             }
             createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    console.log(userCredential.user)
-                }).then(() => {
+                .then(() => {
                     updateProfile(auth.currentUser, {
                         displayName: `${firstName} ${lastName}`, phoneNumber: parseInt(phone)
                     })
@@ -104,9 +102,6 @@ const Authentication = ({ authFlow, setUser }) => {
             setError(null)
         }
         signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                console.log(userCredential.user)
-            })
             .catch((error) => {
                 console.log(error.message)
                 formatError(error.message)
