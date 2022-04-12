@@ -23,7 +23,7 @@ module.exports = {
             }
         ]
     },
-    mode: 'production',
+    mode: 'development',
     devtool: 'eval-cheap-module-source-map',
     devServer: {
         contentBase: path.join(__dirname, 'public'),

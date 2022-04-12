@@ -14,8 +14,9 @@ const useStyles = createUseStyles({
         // backgroundPosition: 'left 35% bottom 45%',
         // width: '100%',
         // height: '100%'
-        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92), transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent), url("/angel wings chakras 1.jpg")',
+        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92), transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent), url("/2.png")',
         backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
         paddingTop: '50px',
         width: '100%',
         minHeight: '100vh'

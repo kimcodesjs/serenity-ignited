@@ -12,7 +12,7 @@ const useStyles = createUseStyles({
         //justifyContent: 'center',
         height: '100%',
         minHeight: '915px',
-        backgroundImage: 'linear-gradient(to right, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0)),url("angel wings chakras 1.jpg")',
+        backgroundImage: 'linear-gradient(to right, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0)),url("1.png")',
         backgroundAttachment: 'fixed',
         '-webkit-mask-image': 'linear-gradient(black 90%, transparent)',
         maskImage: 'linear-gradient(black 90%, transparent)',

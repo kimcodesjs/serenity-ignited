@@ -8,8 +8,9 @@ import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({
     mySessions: {
-        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92), transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent), url("/angel wings chakras 1.jpg")',
+        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92), transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent), url("/3.png")',
         backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
         paddingTop: '50px',
         width: '100%',
         minHeight: '100%'

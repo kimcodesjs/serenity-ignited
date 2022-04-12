@@ -5,8 +5,9 @@ import { db } from './index'
 
 const useStyles = createUseStyles({
     contactContainer: {
-        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92), transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent), url("/angel wings chakras 1.jpg")',
+        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92), transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent), url("/4.png")',
         backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
         width: '100%',
         minHeight: '100%',
         
