@@ -7,13 +7,6 @@ import SessionConfirmation from './SessionConfirmation'
 
 const useStyles = createUseStyles({
     bookingContainer: {
-        // backgroundImage: 'linear-gradient(to bottom, rgba(62, 109, 216, .62), rgba(60, 23, 89, .0)),url("pastel-sky.jpg")',
-        // backgroundAttachment: 'fixed',
-        // backgroundSize: 'cover',
-        // backgroundRepeat: 'no-repeat',
-        // backgroundPosition: 'left 35% bottom 45%',
-        // width: '100%',
-        // height: '100%'
         background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92), transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent), url("/2.png")',
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
