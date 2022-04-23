@@ -26,14 +26,14 @@ const useStyles = createUseStyles({
         padding: '10px',
         textAlign: 'center',
         color: 'black',
-        fontSize: '20px',
+        fontSize: '30px',
         textShadow: '#381111 1px 0px 5px'
     },
     span: {
         padding: '10px',
         cursor: 'pointer',
         textAlign: 'center',
-        fontSize: '20px',
+        fontSize: '30px',
         textShadow: '#381111 1px 0px 5px',
         '-webkit-user-select': 'none', /* Safari */        
         '-moz-user-select': 'none', /* Firefox */
