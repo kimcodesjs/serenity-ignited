@@ -13,9 +13,11 @@ const useStyles = createUseStyles({
         justifyContent: 'center',
         textAlign: 'center',
         width: '100%',
-        height: '500px',
+        height: '800px',
         overflow: 'hidden',
-        maskImage: 'linear-gradient(transparent, black 10%, black 90%, transparent)',
+        background: 'white',
+        maskImage: 'linear-gradient(transparent, black 10%, black 90%, white)',
+        zIndex: '1'
     },
     span: {
         fontSize: '28.8px',
@@ -30,7 +32,7 @@ const useStyles = createUseStyles({
         marginLeft: 'auto',
         marginRight: 'auto',
         marginTop: '30px',
-        opacity: '0',
+        // opacity: '0',
         transitionProperty: 'opacity',
         transitionDuration: '2s',
         "@media (max-width: 1150px)": {
@@ -38,7 +40,7 @@ const useStyles = createUseStyles({
         }
     },
     h3: {
-        opacity: '0',
+        // opacity: '0',
         transitionProperty: 'opacity',
         transitionDuration: '2s',
         transitionDelay: '1s',
@@ -47,11 +49,10 @@ const useStyles = createUseStyles({
         }
     },
     banner: {
-        display: 'inline-flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        position: 'relative',
         width: '100%',
         height: '600px',
+        bottom: '30px',
         backgroundImage: 'url("Water-Fire Yin Yang.png")',
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
@@ -59,7 +60,8 @@ const useStyles = createUseStyles({
         backgroundPosition: 'center',
         '-webkit-mask-image': 'linear-gradient(transparent, black 5%, black 95%, transparent)',
         maskImage: 'linear-gradient(transparent, black 5%, black 95%, transparent)',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        zIndex: '2'
     },
     h1: {
         fontFamily: "'Over the Rainbow', cursive",
@@ -83,26 +85,26 @@ const useStyles = createUseStyles({
 
 const EnergyHealing = () => {
     const classes = useStyles()
-    const animateQuote = () => {
-        const quoteText = document.querySelector('h2')
-        const quoteAuth = document.querySelector('h3')
-        const quoteEmph1 = document.getElementById('emph-1')
-        const quoteEmph2 = document.getElementById('emph-2')
+    
+    // const animateQuote = () => {
+    //     const quoteText = document.querySelector('h2')
+    //     const quoteAuth = document.querySelector('h3')
+    //     const quoteEmph1 = document.getElementById('emph-1')
+    //     const quoteEmph2 = document.getElementById('emph-2')
 
-        if (window.scrollY > 200) {
-            // quoteEmph1.style.opacity = 1
-            // quoteEmph2.style.opactiy = 1
-        }
+    //     if (window.scrollY > 200) {
+    //         // quoteEmph1.style.opacity = 1
+    //         // quoteEmph2.style.opactiy = 1
+    //     }
         
-        if (window.scrollY > 300) {
-            quoteText.style.opacity = 1
-        }
-        if (window.scrollY > 400) {
-            quoteAuth.style.opacity = 1
-        }
-         
-    }
-    window.addEventListener('scroll', animateQuote, false)
+    //     if (window.scrollY > 300) {
+    //         quoteText.style.opacity = 1
+    //     }
+    //     if (window.scrollY > 400) {
+    //         quoteAuth.style.opacity = 1
+    //     }
+    // }
+    // window.addEventListener('scroll', animateQuote, true)
     return (
         <div className={classes.ehContainer}>
             <div className={classes.ehQuote}>
@@ -111,7 +113,7 @@ const EnergyHealing = () => {
                 <h3 className={classes.h3}>- Eric Micha'el Leventhal</h3>
             </div>
             <div className={classes.banner}>
-                
+
             </div>
             <div className={classes.ehText}>
             <h1 className={classes.h1}>Experience Serenity in Healing</h1>
@@ -121,6 +123,7 @@ const EnergyHealing = () => {
                 <p>Reiki works through the chakras clearing energetic blocks and helping the life force energy flow more smoothly in the body which in turn helps people feel better, think more clearly and sometimes remember their own personal worth and value. Sessions can be done in person or remotely. Remote sessions work because we are all connected energetically, and it is the Universal Life Force Energy that is flowing through to help heal what needs attention in each session. It does not need a physical connection to do its work.</p>
                 <p>Access Bars works through light touch on 32 specific points located on the head where energetic resemblances of thoughts, ideas, beliefs, conclusions and considerations reside. These can be your own, or ones that you have adopted through other people or situations in your life. Regardless of how you have acquired them, they can hold you back from being the best you possible; especially if they are not yours. It's just like acupressure, but focused on the head rather than the whole body. Because Access Bars requires the light touch of the practitioner to facilitate the energy shifts, these sessions cannot be done remotely.</p>
             </div>
+            
         </div>
     )
 }

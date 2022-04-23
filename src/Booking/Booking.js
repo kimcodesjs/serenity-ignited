@@ -6,34 +6,68 @@ import Scheduler from './Scheduler'
 import SessionConfirmation from './SessionConfirmation'
 
 const useStyles = createUseStyles({
-    bookingContainer: {
-        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92), transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent), url("/2.png")',
-        backgroundAttachment: 'fixed',
-        backgroundSize: 'cover',
-        paddingTop: '50px',
+    wrapper: {
+        width: '100vw',
+        height: '100vh',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        perspective: '10px'
+    },
+    header: {
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
         width: '100%',
-        minHeight: '100vh'
+        transformStyle: 'preserve-3d',
+        zIndex: '-1',
+       
+    },
+    background: {
+        position: 'absolute',
+        height: '110%',
+        width: '110%',
+        objectFit: 'fill',
+        zIndex: '-1',
+        transform: 'translateZ(-10px) scale(2)'
+    },
+    foreground: {
+        position: 'absolute',
+        height: '110%',
+        width: '100%',
+        objectFit: 'fill',
+        zIndex: '-1',
+        opacity: '.5',
+        transform: 'translateZ(-5px) scale(1.5)'
     },
     bookingContent: {
-        width: '90%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        width: '80%',
         maxWidth: '960px',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        padding: '10px'
+        fontSize: '1.5rem',
     },
     h1: {
         margin: 0,
         fontFamily: "'Over the Rainbow', cursive",
+        fontSize: '3rem',
         textShadow: '#381111 1px 0px 20px',
+        padding: '30px',
     },
     sessionBuilder: {
-        borderRadius: '10px',
         height: '100%',
-        maxWidth: '900px',
-        margin: '0',
+        maxWidth: '100vw',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        padding: '100px',
         border: '15px #32a1ce',
+        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, 1), white)',
+        '-webkit-mask-image': 'linear-gradient(transparent, black 10%)',
+        maskImage: 'linear-gradient(transparent, black 10%)',
     },
-    
     h2: {
         marginBottom: '5px',
         marginTop: '0px',
@@ -78,23 +112,12 @@ const Booking = ({ user, setUser }) => {
     
     let classes = useStyles()
 
-    // session state holds the user selected session, represented by a Session Object
     const [session, setSession] = useState(null)
-
-    // connection state holds the user selected connection (how a client receives the healing), represented by a Connection Object
     const [connection, setConnection] = useState(null)
-
-    // schedule state holds an object containing user selected date & time
     const [schedule, setSchedule] = useState(null)
-
-    // view state holds a number referencing the currently displayed UI
     const [view, updateView] = useState(1)
-
-    // error state holds the message displayed if a user attempts to navigate forward in the booking stage before making necessary selections
     const [error, setError] = useState(null)
 
-    
-    // clears an error message once a selection is made, if an error message was set
     useEffect(() => {
         if (error !== null) {
             setError(null)
@@ -130,31 +153,30 @@ const Booking = ({ user, setUser }) => {
     }
 
     return (
-        <div className={classes.bookingContainer} id='booking-container'>
-            <div className={classes.bookingContent}>
+        <div className={classes.wrapper} id='booking-container'>
+            <div className={classes.header}>
+                <img src='/2.png' className={classes.background}/>
+                <img src='/3.png' className={classes.foreground}/>
                 <h1 className={classes.h1}>Let's create your healing session!</h1>
-                <p>If you are new to energy healing, take a look at more information on Reiki and Access Consciousness.</p>
-                <p></p>
-                <p>The concept of being able to receive healing energy when we are not even physically together is hard to wrap your mind around. A simple way to illustrate how it works is to think of how a radio brings you music. The majority of us do not understand exactly how radio waves end up playing our favorite tunes, but the music is there...blasting through our speakers every time we turn the radio on! Reiki works in a similar way, so you can rest assured that even though we are not physically together, the energies will make their way to you just like your favorite tunes.</p>
-                <p>If you are considering an Access Bars session, please note that remote options are not available. This energy healing modality requires light physical touch. There is more information on this on Access Bars page.</p>
-                <p>From here, I'll let you go ahead and get started selecting your appointment. If you hit any snags during the booking process, or have any questions along the way, please don't hesitate to reach out.</p>
-                
-            
-                <div className={classes.sessionBuilder}>
-                    <h2 className={classes.h2}>Your Session</h2>
-                    <div className={view === 1 ? classes.progressActive : classes.progressBubble} onClick={onClick}>1</div>
-                    <div className={view === 2 ? classes.progressActive : classes.progressBubble} onClick={onClick}>2</div>
-                    <div className={view === 3 ? classes.progressActive : classes.progressBubble} onClick={onClick}>3</div>
-                    <div className={view === 4 ? classes.progressActive : classes.progressBubble} onClick={onClick}>4</div>
-                    <br />
-                    <div>{error ? <span>{error}</span> : null}</div>
-                        
-                    {view === 1 && <Session setSession={setSession} updateView={updateView} setError={setError}/>}
-                    {view === 2 && <Connection setConnection={setConnection} updateView={updateView} session={session.id} setError={setError} />}
-                    {view === 3 && <Scheduler setSchedule={setSchedule} updateView={updateView} duration={session.duration}/>}
-                    {view === 4 && <SessionConfirmation user={user} session={session} connection={connection.id} schedule={schedule}/>}
-
+                <div className={classes.bookingContent}>        
+                    <p>If you are new to energy healing, take a look at more information on Reiki and Access Consciousness.</p>
+                    <p>If you are considering an Access Bars session, please note that remote options are not available. This energy healing modality requires light physical touch. There is more information on this on Access Bars page.</p>
                 </div>
+                
+            </div>
+            <div className={classes.sessionBuilder}>
+                <h2 className={classes.h2}>Your Session</h2>
+                <div className={view === 1 ? classes.progressActive : classes.progressBubble} onClick={onClick}>1</div>
+                <div className={view === 2 ? classes.progressActive : classes.progressBubble} onClick={onClick}>2</div>
+                <div className={view === 3 ? classes.progressActive : classes.progressBubble} onClick={onClick}>3</div>
+                <div className={view === 4 ? classes.progressActive : classes.progressBubble} onClick={onClick}>4</div>
+                <br />
+                <div>{error ? <span>{error}</span> : null}</div>
+                    
+                {view === 1 && <Session setSession={setSession} updateView={updateView} setError={setError}/>}
+                {view === 2 && <Connection setConnection={setConnection} updateView={updateView} session={session.id} setError={setError} />}
+                {view === 3 && <Scheduler setSchedule={setSchedule} updateView={updateView} duration={session.duration}/>}
+                {view === 4 && <SessionConfirmation user={user} session={session} connection={connection.id} schedule={schedule}/>}
             </div>
         </div>
     )

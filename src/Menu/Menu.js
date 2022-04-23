@@ -10,7 +10,7 @@ const useStyles = createUseStyles({
     menuToggle: {
         zIndex: '3',
         position: 'fixed',
-        width: '100%',
+        width: '99%',
     },
     menuIcon: {
         transitionProperty: 'opacity',
@@ -28,7 +28,7 @@ const useStyles = createUseStyles({
     menuDiv: {
         display: 'inline-flex',
         flexDirection: 'column',
-        backgroundImage: 'linear-gradient(to bottom, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0)),url("/4.png")',
+        backgroundImage: 'linear-gradient(to bottom, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0)),url("/3.png")',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         width: '300px',
