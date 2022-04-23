@@ -27,7 +27,7 @@ const useStyles = createUseStyles({
         width: '100%',
         transformStyle: 'preserve-3d',
         zIndex: '-1',
-        //background: 'linear-gradient(to bottom, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0))'
+        background: 'linear-gradient(to bottom, rgba(56, 17, 17, .72), rgba(60, 23, 89, .0))'
     },
     background: {
         position: 'absolute',
