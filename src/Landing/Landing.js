@@ -22,7 +22,8 @@ const useStyles = createUseStyles({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100%',
+        height: '120%',
+        minHeight: '700px',
         width: '100%',
         transformStyle: 'preserve-3d',
         zIndex: '-1',
@@ -31,7 +32,7 @@ const useStyles = createUseStyles({
     background: {
         position: 'absolute',
         height: '100%',
-        width: '110%',
+        width: '120%',
         objectFit: 'cover',
         zIndex: '-1',
         transform: 'translateZ(-10px) scale(2)'
@@ -39,10 +40,10 @@ const useStyles = createUseStyles({
     foreground: {
         position: 'absolute',
         height: '100%',
-        width: '100%',
+        width: '120%',
         objectFit: 'cover',
         zIndex: '-1',
-        opacity: '.5',
+        opacity: '.7',
         transform: 'translateZ(-5px) scale(1.5)'
     },
     landing: {
@@ -51,7 +52,7 @@ const useStyles = createUseStyles({
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',
-        minHeight: '915px',
+        
         backgroundImage: 'linear-gradient(to right, rgba(56, 17, 17, .92), rgba(60, 23, 89, .0)),url("1.png")',
         backgroundAttachment: 'fixed',
         '-webkit-mask-image': 'linear-gradient(black 90%, transparent)',
@@ -75,7 +76,7 @@ const useStyles = createUseStyles({
         textAlign: 'center',
         width: '50%',
         margin: 0,
-        paddingBottom: '30px',
+        paddingBottom: '100px',
         filter: 'drop-shadow(5px 5px 1px #443356)',
         "@media (max-width: 900px)": {
             width: '75%'

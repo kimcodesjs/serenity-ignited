@@ -29,7 +29,7 @@ const useStyles = createUseStyles({
         position: 'absolute',
         height: '110%',
         width: '110%',
-        objectFit: 'fill',
+        objectFit: 'cover',
         zIndex: '-1',
         transform: 'translateZ(-10px) scale(2)'
     },
@@ -37,7 +37,7 @@ const useStyles = createUseStyles({
         position: 'absolute',
         height: '110%',
         width: '100%',
-        objectFit: 'fill',
+        objectFit: 'cover',
         zIndex: '-1',
         opacity: '.5',
         transform: 'translateZ(-5px) scale(1.5)'
@@ -58,11 +58,11 @@ const useStyles = createUseStyles({
         padding: '30px',
     },
     sessionBuilder: {
-        height: '100%',
-        maxWidth: '100vw',
+        //height: '100%',
+        width: '100vw',
         marginLeft: 'auto',
         marginRight: 'auto',
-        padding: '100px',
+        paddingTop: '100px',
         border: '15px #32a1ce',
         background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, 1), white)',
         '-webkit-mask-image': 'linear-gradient(transparent, black 10%)',
