@@ -8,7 +8,7 @@ import AuthChange from './AuthChange'
 const useStyles = createUseStyles({
     
     menuToggle: {
-        zIndex: '3',
+        zIndex: 5,
         position: 'fixed',
         width: '99%',
     },
@@ -33,7 +33,7 @@ const useStyles = createUseStyles({
         backgroundRepeat: 'no-repeat',
         width: '300px',
         height: '100%',
-        zIndex: '2',
+        zIndex: 5,
         position: 'fixed',
         right: '-310px',
         opacity: 0,

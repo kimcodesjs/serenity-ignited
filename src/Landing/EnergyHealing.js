@@ -5,6 +5,7 @@ const useStyles = createUseStyles({
     ehContainer: {
         position: 'relative',
         bottom: '29px',
+        zIndex: '3'
         //backgroundImage: 'linear-gradient(to top, rgba(25, 23, 89, .92), rgba(60, 23, 89, .0))'
     },
     ehQuote: {
@@ -13,11 +14,10 @@ const useStyles = createUseStyles({
         justifyContent: 'center',
         textAlign: 'center',
         width: '100%',
-        height: '800px',
+        height: '600px',
         overflow: 'hidden',
         background: 'white',
         maskImage: 'linear-gradient(transparent, black 10%, black 90%, white)',
-        zIndex: '1'
     },
     span: {
         fontSize: '28.8px',
@@ -32,7 +32,7 @@ const useStyles = createUseStyles({
         marginLeft: 'auto',
         marginRight: 'auto',
         marginTop: '30px',
-        // opacity: '0',
+        opacity: '0',
         transitionProperty: 'opacity',
         transitionDuration: '2s',
         "@media (max-width: 1150px)": {
@@ -40,7 +40,7 @@ const useStyles = createUseStyles({
         }
     },
     h3: {
-        // opacity: '0',
+        opacity: '0',
         transitionProperty: 'opacity',
         transitionDuration: '2s',
         transitionDelay: '1s',
@@ -86,25 +86,25 @@ const useStyles = createUseStyles({
 const EnergyHealing = () => {
     const classes = useStyles()
     
-    // const animateQuote = () => {
-    //     const quoteText = document.querySelector('h2')
-    //     const quoteAuth = document.querySelector('h3')
-    //     const quoteEmph1 = document.getElementById('emph-1')
-    //     const quoteEmph2 = document.getElementById('emph-2')
+    const animateQuote = () => {
+        const quoteText = document.querySelector('h2')
+        const quoteAuth = document.querySelector('h3')
+        const quoteEmph1 = document.getElementById('emph-1')
+        const quoteEmph2 = document.getElementById('emph-2')
 
-    //     if (window.scrollY > 200) {
-    //         // quoteEmph1.style.opacity = 1
-    //         // quoteEmph2.style.opactiy = 1
-    //     }
+        if (window.scrollY > 200) {
+            // quoteEmph1.style.opacity = 1
+            // quoteEmph2.style.opactiy = 1
+        }
         
-    //     if (window.scrollY > 300) {
-    //         quoteText.style.opacity = 1
-    //     }
-    //     if (window.scrollY > 400) {
-    //         quoteAuth.style.opacity = 1
-    //     }
-    // }
-    // window.addEventListener('scroll', animateQuote, true)
+        if (window.scrollY > 300) {
+            quoteText.style.opacity = 1
+        }
+        if (window.scrollY > 400) {
+            quoteAuth.style.opacity = 1
+        }
+    }
+    window.addEventListener('scroll', animateQuote, true)
     return (
         <div className={classes.ehContainer}>
             <div className={classes.ehQuote}>

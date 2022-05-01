@@ -14,34 +14,34 @@ const useStyles = createUseStyles({
         perspective: '10px'
     },
     header: {
-        position: 'relative',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         height: '100%',
         width: '100%',
-        transformStyle: 'preserve-3d',
-        zIndex: '-1',
+        zIndex: 3,
         background: 'linear-gradient(to bottom, rgba(56, 17, 17, .72), rgba(60, 23, 89, .0))'
        
     },
     background: {
         position: 'absolute',
+        top: 0,
+        left: 0,
         height: '110%',
-        width: '110%',
+        width: '100%',
         objectFit: 'cover',
-        zIndex: '-1',
-        transform: 'translateZ(-10px) scale(2)'
+        zIndex: '-2'
     },
     foreground: {
         position: 'absolute',
+        top: 0,
+        left: 0,
         height: '110%',
         width: '100%',
         objectFit: 'cover',
         zIndex: '-1',
-        opacity: '.5',
-        transform: 'translateZ(-5px) scale(1.5)'
+        opacity: '.6',
     },
     bookingContent: {
         display: 'flex',
@@ -50,12 +50,16 @@ const useStyles = createUseStyles({
         width: '80%',
         maxWidth: '960px',
         fontSize: '1.5rem',
+        color: 'white',
+        textShadow: '#381111 10px 10px 5px',
     },
     h1: {
         margin: 0,
         fontFamily: "'Over the Rainbow', cursive",
         fontSize: '3rem',
-        textShadow: '#381111 1px 0px 20px',
+        color: 'white',
+        textShadow: '#381111 10px 10px 5px',
+        //filter: 'drop-shadow(10px 10px 1px #443356)',
         padding: '30px',
     },
     sessionBuilder: {
@@ -113,6 +117,18 @@ const Booking = ({ user, setUser }) => {
     
     let classes = useStyles()
 
+    window.addEventListener('scroll', (e) => {
+        const foreground = document.getElementById('foreground')
+        const background = document.getElementById('background')
+        const greeting = document.getElementById('greeting')
+        const text = document.getElementById('text')
+        let value = window.scrollY
+
+        background.style.top = value * .25 + 'px'
+        foreground.style.top = value * .5 + 'px'
+        greeting.style.textShadow = `#381111 10px ${10 - value*.03}px 5px`
+        text.style.textShadow = `#381111 10px ${10 - value*.03}px 5px`
+    })
     const [session, setSession] = useState(null)
     const [connection, setConnection] = useState(null)
     const [schedule, setSchedule] = useState(null)
@@ -154,14 +170,13 @@ const Booking = ({ user, setUser }) => {
     }
 
     return (
-        <div className={classes.wrapper} id='booking-container'>
+        <>
             <div className={classes.header}>
-                <img src='/2.png' className={classes.background}/>
-                <img src='/3.png' className={classes.foreground}/>
-                <h1 className={classes.h1}>Let's create your healing session!</h1>
-                <div className={classes.bookingContent}>        
-                    <p>If you are new to energy healing, take a look at more information on Reiki and Access Consciousness.</p>
-                    <p>If you are considering an Access Bars session, please note that remote options are not available. This energy healing modality requires light physical touch. There is more information on this on Access Bars page.</p>
+                <img src='/2.png' className={classes.background} id='background'/>
+                <img src='/3.png' className={classes.foreground} id='foreground'/>
+                <h1 className={classes.h1} id='greeting'>Let's create your healing session!</h1>
+                <div className={classes.bookingContent} >        
+                    <p id='text'>If you are new to energy healing, take a look at more information on Reiki and Access Consciousness. Please note that remote options are not available for Access Consciousness sessions. This energy healing modality requires light physical touch. There is more information on this on Access Bars page.</p>
                 </div>
                 
             </div>
@@ -179,7 +194,7 @@ const Booking = ({ user, setUser }) => {
                 {view === 3 && <Scheduler setSchedule={setSchedule} updateView={updateView} duration={session.duration}/>}
                 {view === 4 && <SessionConfirmation user={user} session={session} connection={connection.id} schedule={schedule}/>}
             </div>
-        </div>
+        </>
     )
 }
 /*
