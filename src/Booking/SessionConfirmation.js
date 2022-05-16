@@ -8,7 +8,15 @@ import { collection, addDoc } from 'firebase/firestore'
 import { Link } from 'react-router-dom'
 
 const useStyles = createUseStyles({
-    
+    viewContainer: {
+        height: '80vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
+        background: 'white',
+        overflowX: 'hidden',
+    },
     h3: {
         marginBottom: '5px'
     },
@@ -52,9 +60,13 @@ const useAppointmentCardStyles = createUseStyles({
         margin: '20px',
         width: '400px',
         padding: '10px',
-        background: 'radial-gradient(ellipse at top, rgba(130, 150, 188, .7), transparent), radial-gradient(ellipse at bottom, rgba(130, 150, 188, .7), transparent)',
+        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92) 1%, transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent)',
         textShadow: '#e5d7d7 1px 0px 5px',
+        textAlign: 'start',
         filter: 'drop-shadow(2px 2px 1px #443356)',
+        'WebkitUserSelect' : 'none', /* Safari */        
+        'MozUserSelect': 'none', /* Firefox */
+        'msUserSelect': 'none', /* IE10+/Edge */
         userSelect: 'none'
     },
     h4: {
@@ -104,8 +116,8 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
         })
     }
     return (
-        <>
-            <h2>Session Confirmation</h2>
+        <div className={classes.viewContainer}>
+            <h1>Please review your session details:</h1>
             <AppointmentCard session={session} connection={connection} date={schedule.date} time={schedule.time} useStyles={useAppointmentCardStyles}/>
             {user === null && 
                 <>
@@ -138,7 +150,7 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
                 </div>
             }
             
-        </>
+        </div>
     )
 }
 

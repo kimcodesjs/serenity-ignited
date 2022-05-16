@@ -10,10 +10,10 @@ const useStyles = createUseStyles({
         width: '400px',
         height: '150px',
         borderRadius: '10px',
-        marginRight: '20px',
-        marginBottom: '10px',
-        background: 'radial-gradient(ellipse at top, rgba(130, 150, 188, .7), transparent), radial-gradient(ellipse at bottom, rgba(130, 150, 188, .7), transparent)',
+        margin: '20px',
+        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92) 1%, transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent)',
         textShadow: '#e5d7d7 1px 0px 5px',
+        textAlign: 'start',
         filter: 'drop-shadow(2px 2px 1px #443356)',
         cursor: 'pointer',
         userSelect: 'none',
@@ -29,10 +29,11 @@ const useStyles = createUseStyles({
         width: '400px',
         height: '150px',
         borderRadius: '10px',
-        marginRight: '20px',
-        marginBottom: '10px',
-        background: 'radial-gradient(ellipse at top, rgba(58, 127, 150, 1), transparent), radial-gradient(ellipse at bottom, rgba(130, 150, 188, 1), transparent)',
+        margin: '20px',
+        background: 'radial-gradient(ellipse at top, rgba(56, 17, 17, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
+        color: 'white',
         textShadow: '#e5d7d7 1px 0px 5px',
+        textAlign: 'start',
         filter: 'drop-shadow(2px 2px 1px #443356)',
         cursor: 'pointer',
         userSelect: 'none',
@@ -82,8 +83,8 @@ const OptionCard = ({ option, setActive, active}) => {
         <div onClick={onClick} className={ active ? classes.activeOption : classes.option} id={option.id}>
             <span className={classes.id}>{option.id}</span>
             <div>
-                {option.price ? <span className={classes.price}>{currencyFormatter.format(option.price)}</span> : null}
-                {option.duration ? <span className={classes.duration}>{`${option.duration.hours}h ${option.duration.minutes}m`}</span> : null}
+                {option.price && <span className={classes.price}>{currencyFormatter.format(option.price)}</span>}
+                {option.duration && <span className={classes.duration}>{`${option.duration.hours}h ${option.duration.minutes}m`}</span>}
             </div>
             <div className={classes.description}>{option.description}</div>
         </div>

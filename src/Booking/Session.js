@@ -2,138 +2,139 @@ import React, { useState } from 'react'
 import OptionCard from './OptionCard'
 import { createUseStyles } from 'react-jss'
 
+
 const useStyles = createUseStyles({
-    
-    optionContainer: {
-        marginTop: '20px',
-        height: '78vh',
-        borderRadius: '10px',
-        overflow: 'scroll',
+    viewContainer: {
+        height: '80vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
+        background: 'white',
         overflowX: 'hidden',
-        '&::-webkit-scrollbar': {
-            backgroundColor: '#99bac9',
+    },
+    modalitySelection: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '10px',
+        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92) 1%, transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent)',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
+        '& label': {
+            fontSize: '18px',
+            textAlign: 'center',
+            width: '110px',
+            'WebkitUserSelect' : 'none', /* Safari */        
+            'MozUserSelect': 'none', /* Firefox */
+            'msUserSelect': 'none', /* IE10+/Edge */
+            userSelect: 'none', /* Standard */
+            cursor: 'pointer',
             borderRadius: '10px',
-            width: '10px'
-        },
-        '&::-webkit-scrollbar-thumb': {
-            background: '#aa99c9',
-            borderRadius: '10px'
         }
     },
-    options: {
+    modalityInput: {
+        display: 'none',
+    },
+    modalitySelected: {
+        background: 'radial-gradient(rgba(56, 17, 17, .92), transparent)',
+        color: 'white',
+    },
+    optionContainer: {
         display: 'inline-flex',
-        flexFlow: 'row wrap'
+        flexFlow: 'row wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '20px',
+        maxWidth: '900px',
+        borderRadius: '10px',
+    },
+    options: {
+        
     },
     selected: {
         fontStyle: 'italic'
-    },
-    continueEnabled: {
-        marginRight: '25%',
-        marginTop: '20px',
-        width: '85px',
-        textAlign: 'center',
-        userSelect: 'none',
-        cursor: 'pointer',
-        background: 'radial-gradient(ellipse at top, rgba(130, 150, 188, .7), transparent), radial-gradient(ellipse at bottom, rgba(130, 150, 188, .7), transparent)',
-        textShadow: '#e5d7d7 1px 0px 5px',
-        filter: 'drop-shadow(2px 2px 1px #443356)',
-        borderRadius: '10px',
-        fontWeight: 'bold'
-    },
-    continueDisabled: {
-        marginRight: '25%',
-        marginTop: '20px',
-        width: '85px',
-        textAlign: 'center',
-        userSelect: 'none',
-        background: 'radial-gradient(ellipse at top, rgba(94, 94, 94, .7), transparent), radial-gradient(ellipse at bottom, rgba(100, 100, 100, .7), transparent)',
-        color: '#b2b2b2',
-        textShadow: '#e5d7d7 1px 0px 5px',
-        filter: 'drop-shadow(2px 2px 1px #443356)',
-        borderRadius: '10px',
-        fontWeight: 'bold'
     }
 })
 
 
-const Session = ({ setSession, updateView }) => {
+const Session = ({ setSession, session }) => {
 
     const classes = useStyles()
-    // active is storing the current user selected session type, set with an onClick handler inside of OptionCard.js
-    const [active, setActive] = useState(null)
-
-    // onConfirm passes the selected Session Object back to Booking.js, stored in state as session, and updates UI
-    const onConfirm = () => {
-        if (active) {
-        setSession(active)
-        updateView(2)
-        }
-    }
-
+    
+    const [activeModality, setActiveModality] = useState('Reiki')
+    
     // Session Objects
-    const options = {
-        sampleSession: {
+    const options = [
+        {
             id: 'Sample Session',
             modality: 'Reiki',
             description: 'A short sample session for those who are interested in testing the waters without committing to a full price session.',
             duration: { hours: 0, minutes: 15 },
-            price: 20
+            price: 20,
+            inPersonOnly: false
         },
-        generalHealing: {
+        {
             id: 'General Healing',
             modality: 'Reiki',
             description: 'A general cleansing of the 7 major Chakras, plus one area of focus.',
             duration: { hours: 0, minutes: 30},
-            price: 40
+            price: 40,
+            inPersonOnly: false
         },
-        inDepth: {
+        {
             id: 'In-Depth Healing',
             modality: 'Reiki',
             description: 'An extensive healing session targeting specific areas of improvement.',
             duration: { hours: 1, minutes: 0 },
-            price: 65
+            price: 65,
+            inPersonOnly: false
         },
-        accessBars: {
+        {
             id: 'Access Bars',
             modality: 'Access Consciousness',
             description: 'A full-length Access Bars session to clear energy blockages in the subconscious mind.',
             duration: { hours: 1, minutes: 30 },
-            price: 150
+            price: 150,
+            inPersonOnly: true
         },
-        accessPartial: {
+        {
             id: 'Partial Access Bars',
             modality: 'Access Consciousness',
             description: 'A shorter Access Bars session.',
             duration: { hours: 0, minutes: 45 },
-            price: 75
+            price: 75,
+            inPersonOnly: true
         },
-        package1: {
+        {
             id: 'Reiki + Access Bars',
             modality: 'Package Session',
             description: 'A powerful combination session of Reiki and Access Bars healing.',
             duration: { hours: 0, minutes: 45 },
-            price: 75
+            price: 75,
+            inPersonOnly: true
         }
-    }
+    ]
     
     return (
-        <>       
-            <h3>Choose your healing session:</h3>
-            <div className={active ? classes.continueEnabled : classes.continueDisabled} onClick={onConfirm}>Continue</div>
-            <div className={classes.optionContainer}>
-                <h4>Reiki</h4>
-                    <div className={classes.options}>
-                    <OptionCard option={options.sampleSession} setActive={setActive} active={active && active.id === options.sampleSession.id ? true : false} />
-                    <OptionCard option={options.generalHealing} setActive={setActive} active={active && active.id === options.generalHealing.id ? true : false} />
-                    <OptionCard option={options.inDepth} setActive={setActive} active={active && active.id === options.inDepth.id ? true : false} />
-                    </div>
-                <h4>Access Consciousness</h4>
-                    <OptionCard option={options.accessBars} setActive={setActive} active={active && active.id === options.accessBars.id ? true : false} />
-                
-                <h4>Packages</h4>
-                    <OptionCard option={options.package1} setActive={setActive} active={active && active.id === options.package1.id ? true : false} />
+        <div className={classes.viewContainer}>       
+            <h1>Choose your healing session:</h1>
+            
+            <div className={classes.modalitySelection}>
+                <input type='radio' name='modality-selection' value='Reiki' id='reiki' className={classes.modalityInput} onChange={(e) => setActiveModality(e.target.value)}/>
+                    <label htmlFor='reiki' className={activeModality === 'Reiki' ? classes.modalitySelected : null}>Reiki</label>
+                <input type='radio' name='modality-selection' value='Access Consciousness' id='access-consciousness' className={classes.modalityInput} onChange={(e) => setActiveModality(e.target.value)}/>
+                    <label htmlFor='access-consciousness' className={activeModality === 'Access Consciousness' ? classes.modalitySelected : null}>Access</label>
+                <input type='radio' name='modality-selection' value='Package Session' id='packages' className={classes.modalityInput} onChange={(e) => setActiveModality(e.target.value)}/>
+                    <label htmlFor='packages' className={activeModality === 'Package Session' ? classes.modalitySelected : null}>Packages</label>
             </div>
-        </>
+            <div className={classes.optionContainer}>
+                {options.filter(option => option.modality === activeModality).map(option => (
+                        <OptionCard key={option.id} option={option} setActive={setSession} active={session && session.id === option.id ? true : false} />
+                    )
+                )}
+            </div>
+        </div>
     )
 }
 
