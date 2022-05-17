@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import OptionCard from './OptionCard'
 import { createUseStyles } from 'react-jss'
+import { Transition } from 'react-transition-group'
 
 
 const useStyles = createUseStyles({
     viewContainer: {
-        height: '80vh',
+        height: '85vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         textAlign: 'center',
-        background: 'white',
         overflowX: 'hidden',
+        transition: 'opacity ease-in-out 1s'
     },
     modalitySelection: {
         display: 'flex',

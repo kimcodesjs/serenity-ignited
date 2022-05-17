@@ -21,7 +21,10 @@ const useStyles = createUseStyles({
         filter: 'drop-shadow(2px 2px 1px #443356)',
         paddingLeft: '15px',
         paddingRight: '15px',
-        fontSize: '42px'
+        fontSize: '42px',
+        '@media (max-width: 920px)': {
+            fontSize: '32px'
+        }
     }
     
 })

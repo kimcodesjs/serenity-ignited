@@ -5,16 +5,15 @@ import { DateTime, Duration, Interval } from 'luxon'
 
 const useStyles = createUseStyles({
     viewContainer: {
-        height: '80vh',
+        height: '85vh',
         maxWidth: '700px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         textAlign: 'center',
-        background: 'white',
         overflowX: 'hidden',
         marginLeft: 'auto',
-        marginRight: 'auto'
+        marginRight: 'auto',
     },
     container: {
         width: '100%',
@@ -23,41 +22,20 @@ const useStyles = createUseStyles({
         '@media (max-width: 920px)': {
             flexDirection: 'column'
         }
+        
     },
     timeSlots: {
-        paddingLeft: '25px',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        '@media (max-width: 920px)': {
+            paddingLeft: '0px'
+        }
     },
     timePicker: {
         fontFamily: 'inherit'
-    },
-    continueEnabled: {
-        marginRight: '25%',
-        marginTop: '20px',
-        width: '85px',
-        textAlign: 'center',
-        userSelect: 'none',
-        cursor: 'pointer',
-        background: 'radial-gradient(ellipse at top, rgba(130, 150, 188, .7), transparent), radial-gradient(ellipse at bottom, rgba(130, 150, 188, .7), transparent)',
-        textShadow: '#e5d7d7 1px 0px 5px',
-        filter: 'drop-shadow(2px 2px 1px #443356)',
-        borderRadius: '10px',
-    },
-    continueDisabled: {
-        marginRight: '25%',
-        marginTop: '20px',
-        width: '85px',
-        textAlign: 'center',
-        userSelect: 'none',
-        background: 'radial-gradient(ellipse at top, rgba(94, 94, 94, .7), transparent), radial-gradient(ellipse at bottom, rgba(100, 100, 100, .7), transparent)',
-        color: '#b2b2b2',
-        textShadow: '#e5d7d7 1px 0px 5px',
-        filter: 'drop-shadow(2px 2px 1px #443356)',
-        borderRadius: '10px',
     }
     
 })
-const Scheduler = ({ setSchedule, updateView, duration }) => {
+const Scheduler = ({ setSchedule, duration }) => {
 
     const classes = useStyles()
 

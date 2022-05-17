@@ -4,13 +4,13 @@ import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({
     viewContainer: {
-        height: '80vh',
+        height: '85vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         textAlign: 'center',
-        background: 'white',
         overflowX: 'hidden',
+        transition: 'opacity ease-in-out 1s'
     },
     optionContainer: {
         display: 'block',
@@ -66,7 +66,7 @@ const Connection = ({ setConnection, connection, inPersonOnly }) => {
             description: 'Receive your healing at a purely energetic level, with no physical or digital contact.'
         }
     ]
-    
+
     return (
         <div className={classes.viewContainer}>
             <h1>Select how you would prefer to connect:</h1>
