@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { createUseStyles } from 'react-jss'
 import { Transition, SwitchTransition } from 'react-transition-group'
-import BookingHeader from './BookingHeader'
-import Session from './Session'
-import Connection from './Connection'
-import Scheduler from './Scheduler'
-import SessionConfirmation from './SessionConfirmation'
+import BookingHeader from './Header/BookingHeader'
+import Session from './Views/Session'
+import Connection from './Views/Connection'
+import Scheduler from './Views/Scheduler'
+import SessionConfirmation from './Views/SessionConfirmation'
 
 const useStyles = createUseStyles({
     bookingContent: {
-        background: 'url(clouds.jpg)',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
+        background: 'url("Chakra Mandala.png") bottom left no-repeat',
+        backgroundSize: '35%',
+        '@media (max-width: 720px)': {
+            backgroundSize: '75%',
+            backgroundPosition: 'bottom'
+        }
     }
 })
 

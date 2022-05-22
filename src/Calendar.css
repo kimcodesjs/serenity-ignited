@@ -1,10 +1,13 @@
 .react-calendar {
-  width: 450px;
+  width: 400px;
   max-width: 80%;
   background: white;
   border: 1px solid #a0a096;
+  border-radius: 10px;
   font-family: 'Didact Gothic', sans-serif;
   line-height: 1.125em;
+  padding: 5px;
+  filter: drop-shadow(2px 2px 1px #443356);
 }
 
 @media (max-width: 920px) {
