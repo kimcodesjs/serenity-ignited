@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import OptionCard from './OptionCard'
 import { createUseStyles } from 'react-jss'
-import { Transition } from 'react-transition-group'
-
 
 const useStyles = createUseStyles({
     viewContainer: {
@@ -58,12 +56,6 @@ const useStyles = createUseStyles({
         marginTop: '20px',
         maxWidth: '900px',
         borderRadius: '10px',
-    },
-    options: {
-        
-    },
-    selected: {
-        fontStyle: 'italic'
     }
 })
 

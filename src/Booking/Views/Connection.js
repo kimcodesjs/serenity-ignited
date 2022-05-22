@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import OptionCard from './OptionCard'
 import { createUseStyles } from 'react-jss'
 
@@ -46,10 +46,7 @@ const useStyles = createUseStyles({
             background: '#aa99c9',
             borderRadius: '10px'
         }
-    },
-    selected: {
-        fontStyle: 'italic'
-    },
+    }
 })
 
 

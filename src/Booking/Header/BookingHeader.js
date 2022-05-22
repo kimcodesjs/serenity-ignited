@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { createUseStyles } from 'react-jss'
-import { Transition } from 'react-transition-group'
 import Greeting from './Greeting'
 import ViewTracker from './ViewTracker'
 
