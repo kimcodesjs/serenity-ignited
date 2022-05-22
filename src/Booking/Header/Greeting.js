@@ -3,11 +3,27 @@ import { createUseStyles } from 'react-jss'
 import { Transition } from 'react-transition-group'
 
 const useStyles = createUseStyles({
-    
+    greetingContainer: {
+        height: '100vh',
+        width: '100vw',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        //background: 'url("energy-healing-session.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+    },
     logo: {
-        width: '70%',
-        maxWidth: '400px',
-        height: 'auto'
+        width: '75%',
+        maxWidth: '500px',
+        height: 'auto',
+        filter: 'drop-shadow(10px 10px 2px #443356)',
+    },
+    textContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     },
     h1: {
         margin: 0,
@@ -23,7 +39,7 @@ const useStyles = createUseStyles({
         opacity: 0,
         transition: 'opacity ease-in-out 1s',
         '@media (max-width: 660px)': {
-            fontSize: '46px',
+            fontSize: '54px',
             width: '300px',
         }
     },
@@ -42,8 +58,8 @@ const useStyles = createUseStyles({
         }
     },
     button: {
-        position: 'absolute',
-        bottom: '100px',
+        // position: 'absolute',
+        // bottom: '100px',
         height: '60px',
         width: '170px',
         marginTop: '30px',
@@ -81,13 +97,19 @@ const Greeting = ({ updateView }) => {
     return (
         <Transition in={inProp} timeout={1000} appear={true} onExited={exitComponent}>
             {state => (
-                    <>    
-                        <h1 className={classes.h1} id='greeting' style={{...textTransitionStyles[state]}}>Let's create your healing session!</h1>
-                        <div className={classes.greetingText} id='text' style={{...textTransitionStyles[state]}}>        
-                            <p >If you are new to energy healing, you may want to check out an in-depth explanation of each modality before you book a session.</p>
+                    <div className={classes.greetingContainer}>  
+                        
+                            <img src='serenity-ignited-logo.png' className={classes.logo}/>
+                        
+                        <div className={classes.textContainer}> 
+                            <h1 className={classes.h1} id='greeting' style={{...textTransitionStyles[state]}}>Let's create your healing session!</h1>
+                            <div className={classes.greetingText} id='text' style={{...textTransitionStyles[state]}}>        
+                                <p >If you are new to energy healing, you may want to check out an in-depth explanation of each modality before you book a session.</p>
+                                <p>Please get in touch with me if you would like to discuss what healing session might be best for you!</p>
+                            </div>
+                            <button onClick={onClick} className={classes.button} id='button' style={{...textTransitionStyles[state]}}>Get Started</button>
                         </div>
-                        <button onClick={onClick} className={classes.button} id='button' style={{...textTransitionStyles[state]}}>Get Started</button>
-                    </>       
+                    </div>       
                 )
             }
         </Transition>
