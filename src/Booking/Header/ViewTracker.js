@@ -11,7 +11,7 @@ const useStyles = createUseStyles({
         alignItems: 'center',
         background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92) 1%, transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent)',
         width: '100%',
-        height: '10.5vh',
+        height: '12.5vh',
         filter: 'drop-shadow(2px 2px 1px #4045b2)',
         zIndex: 5,
         transition: 'top ease-in-out 1s',
@@ -29,7 +29,10 @@ const useStyles = createUseStyles({
         filter: 'drop-shadow(2px 2px 1px #443356)',
         borderRadius: '30px',
         color: 'white',
-        '@media (max-width: 920px)': {
+        '@media (max-width: 1400px)': {
+            fontSize: '46px'
+        },
+        '@media (max-width: 1000px)': {
             fontSize: '36px'
         }
     }
@@ -74,10 +77,10 @@ const ViewTracker = ({ view, updateView, allowNextView }) => {
     }
 
     const transitionStyles = {
-        entering: { top: '-10.5vh' },
+        entering: { top: '-12.5vh' },
         entered: { top: 0 },
-        exiting: { top: '-10.5vh' },
-        exited: { top: '-10.5vh' }
+        exiting: { top: '-12.5vh' },
+        exited: { top: '-12.5vh' }
     }
     
     return (

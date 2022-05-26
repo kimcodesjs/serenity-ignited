@@ -10,7 +10,6 @@ const useStyles = createUseStyles({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        //background: 'url("energy-healing-session.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center'
     },
@@ -19,6 +18,13 @@ const useStyles = createUseStyles({
         maxWidth: '500px',
         height: 'auto',
         filter: 'drop-shadow(10px 10px 2px #443356)',
+        transition: 'opacity ease-in-out 1s',
+        '@media (max-width: 1200px)': {
+            maxWidth: '300px',
+        },
+        '@media (max-width: 720px)': {
+            maxWidth: '300px',
+        }
     },
     textContainer: {
         display: 'flex',
@@ -32,29 +38,46 @@ const useStyles = createUseStyles({
         color: 'white',
         textShadow: '#381111 10px 10px 5px',
         textAlign: 'center',
-        //filter: 'drop-shadow(10px 10px 1px #443356)',
         padding: '30px',
         paddingTop: '0px',
-        paddingBottom: '0px',
+        paddingBottom: '30px',
         opacity: 0,
         transition: 'opacity ease-in-out 1s',
-        '@media (max-width: 660px)': {
+        '@media (max-width: 1200px)': {
             fontSize: '54px',
-            width: '300px',
+            maxWidth: '600px',
+        },
+        '@media (max-width: 720px)': {
+            fontSize: '48px',
+            maxWidth: '500px',
+            paddingBottom: '10px'
+        },
+        '@media (max-width: 300px)': {
+            fontSize: '38px',
+            maxWidth: '500px'
         }
     },
     greetingText: {
         width: '80%',
-        maxWidth: '600px',
-        fontSize: '1.5rem',
+        maxWidth: '700px',
+        fontSize: '20px',
         color: 'white',
         textShadow: '#381111 10px 10px 5px',
         textAlign: 'center',
         opacity: 0,
         transition: 'opacity ease-in-out 1s',
-        '@media (max-width: 660px)': {
-            width: '300px',
-            fontSize: '1.25rem'
+        '@media (max-width:720px)': {
+            fontSize: '18px',
+            maxWidth: '500px',
+            '& p': {
+                marginTop: '10px',
+                marginBottom: '10px'
+            }
+            
+        },
+        '@media (max-width: 300px)': {
+            fontSize: '14px',
+            maxWidth: '500px'
         }
     },
     button: {
@@ -63,14 +86,27 @@ const useStyles = createUseStyles({
         height: '60px',
         width: '170px',
         marginTop: '30px',
-        fontSize: '24px',
+        fontFamily: "'Clicker Script', cursive",
+        fontSize: '32px',
         opacity: 0,
         background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92) 1%, transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent)',
-        borderRadius: '10px',
+        borderRadius: '30px',
         border: 'none',
         filter: 'drop-shadow(2px 2px 1px #443356)',
         cursor: 'pointer',
-        transition: 'opacity ease-in-out 1s'
+        transition: 'opacity ease-in-out 1s',
+        '@media (max-width: 720px)': {
+            fontSize: '28px',
+            width: '140px',
+            height: '60px',
+            marginTop: '15px'
+        },
+        '@media (max-width: 300px)': {
+            fontSize: '20px',
+            width: '110px',
+            height: '40px',
+            marginTop: '15px'
+        },
     }
 })
 
@@ -95,11 +131,11 @@ const Greeting = ({ updateView }) => {
         exited:  { opacity: 0 }
     }
     return (
-        <Transition in={inProp} timeout={1000} appear={true} onExited={exitComponent}>
+        <Transition in={inProp} timeout={1000} appear={true} onExited={exitComponent} >
             {state => (
                     <div className={classes.greetingContainer}>  
                         
-                            <img src='serenity-ignited-logo.png' className={classes.logo}/>
+                            <img src='serenity-ignited-logo.png' className={classes.logo} style={{...textTransitionStyles[state]}}/>
                         
                         <div className={classes.textContainer}> 
                             <h1 className={classes.h1} id='greeting' style={{...textTransitionStyles[state]}}>Let's create your healing session!</h1>

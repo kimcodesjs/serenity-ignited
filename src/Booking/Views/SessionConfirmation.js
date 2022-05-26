@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 const useStyles = createUseStyles({
     viewContainer: {
-        height: '90vh',
+        height: '88vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

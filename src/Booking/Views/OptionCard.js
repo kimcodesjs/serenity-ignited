@@ -20,7 +20,13 @@ const useStyles = createUseStyles({
         overflow: 'hidden',
         '@media (max-width: 500px)': {
             width: '90%',
-            height: '180px'
+            height: '150px',
+            margin: '10px'
+        },
+        '@media (max-width: 300px)': {
+            width: '90%',
+            height: '150px',
+            margin: '10px'
         }
     },
     activeOption: {
@@ -40,23 +46,33 @@ const useStyles = createUseStyles({
         overflow: 'hidden',
         '@media (max-width: 690px)': {
             width: '90%',
-            height: '180px'
+            height: '150px',
+            margin: '10px'
         }
     },
     id: {
         marginTop: '10px',
         marginLeft: '20px',
         display: 'inline-block',
-        fontSize: '25px'
+        fontSize: '25px',
+        '@media (max-width: 300px)': {
+            fontSize: '20px'
+        }
     },
     description: {
         marginLeft: '20px',
         marginRight: '20px',
         fontSize: '18px',
-        fontStyle: 'italic'
+        fontStyle: 'italic',
+        '@media (max-width: 300px)': {
+            fontSize: '14px'
+        }
     },
     price: {
-        margin: '20px'
+        margin: '20px',
+        '@media (max-width: 300px)': {
+            fontSize: '16px'
+        }
     },
     duration: {
         fontStyle: 'italic',

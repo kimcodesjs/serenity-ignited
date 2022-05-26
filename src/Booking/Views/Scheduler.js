@@ -5,7 +5,7 @@ import { DateTime, Duration, Interval } from 'luxon'
 
 const useStyles = createUseStyles({
     viewContainer: {
-        height: '90vh',
+        height: '88vh',
         maxWidth: '700px',
         display: 'flex',
         flexDirection: 'column',
@@ -21,6 +21,11 @@ const useStyles = createUseStyles({
             fontSize: '24px',
             marginLeft: '70px',
             marginRight: '70px'
+        },
+        '@media (max-width: 300px)': {
+            fontSize: '24px',
+            marginLeft: '20px',
+            marginRight: '20px'
         }
     },
     container: {

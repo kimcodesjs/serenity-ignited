@@ -4,13 +4,12 @@ import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({
     viewContainer: {
-        height: '89vh',
+        height: '88vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         textAlign: 'center',
-        overflowX: 'hidden',
-        transition: 'opacity ease-in-out 1s'
+        overflowX: 'hidden'
     },
     viewPrompt: {
         marginLeft: '10px',
@@ -39,6 +38,10 @@ const useStyles = createUseStyles({
             userSelect: 'none', /* Standard */
             cursor: 'pointer',
             borderRadius: '10px',
+            '@media (max-width: 300px)': {
+                fontSize: '14px',
+                width: '70px'
+            }
         }
     },
     modalityInput: {

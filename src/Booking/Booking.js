@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { createUseStyles } from 'react-jss'
-import { Transition, SwitchTransition } from 'react-transition-group'
+import ViewTransition from './Views/ViewTransition'
 import BookingHeader from './Header/BookingHeader'
 import Session from './Views/Session'
 import Connection from './Views/Connection'
@@ -11,9 +11,8 @@ const useStyles = createUseStyles({
     bookingContent: {
         background: 'url("Chakra Mandala.png") bottom left no-repeat',
         backgroundSize: '32%',
-        '@media (max-width: 720px)': {
-            backgroundSize: '75%',
-            backgroundPosition: 'bottom'
+        '@media (max-width: 900px)': {
+            background: 'transparent'
         }
     }
 })
@@ -52,15 +51,21 @@ const Booking = ({ user, setUser }) => {
     return (
         <>
             <BookingHeader updateView={updateView} view={view} allowNextView={allowNextView}/>
-            <div className={classes.bookingContent}>
-                {view === 1 && <Session setSession={setSession} session={session} />}
-                {view === 2 && <Connection setConnection={setConnection} connection={connection} inPersonOnly={session.inPersonOnly}/>}
-                {view === 3 && <Scheduler setSchedule={setSchedule} duration={session.duration} />}
-                {view === 4 && <SessionConfirmation user={user} session={session} connection={connection.id} schedule={schedule} />}      
-            </div>
+            {view !== null &&
+                <div className={classes.bookingContent}>
+                    {view === 1 && <Session setSession={setSession} session={session} />}
+                    {view === 2 && <Connection setConnection={setConnection} connection={connection} inPersonOnly={session.inPersonOnly}/>}
+                    {view === 3 && <Scheduler setSchedule={setSchedule} duration={session.duration} />}
+                    {view === 4 && <SessionConfirmation user={user} session={session} connection={connection.id} schedule={schedule} />}    
+                </div>
+            }
         </>
     )
 }
-
+/*
+<ViewTransition isMounted={view === 1 ? true : false}>
+    <Session setSession={setSession} session={session} />
+</ViewTransition>      
+*/
 
 export default Booking

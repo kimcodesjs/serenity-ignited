@@ -47,7 +47,7 @@ const BookingHeader = ({ updateView, view, allowNextView }) => {
         const foreground = document.getElementById('foreground')
         const background = document.getElementById('background')
         if (view !== null) {
-            header.style.height = '10vh'
+            header.style.height = '12vh'
             header.style.flexDirection = 'row'
             foreground.style.opacity = 0
             background.style.opacity = 0
