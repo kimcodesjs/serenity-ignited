@@ -11,13 +11,14 @@ const useStyles = createUseStyles({
         height: '150px',
         borderRadius: '10px',
         margin: '20px',
-        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92) 1%, transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent)',
+        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92) 1%, rgba(207, 194, 213, .4)), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent)',
         textShadow: '#e5d7d7 1px 0px 5px',
         textAlign: 'start',
         filter: 'drop-shadow(2px 2px 1px #443356)',
         cursor: 'pointer',
         userSelect: 'none',
         overflow: 'hidden',
+        zIndex: 6,
         '@media (max-width: 500px)': {
             width: '90%',
             height: '150px',
@@ -44,7 +45,13 @@ const useStyles = createUseStyles({
         cursor: 'pointer',
         userSelect: 'none',
         overflow: 'hidden',
-        '@media (max-width: 690px)': {
+        zIndex: 6,
+        '@media (max-width: 500px)': {
+            width: '90%',
+            height: '150px',
+            margin: '10px'
+        },
+        '@media (max-width: 300px)': {
             width: '90%',
             height: '150px',
             margin: '10px'

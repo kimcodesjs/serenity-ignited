@@ -8,9 +8,10 @@ import AuthChange from './AuthChange'
 const useStyles = createUseStyles({
     
     menuToggle: {
-        zIndex: 5,
-        position: 'fixed',
-        width: '99%',
+        zIndex: 10,
+        position: 'absolute',
+        top: 0,
+        right: 0,
     },
     menuIcon: {
         transitionProperty: 'opacity',

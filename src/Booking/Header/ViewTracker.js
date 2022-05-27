@@ -15,7 +15,10 @@ const useStyles = createUseStyles({
         filter: 'drop-shadow(2px 2px 1px #4045b2)',
         zIndex: 5,
         transition: 'top ease-in-out 1s',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        '@media (max-width: 300px)': {
+            justifyContent: 'normal'
+        }
     },
     viewTitle: {
         //filter: 'drop-shadow(2px 2px 1px #443356)',
@@ -34,6 +37,9 @@ const useStyles = createUseStyles({
         },
         '@media (max-width: 1000px)': {
             fontSize: '36px'
+        },
+        '@media (max-width: 300px)': {
+            fontSize: '26px'
         }
     }
     

@@ -10,7 +10,8 @@ const useStyles = createUseStyles({
         alignItems: 'center',
         textAlign: 'center',
         overflowX: 'hidden',
-        transition: 'opacity ease-in-out 1s'
+        transition: 'opacity ease-in-out 1s',
+        zIndex: 6
     },
     viewPrompt: {
         marginBottom: '0',

@@ -9,12 +9,31 @@ import SessionConfirmation from './Views/SessionConfirmation'
 
 const useStyles = createUseStyles({
     bookingContent: {
-        background: 'url("Chakra Mandala.png") bottom left no-repeat',
-        backgroundSize: '32%',
-        '@media (max-width: 900px)': {
-            background: 'transparent'
+        paddingBottom: '20px'
+    },
+    imgRight: {
+        position: 'absolute',
+        bottom: 0,
+        right: 10,
+        width: '25%',
+        height: 'auto',
+        transform: 'rotateY(180deg)',
+        zIndex: 3,
+        '@media (max-width: 800px)': {
+            display: 'none'
         }
-    }
+    },
+    imgLeft: {
+        position: 'absolute',
+        bottom: 0,
+        left: 10,
+        width: '25%',
+        height: 'auto',
+        zIndex: 3,
+        '@media (max-width: 800px)': {
+            display: 'none'
+        }
+    } 
 })
 
 const Booking = ({ user, setUser }) => {
@@ -59,6 +78,8 @@ const Booking = ({ user, setUser }) => {
                     {view === 4 && <SessionConfirmation user={user} session={session} connection={connection.id} schedule={schedule} />}    
                 </div>
             }
+            <img src='Chakra Mandala.png' className={classes.imgLeft} />
+            <img src='Chakra Mandala.png' className={classes.imgRight}/>
         </>
     )
 }

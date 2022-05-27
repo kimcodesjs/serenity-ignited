@@ -5,16 +5,16 @@ import ViewTracker from './ViewTracker'
 
 const useStyles = createUseStyles({
     header: {
+        position: 'sticky',
         display: 'inline-flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
         width: '100%',
-        zIndex: 3,
         background: 'linear-gradient(to bottom, rgba(56, 17, 17, .72), rgba(60, 23, 89, .0))',
-        transition: 'height ease-in-out 1.5s',
-        
+        zIndex: 3,
+        transition: 'height ease-in-out 1.5s', 
     },
     background: {
         position: 'absolute',
@@ -44,21 +44,20 @@ const BookingHeader = ({ updateView, view, allowNextView }) => {
     
     useEffect(() => {
         const header = document.getElementById('header')
-        const foreground = document.getElementById('foreground')
-        const background = document.getElementById('background')
+        // const foreground = document.getElementById('foreground')
+        // const background = document.getElementById('background')
         if (view !== null) {
             header.style.height = '12vh'
             header.style.flexDirection = 'row'
-            foreground.style.opacity = 0
-            background.style.opacity = 0
+            // foreground.style.opacity = 0
+            // background.style.opacity = 0
         }
     }, [view])
     
     return (
         <> 
             <div className={classes.header} id='header'>
-                <img src='/2.png' className={classes.background} id='background'/>
-                <img src='/3.png' className={classes.foreground} id='foreground'/>
+                
                 {view === null && <Greeting updateView={updateView} />}
                 {view !== null && (
                       <ViewTracker view={view} updateView={updateView} allowNextView={allowNextView}/>
@@ -68,5 +67,6 @@ const BookingHeader = ({ updateView, view, allowNextView }) => {
         </>
     )
 }
-
+{/* <img src='/2.png' className={classes.background} id='background'/>
+<img src='/3.png' className={classes.foreground} id='foreground'/> */}
 export default BookingHeader

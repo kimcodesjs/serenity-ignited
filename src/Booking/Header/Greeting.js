@@ -11,13 +11,16 @@ const useStyles = createUseStyles({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundSize: 'cover',
-        backgroundPosition: 'center'
+        backgroundPosition: 'center',
+        '@media (max-width: 800px)': {
+            //justifyContent: 'normal'
+        }
     },
     logo: {
         width: '75%',
         maxWidth: '500px',
         height: 'auto',
-        filter: 'drop-shadow(10px 10px 2px #443356)',
+        filter: 'drop-shadow(0px 0px 3px #443356)',
         transition: 'opacity ease-in-out 1s',
         '@media (max-width: 1200px)': {
             maxWidth: '300px',
@@ -35,14 +38,15 @@ const useStyles = createUseStyles({
         margin: 0,
         fontFamily: "'Clicker Script', cursive",
         fontSize: '62px',
-        color: 'white',
-        textShadow: '#381111 10px 10px 5px',
+        //color: 'white',
+        textShadow: '#381111 2px 2px 5px',
         textAlign: 'center',
         padding: '30px',
         paddingTop: '0px',
         paddingBottom: '30px',
         opacity: 0,
         transition: 'opacity ease-in-out 1s',
+        zIndex: 8,
         '@media (max-width: 1200px)': {
             fontSize: '54px',
             maxWidth: '600px',
@@ -61,11 +65,12 @@ const useStyles = createUseStyles({
         width: '80%',
         maxWidth: '700px',
         fontSize: '20px',
-        color: 'white',
-        textShadow: '#381111 10px 10px 5px',
+        //color: 'white',
+        textShadow: '#381111 2px 2px 5px',
         textAlign: 'center',
         opacity: 0,
         transition: 'opacity ease-in-out 1s',
+        zIndex: 8,
         '@media (max-width:720px)': {
             fontSize: '18px',
             maxWidth: '500px',
@@ -88,8 +93,10 @@ const useStyles = createUseStyles({
         marginTop: '30px',
         fontFamily: "'Clicker Script', cursive",
         fontSize: '32px',
+        textShadow: '#e5d7d7 1px 0px 5px',
+        color: 'white',
         opacity: 0,
-        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92) 1%, transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent)',
+        background: 'radial-gradient(ellipse at top, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
         borderRadius: '30px',
         border: 'none',
         filter: 'drop-shadow(2px 2px 1px #443356)',
