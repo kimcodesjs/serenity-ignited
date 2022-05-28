@@ -1,14 +1,29 @@
 import React, { useState, useEffect } from 'react'
 
 import { createUseStyles } from 'react-jss'
-import Authentication from '../Menu/Authentication'
+import Authentication from '../../Menu/Authentication'
 import AppointmentCard from './AppointmentCard'
-import { db } from '../index'
+import { db } from '../../index'
 import { collection, addDoc } from 'firebase/firestore'
 import { Link } from 'react-router-dom'
 
 const useStyles = createUseStyles({
-    
+    viewContainer: {
+        height: '88vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
+        overflowX: 'hidden',
+    },
+    viewPrompt: {
+        marginBottom: '0',
+        '@media (max-width: 920px)': {
+            fontSize: '24px',
+            marginLeft: '70px',
+            marginRight: '70px'
+        }
+    },
     h3: {
         marginBottom: '5px'
     },
@@ -51,11 +66,21 @@ const useAppointmentCardStyles = createUseStyles({
     appointmentCard: {
         margin: '20px',
         width: '400px',
+        maxWidth: '85%',
         padding: '10px',
-        background: 'radial-gradient(ellipse at top, rgba(130, 150, 188, .7), transparent), radial-gradient(ellipse at bottom, rgba(130, 150, 188, .7), transparent)',
+        background: 'radial-gradient(ellipse at top, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
         textShadow: '#e5d7d7 1px 0px 5px',
+        textAlign: 'start',
+        color: 'white',
+        borderRadius: '10px',
         filter: 'drop-shadow(2px 2px 1px #443356)',
-        userSelect: 'none'
+        'WebkitUserSelect' : 'none', /* Safari */        
+        'MozUserSelect': 'none', /* Firefox */
+        'msUserSelect': 'none', /* IE10+/Edge */
+        userSelect: 'none',
+        '@media (max-width: 920px)': {
+            //fontSize: '36px'
+        }
     },
     h4: {
         margin: 0
@@ -104,8 +129,8 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
         })
     }
     return (
-        <>
-            <h2>Session Confirmation</h2>
+        <div className={classes.viewContainer}>
+            <h1 className={classes.viewPrompt}>Please review your session details:</h1>
             <AppointmentCard session={session} connection={connection} date={schedule.date} time={schedule.time} useStyles={useAppointmentCardStyles}/>
             {user === null && 
                 <>
@@ -138,7 +163,7 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
                 </div>
             }
             
-        </>
+        </div>
     )
 }
 

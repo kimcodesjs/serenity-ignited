@@ -1,5 +1,4 @@
 import React from 'react'
-import { createUseStyles } from 'react-jss'
 import { DateTime } from 'luxon'
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {

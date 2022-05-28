@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import AppointmentCard from './Booking/AppointmentCard'
+import AppointmentCard from './Booking/Views/AppointmentCard'
 import { db } from './index'
 import { collection, query, where, getDocs, orderBy, deleteDoc, doc } from 'firebase/firestore'
 import { useParams } from 'react-router-dom'
