@@ -23,7 +23,7 @@ const useStyles = createUseStyles({
 
 const App = () => {
 
-    const [user, setUser] = useState()
+    const [user, setUser] = useState(null)
     
     useEffect(() => {
         const auth = getAuth()

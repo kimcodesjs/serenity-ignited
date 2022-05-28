@@ -10,6 +10,10 @@ import { Link } from 'react-router-dom'
 const useStyles = createUseStyles({
     viewContainer: {
         height: '88vh',
+        width: '70%',
+        maxWidth: '800px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -34,39 +38,72 @@ const useStyles = createUseStyles({
         cursor: 'pointer',
         userSelect: 'none'
     },
-    buttonEnabled: {
-        marginRight: '25%',
-        marginTop: '20px',
-        width: '85px',
-        textAlign: 'center',
-        userSelect: 'none',
-        cursor: 'pointer',
-        background: 'radial-gradient(ellipse at top, rgba(130, 150, 188, .7), transparent), radial-gradient(ellipse at bottom, rgba(130, 150, 188, .7), transparent)',
-        textShadow: '#e5d7d7 1px 0px 5px',
-        filter: 'drop-shadow(2px 2px 1px #443356)',
+    paymentSelect: {
+        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92) 1%, rgba(207, 194, 213, .4)), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent)',
         borderRadius: '10px',
-        fontWeight: 'bold'
+        filter: 'drop-shadow(2px 2px 1px #443356)',
+        width: '50%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        padding: '15px'
+    },
+    buttonEnabled: {
+        // height: '60px',
+        // width: '170px',
+        marginTop: '30px',
+        fontFamily: "'Clicker Script', cursive",
+        fontSize: '24px',
+        textShadow: '#e5d7d7 1px 0px 5px',
+        color: 'white',
+        background: 'radial-gradient(ellipse at top, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
+        borderRadius: '30px',
+        border: 'none',
+        filter: 'drop-shadow(2px 2px 1px #443356)',
+        cursor: 'pointer',
+        transition: 'opacity ease-in-out 1s',
+        '@media (max-width: 720px)': {
+            fontSize: '28px',
+            width: '140px',
+            height: '60px',
+            marginTop: '15px'
+        },
+        '@media (max-width: 300px)': {
+            fontSize: '20px',
+            width: '110px',
+            height: '40px',
+            marginTop: '15px'
+        },
     },
     buttonDisabled: {
-        marginRight: '25%',
-        marginTop: '20px',
-        width: '85px',
-        textAlign: 'center',
-        userSelect: 'none',
-        background: 'radial-gradient(ellipse at top, rgba(94, 94, 94, .7), transparent), radial-gradient(ellipse at bottom, rgba(100, 100, 100, .7), transparent)',
-        color: '#b2b2b2',
+        marginTop: '30px',
+        fontFamily: "'Clicker Script', cursive",
+        fontSize: '24px',
         textShadow: '#e5d7d7 1px 0px 5px',
+        color: 'white',
+        background: 'radial-gradient(ellipse at top, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
+        borderRadius: '30px',
+        border: 'none',
         filter: 'drop-shadow(2px 2px 1px #443356)',
-        borderRadius: '10px',
-        fontWeight: 'bold'
+        cursor: 'pointer',
+        transition: 'opacity ease-in-out 1s',
+        '@media (max-width: 720px)': {
+            fontSize: '28px',
+            width: '140px',
+            height: '60px',
+            marginTop: '15px'
+        },
+        '@media (max-width: 300px)': {
+            fontSize: '20px',
+            width: '110px',
+            height: '40px',
+            marginTop: '15px'
+        },
     }
 })
 
 const useAppointmentCardStyles = createUseStyles({
     appointmentCard: {
         margin: '20px',
-        width: '400px',
-        maxWidth: '85%',
         padding: '10px',
         background: 'radial-gradient(ellipse at top, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
         textShadow: '#e5d7d7 1px 0px 5px',
@@ -134,26 +171,29 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
             <AppointmentCard session={session} connection={connection} date={schedule.date} time={schedule.time} useStyles={useAppointmentCardStyles}/>
             {user === null && 
                 <>
-                    <h3 className={classes.h3}>Please {authFlow === 'sign-up' ? 'create an account' : 'log in'} to continue finalizing your appointment:</h3>
+                    <h3 className={classes.h3}>Sign in to continue finalizing your appointment:</h3>
                     {authFlow === 'sign-up' && <p className={classes.p} onClick={(e) => {e.preventDefault(); setAuthFlow('log-in')}}>I already have an account!</p>}
+                    {authFlow === 'log-in' && <p className={classes.p} onClick={(e) => {e.preventDefault(); setAuthFlow('sign-up')}}>I don't have an account yet.</p>}
                     <Authentication authFlow={authFlow} />
                     
                 </>}
             {(user != null && sessionConfirmed === false) && 
                 <div>
-                    <h3>Thank you for allowing me to join you on your healing journey, {formatDisplayName(user)}!</h3>
+                    <h2>Thank you for allowing me to join you on your healing journey, {formatDisplayName(user)}!</h2>
                     <h4>Specifying your payment method is the final step to securing your appointment. If your session will take place in person you can choose to pay at the time of your appointment, otherwise you will receive an invoice via email with a link to Square's secure online payment form to pay with your Credit/Debit card. If you would like to pay via PayPal, please contact me and we will make those arrangements.</h4>
-                    <h3>Please select from the following payment method options:</h3>
-                    <form id='payment-methods' className={classes.payMethodForm}>
-                        {connection === 'In Person' && 
-                        (<><input type='radio' id='in-person' name='payment-method' value='in-person' onChange={(e) => setPaymentMethod(e.target.value)} />
-                        <label htmlFor='in-person'>{` With Cash/Check at Appointment`}</label></>)}
-                        <br />
-                        <input default='selected' type='radio' id='email-link' name='payment-method' value='email-link' onChange={(e) => setPaymentMethod(e.target.value)} />
-                        <label htmlFor='email-link'>{` Online Payment Link Sent Via Email`}</label>
-                        <br />
-                        <button className={paymentMethod === null ? classes.buttonDisabled : classes.buttonEnabled} enabled={paymentMethod ? 'true' : 'false'} onClick={(e) => {e.preventDefault(); handleSubmit();}}>Schedule Appointment</button>
-                    </form>
+                    <div className={classes.paymentSelect}>
+                        <h3>Select a payment method:</h3>
+                        <form id='payment-methods' className={classes.payMethodForm}>
+                            {connection === 'In Person' && 
+                            (<><input type='radio' id='in-person' name='payment-method' value='in-person' onChange={(e) => setPaymentMethod(e.target.value)} />
+                            <label htmlFor='in-person'>{` With Cash/Check at Appointment`}</label></>)}
+                            <br />
+                            <input default='selected' type='radio' id='email-link' name='payment-method' value='email-link' onChange={(e) => setPaymentMethod(e.target.value)} />
+                            <label htmlFor='email-link'>{` Online Payment Link Sent Via Email`}</label>
+                            <br />
+                            <button className={paymentMethod === null ? classes.buttonDisabled : classes.buttonEnabled} enabled={paymentMethod ? 'true' : 'false'} onClick={(e) => {e.preventDefault(); handleSubmit();}}>Schedule Appointment</button>
+                        </form>
+                    </div>
                 </div>
             }
             {sessionConfirmed === true && 
