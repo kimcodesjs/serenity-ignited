@@ -9,7 +9,7 @@ const useStyles = createUseStyles({
     
     menuToggle: {
         zIndex: 10,
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
         right: 0,
     },
