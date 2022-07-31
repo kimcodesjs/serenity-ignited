@@ -1,8 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createUseStyles, withTheme } from 'react-jss'
-import EnergyHealing from './EnergyHealing'
-import Reiki from './Reiki'
-import Access from './Access'
 
 const useStyles = createUseStyles({
 
@@ -38,10 +35,10 @@ const useStyles = createUseStyles({
         
     },
     greeting: {
-        fontFamily: "'Clicker Script', cursive",
-        fontStyle: 'italic',
+        fontFamily: "'Annie Use Your Telescope', cursive",
+        //fontStyle: 'italic',
         fontSize: '50px',
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         color: 'white',
         textShadow: '#381111 5px 0px 5px',
         textAlign: 'center',
@@ -70,34 +67,38 @@ const useStyles = createUseStyles({
         zIndex: 0,
         "@media (max-width: 400px)": {
             width: '90%',
-            height: 'auto'
+            height: 'auto',
+            paddingRight: 0
         }
     },
     contentContainer: {
         background: 'white',
         maskImage: 'linear-gradient(transparent, black 10%, black 90%, white)',
-        height: '800px'
+        paddingTop: '150px'
     },
-    aboutSnippet: {
+    moduleContainer: {
         width: '70%',
-        paddingTop: '100px',
         marginLeft: 'auto',
         marginRight: 'auto',
         display: 'flex',
-        flexFlow: 'row wrap'
+        flexFlow: 'column nowrap',
+        "@media (max-width: 400px)": {
+            flexFlow: 'column nowrap'
+        }
     },
-    aboutTitle: {
-        width: '100%'
+    moduleTitle: {
+        width: '100%',
+        marginBottom: '0px',
+        fontFamily: "'Euphoria Script', cursive",
+        fontSize: '50px',
     },
-    aboutText: {
-        width: '70%',
-        textAlign: 'justify'
-    },
-    aboutButton: {
-        width: '30%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
+    moduleText: {
+        width: '100%',
+        textAlign: 'justify',
+        flexGrow: 2,
+        "@media (max-width: 400px)": {
+            width: '100%'
+        }
     },
     button: {
         width: '140px',
@@ -124,23 +125,47 @@ const useStyles = createUseStyles({
             height: '40px',
             marginTop: '15px'
         },
+    },
+    moduleImg: {
+        display: 'block',
+        width: '40%',
+        height: 'auto',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        "@media (max-width: 400px)": {
+            width: '80%'
+        }
+    },
+    sectionTitle: {
+        marginBottom: '0px',
+        fontFamily: "'Euphoria Script', cursive",
+        fontSize: '65px',
+        textAlign: 'center'
     }
 })
 
 const Landing = () => {
     const classes = useStyles()
-    window.addEventListener('scroll', (e) => {
-        const foreground = document.getElementById('foreground')
-        const background = document.getElementById('background')
-        const logo = document.getElementById('logo')
-        const greeting = document.getElementById('greeting')
-        let value = window.scrollY
 
-        background.style.top = value * .25 + 'px'
-        foreground.style.top = value * .5 + 'px'
-        logo.style.filter = `drop-shadow(10px ${10 - (value*.03)}px 1px #443356)`
-        greeting.style.filter = `drop-shadow(10px ${10 - value*.03}px 1px #443356)`
-    })
+    useEffect(() => {
+        window.addEventListener('scroll', scrollStyleUpdates)
+        return () => {
+            window.removeEventListener('scroll', scrollStyleUpdates)
+        }
+    }, [])
+
+    const scrollStyleUpdates = () => {
+        const foreground = document.getElementById('foreground')
+            const background = document.getElementById('background')
+            const logo = document.getElementById('logo')
+            const greeting = document.getElementById('greeting')
+            let value = window.scrollY
+    
+            background.style.top = value * .25 + 'px'
+            foreground.style.top = value * .5 + 'px'
+            logo.style.filter = `drop-shadow(10px ${10 - (value*.03)}px 1px #443356)`
+            greeting.style.filter = `drop-shadow(10px ${10 - value*.03}px 1px #443356)`
+    }
     return (
         <>
             <div className={classes.header}>
@@ -152,13 +177,36 @@ const Landing = () => {
                 </p>
             </div>
             <div className={classes.contentContainer}>
-                <div className={classes.aboutSnippet}>
-                    <h1 className={classes.aboutTitle}>Our Mission</h1>
-                    <h3 className={classes.aboutText}>Serenity Ignited, LLC is committed to helping people ignite the fire within themselves to move forward from past traumas and bring serenity to their lives. We empower people to stand in their own sovereignty, allowing them to embrace their true Self. We offer healing to help people access what they hold inside, meditations to help shape awareness of the world around us, a safe space to talk about it while they build their foundation, and tools that sustain them on their journey forward.</h3>
-                    <div className={classes.aboutButton}>
+                <div className={classes.moduleContainer}>
+                    <h1 className={classes.moduleTitle}>Our Mission</h1>
+                    <h3 className={classes.moduleText}>Serenity Ignited, LLC is committed to helping people ignite the fire within themselves to move forward from past traumas and bring serenity to their lives. We empower people to stand in their own sovereignty, allowing them to embrace their true Self. We offer healing to help people access what they hold inside, meditations to help shape awareness of the world around us, a safe space to talk about it while they build their foundation, and tools that sustain them on their journey forward.</h3>
+                    <div className={classes.buttonContainer}>
                         <button className={classes.button}>Read More</button>
                     </div>
                 </div>
+                <img src='Chakra Mandala.png' className={classes.moduleImg}/>
+                <h1 className={classes.sectionTitle}>What We Do</h1>
+                <div className={classes.moduleContainer}>
+                    <h1 className={classes.moduleTitle}>Meditation Circles!</h1>
+                    <div className={classes.moduleText}>
+                        <h3>Thursday nights are all about coming together to support each other in the physical realm while we venture within to receive individual guidance in the energetic realm.<br/>
+                        <br/>Anything from guided sessions to solely instrumental music will be offered. Some sessions will focus on specific topics, like overcoming stress  and anxiety, while others will be purely to provide some peace and relaxation.<br/>
+                        <br/>Whether you are a beginner, or have been meditating for decades, you are welcome! Serenity Ignited is a safe, judgement-free space for everyone to ignite the serenity within.<br/>
+                        <br/>We currently have room for only 7, so click over to the Booking page to reserve your spot!</h3>
+                    </div>
+                    <div className={classes.buttonContainer}>
+                        <button className={classes.button}>RSVP</button>
+                    </div>
+                </div>
+            </div>
+            <div className={classes.moduleContainer}>
+                <h1 className={classes.moduleTitle}>Energy Healing</h1>
+                <h3 className={classes.moduleText}>Put simply, Energy Healing is the means by which we restore energetic harmony within ourselves, to promote peace and well-being. It is a holistic approach to healing the mind and body, predicated upon the understanding that they are connected energetically in a powerful way. This connection is intricate and dynamic, yet fragile in that an imbalance of the energies within us will manifest physical and mental ailments. Energy Healing practitioners work to restore balance to the energetic body, alleviating the symptoms we experience by treating the root cause.</h3>
+                <h2>Reiki</h2>
+                <h3 className={classes.moduleText}>A large part of the benefits people see from receiving Reiki sessions stems from the cleansing of the Chakras. When they are clear of blocks and negative energy, the body may be able to defend itself against many issues.</h3>
+                <h2>Access Bars</h2>
+                <h3 className={classes.moduleText}>This healing modality helps to clear the subconscious by releasing beliefs, thought patterns, and emotions that no longer serve us using gentle pressure applied to specific areas of the cranium.</h3>
+
             </div>
         </>
     )
