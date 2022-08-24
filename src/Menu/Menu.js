@@ -12,6 +12,10 @@ const useStyles = createUseStyles({
         position: 'fixed',
         top: 0,
         right: 0,
+        marginTop: '10px',
+        marginRight: '10px',
+        borderRadius: '50%',
+        background: 'radial-gradient(rgba(185, 221, 232, .92) 10%, transparent)'
     },
     menuIcon: {
         transitionProperty: 'opacity',
@@ -20,8 +24,6 @@ const useStyles = createUseStyles({
         float: 'right',
         width: '60px',
         height: 'auto',
-        marginTop: '10px',
-        marginRight: '10px',
         filter: 'drop-shadow(2px 2px 1px #443356)',
         cursor: 'pointer'
         
