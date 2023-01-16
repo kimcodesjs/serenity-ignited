@@ -80,12 +80,13 @@ const Navigation = ({ display, setDisplay, user, setUser, toggleMenu }) => {
         }
         
     }
-    /* add uid url parameter for my-sessions */
+    
     return (
         <div id='nav-menu' className={classes.navMenu} onClick={(e) => {e.preventDefault(); handleLinkClicks(e)}}>
             <Link to='/'>
                 <img src='/serenity-ignited-logo.png' className={classes.menuLogo} id='menu-logo' onClick={toggleMenu}/>
             </Link>
+            <Link to='/info' className={classes.navLink} id='info'>Learn About Energy Healing</Link>
             <Link to='/booking' className={classes.navLink} id='book-a-session'>Book a Session</Link>
             <Link to='/contact-me' className={classes.navLink} id='contact-me'>Contact Me</Link>
             <Link to='/about-me' className={classes.navLink} id='about-me'>About Me</Link>

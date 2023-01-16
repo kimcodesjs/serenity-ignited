@@ -7,6 +7,7 @@ import { getAuth } from 'firebase/auth'
 import ScrollToTop from './ScrollToTop'
 import Menu from './Menu/Menu'
 const Landing = React.lazy(() => import('./Landing/Landing'))
+const Info = React.lazy(() => import('./Info/Info'))
 const Booking = React.lazy(() => import('./Booking/Booking'))
 const AboutMe = React.lazy(() => import('./AboutMe'))
 const ContactMe = React.lazy(() => import('./ContactMe'))
@@ -31,7 +32,9 @@ const App = () => {
             user && setUser(user)
         })
     }, [user])
+
     const classes = useStyles()
+
     return (
         <div className={classes.app}>
             <BrowserRouter>
@@ -39,12 +42,13 @@ const App = () => {
                     <Menu user={user} setUser={setUser} />
                     <Suspense fallback={<div>Loading...</div>}>
                     <Routes>
-                        <Route path="/" element={<Landing />} /> 
+                        <Route path="/" element={<Landing />} />
+                        <Route path='/info/*' element={<Info />} />
                         <Route path='booking' element={<Booking user={user} setUser={setUser} />} />
-                        <Route path="contact-me" element={<ContactMe />}/>
-                        <Route path="about-me" element={<AboutMe />}/>
-                        <Route path="admin" element={<Admin />}/>
-                        <Route path='/:userID/my-sessions' element={<MySessions />}/>
+                        <Route path="contact-me" element={<ContactMe />} />
+                        <Route path="about-me" element={<AboutMe />} />
+                        <Route path="admin" element={<Admin />} />
+                        <Route path='/:userID/my-sessions' element={<MySessions />} />
                     </Routes>
                     </Suspense>
                 </ScrollToTop>

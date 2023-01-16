@@ -9,7 +9,7 @@ const useStyles = createUseStyles({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92) 1%, transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent)',
+        background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92) 1%, transparent), radial-gradient(ellipse at bottom, rgba(185, 221, 232, .92), transparent)',
         width: '100%',
         height: '12.5vh',
         filter: 'drop-shadow(2px 2px 1px #4045b2)',
