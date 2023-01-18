@@ -3,7 +3,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
-// const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
@@ -29,7 +29,7 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 app.use(express.json());
-// app.use(cookieParser());
+app.use(cookieParser());
 app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp());
