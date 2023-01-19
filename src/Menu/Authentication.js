@@ -77,7 +77,7 @@ const Authentication = ({ authFlow, setUser }) => {
         setError(null);
       }
       try {
-        const res = await axios({
+        await axios({
           method: 'POST',
           url: `http://127.0.0.1:3000/api/v1/users/signup`,
           data: {
@@ -86,8 +86,10 @@ const Authentication = ({ authFlow, setUser }) => {
             password,
             passwordConfirm,
           },
+        }).then((res) => {
+          showAlert('Success!');
+          setUser(res.data.user);
         });
-        res.data.status === 'success' && showAlert('Success!');
       } catch (err) {
         console.log(err);
       }
@@ -103,16 +105,17 @@ const Authentication = ({ authFlow, setUser }) => {
     const email = document.getElementById('email-input').value;
     const password = document.getElementById('password-input').value;
     try {
-      const res = await axios({
+      await axios({
         method: 'POST',
         url: `http://127.0.0.1:3000/api/v1/users/login`,
         data: {
           email,
           password,
         },
+      }).then((res) => {
+        showAlert('Success!');
+        setUser(res.data.user);
       });
-      res.data.status === 'success' && showAlert('Success!');
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
