@@ -13,6 +13,7 @@ const globalErrorHandler = require('./utils/errorHandler');
 
 // ROUTER IMPORTS
 const userRouter = require('./routes/userRouter');
+const sessionRouter = require('./routes/sessionRouter');
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(hpp());
 
 // ROUTES
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/sessions', sessionRouter);
 
 app.use(globalErrorHandler);
 module.exports = app;
