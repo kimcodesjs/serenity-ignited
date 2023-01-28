@@ -72,7 +72,6 @@ const Booking = ({ user, setUser }) => {
           url: `http://127.0.0.1:3000/api/v1/sessions/get-all-sessions`,
         }).then((res) => {
           setSessions(res.data.data);
-          console.log(res);
         });
       } catch (err) {
         console.log(err);

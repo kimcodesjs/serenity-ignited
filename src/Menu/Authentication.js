@@ -80,6 +80,7 @@ const Authentication = ({ authFlow, setUser }) => {
         await axios({
           method: 'POST',
           url: `http://127.0.0.1:3000/api/v1/users/signup`,
+          withCredentials: true,
           data: {
             name: `${userInfo.firstName} ${userInfo.lastName}`,
             email,
@@ -108,6 +109,7 @@ const Authentication = ({ authFlow, setUser }) => {
       await axios({
         method: 'POST',
         url: `http://127.0.0.1:3000/api/v1/users/login`,
+        withCredentials: true,
         data: {
           email,
           password,

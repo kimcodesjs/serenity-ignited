@@ -19,7 +19,7 @@ const app = express();
 
 // GLOBAL MIDDLEWARE
 app.use(helmet());
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }

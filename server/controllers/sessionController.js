@@ -3,7 +3,6 @@ const Session = require('../models/sessionModel');
 
 exports.getAllSessions = catchAsync(async (req, res, next) => {
   const sessions = await Session.find();
-  console.log(sessions);
 
   res.status(200).json({
     status: 'success',

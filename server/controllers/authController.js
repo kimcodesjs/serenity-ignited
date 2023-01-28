@@ -4,6 +4,7 @@ const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Email = require('../utils/email');
+const { promisify } = require('util');
 
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -15,7 +16,8 @@ const cookieOptions = {
     Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
   ),
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production' ? true : false,
+  sameSite: 'None',
+  secure: true,
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
@@ -130,3 +132,23 @@ exports.logout = (req, res) => {
   res.clearCookie('jwt');
   res.status(200).json({ status: 'success' });
 };
+
+exports.isLoggedIn = catchAsync(async (req, res) => {
+  if (req.cookies.jwt) {
+    try {
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
+      const currentUser = await User.findById(decoded.id);
+      if (!currentUser) return next();
+      if (currentUser.changedPasswordAfter(decoded.iat)) return next();
+      res.status(200).json({
+        status: 'success',
+        data: currentUser,
+      });
+    } catch (err) {
+      next();
+    }
+  }
+});

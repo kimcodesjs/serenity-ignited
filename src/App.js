@@ -3,7 +3,7 @@ import './Calendar.css';
 import '@csstools/normalize.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { createUseStyles } from 'react-jss';
-import { getAuth } from 'firebase/auth';
+import axios from 'axios';
 import ScrollToTop from './ScrollToTop';
 import Menu from './Menu/Menu';
 const Landing = React.lazy(() => import('./Landing/Landing'));
@@ -27,11 +27,21 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const auth = getAuth();
-    auth.onAuthStateChanged((user) => {
-      user && setUser(user);
-    });
-  }, [user]);
+    const getAuthStatus = async () => {
+      try {
+        await axios({
+          method: 'GET',
+          url: `http://127.0.0.1:3000/api/v1/users/get-auth-status`,
+          withCredentials: true,
+        }).then((res) => {
+          setUser(res.data.data);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getAuthStatus();
+  }, []);
 
   const classes = useStyles();
 
