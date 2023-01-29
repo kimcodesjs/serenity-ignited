@@ -1,10 +1,11 @@
 const express = require('express');
 const authController = require('../controllers/authController');
+const squareController = require('../controllers/squareController');
 
 const router = express.Router();
 
 router.post('/login', authController.login);
-router.post('/signup', authController.signup);
+router.post('/signup', squareController.creatCustomer, authController.signup);
 router.post('/logout', authController.logout);
 router.get('/get-auth-status', authController.isLoggedIn);
 router.post('/forgotPassword', authController.forgotPassword);

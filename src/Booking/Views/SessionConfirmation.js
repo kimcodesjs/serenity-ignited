@@ -139,6 +139,12 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
   const [paymentMethod, setPaymentMethod] = useState(null);
   const [sessionConfirmed, setConfirmation] = useState(false);
 
+  // https://web.dev/how-to-use-local-https/
+  const payments = Square.payments(
+    process.env.SQUARE_APP_ID,
+    process.env.SQUARE_LOCATION_ID
+  );
+  // REPLACE WITH NEW BACKEND INTEGRATION
   // useEffect(() => {
   //     setNewSession({
   //         user: user.uid,
@@ -148,9 +154,6 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
   //         paymentMethod: paymentMethod
   //     })
   // }, [paymentMethod])
-
-  /* create Appointments collection in firestore, outline data structure, will not be able to store luxon objects... ISOs instead? */
-
   const handleSubmit = async () => {
     await addDoc(collection(db, 'Appointments'), {
       session: session,
@@ -227,46 +230,22 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
             arrangements.
           </h4>
           <div className={classes.paymentSelect}>
-            <h3>Select a payment method:</h3>
-            <form id="payment-methods" className={classes.payMethodForm}>
-              {connection === 'In Person' && (
-                <>
-                  <input
-                    type="radio"
-                    id="in-person"
-                    name="payment-method"
-                    value="in-person"
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                  />
-                  <label htmlFor="in-person">{` With Cash/Check at Appointment`}</label>
-                </>
-              )}
-              <br />
-              <input
-                default="selected"
-                type="radio"
-                id="email-link"
-                name="payment-method"
-                value="email-link"
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              />
-              <label htmlFor="email-link">{` Online Payment Link Sent Via Email`}</label>
-              <br />
-              <button
-                className={
-                  paymentMethod === null
-                    ? classes.buttonDisabled
-                    : classes.buttonEnabled
-                }
-                enabled={paymentMethod ? 'true' : 'false'}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleSubmit();
-                }}
-              >
-                Schedule Appointment
-              </button>
-            </form>
+            <h3>Enter Payment Info</h3>
+            <div id="card-container"></div>
+            <button
+              className={
+                paymentMethod === null
+                  ? classes.buttonDisabled
+                  : classes.buttonEnabled
+              }
+              enabled={paymentMethod ? 'true' : 'false'}
+              onClick={(e) => {
+                e.preventDefault();
+                handleSubmit();
+              }}
+            >
+              Schedule Appointment
+            </button>
           </div>
         </div>
       )}

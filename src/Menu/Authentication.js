@@ -72,6 +72,7 @@ const Authentication = ({ authFlow, setUser }) => {
     const email = document.getElementById('email-input').value;
     const password = document.getElementById('password-input').value;
     const passwordConfirm = document.getElementById('password-confirm').value;
+
     if (password === passwordConfirm) {
       if (error) {
         setError(null);
@@ -82,7 +83,8 @@ const Authentication = ({ authFlow, setUser }) => {
           url: `http://127.0.0.1:3000/api/v1/users/signup`,
           withCredentials: true,
           data: {
-            name: `${userInfo.firstName} ${userInfo.lastName}`,
+            firstName: userInfo.firstName,
+            lastName: userInfo.lastName,
             email,
             password,
             passwordConfirm,

@@ -63,6 +63,7 @@ const Booking = ({ user, setUser }) => {
     }
   }, [session, connection, schedule, view]);
 
+  console.log(process.env.SQUARE_APP_ID);
   // fetch Sessions from database
   useEffect(() => {
     const fetchSessions = async () => {

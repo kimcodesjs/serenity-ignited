@@ -22,10 +22,12 @@ const cookieOptions = {
 
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
-    name: req.body.name,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
+    squareId: req.body.squareId,
   });
   newUser.password = undefined;
 
