@@ -90,7 +90,7 @@ const Authentication = ({ authFlow, setUser }) => {
             passwordConfirm,
           },
         }).then((res) => {
-          showAlert('Success!');
+          showAlert('success', 'Success!');
           setUser(res.data.user);
         });
       } catch (err) {

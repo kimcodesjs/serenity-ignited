@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
@@ -27,5 +28,9 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
+    https: {
+      key: fs.readFileSync('./localhost-key.pem'),
+      cert: fs.readFileSync('./localhost.pem'),
+    },
   },
 };

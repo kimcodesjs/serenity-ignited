@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-
 import { createUseStyles } from 'react-jss';
+import { showAlert } from '../../alert';
+import axios from 'axios';
 import Authentication from '../../Menu/Authentication';
 import AppointmentCard from './AppointmentCard';
-import { db } from '../../index';
-import { collection, addDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 
 const useStyles = createUseStyles({
@@ -44,6 +43,7 @@ const useStyles = createUseStyles({
     borderRadius: '10px',
     filter: 'drop-shadow(2px 2px 1px #443356)',
     width: '50%',
+    height: '175px',
     marginLeft: 'auto',
     marginRight: 'auto',
     padding: '15px',
@@ -51,7 +51,7 @@ const useStyles = createUseStyles({
   buttonEnabled: {
     // height: '60px',
     // width: '170px',
-    marginTop: '30px',
+    // marginTop: '30px',
     fontFamily: "'Clicker Script', cursive",
     fontSize: '24px',
     textShadow: '#e5d7d7 1px 0px 5px',
@@ -136,42 +136,52 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
   const classes = useStyles();
 
   const [authFlow, setAuthFlow] = useState('sign-up');
-  const [paymentMethod, setPaymentMethod] = useState(null);
   const [sessionConfirmed, setConfirmation] = useState(false);
+  const [paymentToken, setToken] = useState(null);
 
-  // https://web.dev/how-to-use-local-https/
-  const payments = Square.payments(
-    process.env.SQUARE_APP_ID,
-    process.env.SQUARE_LOCATION_ID
-  );
-  // REPLACE WITH NEW BACKEND INTEGRATION
-  // useEffect(() => {
-  //     setNewSession({
-  //         user: user.uid,
-  //         session: session,
-  //         connection: connection,
-  //         schedule: schedule,
-  //         paymentMethod: paymentMethod
-  //     })
-  // }, [paymentMethod])
-  const handleSubmit = async () => {
-    await addDoc(collection(db, 'Appointments'), {
-      session: session,
-      connection: connection,
-      paymentMethod: paymentMethod,
-      date: schedule.date.toISO(),
-      timeISO: schedule.time.toISO(),
-      userID: user.uid,
-    })
-      .then(() => {
-        console.log('Success! New Appointment has been logged in Firestore!');
-        setConfirmation(true);
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log('Something went wrong...');
+  useEffect(async () => {
+    const payments = Square.payments(
+      process.env.SQUARE_APP_ID,
+      process.env.SQUARE_LOCATION_ID
+    );
+    const card = await payments.card();
+    document.getElementById('card-container').innerHTML = null;
+    await card.attach('#card-container');
+    document
+      .getElementById('schedule-appointment')
+      .addEventListener('click', async () => {
+        try {
+          const tokenResult = await card.tokenize();
+          if (tokenResult.status === 'OK') {
+            const token = tokenResult.token;
+            setToken(token);
+          } else {
+            throw new Error(
+              'Could not validate card details. Please try again!'
+            );
+          }
+
+          await axios({
+            method: 'POST',
+            url: `http://127.0.0.1:3000/api/v1/appointments/create-appointment`,
+            data: {
+              user: user._id,
+              session: session,
+              connection: connection,
+              schedule: schedule,
+              paymentToken: paymentToken,
+            },
+          }).then(() => {
+            setConfirmation(true);
+            console.log('New appointment created!');
+          });
+        } catch (err) {
+          console.log(err.message);
+          showAlert('error', `Error: ${err.message}`);
+        }
       });
-  };
+  }, []);
+
   return (
     <div className={classes.viewContainer}>
       <h1 className={classes.viewPrompt}>
@@ -220,28 +230,15 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
             Thank you for allowing me to join you on your healing journey,{' '}
             {formatDisplayName(user)}!
           </h2>
-          <h4>
-            Specifying your payment method is the final step to securing your
-            appointment. If your session will take place in person you can
-            choose to pay at the time of your appointment, otherwise you will
-            receive an invoice via email with a link to Square's secure online
-            payment form to pay with your Credit/Debit card. If you would like
-            to pay via PayPal, please contact me and we will make those
-            arrangements.
-          </h4>
+          <h4>Please add your payment details to finalize your appointment.</h4>
           <div className={classes.paymentSelect}>
-            <h3>Enter Payment Info</h3>
-            <div id="card-container"></div>
+            <div id="card-container">Loading...</div>
             <button
-              className={
-                paymentMethod === null
-                  ? classes.buttonDisabled
-                  : classes.buttonEnabled
-              }
-              enabled={paymentMethod ? 'true' : 'false'}
+              className={classes.buttonEnabled}
+              id="schedule-appointment"
+              // enabled={paymentMethod ? 'true' : 'false'}
               onClick={(e) => {
                 e.preventDefault();
-                handleSubmit();
               }}
             >
               Schedule Appointment
