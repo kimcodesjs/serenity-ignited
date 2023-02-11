@@ -128,10 +128,6 @@ const useAppointmentCardStyles = createUseStyles({
   },
 });
 
-const formatDisplayName = (user) => {
-  let firstName = user.name.split(' ')[0];
-  return firstName;
-};
 const SessionConfirmation = ({ user, session, connection, schedule }) => {
   const classes = useStyles();
 
@@ -152,9 +148,9 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
       .addEventListener('click', async () => {
         try {
           const tokenResult = await card.tokenize();
+          let token;
           if (tokenResult.status === 'OK') {
-            const token = tokenResult.token;
-            setToken(token);
+            token = tokenResult.token;
           } else {
             throw new Error(
               'Could not validate card details. Please try again!'
@@ -166,10 +162,13 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
             url: `http://127.0.0.1:3000/api/v1/appointments/create-appointment`,
             data: {
               user: user._id,
-              session: session,
+              squareId: user.squareId,
+              session: session._id,
               connection: connection,
-              schedule: schedule,
-              paymentToken: paymentToken,
+              price: session.price,
+              date: schedule.date.toISO(),
+              time: schedule.time.toISO(),
+              paymentToken: token,
             },
           }).then(() => {
             setConfirmation(true);
@@ -228,7 +227,7 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
         <div>
           <h2>
             Thank you for allowing me to join you on your healing journey,{' '}
-            {formatDisplayName(user)}!
+            {user.firstName}!
           </h2>
           <h4>Please add your payment details to finalize your appointment.</h4>
           <div className={classes.paymentSelect}>

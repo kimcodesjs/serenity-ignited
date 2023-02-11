@@ -23,3 +23,17 @@ exports.creatCustomer = catchAsync(async (req, res, next) => {
     next(err);
   }
 });
+
+exports.createPayment = catchAsync(async (req, res, next) => {
+  const response = await client.paymentsApi.createPayment({
+    sourceId: req.body.paymentToken,
+    idempotencyKey: randomUUID(),
+    amountMoney: {
+      amount: req.body.price,
+      currency: 'USD',
+    },
+    customerId: req.body.squareId,
+    statementDescriptionIdentifier: 'Serenity Ignited LLC',
+  });
+  next();
+});

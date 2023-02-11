@@ -40,7 +40,7 @@ const AuthChange = ({ user, display, setDisplay }) => {
     <>
       <div className={classes.authMessage} id="auth-message">
         {user ? (
-          <h2 className={classes.h2}>Welcome, {formatDisplayName(user)}!</h2>
+          <h2 className={classes.h2}>Welcome, {user.firstName}!</h2>
         ) : (
           <h2 className={classes.h2}>Until next time...</h2>
         )}
