@@ -29,7 +29,7 @@ exports.createPayment = catchAsync(async (req, res, next) => {
     sourceId: req.body.paymentToken,
     idempotencyKey: randomUUID(),
     amountMoney: {
-      amount: req.body.price,
+      amount: req.body.price * 100,
       currency: 'USD',
     },
     customerId: req.body.squareId,
