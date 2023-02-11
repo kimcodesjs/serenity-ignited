@@ -1,0 +1,18 @@
+const catchAsync = require('../utils/catchAsync');
+const Appointment = require('../models/appointmentModel');
+
+exports.createAppointment = catchAsync(async (req, res, next) => {
+  const newAppointment = await Appointment.create({
+    user: req.body.user,
+    session: req.body.session,
+    connection: req.body.connection,
+    price: req.body.price,
+    date: req.body.date,
+    time: req.body.time,
+    paid: true,
+  });
+  res.status(201).json({
+    status: 'success',
+    data: newAppointment,
+  });
+});
