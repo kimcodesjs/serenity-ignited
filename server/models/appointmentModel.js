@@ -36,8 +36,9 @@ const appointmentSchema = new mongoose.Schema({
 appointmentSchema.pre(/^find/, function (next) {
   this.populate('user').populate({
     path: 'session',
-    select: ['name', 'modality'],
+    select: ['name', 'modality', 'price'],
   });
+  next();
 });
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);

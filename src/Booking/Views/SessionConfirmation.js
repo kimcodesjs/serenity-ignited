@@ -170,12 +170,15 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
               time: schedule.time.toISO(),
               paymentToken: token,
             },
-          }).then(() => {
-            setConfirmation(true);
-            console.log('New appointment created!');
-          });
+          })
+            .then(() => {
+              setConfirmation(true);
+            })
+            .catch((err) => {
+              throw new Error(err.response.data.message);
+            });
         } catch (err) {
-          console.log(err.message);
+          console.log(err);
           showAlert('error', `Error: ${err.message}`);
         }
       });

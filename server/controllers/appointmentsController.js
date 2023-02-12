@@ -16,3 +16,13 @@ exports.createAppointment = catchAsync(async (req, res, next) => {
     data: newAppointment,
   });
 });
+
+exports.getUserAppointments = catchAsync(async (req, res, next) => {
+  console.log();
+  const results = await Appointment.find({ user: req.user._id });
+  console.log(results);
+  res.status(201).json({
+    status: 'success',
+    data: results,
+  });
+});

@@ -22,7 +22,6 @@ const AppointmentCard = ({
   onCancel,
 }) => {
   const classes = useStyles();
-
   return (
     <div className={classes.appointmentCard}>
       <h3 className={classes.h4}>

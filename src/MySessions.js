@@ -3,6 +3,7 @@ import AppointmentCard from './Booking/Views/AppointmentCard';
 import { useParams } from 'react-router-dom';
 import { DateTime, Interval } from 'luxon';
 import { createUseStyles } from 'react-jss';
+import axios from 'axios';
 
 const useStyles = createUseStyles({
   mySessions: {
@@ -72,8 +73,6 @@ const MySessions = () => {
   const [userAppointments, setUserAppointments] = useState([]);
   const classes = useStyles();
 
-  let { userID } = useParams();
-
   // REPLACE WITH BACKEND INTEGRATION
   // useEffect(async () => {
   //     let appointments = []
@@ -87,6 +86,19 @@ const MySessions = () => {
   //         setUserAppointments(appointments)
   //     })
   // },[])
+  useEffect(async () => {
+    try {
+      await axios({
+        method: 'GET',
+        url: 'http://127.0.0.1:3000/api/v1/appointments/get-my-appointments',
+        withCredentials: true,
+      }).then((res) => {
+        setUserAppointments(res.data.data);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   // const onCancel = async (appointmentID) => {
   //     await deleteDoc(doc(db, 'Appointments', appointmentID)).then(() => {
@@ -105,11 +117,11 @@ const MySessions = () => {
             userAppointments.map((appointment) => {
               return (
                 <AppointmentCard
-                  key={appointment.id}
-                  session={appointment.data.session}
-                  connection={appointment.data.connection}
-                  date={DateTime.fromISO(appointment.data.date)}
-                  time={Interval.fromISO(appointment.data.timeISO)}
+                  key={appointment._id}
+                  session={appointment.session}
+                  connection={appointment.connection}
+                  date={DateTime.fromISO(appointment.date)}
+                  time={Interval.fromISO(appointment.time)}
                   useStyles={useAppointmentCardStyles}
                   onCancel={(e) => {
                     e.preventDefault();
