@@ -1,6 +1,7 @@
 const { Client, Environment, ApiError } = require('square');
 const { randomUUID } = require('crypto');
 const catchAsync = require('../utils/catchAsync');
+const squareErrorHandler = require('../utils/squareErrorHandler');
 
 const client = new Client({
   accessToken: process.env.SQUARE_ACCESS_TOKEN,
@@ -20,20 +21,24 @@ exports.creatCustomer = catchAsync(async (req, res, next) => {
     req.body.squareId = response.result.customer.id;
     next();
   } catch (err) {
-    next(err);
+    next(squareErrorHandler.formatError(err));
   }
 });
 
 exports.createPayment = catchAsync(async (req, res, next) => {
-  const response = await client.paymentsApi.createPayment({
-    sourceId: req.body.paymentToken,
-    idempotencyKey: randomUUID(),
-    amountMoney: {
-      amount: req.body.price * 100,
-      currency: 'USD',
-    },
-    customerId: req.body.squareId,
-    statementDescriptionIdentifier: 'Serenity Ignited LLC',
-  });
-  next();
+  try {
+    const response = await client.paymentsApi.createPayment({
+      sourceId: req.body.paymentToken,
+      idempotencyKey: randomUUID(),
+      amountMoney: {
+        amount: req.body.price * 100,
+        currency: 'USD',
+      },
+      customerId: req.body.squareId,
+      statementDescriptionIdentifier: 'Serenity Ignited LLC',
+    });
+    next();
+  } catch (err) {
+    next(squareErrorHandler.formatError(err));
+  }
 });
