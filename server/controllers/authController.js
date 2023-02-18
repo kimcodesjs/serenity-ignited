@@ -131,11 +131,12 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = (req, res) => {
-  res.clearCookie('jwt');
+  res.clearCookie('jwt', { sameSite: 'None', secure: true });
   res.status(200).json({ status: 'success' });
 };
 
-exports.isLoggedIn = catchAsync(async (req, res) => {
+// replace next calls w/ 204
+exports.isLoggedIn = catchAsync(async (req, res, next) => {
   if (req.cookies.jwt) {
     try {
       const decoded = await promisify(jwt.verify)(
@@ -143,15 +144,25 @@ exports.isLoggedIn = catchAsync(async (req, res) => {
         process.env.JWT_SECRET
       );
       const currentUser = await User.findById(decoded.id);
-      if (!currentUser) return next();
-      if (currentUser.changedPasswordAfter(decoded.iat)) return next();
+      if (!currentUser)
+        return res.status(204).json({
+          status: 'success',
+        });
+      if (currentUser.changedPasswordAfter(decoded.iat))
+        return res.status(204).json({
+          status: 'success',
+        });
       res.status(200).json({
         status: 'success',
         data: currentUser,
       });
     } catch (err) {
-      next();
+      next(err);
     }
+  } else {
+    res.status(204).json({
+      status: 'success',
+    });
   }
 });
 

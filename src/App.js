@@ -34,7 +34,9 @@ const App = () => {
           url: `http://127.0.0.1:3000/api/v1/users/get-auth-status`,
           withCredentials: true,
         }).then((res) => {
-          setUser(res.data.data);
+          if (res.status === 200) {
+            setUser(res.data.data);
+          }
         });
       } catch (err) {
         console.log(err);

@@ -29,8 +29,9 @@ module.exports = {
     contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
     https: {
-      key: fs.readFileSync('./localhost-key.pem'),
-      cert: fs.readFileSync('./localhost.pem'),
+      key: fs.readFileSync('./127.0.0.1-key.pem'),
+      cert: fs.readFileSync('./127.0.0.1.pem'),
     },
+    host: '127.0.0.1',
   },
 };

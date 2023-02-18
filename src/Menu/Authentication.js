@@ -149,23 +149,6 @@ const Authentication = ({ authFlow, setUser }) => {
     }
   };
 
-  const formatError = (err) => {
-    if (err === 'Firebase: Error (auth/invalid-email).') {
-      setError('Please enter a valid email address.');
-    } else if (
-      err ===
-      'Firebase: Password should be at least 6 characters (auth/weak-password).'
-    ) {
-      setError('Password should be at least 6 characters.');
-    } else if (err === 'Firebase: Error (auth/user-not-found).') {
-      setError("we couldn'nt find an account for that email address...");
-    } else if (err === 'Firebase: Error (auth/wrong-password).') {
-      setError('ope... wrong password. type slower this time. :P');
-    } else {
-      setError('an unknown error occured...');
-    }
-  };
-
   return (
     <div id="authentication-form-container" className={classes.authContainer}>
       {authFlow === 'sign-up' && userInfo === null && (
