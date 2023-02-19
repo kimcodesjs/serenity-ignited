@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { showAlert } from '../alert';
 
 const useStyles = createUseStyles({
   menuLogo: {
@@ -62,6 +63,7 @@ const Navigation = ({ display, setDisplay, user, setUser, toggleMenu }) => {
         if (res.data.status === 'success') {
           setUser(null);
           animateNavMenu();
+          showAlert('Logged out successfully!');
           navigate('/');
         }
       } catch (err) {
