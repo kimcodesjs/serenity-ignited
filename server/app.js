@@ -15,6 +15,7 @@ const globalErrorHandler = require('./utils/errorHandler');
 const userRouter = require('./routes/userRouter');
 const sessionRouter = require('./routes/sessionRouter');
 const appointmentRouter = require('./routes/appointmentRouter');
+const eventRouter = require('./routes/eventRouter');
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use(hpp());
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/sessions', sessionRouter);
 app.use('/api/v1/appointments', appointmentRouter);
+app.use('/api/v1/events', eventRouter);
 
 app.use(globalErrorHandler);
 module.exports = app;
