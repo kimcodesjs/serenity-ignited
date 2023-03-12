@@ -9,11 +9,11 @@ const eventSchema = new mongoose.Schema({
     type: String,
     require: [true, 'Please provide a description for the event.'],
   },
-  date: {
+  start: {
     type: String,
     require: true,
   },
-  time: {
+  end: {
     type: String,
     require: true,
   },

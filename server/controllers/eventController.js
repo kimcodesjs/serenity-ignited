@@ -5,9 +5,12 @@ exports.createEvent = catchAsync(async (req, res, next) => {
   const newEvent = await Event.create({
     name: req.body.name,
     description: req.body.description,
-    date: req.body.date,
-    time: req.body.time,
+    start: req.body.start,
+    end: req.body.end,
     price: req.body.price,
+    capacity: {
+      max: req.body.capacity,
+    },
   });
   res.status(201).json({
     status: 'success',
