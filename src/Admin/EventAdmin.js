@@ -30,15 +30,15 @@ const EventAdmin = () => {
     <div>
       <h2>Manage Your Events</h2>
       <h3>Upcoming Events</h3>
-      {events.map((event) => (
-        <div key={event._id}>
-          <p>
+      <ul>
+        {events.map((event) => (
+          <li key={event._id}>
             {`${DateTime.fromISO(event.start).toLocaleString(
               DateTime.DATE_HUGE
             )}: ${event.name}`}
-          </p>
-        </div>
-      ))}
+          </li>
+        ))}
+      </ul>
       <br />
       <h3>Create an Event</h3>
       <NewEvent />

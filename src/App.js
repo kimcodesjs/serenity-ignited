@@ -6,6 +6,7 @@ import { createUseStyles } from 'react-jss';
 import axios from 'axios';
 import ScrollToTop from './ScrollToTop';
 import Menu from './Menu/Menu';
+import RequireAdmin from './Auth/RequireAdmin';
 const Landing = React.lazy(() => import('./Landing/Landing'));
 const Info = React.lazy(() => import('./Info/Info'));
 const Booking = React.lazy(() => import('./Booking/Booking'));
@@ -35,6 +36,7 @@ const App = () => {
           withCredentials: true,
         }).then((res) => {
           if (res.status === 200) {
+            console.log(res.data.data);
             setUser(res.data.data);
           }
         });
@@ -62,7 +64,16 @@ const App = () => {
               />
               <Route path="contact-me" element={<ContactMe />} />
               <Route path="about-me" element={<AboutMe />} />
-              <Route path="admin" element={<Admin />} />
+              <Route
+                path="admin"
+                element={
+                  <RequireAdmin
+                    isAdmin={user && user.role === 'admin' ? true : false}
+                  >
+                    <Admin />
+                  </RequireAdmin>
+                }
+              />
               <Route path="/:userID/my-sessions" element={<MySessions />} />
               <Route
                 path="/reset-password/:token"
