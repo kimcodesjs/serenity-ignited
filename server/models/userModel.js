@@ -45,6 +45,10 @@ const userSchema = new mongoose.Schema({
     select: false,
   },
   squareId: String,
+  role: {
+    type: String,
+    default: 'user',
+  },
 });
 
 userSchema.pre('save', async function (next) {

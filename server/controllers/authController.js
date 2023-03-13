@@ -135,7 +135,6 @@ exports.logout = (req, res) => {
   res.status(200).json({ status: 'success' });
 };
 
-// replace next calls w/ 204
 exports.isLoggedIn = catchAsync(async (req, res, next) => {
   if (req.cookies.jwt) {
     try {
@@ -203,3 +202,19 @@ exports.protect = catchAsync(async (req, res, next) => {
   res.locals.user = currentUser;
   next();
 });
+
+exports.restrictTo =
+  (...roles) =>
+  (req, res, next) => {
+    // roles ['admin', 'lead-guide']. role='user'
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError(
+          'You do not have permission to perform this action...',
+          403
+        )
+      );
+    }
+
+    next();
+  };
