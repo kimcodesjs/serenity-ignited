@@ -28,6 +28,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
     squareId: req.body.squareId,
+    role: req.body.role,
   });
   newUser.password = undefined;
 

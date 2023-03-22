@@ -11,4 +11,7 @@ router.get('/get-auth-status', authController.isLoggedIn);
 router.post('/forgotPassword', authController.forgotPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
 
+// Routes are restricted to Admin Users
+router.use(authController.restrictTo('admin'));
+router.get('/get-all-users'); // need to build user controller
 module.exports = router;

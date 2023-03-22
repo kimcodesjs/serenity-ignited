@@ -5,9 +5,8 @@ const router = express.Router();
 
 router.get('/get-all-events', eventController.getAllEvents);
 
-// Restrict the following routes to Administrators
-router.use(authController.protect);
-router.use(authController.restrictTo('admin'));
+// Routes are protected with auth and resctricted to Admin Users
+router.use(authController.protect, authController.restrictTo('admin'));
 router.post('/create-event', eventController.createEvent);
 
 module.exports = router;
