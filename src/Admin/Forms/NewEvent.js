@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import { DateTime, Duration, Interval } from 'luxon';
 import axios from 'axios';
+import { showAlert } from '../../alert';
 
 const NewEventForm = () => {
   const [activeDate, setActiveDate] = useState(DateTime.now());
@@ -9,6 +10,7 @@ const NewEventForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
+    category: 'meditation',
     price: 10,
     start: '',
     end: '',
@@ -60,9 +62,20 @@ const NewEventForm = () => {
       await axios({
         method: 'POST',
         url: 'http://127.0.0.1:3000/api/v1/events/create-event',
+        withCredentials: true,
         data: formData,
       }).then(() => {
         console.log('Event created!');
+        setFormData({
+          name: '',
+          description: '',
+          category: 'meditation',
+          price: 10,
+          start: '',
+          end: '',
+          capacity: 7,
+        });
+        showAlert('Event created!');
       });
     } catch (err) {
       console.log(err);
@@ -77,6 +90,18 @@ const NewEventForm = () => {
           onChange={updateActiveDate}
           minDate={new Date()}
         />
+        <label htmlFor="category">Category:</label>
+        <select
+          id="category"
+          onChange={(e) => {
+            updateFormData('category', e.target.value);
+          }}
+          required
+        >
+          <option value="meditation">Meditation</option>
+          <option value="workshop">Workshop</option>
+        </select>
+        <br />
         <label htmlFor="name">Name Your Event:</label>
         <input
           type="text"
@@ -85,6 +110,7 @@ const NewEventForm = () => {
           onChange={(e) => {
             updateFormData('name', e.target.value);
           }}
+          required
         />
         <br />
         <label htmlFor="description">Description:</label>
@@ -95,6 +121,7 @@ const NewEventForm = () => {
           onChange={(e) => {
             updateFormData('description', e.target.value);
           }}
+          required
         />
         <br />
         <label htmlFor="price">Price:</label>
@@ -105,6 +132,7 @@ const NewEventForm = () => {
           onChange={(e) => {
             updateFormData('price', Number(e.target.value));
           }}
+          required
         />
         <br />
         <label htmlFor="start">Start:</label>
@@ -114,6 +142,7 @@ const NewEventForm = () => {
             updateFormData('start', e.target.value);
           }}
           value={formData.start}
+          required
         >
           {timeslots.map((timeslot, index) => {
             return (
@@ -131,6 +160,7 @@ const NewEventForm = () => {
             updateFormData('end', e.target.value);
           }}
           value={formData.end}
+          required
         >
           {timeslots.map((timeslot, index) => {
             return (
@@ -148,6 +178,7 @@ const NewEventForm = () => {
             updateFormData('capacity', e.target.value);
           }}
           value={formData.capacity}
+          required
         >
           <option>7</option>
           <option>6</option>
