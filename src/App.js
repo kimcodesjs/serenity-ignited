@@ -10,6 +10,7 @@ import RequireAdmin from './Auth/RequireAdmin';
 const Landing = React.lazy(() => import('./Landing/Landing'));
 const Info = React.lazy(() => import('./Info/Info'));
 const Booking = React.lazy(() => import('./Booking/Booking'));
+const Events = React.lazy(() => import('./Events/Events'));
 const AboutMe = React.lazy(() => import('./AboutMe'));
 const ContactMe = React.lazy(() => import('./ContactMe'));
 const MySessions = React.lazy(() => import('./MySessions'));
@@ -62,6 +63,7 @@ const App = () => {
                 path="booking"
                 element={<Booking user={user} setUser={setUser} />}
               />
+              <Route path="events" element={<Events />} />
               <Route path="contact-me" element={<ContactMe />} />
               <Route path="about-me" element={<AboutMe />} />
               <Route

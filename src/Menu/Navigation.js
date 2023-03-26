@@ -106,6 +106,9 @@ const Navigation = ({ display, setDisplay, user, setUser, toggleMenu }) => {
       <Link to="/booking" className={classes.navLink} id="book-a-session">
         Book a Session
       </Link>
+      <Link to="/events" className={classes.navLink} id="events">
+        Events
+      </Link>
       <Link to="/contact-me" className={classes.navLink} id="contact-me">
         Contact Me
       </Link>
