@@ -2,14 +2,42 @@ import React, { useState, useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
 import axios from 'axios';
 import { DateTime } from 'luxon';
+import EventCard from './EventCard';
 
 const useStyles = createUseStyles({
   container: {
     height: '100vh',
     width: '100vw',
-    background:
-      'radial-gradient(ellipse at top left, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom right, rgba(64, 69, 178, .92), transparent), url("clouds 3.jpg")',
-    backgroundSize: 'cover',
+    // background:
+    //   'radial-gradient(ellipse at top left, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom right, rgba(64, 69, 178, .92), transparent), url("clouds 3.jpg")',
+    // backgroundSize: 'cover',
+  },
+  imgRight: {
+    position: 'absolute',
+    bottom: 0,
+    right: 10,
+    width: '25%',
+    height: 'auto',
+    transform: 'rotateY(180deg)',
+    zIndex: 3,
+    '@media (max-width: 800px)': {
+      display: 'none',
+    },
+  },
+  imgLeft: {
+    position: 'absolute',
+    bottom: 0,
+    left: 10,
+    width: '25%',
+    height: 'auto',
+    zIndex: 3,
+    '@media (max-width: 800px)': {
+      display: 'none',
+    },
+  },
+  content: {
+    maxWidth: '75%',
+    margin: 'auto',
   },
   pageTitle: {
     width: '350px',
@@ -34,25 +62,7 @@ const useStyles = createUseStyles({
     display: 'flex',
     flexFlow: 'row',
   },
-  eventCard: {
-    marginRight: '15px',
-    //fontFamily: "'Clicker Script', cursive",
-    //fontSize: '30px',
-    width: '180px',
-    padding: '10px',
-    textAlign: 'center',
-    textShadow: '#e5d7d7 1px 0px 5px',
-    color: 'white',
-    //background:
-    //  'radial-gradient(ellipse at top, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, .85), transparent)',
-    backgroundImage:
-      'radial-gradient(ellipse at top, rgba(64, 69, 178, .45), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, .45), transparent), url("Meditation Violet.jpg")',
-    backgroundSize: 'cover',
-    borderRadius: '30px',
-    border: 'none',
-    filter: 'drop-shadow(2px 2px 1px #443356)',
-    cursor: 'pointer',
-  },
+
   pageSubtitle: {
     width: '100%',
     marginTop: '0px',
@@ -98,6 +108,7 @@ const Events = () => {
               ? meditationEvents.push(event)
               : workshopEvents.push(event);
           });
+          console.log(res.data.data);
           setEvents({
             meditations: meditationEvents,
             workshops: workshopEvents,
@@ -112,35 +123,30 @@ const Events = () => {
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.pageTitle}>Events</h1>
-      <h2 className={classes.pageSubtitle}>
-        Select an event to see the full description and reserve your spot!
-      </h2>
-      <div>
-        <h2>Meditations</h2>
-        <div className={classes.cardContainer}>
-          {events.meditations.map((event) => {
-            return (
-              <div className={classes.eventCard} key={event._id}>
-                <h3>{event.name}</h3>
-                <p>
-                  {DateTime.fromISO(event.start).toLocaleString(
-                    DateTime.DATETIME_FULL
-                  )}
-                </p>
-                <p>Spots Available: {event.capacity.available}</p>
-              </div>
-            );
-          })}
+      <div className={classes.content}>
+        <h1 className={classes.pageTitle}>Events</h1>
+        <h2 className={classes.pageSubtitle}>
+          Select an event to see the full description and reserve your spot!
+        </h2>
+        <div>
+          <h2>Meditations</h2>
+          <div className={classes.cardContainer}>
+            {events.meditations.length === 0 && <h3></h3>}
+            {events.meditations.map((event) => {
+              return <EventCard event={event} key={event._id} />;
+            })}
+          </div>
+        </div>
+        <div>
+          <h2>Workshops</h2>
+          <p>
+            We are still working on bringing workshops to Serenity Ignited! Is
+            there something particular you are looking for? Let us know!
+          </p>
         </div>
       </div>
-      <div>
-        <h2>Workshops</h2>
-        <p>
-          We are still working on bringing workshops to Serenity Ignited! Is
-          there something particular you are looking for? Let us know!
-        </p>
-      </div>
+      <img src="Chakra Mandala.png" className={classes.imgLeft} />
+      <img src="Chakra Mandala.png" className={classes.imgRight} />
     </div>
   );
 };
