@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { createUseStyles, withTheme } from 'react-jss';
+import { createUseStyles } from 'react-jss';
 import axios from 'axios';
 import { DateTime } from 'luxon';
+import EventCard from '../Events/EventCard';
 
 const useStyles = createUseStyles({
   header: {
@@ -227,25 +228,6 @@ const useStyles = createUseStyles({
     display: 'flex',
     flexFlow: 'row',
   },
-  eventCard: {
-    marginRight: '15px',
-    //fontFamily: "'Clicker Script', cursive",
-    //fontSize: '30px',
-    width: '180px',
-    padding: '10px',
-    textAlign: 'center',
-    textShadow: '#e5d7d7 1px 0px 5px',
-    color: 'white',
-    //background:
-    //  'radial-gradient(ellipse at top, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, .85), transparent)',
-    backgroundImage:
-      'radial-gradient(ellipse at top, rgba(64, 69, 178, .45), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, .45), transparent), url("Meditation Violet.jpg")',
-    backgroundSize: 'cover',
-    borderRadius: '30px',
-    border: 'none',
-    filter: 'drop-shadow(2px 2px 1px #443356)',
-    cursor: 'pointer',
-  },
   button: {
     //width: '150px',
     height: '60px',
@@ -313,7 +295,6 @@ const Landing = () => {
           url: 'http://127.0.0.1:3000/api/v1/events/get-all-events?category=meditation',
         }).then((res) => {
           setEvents(res.data.data);
-          console.log(res.data.data);
         });
       } catch (err) {
         console.log(err);
@@ -339,7 +320,7 @@ const Landing = () => {
     const landscape = document.getElementById('landscape');
     const logo = document.getElementById('logo');
     const greeting = document.getElementById('greeting');
-    console.log(window.screen.availWidth);
+
     let value1 = window.scrollY;
     let value2 = window.scrollY + 3000;
     let value3 = window.scrollY + 5000;
@@ -461,17 +442,7 @@ const Landing = () => {
           <h2>Upcoming Meditations</h2>
           <div className={classes.cardContainer}>
             {events.map((event) => {
-              return (
-                <div className={classes.eventCard} key={event._id}>
-                  <h3>{event.name}</h3>
-                  <p>
-                    {DateTime.fromISO(event.start).toLocaleString(
-                      DateTime.DATETIME_FULL
-                    )}
-                  </p>
-                  <p>Spots Available: {event.capacity.available}</p>
-                </div>
-              );
+              return <EventCard event={event} key={event._id} />;
             })}
           </div>
         </div>
