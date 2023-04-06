@@ -11,6 +11,7 @@ const Landing = React.lazy(() => import('./Landing/Landing'));
 const Info = React.lazy(() => import('./Info/Info'));
 const Booking = React.lazy(() => import('./Booking/Booking'));
 const Events = React.lazy(() => import('./Events/Events'));
+const EventPage = React.lazy(() => import('./Events/EventPage'));
 const AboutMe = React.lazy(() => import('./AboutMe'));
 const ContactMe = React.lazy(() => import('./ContactMe'));
 const MySessions = React.lazy(() => import('./MySessions'));
@@ -37,7 +38,6 @@ const App = () => {
           withCredentials: true,
         }).then((res) => {
           if (res.status === 200) {
-            console.log(res.data.data);
             setUser(res.data.data);
           }
         });
@@ -63,7 +63,9 @@ const App = () => {
                 path="booking"
                 element={<Booking user={user} setUser={setUser} />}
               />
+
               <Route path="events" element={<Events />} />
+              <Route path="events/:eventId" element={<EventPage />} />
               <Route path="contact-me" element={<ContactMe />} />
               <Route path="about-me" element={<AboutMe />} />
               <Route
