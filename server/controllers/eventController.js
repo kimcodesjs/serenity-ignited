@@ -32,3 +32,11 @@ exports.getAllEvents = catchAsync(async (req, res, next) => {
     data: futureEvents,
   });
 });
+
+exports.getEvent = catchAsync(async (req, res, next) => {
+  const event = await Event.findById(req.params.id);
+  res.status(201).json({
+    status: 'success',
+    data: event,
+  });
+});
