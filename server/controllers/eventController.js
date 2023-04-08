@@ -40,3 +40,16 @@ exports.getEvent = catchAsync(async (req, res, next) => {
     data: event,
   });
 });
+
+exports.purchaseTicket = catchAsync(async (req, res, next) => {
+  const event = await Event.findById(req.body.event);
+
+  event.capacity.available === 0 &&
+    new AppError('This event is sold out!', '400');
+
+  event.capacity.available = event.capacity.available - 1;
+  event.save();
+  res.status(201).json({
+    status: 'success',
+  });
+});
