@@ -135,23 +135,26 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
   const [sessionConfirmed, setConfirmation] = useState(false);
   const [paymentToken, setToken] = useState(null);
 
-  useEffect(async () => {
-    const payments = Square.payments(
-      process.env.SQUARE_APP_ID,
-      process.env.SQUARE_LOCATION_ID
-    );
-    const card = await payments.card();
-    document.getElementById('card-container').innerHTML = null;
-    await card.attach('#card-container');
-    document
-      .getElementById('schedule-appointment')
-      .addEventListener('click', async () => {
+  useEffect(() => {
+    const setupPaymentForm = async () => {
+      const payments = Square.payments(
+        process.env.SQUARE_APP_ID,
+        process.env.SQUARE_LOCATION_ID
+      );
+      const card = await payments.card();
+      document.getElementById('card-container').innerHTML = null;
+      await card.attach('#card-container');
+
+      const submitButton = document.getElementById('schedule-appointment');
+      submitButton.addEventListener('click', async () => {
         try {
+          submitButton.disabled = true;
           const tokenResult = await card.tokenize();
           let token;
           if (tokenResult.status === 'OK') {
             token = tokenResult.token;
           } else {
+            submitButton.disabled = false;
             throw new Error(
               'Could not validate card details. Please try again!'
             );
@@ -160,6 +163,7 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
           await axios({
             method: 'POST',
             url: `http://127.0.0.1:3000/api/v1/appointments/create-appointment`,
+            withCredentials: true,
             data: {
               user: user._id,
               squareId: user.squareId,
@@ -182,6 +186,8 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
           showAlert('error', `Error: ${err.message}`);
         }
       });
+      setupPaymentForm();
+    };
   }, []);
 
   return (
