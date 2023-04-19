@@ -18,5 +18,5 @@ router.post(
 // Routes are protected with auth and resctricted to Admin Users
 router.use(authController.restrictTo('admin'));
 router.post('/create-event', eventController.createEvent);
-
+router.patch('/:id', eventController.updateEvent);
 module.exports = router;

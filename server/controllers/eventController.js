@@ -53,3 +53,16 @@ exports.purchaseTicket = catchAsync(async (req, res, next) => {
     status: 'success',
   });
 });
+
+exports.updateEvent = catchAsync(async (req, res, next) => {
+  const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  if (!event) {
+    return next(new AppError('No event found with that id!', 404));
+  }
+  res.status(200).json({
+    status: 'success',
+    data: event,
+  });
+});
