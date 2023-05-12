@@ -30,6 +30,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     squareId: req.body.squareId,
     role: req.body.role,
   });
+  new Email(newUser).sendWelcome();
   newUser.password = undefined;
 
   const token = signToken(newUser._id);

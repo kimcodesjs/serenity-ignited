@@ -1,5 +1,7 @@
 const catchAsync = require('../utils/catchAsync');
 const Appointment = require('../models/appointmentModel');
+const { DateTime } = require('luxon');
+const Email = require('../utils/email');
 
 exports.createAppointment = catchAsync(async (req, res, next) => {
   const newAppointment = await Appointment.create({
@@ -11,6 +13,7 @@ exports.createAppointment = catchAsync(async (req, res, next) => {
     time: req.body.time,
     paid: true,
   });
+  new Email(req.user).sendAppointmentConfirm(newAppointment);
   res.status(201).json({
     status: 'success',
     data: newAppointment,
@@ -19,10 +22,14 @@ exports.createAppointment = catchAsync(async (req, res, next) => {
 
 exports.getUserAppointments = catchAsync(async (req, res, next) => {
   const results = await Appointment.find({ user: req.user._id });
-  console.log(results);
+  const futureAppointments = results.filter((appointment) => {
+    let currentDate = DateTime.now().valueOf();
+    let appointmentDate = DateTime.fromISO(appointment.date).valueOf();
+    if (currentDate < appointmentDate) return appointment;
+  });
   res.status(201).json({
     status: 'success',
-    data: results,
+    data: futureAppointments,
   });
 });
 
@@ -31,5 +38,31 @@ exports.getAllAppointments = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: 'success',
     data: appointments,
+  });
+});
+
+exports.updateAppointment = catchAsync(async (req, res, next) => {
+  const appointment = await Appointment.findOneAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true }
+  );
+  if (!appointment) {
+    return next(new AppError('No appointment found with that id!'));
+  }
+  res.status(200).json({
+    status: 'success',
+    data: appointment,
+  });
+});
+
+exports.deleteAppointment = catchAsync(async (req, res, next) => {
+  const appointment = await Appointment.findByIdAndDelete(req.params.id);
+  if (!appointment) {
+    return next(new AppError('No appointment found with that id!', 404));
+  }
+  res.status(204).json({
+    status: 'success',
+    data: null,
   });
 });

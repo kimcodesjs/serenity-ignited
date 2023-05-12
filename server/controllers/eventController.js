@@ -1,5 +1,6 @@
 const catchAsync = require('../utils/catchAsync');
 const Event = require('../models/eventModel');
+const Email = require('../utils/email');
 const { DateTime } = require('luxon');
 
 exports.createEvent = catchAsync(async (req, res, next) => {
@@ -44,11 +45,17 @@ exports.getEvent = catchAsync(async (req, res, next) => {
 exports.purchaseTicket = catchAsync(async (req, res, next) => {
   const event = await Event.findById(req.body.event);
 
-  event.capacity.available === 0 &&
+  if (event.capacity.available - req.body.quantity < 0) {
     new AppError('This event is sold out!', '400');
-
-  event.capacity.available = event.capacity.available - 1;
+  }
+  const purchase = {
+    quantity: req.body.quantity,
+    purchaseTotal: req.body.total,
+  };
+  new Email(req.user).sendEventConfirm(req.body.event, purchase);
+  event.capacity.available = event.capacity.available - req.body.quantity;
   event.save();
+
   res.status(201).json({
     status: 'success',
   });
