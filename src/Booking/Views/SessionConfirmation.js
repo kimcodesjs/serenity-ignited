@@ -136,9 +136,7 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
   const [paymentToken, setToken] = useState(null);
 
   useEffect(() => {
-    console.log('hello');
     const setupPaymentForm = async () => {
-      console.log('hello');
       const payments = Square.payments(
         process.env.SQUARE_APP_ID,
         process.env.SQUARE_LOCATION_ID
