@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import axios from 'axios';
 import { createUseStyles } from 'react-jss';
@@ -17,11 +17,6 @@ const useStyles = createUseStyles({
       fontSize: '30px',
       textAlign: 'center',
     },
-  },
-  pageSubtitle: {
-    margin: '0 auto',
-    maxWidth: '700px',
-    fontSize: '20px',
   },
   eventDetails: {
     maxWidth: '75%',
@@ -88,6 +83,7 @@ const useStyles = createUseStyles({
 
 const EventPage = ({ user }) => {
   const [event, setEvent] = useState({});
+  const [quantity, setQuantity] = useState(1);
 
   let { eventId } = useParams();
   const classes = useStyles();
@@ -155,7 +151,9 @@ const EventPage = ({ user }) => {
           }
         });
     };
-    setupPaymentForm();
+    if (user) {
+      setupPaymentForm();
+    }
   }, [event]);
 
   const currencyFormatter = new Intl.NumberFormat('en-US', {
@@ -170,23 +168,25 @@ const EventPage = ({ user }) => {
       <div className={classes.eventDetails}>
         <h1 className={classes.pageTitle}>Reserve Your Spot!</h1>
         <br />
-        <p className={classes.pageSubtitle}>
-          Coming together with the intention of cultivating inner peace and
-          deepening our connection to Self, weekly guided meditations provide a
-          communal and welcoming atmosphere for individuals seeking a sense of
-          harmony within and without.
-        </p>
-        <br />
         <h1 className={classes.eventTitle}>{event.name}</h1>
         <h2>{event.description}</h2>
         <h3>
           {DateTime.fromISO(event.start).toLocaleString(DateTime.DATETIME_FULL)}
         </h3>
         <h3>{currencyFormatter.format(event.price)}</h3>
-        <div id="card-container">Loading...</div>
-        <button className={classes.button} id="purchase-ticket">
-          Purchase Ticket
-        </button>
+        {!user && (
+          <div>
+            Please <Link>log in or sign up</Link> to RSVP
+          </div>
+        )}
+        {user && (
+          <>
+            <div id="card-container"></div>
+            <button className={classes.button} id="purchase-ticket">
+              Purchase Ticket
+            </button>
+          </>
+        )}
       </div>
 
       <img src="../Chakra Mandala.png" className={classes.imgLeft} />

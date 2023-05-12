@@ -13,6 +13,8 @@ router.post(
   appointmentController.createAppointment
 );
 router.get('/get-my-appointments', appointmentController.getUserAppointments);
+router.patch('/:id', appointmentController.updateAppointment);
+router.delete('/:id', appointmentController.deleteAppointment);
 
 // Routes are protected with auth and restricted to Admin Users
 router.use(authController.restrictTo('admin'));

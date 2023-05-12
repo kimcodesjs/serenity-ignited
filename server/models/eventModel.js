@@ -12,6 +12,7 @@ const eventSchema = new mongoose.Schema({
     type: String,
     require: [true, 'Please provide a description for the event.'],
   },
+  slug: String,
   start: {
     type: String,
     require: true,
@@ -36,6 +37,10 @@ const eventSchema = new mongoose.Schema({
       default: 7,
     },
   },
+});
+
+eventSchema.pre('save', function (next) {
+  this.slug = slugify(this.name, { lower: true });
 });
 
 const Event = mongoose.model('Event', eventSchema);

@@ -86,27 +86,36 @@ const MySessions = () => {
   //         setUserAppointments(appointments)
   //     })
   // },[])
-  useEffect(async () => {
+  useEffect(() => {
+    const getAppointments = async () => {
+      try {
+        await axios({
+          method: 'GET',
+          url: 'http://127.0.0.1:3000/api/v1/appointments/get-my-appointments',
+          withCredentials: true,
+        }).then((res) => {
+          setUserAppointments(res.data.data);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getAppointments();
+  }, []);
+
+  const onCancel = async (id) => {
     try {
       await axios({
-        method: 'GET',
-        url: 'http://127.0.0.1:3000/api/v1/appointments/get-my-appointments',
+        method: 'DELETE',
+        url: `http://127.0.0.1:3000/api/v1/appointments/${id}`,
         withCredentials: true,
       }).then((res) => {
-        setUserAppointments(res.data.data);
+        console.log(res);
       });
     } catch (err) {
       console.log(err);
     }
-  }, []);
-
-  // const onCancel = async (appointmentID) => {
-  //     await deleteDoc(doc(db, 'Appointments', appointmentID)).then(() => {
-  //         setUserAppointments(userAppointments.filter((appointment) => {
-  //             if (appointment.id != appointmentID) return appointment
-  //         }))
-  //     })
-  // }
+  };
 
   return (
     <div className={classes.mySessions}>

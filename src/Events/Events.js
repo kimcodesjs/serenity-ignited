@@ -49,7 +49,7 @@ const useStyles = createUseStyles({
     borderRadius: '20px',
     fontFamily: "'Euphoria Script', cursive",
     fontSize: '65px',
-    color: 'white',
+    //color: 'white',
     textAlign: 'center',
     textShadow: '#381111 1px 0px 20px',
     //background: 'radial-gradient(ellipse at top, rgba(232, 232, 185, .92) 1%, transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent)',
@@ -58,6 +58,7 @@ const useStyles = createUseStyles({
       fontSize: '45px',
     },
   },
+
   cardContainer: {
     display: 'flex',
     flexFlow: 'row',
@@ -76,7 +77,9 @@ const useStyles = createUseStyles({
     },
   },
   moduleSubtitle: {
-    marginBottom: '0',
+    margin: '0',
+    maxWidth: '700px',
+    fontSize: '20px',
   },
   moduleText: {
     width: '100%',
@@ -130,6 +133,13 @@ const Events = () => {
         </h2>
         <div>
           <h2>Meditations</h2>
+          <p className={classes.moduleSubtitle}>
+            Coming together with the intention of cultivating inner peace and
+            deepening our connection to Self, weekly guided meditations provide
+            a communal and welcoming atmosphere for individuals seeking a sense
+            of harmony within and without.
+          </p>
+          <br />
           <div className={classes.cardContainer}>
             {events.meditations.length === 0 && <h3></h3>}
             {events.meditations.map((event) => {
@@ -139,7 +149,7 @@ const Events = () => {
         </div>
         <div>
           <h2>Workshops</h2>
-          <p>
+          <p className={classes.moduleSubtitle}>
             We are still working on bringing workshops to Serenity Ignited! Is
             there something particular you are looking for? Let us know!
           </p>
