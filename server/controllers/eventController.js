@@ -50,7 +50,7 @@ exports.purchaseTicket = catchAsync(async (req, res, next) => {
   }
   const purchase = {
     quantity: req.body.quantity,
-    purchaseTotal: req.body.total,
+    purchaseTotal: req.body.price,
   };
   new Email(req.user).sendEventConfirm(req.body.event, purchase);
   event.capacity.available = event.capacity.available - req.body.quantity;
