@@ -26,7 +26,6 @@ exports.creatCustomer = catchAsync(async (req, res, next) => {
 });
 
 exports.createPayment = catchAsync(async (req, res, next) => {
-  console.log(req.body);
   try {
     const response = await client.paymentsApi.createPayment({
       sourceId: req.body.paymentToken,
@@ -38,7 +37,6 @@ exports.createPayment = catchAsync(async (req, res, next) => {
       customerId: req.body.squareId,
       statementDescriptionIdentifier: 'Serenity Ignited LLC',
     });
-    console.log(response);
     next();
   } catch (err) {
     console.log(err);

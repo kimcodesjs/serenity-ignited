@@ -140,7 +140,6 @@ const Scheduler = ({ setSchedule, duration }) => {
         <select
           onChange={(e) => {
             e.preventDefault;
-            console.log(Interval.fromISO(e.target.value));
             setActiveTimeslot(Interval.fromISO(e.target.value));
           }}
           defaultValue="default"
