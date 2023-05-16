@@ -27,6 +27,10 @@ const useStyles = createUseStyles({
   eventTitle: {
     marginTop: 0,
   },
+  cardContainer: {
+    maxWidth: '300px',
+    margin: 'auto',
+  },
   button: {
     //width: '150px',
     height: '60px',
@@ -84,6 +88,7 @@ const useStyles = createUseStyles({
 const EventPage = ({ user }) => {
   const [event, setEvent] = useState({});
   const [quantity, setQuantity] = useState(1);
+  const [error, setError] = useState(false);
 
   let { eventId } = useParams();
   const classes = useStyles();
@@ -99,6 +104,7 @@ const EventPage = ({ user }) => {
         });
       } catch (err) {
         console.log(err);
+        setError(true);
       }
     };
     fetchEvent();
@@ -135,7 +141,10 @@ const EventPage = ({ user }) => {
                 user: user._id,
                 squareId: user.squareId,
                 event: event._id,
-                price: event.price,
+                //price: Number(event.price * quantity),
+                price: event.price * quantity,
+                //quantity: Number(quantity),
+                quantity,
                 paymentToken: token,
               },
             })
@@ -173,7 +182,17 @@ const EventPage = ({ user }) => {
         <h3>
           {DateTime.fromISO(event.start).toLocaleString(DateTime.DATETIME_FULL)}
         </h3>
-        <h3>{currencyFormatter.format(event.price)}</h3>
+        <label htmlFor="quantity">Quantity: </label>
+        <select
+          name="quantity"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+        >
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+        </select>
+        <h3>Total: {currencyFormatter.format(event.price * quantity)}</h3>
         {!user && (
           <div>
             Please <Link>log in or sign up</Link> to RSVP
@@ -181,9 +200,9 @@ const EventPage = ({ user }) => {
         )}
         {user && (
           <>
-            <div id="card-container"></div>
+            <div id="card-container" className={classes.cardContainer}></div>
             <button className={classes.button} id="purchase-ticket">
-              Purchase Ticket
+              Purchase
             </button>
           </>
         )}
