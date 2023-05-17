@@ -126,9 +126,7 @@ const Session = ({ setSession, session, sessions }) => {
         <label
           htmlFor="packages"
           className={
-            activeModality === 'Package Session'
-              ? classes.modalitySelected
-              : null
+            activeModality === 'Packages' ? classes.modalitySelected : null
           }
         >
           Packages
