@@ -12,6 +12,10 @@ const Info = React.lazy(() => import('./Info/Info'));
 const Booking = React.lazy(() => import('./Booking/Booking'));
 const Events = React.lazy(() => import('./Events/Events'));
 const EventPage = React.lazy(() => import('./Events/EventPage'));
+const AllEvents = React.lazy(() => import('./Events/AllEvents'));
+const PurchaseConfirmation = React.lazy(() =>
+  import('./Events/PurchaseConfirmation')
+);
 const AboutMe = React.lazy(() => import('./AboutMe'));
 const ContactMe = React.lazy(() => import('./ContactMe'));
 const MySessions = React.lazy(() => import('./MySessions'));
@@ -64,11 +68,14 @@ const App = () => {
                 element={<Booking user={user} setUser={setUser} />}
               />
 
-              <Route path="events" element={<Events />} />
-              <Route
-                path="events/:eventId"
-                element={<EventPage user={user} />}
-              />
+              <Route path="events" element={<Events />}>
+                <Route path=":eventId" element={<EventPage user={user} />} />
+                <Route
+                  path="events/purchase-confirmation"
+                  element={<PurchaseConfirmation />}
+                />
+                <Route index element={<AllEvents />} />
+              </Route>
               <Route path="contact-me" element={<ContactMe />} />
               <Route path="about-me" element={<AboutMe />} />
               <Route
