@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { createUseStyles } from 'react-jss';
 import { Transition } from 'react-transition-group';
 
@@ -74,7 +74,7 @@ const disabledArrowStyles = {
 
 const ViewTracker = ({ view, updateView, allowNextView }) => {
   const classes = useStyles();
-
+  const nodeRef = useRef(null);
   const onArrowClick = (e) => {
     if (e.target.id === 'previous-view' && view !== 1) {
       updateView(view - 1);
@@ -91,7 +91,12 @@ const ViewTracker = ({ view, updateView, allowNextView }) => {
   };
 
   return (
-    <Transition in={view === null ? false : true} timeout={1000} appear={true}>
+    <Transition
+      in={view === null ? false : true}
+      timeout={1000}
+      appear={true}
+      nodeRef={nodeRef}
+    >
       {(state) => (
         <div
           className={classes.viewTracker}
