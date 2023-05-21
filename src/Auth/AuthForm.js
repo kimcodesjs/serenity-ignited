@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
 import axios from 'axios';
 import UserInfoForm from './UserInfoForm';
+import { AuthContext } from '../Context/AuthContext';
 import { showAlert } from '../alert';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = createUseStyles({
   authContainer: {
-    marginTop: '10px',
-    height: '250px',
-    display: 'inline-flex',
-    opacity: '0',
-    overflow: 'hidden',
-    transition: 'opacity 1s',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
   },
   form: {
-    width: '100%',
-    height: '100%',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -55,11 +54,18 @@ const useStyles = createUseStyles({
   },
 });
 
-const Authentication = ({ authFlow, setUser }) => {
+const AuthForm = () => {
   const classes = useStyles();
 
   const [userInfo, setUserInfo] = useState(null);
   const [error, setError] = useState(null);
+  const authFlow =
+    useLocation().state !== null ? useLocation().state.authFlow : 'log-in';
+  console.log(useLocation().state);
+
+  const location = useLocation();
+  console.log(location);
+  const { login, signup } = useContext(AuthContext);
 
   useEffect(() => {
     const container = document.getElementById('authentication-form-container');
@@ -77,25 +83,7 @@ const Authentication = ({ authFlow, setUser }) => {
       if (error) {
         setError(null);
       }
-      try {
-        await axios({
-          method: 'POST',
-          url: `http://127.0.0.1:3000/api/v1/users/signup`,
-          withCredentials: true,
-          data: {
-            firstName: userInfo.firstName,
-            lastName: userInfo.lastName,
-            email,
-            password,
-            passwordConfirm,
-          },
-        }).then((res) => {
-          showAlert('Success!');
-          setUser(res.data.user);
-        });
-      } catch (err) {
-        console.log(err);
-      }
+      signup(email, password, passwordConfirm, userInfo);
     } else {
       setError('Passwords must match.');
     }
@@ -107,22 +95,7 @@ const Authentication = ({ authFlow, setUser }) => {
 
     const email = document.getElementById('email-input').value;
     const password = document.getElementById('password-input').value;
-    try {
-      await axios({
-        method: 'POST',
-        url: `http://127.0.0.1:3000/api/v1/users/login`,
-        withCredentials: true,
-        data: {
-          email,
-          password,
-        },
-      }).then((res) => {
-        showAlert('Success!');
-        setUser(res.data.user);
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    login(email, password);
   };
 
   const handleForgotPassword = async (e) => {
@@ -211,4 +184,4 @@ const Authentication = ({ authFlow, setUser }) => {
   );
 };
 
-export default Authentication;
+export default AuthForm;

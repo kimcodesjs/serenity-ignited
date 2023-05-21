@@ -7,6 +7,7 @@ import axios from 'axios';
 import ScrollToTop from './ScrollToTop';
 import Menu from './Menu/Menu';
 import RequireAdmin from './Auth/RequireAdmin';
+import { AuthProvider } from './Context/AuthContext';
 const Landing = React.lazy(() => import('./Landing/Landing'));
 const Info = React.lazy(() => import('./Info/Info'));
 const Booking = React.lazy(() => import('./Booking/Booking'));
@@ -20,7 +21,8 @@ const AboutMe = React.lazy(() => import('./AboutMe'));
 const ContactMe = React.lazy(() => import('./ContactMe'));
 const MySessions = React.lazy(() => import('./MySessions'));
 const Admin = React.lazy(() => import('./Admin/Admin'));
-const ResetPassword = React.lazy(() => import('./ResetPassword'));
+const ResetPassword = React.lazy(() => import('./Auth/ResetPassword'));
+const Authentication = React.lazy(() => import('./Auth/Authentication'));
 
 const useStyles = createUseStyles({
   app: {
@@ -34,22 +36,22 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const getAuthStatus = async () => {
-      try {
-        await axios({
-          method: 'GET',
-          url: `http://127.0.0.1:3000/api/v1/users/get-auth-status`,
-          withCredentials: true,
-        }).then((res) => {
-          if (res.status === 200) {
-            setUser(res.data.data);
-          }
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getAuthStatus();
+    // const getAuthStatus = async () => {
+    //   try {
+    //     await axios({
+    //       method: 'GET',
+    //       url: `http://127.0.0.1:3000/api/v1/users/get-auth-status`,
+    //       withCredentials: true,
+    //     }).then((res) => {
+    //       if (res.status === 200) {
+    //         setUser(res.data.data);
+    //       }
+    //     });
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
+    // getAuthStatus();
   }, []);
 
   const classes = useStyles();
@@ -58,43 +60,46 @@ const App = () => {
     <div className={classes.app}>
       <BrowserRouter>
         <ScrollToTop>
-          <Menu user={user} setUser={setUser} />
-          <Suspense fallback={<div>Loading...</div>}>
-            <Routes>
-              <Route path="/" element={<Landing />} />
-              <Route path="/info/*" element={<Info />} />
-              <Route
-                path="booking"
-                element={<Booking user={user} setUser={setUser} />}
-              />
-
-              <Route path="events" element={<Events />}>
-                <Route path=":eventId" element={<EventPage user={user} />} />
+          <AuthProvider>
+            <Menu user={user} setUser={setUser} />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Routes>
+                <Route path="/" element={<Landing />} />
+                <Route path="/info/*" element={<Info />} />
                 <Route
-                  path="events/purchase-confirmation"
-                  element={<PurchaseConfirmation />}
+                  path="booking"
+                  element={<Booking user={user} setUser={setUser} />}
                 />
-                <Route index element={<AllEvents />} />
-              </Route>
-              <Route path="contact-me" element={<ContactMe />} />
-              <Route path="about-me" element={<AboutMe />} />
-              <Route
-                path="admin"
-                element={
-                  <RequireAdmin
-                    isAdmin={user && user.role === 'admin' ? true : false}
-                  >
-                    <Admin />
-                  </RequireAdmin>
-                }
-              />
-              <Route path="/:userID/my-sessions" element={<MySessions />} />
-              <Route
-                path="/reset-password/:token"
-                element={<ResetPassword />}
-              />
-            </Routes>
-          </Suspense>
+
+                <Route path="events" element={<Events />}>
+                  <Route path=":eventId" element={<EventPage />} />
+                  <Route
+                    path="events/purchase-confirmation"
+                    element={<PurchaseConfirmation />}
+                  />
+                  <Route index element={<AllEvents />} />
+                </Route>
+                <Route path="contact-me" element={<ContactMe />} />
+                <Route path="about-me" element={<AboutMe />} />
+                <Route
+                  path="admin"
+                  element={
+                    <RequireAdmin
+                      isAdmin={user && user.role === 'admin' ? true : false}
+                    >
+                      <Admin />
+                    </RequireAdmin>
+                  }
+                />
+                <Route path="/:userID/my-sessions" element={<MySessions />} />
+                <Route
+                  path="/reset-password/:token"
+                  element={<ResetPassword />}
+                />
+                <Route path="login" element={<Authentication />} />
+              </Routes>
+            </Suspense>
+          </AuthProvider>
         </ScrollToTop>
       </BrowserRouter>
     </div>

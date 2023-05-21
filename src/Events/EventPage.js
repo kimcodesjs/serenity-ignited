@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import axios from 'axios';
 import { createUseStyles } from 'react-jss';
 import { showAlert } from '../alert';
+import { AuthContext } from '../Context/AuthContext';
 
 const useStyles = createUseStyles({
   pageTitle: {
@@ -85,13 +86,15 @@ const useStyles = createUseStyles({
   },
 });
 
-const EventPage = ({ user }) => {
+const EventPage = () => {
   const [event, setEvent] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState(false);
 
   let { eventId } = useParams();
+  const navigate = useNavigate();
   const classes = useStyles();
+  const user = useContext(AuthContext);
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -149,7 +152,7 @@ const EventPage = ({ user }) => {
               },
             })
               .then(() => {
-                showAlert('success', 'Payment successful!');
+                navigate('/events/purchase-confirmation', { state: { event } });
               })
               .catch((err) => {
                 throw new Error(err.response.data.message);

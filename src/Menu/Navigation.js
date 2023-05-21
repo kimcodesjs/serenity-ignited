@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useContext } from 'react';
 import { createUseStyles } from 'react-jss';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { showAlert } from '../alert';
+import { AuthContext } from '../Context/AuthContext';
 
 const useStyles = createUseStyles({
   menuLogo: {
@@ -16,8 +15,7 @@ const useStyles = createUseStyles({
     height: '700px',
     display: 'inline-flex',
     flexDirection: 'column',
-    // alignItems: 'center',
-    opacity: 0,
+    opacity: 1,
     transition: 'opacity 2s',
     overflow: 'hidden',
   },
@@ -42,46 +40,31 @@ const useStyles = createUseStyles({
   },
 });
 
-const Navigation = ({ display, setDisplay, user, setUser, toggleMenu }) => {
+const Navigation = ({ toggleMenu }) => {
   const classes = useStyles();
-  let navigate = useNavigate();
-  useEffect(() => {
-    animateNavMenu();
-  }, [display]);
+  const navigate = useNavigate();
+  const { user, logout } = useContext(AuthContext);
+  // useEffect(() => {
+  //   animateNavMenu();
+  // }, [display]);
 
   const handleLinkClicks = async (e) => {
-    console.log(e.target.id, display);
-    if (e.target.id === 'log-in' || e.target.id === 'sign-up') {
-      setDisplay(e.target.id);
-    } else if (e.target.id === 'log-out') {
-      try {
-        const res = await axios({
-          method: 'POST',
-          url: 'http://127.0.0.1:3000/api/v1/users/logout',
-          withCredentials: true,
-        });
-        if (res.data.status === 'success') {
-          setUser(null);
-          animateNavMenu();
-          showAlert('Logged out successfully!');
-          navigate('/');
-        }
-      } catch (err) {
-        console.log(err.response.data.message);
-      }
+    if (e.target.id === 'log-out') {
+      logout();
+      toggleMenu();
     } else {
       toggleMenu();
     }
   };
 
-  const animateNavMenu = () => {
-    const navMenu = document.getElementById('nav-menu');
-    if (display === 'nav-menu') {
-      navMenu.style.opacity = '1';
-    } else {
-      navMenu.style.opacity = '0';
-    }
-  };
+  // const animateNavMenu = () => {
+  //   const navMenu = document.getElementById('nav-menu');
+  //   if (display === 'nav-menu') {
+  //     navMenu.style.opacity = '1';
+  //   } else {
+  //     navMenu.style.opacity = '0';
+  //   }
+  // };
 
   return (
     <div
@@ -116,14 +99,24 @@ const Navigation = ({ display, setDisplay, user, setUser, toggleMenu }) => {
         About Me
       </Link>
       {!user && (
-        <span className={classes.span} id="log-in">
+        <Link
+          to="/login"
+          className={classes.navLink}
+          id="log-in"
+          state={{ authFlow: 'log-in' }}
+        >
           Log In
-        </span>
+        </Link>
       )}
       {!user && (
-        <span className={classes.span} id="sign-up">
+        <Link
+          to="/login"
+          className={classes.navLink}
+          id="sign-up"
+          state={{ authFlow: 'sign-up' }}
+        >
           Sign Up
-        </span>
+        </Link>
       )}
       {user && (
         <Link

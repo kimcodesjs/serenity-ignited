@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
 import { showAlert } from '../../alert';
 import axios from 'axios';
-import Authentication from '../../Menu/Authentication';
+import Authentication from '../../Auth/AuthForm';
 import AppointmentCard from './AppointmentCard';
 import { Link } from 'react-router-dom';
 
