@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
 import axios from 'axios';
-import UserInfoForm from './UserInfoForm';
 import { AuthContext } from '../Context/AuthContext';
 import { showAlert } from '../alert';
 import { useLocation } from 'react-router-dom';
@@ -10,22 +9,16 @@ const useStyles = createUseStyles({
   authContainer: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    //justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '100vh',
+    //minHeight: '100vh',
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
   },
-  formItem: {
-    width: '60%',
-  },
-  inputLabel: {
-    textShadow: '#e5d7d7 1px 0px 5px',
-  },
   input: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     borderColor: '#381111',
     borderLeft: 'none',
     borderRight: 'none',
@@ -34,10 +27,34 @@ const useStyles = createUseStyles({
     paddingLeft: '10px',
     outline: 'none',
     fontFamily: 'inherit',
+    fontSize: '20px',
+    width: '275px',
   },
   button: {
-    width: '10%',
-    marginBottom: '10px',
+    fontFamily: "'Clicker Script', cursive",
+    fontSize: '30px',
+    textShadow: '#e5d7d7 1px 0px 5px',
+    color: 'white',
+    background:
+      'radial-gradient(ellipse at top, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
+    borderRadius: '30px',
+    border: 'none',
+    filter: 'drop-shadow(2px 2px 1px #443356)',
+    cursor: 'pointer',
+    width: '100%',
+    transition: 'opacity ease-in-out 1s',
+    '@media (max-width: 720px)': {
+      fontSize: '28px',
+      //width: '140px',
+    },
+    '@media (max-width: 450px)': {
+      fontSize: '28px',
+      //width: '110px',
+    },
+  },
+  textButton: {
+    //width: '10%',
+    margin: '10px',
     border: 'none',
     padding: '0',
     userSelect: 'none',
@@ -48,42 +65,40 @@ const useStyles = createUseStyles({
     borderRadius: '10px',
     fontWeight: 'bold',
     fontFamily: 'inherit',
+    fontSize: '15px',
   },
   error: {
-    marginLeft: '30px',
+    fontSize: '20px',
   },
 });
 
 const AuthForm = () => {
   const classes = useStyles();
 
-  const [userInfo, setUserInfo] = useState(null);
   const [error, setError] = useState(null);
-  const authFlow =
-    useLocation().state !== null ? useLocation().state.authFlow : 'log-in';
-  console.log(useLocation().state);
-
-  const location = useLocation();
-  console.log(location);
+  const [authFlow, setAuthFlow] = useState(
+    useLocation().state !== null ? useLocation().state.authFlow : 'log-in'
+  );
   const { login, signup } = useContext(AuthContext);
-
-  useEffect(() => {
-    const container = document.getElementById('authentication-form-container');
-    container.style.opacity = '1';
-  }, []);
 
   // New User Authentication
   const handleSignUp = async (e) => {
     e.preventDefault();
-    const email = document.getElementById('email-input').value;
-    const password = document.getElementById('password-input').value;
-    const passwordConfirm = document.getElementById('password-confirm').value;
 
-    if (password === passwordConfirm) {
+    const data = {
+      firstName: document.getElementById('first-name').value,
+      lastName: document.getElementById('last-name').value,
+      phone: document.getElementById('phone').value,
+      email: document.getElementById('email-input').value,
+      password: document.getElementById('password-input').value,
+      passwordConfirm: document.getElementById('password-confirm').value,
+    };
+
+    if (data.password === data.passwordConfirm) {
       if (error) {
         setError(null);
       }
-      signup(email, password, passwordConfirm, userInfo);
+      signup(data);
     } else {
       setError('Passwords must match.');
     }
@@ -92,10 +107,12 @@ const AuthForm = () => {
   // Existing User Authentication
   const handleLogIn = async (e) => {
     e.preventDefault();
+    const data = {
+      email: document.getElementById('email-input').value,
+      password: document.getElementById('password-input').value,
+    };
 
-    const email = document.getElementById('email-input').value;
-    const password = document.getElementById('password-input').value;
-    login(email, password);
+    login(data);
   };
 
   const handleForgotPassword = async (e) => {
@@ -124,62 +141,91 @@ const AuthForm = () => {
 
   return (
     <div id="authentication-form-container" className={classes.authContainer}>
-      {authFlow === 'sign-up' && userInfo === null && (
-        <UserInfoForm setUserInfo={setUserInfo} useStyles={useStyles} />
-      )}
-      {(authFlow === 'log-in' || userInfo != null) && (
-        <form id="auth-form" className={classes.form}>
-          <div className={classes.formItem}>
-            <label className={classes.inputLabel} htmlFor="email-input">
-              Email
-            </label>
+      <form id="auth-form" className={classes.form}>
+        {authFlow === 'sign-up' && (
+          <>
             <input
+              type="text"
               className={classes.input}
-              type="email"
-              id="email-input"
+              id="first-name"
               required
+              placeholder="First Name"
             />
-          </div>
-          <br />
-          <div className={classes.formItem}>
-            <label className={classes.inputLabel} htmlFor="password-input">
-              Password
-            </label>
+            <br />
+            <input
+              type="text"
+              className={classes.input}
+              id="last-name"
+              required
+              placeholder="Last Name"
+            />
+            <br />
+            <input
+              type="tel"
+              className={classes.input}
+              id="phone"
+              required
+              placeholder="Phone Number"
+            />
+            <br />
+          </>
+        )}
+        <input
+          className={classes.input}
+          type="email"
+          id="email-input"
+          required
+          placeholder="Email"
+        />
+        <br />
+        <input
+          className={classes.input}
+          type="password"
+          id="password-input"
+          required
+          placeholder="Password"
+        />
+        <br />
+        {authFlow === 'sign-up' && (
+          <>
             <input
               className={classes.input}
               type="password"
-              id="password-input"
-              required
+              id="password-confirm"
+              placeholder="Confirm Password"
             />
-          </div>
-          <br />
-          {authFlow === 'sign-up' && (
-            <div className={classes.formItem}>
-              <label className={classes.inputLabel} htmlFor="password-confirm">
-                Confirm Password
-              </label>
-              <input
-                className={classes.input}
-                type="password"
-                id="password-confirm"
-                required
-              />
-            </div>
-          )}
-          <br />
+            <br />
+          </>
+        )}
+        <button
+          className={classes.button}
+          onClick={authFlow === 'sign-up' ? handleSignUp : handleLogIn}
+        >
+          Submit
+        </button>
+      </form>
+      <div>
+        <button className={classes.textButton} onClick={handleForgotPassword}>
+          I forgot my password.
+        </button>
+        {authFlow === 'sign-up' ? (
           <button
-            className={classes.button}
-            onClick={authFlow === 'sign-up' ? handleSignUp : handleLogIn}
+            className={classes.textButton}
+            onClick={() => setAuthFlow('log-in')}
           >
-            Submit
+            I already have an account!
           </button>
-          <button className={classes.button} onClick={handleForgotPassword}>
-            I forgot my password.
+        ) : (
+          <button
+            className={classes.textButton}
+            onClick={() => setAuthFlow('sign-up')}
+          >
+            I don't have an account yet.
           </button>
-          <br />
-          {error ? <span className={classes.error}>{error}</span> : null}
-        </form>
-      )}
+        )}
+      </div>
+      <br />
+      {error ? <span className={classes.error}>{error}</span> : null}
     </div>
   );
 };

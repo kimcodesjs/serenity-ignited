@@ -45,19 +45,13 @@ function AuthProvider(props) {
     }
   };
 
-  const signup = async (email, password, passwordConfirm, userInfo) => {
+  const signup = async (data) => {
     try {
       await axios({
         method: 'POST',
         url: `http://127.0.0.1:3000/api/v1/users/signup`,
         withCredentials: true,
-        data: {
-          firstName: userInfo.firstName,
-          lastName: userInfo.lastName,
-          email,
-          password,
-          passwordConfirm,
-        },
+        data,
       }).then((res) => {
         showAlert('Success!');
         setUser(res.data.user);
@@ -68,16 +62,13 @@ function AuthProvider(props) {
     }
   };
 
-  const login = async (email, password) => {
+  const login = async (data) => {
     try {
       await axios({
         method: 'POST',
         url: `http://127.0.0.1:3000/api/v1/users/login`,
         withCredentials: true,
-        data: {
-          email,
-          password,
-        },
+        data,
       }).then((res) => {
         showAlert('Success!');
         setUser(res.data.user);
