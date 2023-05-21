@@ -388,7 +388,11 @@ const Landing = () => {
           className={classes.logo}
           id="logo"
         />
-        <p className={classes.greeting} id="greeting">
+        <p
+          className={classes.greeting}
+          data-testid="landing-greeting"
+          id="greeting"
+        >
           Let us walk with you on your journey to find peace, happiness, and
           serenity.
         </p>

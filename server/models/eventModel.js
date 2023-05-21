@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const eventSchema = new mongoose.Schema({
   category: {
@@ -41,6 +42,7 @@ const eventSchema = new mongoose.Schema({
 
 eventSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
+  next();
 });
 
 const Event = mongoose.model('Event', eventSchema);

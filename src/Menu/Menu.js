@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
 import Navigation from './Navigation';
-import Authentication from './Authentication';
+import Authentication from '../Auth/AuthForm';
 import AuthChange from './AuthChange';
+import { AuthContext } from '../Context/AuthContext';
 
 const useStyles = createUseStyles({
   menuToggle: {
-    zIndex: 10,
+    zIndex: 11,
     position: 'fixed',
     top: 0,
     right: 0,
@@ -34,7 +35,8 @@ const useStyles = createUseStyles({
     backgroundRepeat: 'no-repeat',
     width: '300px',
     height: '100%',
-    zIndex: 5,
+    borderRadius: '10px 0% 0% 10px',
+    zIndex: 10,
     position: 'fixed',
     right: '-310px',
     opacity: 0,
@@ -62,17 +64,12 @@ const useStyles = createUseStyles({
   },
 });
 
-const Menu = ({ setUser, user }) => {
+const Menu = () => {
   const classes = useStyles();
 
-  const [menuDisplay, setMenuDisplay] = useState('nav-menu');
   const [menuToggle, setToggle] = useState(false);
 
-  useEffect(() => {
-    if (menuDisplay === 'log-in' || menuDisplay === 'sign-up') {
-      setMenuDisplay('auth-change');
-    }
-  }, [user]);
+  const user = useContext(AuthContext);
 
   const toggleMenu = () => {
     const menu = document.getElementById('menu');
@@ -85,7 +82,6 @@ const Menu = ({ setUser, user }) => {
       menu.style.right = '-310px';
       menu.style.opacity = 0;
       setToggle(false);
-      setMenuDisplay('nav-menu');
     }
   };
 
@@ -102,38 +98,7 @@ const Menu = ({ setUser, user }) => {
         </div>
 
         <div className={classes.menuDiv} id="menu">
-          {menuDisplay === 'nav-menu' && (
-            <Navigation
-              user={user ? true : false}
-              setUser={setUser}
-              display={menuDisplay}
-              setDisplay={setMenuDisplay}
-              toggleMenu={toggleMenu}
-            />
-          )}
-          {(menuDisplay === 'log-in' || menuDisplay === 'sign-up') && (
-            <>
-              <div className={classes.authDiv}>
-                <Authentication authFlow={menuDisplay} setUser={setUser} />
-              </div>
-              <button
-                className={classes.button}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMenuDisplay('nav-menu');
-                }}
-              >
-                Return to Menu
-              </button>
-            </>
-          )}
-          {menuDisplay === 'auth-change' && (
-            <AuthChange
-              user={user}
-              display={menuDisplay}
-              setDisplay={setMenuDisplay}
-            />
-          )}
+          <Navigation toggleMenu={toggleMenu} />
         </div>
       </div>
     </div>
