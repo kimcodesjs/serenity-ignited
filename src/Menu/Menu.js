@@ -1,9 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import Navigation from './Navigation';
-import Authentication from '../Auth/AuthForm';
-import AuthChange from './AuthChange';
-import { AuthContext } from '../Context/AuthContext';
 
 const useStyles = createUseStyles({
   menuToggle: {
@@ -68,8 +65,6 @@ const Menu = () => {
   const classes = useStyles();
 
   const [menuToggle, setToggle] = useState(false);
-
-  const user = useContext(AuthContext);
 
   const toggleMenu = () => {
     const menu = document.getElementById('menu');

@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { showAlert } from '../alert';
 
 const AuthContext = createContext(null);
@@ -8,6 +8,7 @@ const AuthContext = createContext(null);
 function AuthProvider(props) {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const getAuthStatus = async () => {
@@ -55,7 +56,7 @@ function AuthProvider(props) {
       }).then((res) => {
         showAlert('Success!');
         setUser(res.data.user);
-        navigate(-1, { replace: true });
+        location.pathname === '/login' && navigate(-1, { replace: true });
       });
     } catch (err) {
       console.log(err);
@@ -72,7 +73,7 @@ function AuthProvider(props) {
       }).then((res) => {
         showAlert('Success!');
         setUser(res.data.user);
-        navigate(-1, { replace: true });
+        location.pathname === '/login' && navigate(-1, { replace: true });
       });
     } catch (err) {
       console.log(err);

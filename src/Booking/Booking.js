@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
 import axios from 'axios';
 import ViewTransition from './Views/ViewTransition';
@@ -7,6 +7,8 @@ import Session from './Views/Session';
 import Connection from './Views/Connection';
 import Scheduler from './Views/Scheduler';
 import SessionConfirmation from './Views/SessionConfirmation';
+import AuthPrompt from './Views/AuthPrompt';
+import { AuthContext } from '../Context/AuthContext';
 
 const useStyles = createUseStyles({
   bookingContent: {
@@ -37,7 +39,7 @@ const useStyles = createUseStyles({
   },
 });
 
-const Booking = ({ user, setUser }) => {
+const Booking = () => {
   const [sessions, setSessions] = useState(null);
   const [session, setSession] = useState(null);
   const [connection, setConnection] = useState(null);
@@ -46,6 +48,7 @@ const Booking = ({ user, setUser }) => {
   const [view, updateView] = useState(null);
 
   const classes = useStyles();
+  const { user } = useContext(AuthContext);
 
   // controls if a user is able to move to next step
   useEffect(() => {
@@ -112,13 +115,15 @@ const Booking = ({ user, setUser }) => {
           {view === 3 && (
             <Scheduler setSchedule={setSchedule} duration={session.duration} />
           )}
-          {view === 4 && (
+          {(view === 4) & (user !== null) ? (
             <SessionConfirmation
               user={user}
               session={session}
               connection={connection.name}
               schedule={schedule}
             />
+          ) : (
+            <AuthPrompt />
           )}
         </div>
       )}

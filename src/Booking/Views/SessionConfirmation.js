@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
 import { showAlert } from '../../alert';
 import axios from 'axios';
-import Authentication from '../../Auth/AuthForm';
 import AppointmentCard from './AppointmentCard';
 import { Link } from 'react-router-dom';
 
 const useStyles = createUseStyles({
   viewContainer: {
-    height: '88vh',
+    height: '87vh',
     width: '70%',
     maxWidth: '800px',
     marginLeft: 'auto',
@@ -18,13 +17,16 @@ const useStyles = createUseStyles({
     alignItems: 'center',
     textAlign: 'center',
     overflowX: 'hidden',
+    '@media (max-width: 425px)': {
+      width: '90%',
+    },
   },
   viewPrompt: {
     marginBottom: '0',
     '@media (max-width: 920px)': {
       fontSize: '24px',
-      marginLeft: '70px',
-      marginRight: '70px',
+      // marginLeft: '70px',
+      // marginRight: '70px',
     },
   },
   h3: {
@@ -37,23 +39,18 @@ const useStyles = createUseStyles({
     cursor: 'pointer',
     userSelect: 'none',
   },
-  paymentSelect: {
-    background:
-      'radial-gradient(ellipse at top, rgba(232, 232, 185, .92) 1%, rgba(207, 194, 213, .4)), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent)',
-    borderRadius: '10px',
+  cardContainer: {
     filter: 'drop-shadow(2px 2px 1px #443356)',
-    width: '50%',
-    height: '175px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    padding: '15px',
+    width: '300px',
+    display: 'flex',
   },
   buttonEnabled: {
-    // height: '60px',
-    // width: '170px',
-    // marginTop: '30px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '220px',
     fontFamily: "'Clicker Script', cursive",
-    fontSize: '24px',
+    fontSize: '28px',
     textShadow: '#e5d7d7 1px 0px 5px',
     color: 'white',
     background:
@@ -65,15 +62,9 @@ const useStyles = createUseStyles({
     transition: 'opacity ease-in-out 1s',
     '@media (max-width: 720px)': {
       fontSize: '28px',
-      width: '140px',
-      height: '60px',
-      marginTop: '15px',
     },
     '@media (max-width: 300px)': {
       fontSize: '20px',
-      width: '110px',
-      height: '40px',
-      marginTop: '15px',
     },
   },
   buttonDisabled: {
@@ -128,12 +119,10 @@ const useAppointmentCardStyles = createUseStyles({
   },
 });
 
-const SessionConfirmation = ({ user, session, connection, schedule }) => {
+const SessionConfirmation = ({ session, connection, schedule, user }) => {
   const classes = useStyles();
 
-  const [authFlow, setAuthFlow] = useState('sign-up');
   const [sessionConfirmed, setConfirmation] = useState(false);
-  const [paymentToken, setToken] = useState(null);
 
   useEffect(() => {
     const setupPaymentForm = async () => {
@@ -202,63 +191,30 @@ const SessionConfirmation = ({ user, session, connection, schedule }) => {
         time={schedule.time}
         useStyles={useAppointmentCardStyles}
       />
-      {user === null && (
+      {sessionConfirmed === false && (
         <>
-          <h3 className={classes.h3}>
-            Sign in to continue finalizing your appointment:
-          </h3>
-          {authFlow === 'sign-up' && (
-            <p
-              className={classes.p}
-              onClick={(e) => {
-                e.preventDefault();
-                setAuthFlow('log-in');
-              }}
-            >
-              I already have an account!
-            </p>
-          )}
-          {authFlow === 'log-in' && (
-            <p
-              className={classes.p}
-              onClick={(e) => {
-                e.preventDefault();
-                setAuthFlow('sign-up');
-              }}
-            >
-              I don't have an account yet.
-            </p>
-          )}
-          <Authentication authFlow={authFlow} />
-        </>
-      )}
-      {user != null && sessionConfirmed === false && (
-        <div>
-          <h2>
-            Thank you for allowing me to join you on your healing journey,{' '}
-            {user.firstName}!
-          </h2>
-          <h4>Please add your payment details to finalize your appointment.</h4>
-          <div className={classes.paymentSelect}>
-            <div id="card-container">Loading...</div>
-            <button
-              className={classes.buttonEnabled}
-              id="schedule-appointment"
-              // enabled={paymentMethod ? 'true' : 'false'}
-              onClick={(e) => {
-                e.preventDefault();
-              }}
-            >
-              Schedule Appointment
-            </button>
+          <h3>Add your payment details to finalize your appointment.</h3>
+          <div id="card-container" className={classes.cardContainer}>
+            Loading...
           </div>
-        </div>
+          <button
+            className={classes.buttonEnabled}
+            id="schedule-appointment"
+            // enabled={paymentMethod ? 'true' : 'false'}
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            Schedule Appointment
+          </button>
+        </>
       )}
       {sessionConfirmed === true && (
         <div>
           <h3>
-            Your appointment has been booked! Here are some tips to keep in mind
-            while preparing for your session.
+            Thank you for allowing me to join you on your healing journey,{' '}
+            {user.firstName}! Here are some tips to keep in mind while preparing
+            for your session.
           </h3>
           <h4>
             Please visit the{' '}
