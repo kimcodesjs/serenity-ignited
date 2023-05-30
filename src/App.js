@@ -1,5 +1,6 @@
 import React, { useState, Suspense, useEffect } from 'react';
 import './Calendar.css';
+import './alert.css';
 import '@csstools/normalize.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { createUseStyles } from 'react-jss';
@@ -8,6 +9,7 @@ import ScrollToTop from './ScrollToTop';
 import Menu from './Menu/Menu';
 import RequireAdmin from './Auth/RequireAdmin';
 import { AuthProvider } from './Context/AuthContext';
+import { EventProvider } from './Context/EventContext';
 const Landing = React.lazy(() => import('./Landing/Landing'));
 const Info = React.lazy(() => import('./Info/Info'));
 const Booking = React.lazy(() => import('./Booking/Booking'));
@@ -33,27 +35,6 @@ const useStyles = createUseStyles({
 });
 
 const App = () => {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    // const getAuthStatus = async () => {
-    //   try {
-    //     await axios({
-    //       method: 'GET',
-    //       url: `http://127.0.0.1:3000/api/v1/users/get-auth-status`,
-    //       withCredentials: true,
-    //     }).then((res) => {
-    //       if (res.status === 200) {
-    //         setUser(res.data.data);
-    //       }
-    //     });
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-    // getAuthStatus();
-  }, []);
-
   const classes = useStyles();
 
   return (
@@ -61,44 +42,41 @@ const App = () => {
       <BrowserRouter>
         <ScrollToTop>
           <AuthProvider>
-            <Menu user={user} setUser={setUser} />
-            <Suspense fallback={<div>Loading...</div>}>
-              <Routes>
-                <Route path="/" element={<Landing />} />
-                <Route path="/info/*" element={<Info />} />
-                <Route
-                  path="booking"
-                  element={<Booking user={user} setUser={setUser} />}
-                />
+            <EventProvider>
+              <Menu />
+              <Suspense fallback={<div>Loading...</div>}>
+                <Routes>
+                  <Route path="/" element={<Landing />} />
+                  <Route path="/info/*" element={<Info />} />
+                  <Route path="booking" element={<Booking />} />
 
-                <Route path="events" element={<Events />}>
-                  <Route path=":eventId" element={<EventPage />} />
+                  <Route path="events" element={<Events />}>
+                    <Route path=":eventId" element={<EventPage />} />
+                    <Route
+                      path="events/purchase-confirmation"
+                      element={<PurchaseConfirmation />}
+                    />
+                    <Route index element={<AllEvents />} />
+                  </Route>
+                  <Route path="contact-me" element={<ContactMe />} />
+                  <Route path="about-me" element={<AboutMe />} />
                   <Route
-                    path="events/purchase-confirmation"
-                    element={<PurchaseConfirmation />}
+                    path="admin"
+                    element={
+                      <RequireAdmin>
+                        <Admin />
+                      </RequireAdmin>
+                    }
                   />
-                  <Route index element={<AllEvents />} />
-                </Route>
-                <Route path="contact-me" element={<ContactMe />} />
-                <Route path="about-me" element={<AboutMe />} />
-                <Route
-                  path="admin"
-                  element={
-                    <RequireAdmin
-                      isAdmin={user && user.role === 'admin' ? true : false}
-                    >
-                      <Admin />
-                    </RequireAdmin>
-                  }
-                />
-                <Route path="/:userID/my-sessions" element={<MySessions />} />
-                <Route
-                  path="/reset-password/:token"
-                  element={<ResetPassword />}
-                />
-                <Route path="login" element={<Authentication />} />
-              </Routes>
-            </Suspense>
+                  <Route path="/:userID/my-sessions" element={<MySessions />} />
+                  <Route
+                    path="/reset-password/:token"
+                    element={<ResetPassword />}
+                  />
+                  <Route path="login" element={<Authentication />} />
+                </Routes>
+              </Suspense>
+            </EventProvider>
           </AuthProvider>
         </ScrollToTop>
       </BrowserRouter>

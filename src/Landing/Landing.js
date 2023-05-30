@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
-import axios from 'axios';
-import { DateTime } from 'luxon';
+import { EventContext } from '../Context/EventContext';
 import EventCard from '../Events/EventCard';
 
 const useStyles = createUseStyles({
@@ -285,23 +284,7 @@ const useStyles = createUseStyles({
 const Landing = () => {
   const classes = useStyles();
 
-  const [events, setEvents] = useState([]);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        await axios({
-          method: 'GET',
-          url: 'http://127.0.0.1:3000/api/v1/events/get-all-events?category=meditation',
-        }).then((res) => {
-          setEvents(res.data.data);
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchEvents();
-  }, []);
+  const { meditations } = useContext(EventContext);
 
   useEffect(() => {
     window.addEventListener('scroll', animateBackground);
@@ -445,7 +428,7 @@ const Landing = () => {
           </div>
           <h2>Upcoming Meditations</h2>
           <div className={classes.cardContainer}>
-            {events.map((event) => {
+            {meditations.map((event) => {
               return <EventCard event={event} key={event._id} />;
             })}
           </div>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { EventContext } from '../Context/EventContext';
 import { Transition } from 'react-transition-group';
 import { Outlet } from 'react-router-dom';
 import { createUseStyles } from 'react-jss';
@@ -95,38 +96,10 @@ const useStyles = createUseStyles({
   },
 });
 const Events = () => {
-  const [events, setEvents] = useState({ meditations: [], workshops: [] });
-
+  const { workshops, meditations } = useContext(EventContext);
   const classes = useStyles();
 
   const nodeRef = useRef(null);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        await axios({
-          method: 'GET',
-          url: 'http://127.0.0.1:3000/api/v1/events/get-all-events',
-        }).then((res) => {
-          const meditationEvents = [];
-          const workshopEvents = [];
-          res.data.data.forEach((event) => {
-            event.category === 'meditation'
-              ? meditationEvents.push(event)
-              : workshopEvents.push(event);
-          });
-          console.log(res.data.data);
-          setEvents({
-            meditations: meditationEvents,
-            workshops: workshopEvents,
-          });
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchEvents();
-  }, []);
 
   const headerTransitionStyles = {
     entering: {
@@ -171,7 +144,7 @@ const Events = () => {
             className={classes.content}
             style={{ ...contentTransitionStyles[state] }}
           >
-            <Outlet context={events} />
+            <Outlet context={{ meditations, workshops }} />
           </div>
         )}
       </Transition>

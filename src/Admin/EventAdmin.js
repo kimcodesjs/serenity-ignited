@@ -1,27 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import Calendar from 'react-calendar';
-import axios from 'axios';
+import React, { useContext } from 'react';
+import { EventContext } from '../Context/EventContext';
 import { DateTime } from 'luxon';
 import NewEvent from './Forms/NewEvent';
 
 const EventAdmin = () => {
-  const [events, setEvents] = useState([]);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        await axios({
-          method: 'GET',
-          url: 'http://127.0.0.1:3000/api/v1/events/get-all-events',
-        }).then((res) => {
-          setEvents(res.data.data);
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchEvents();
-  }, []);
+  const { meditations, workshops } = useContext(EventContext);
 
   // how will events be sorted?
 
@@ -30,7 +13,14 @@ const EventAdmin = () => {
       <h2>Manage Your Events</h2>
       <h3>Upcoming Events</h3>
       <ul>
-        {events.map((event) => (
+        {meditations.map((event) => (
+          <li key={event._id}>
+            {`${DateTime.fromISO(event.start).toLocaleString(
+              DateTime.DATE_HUGE
+            )}: ${event.name}`}
+          </li>
+        ))}
+        {workshops.map((event) => (
           <li key={event._id}>
             {`${DateTime.fromISO(event.start).toLocaleString(
               DateTime.DATE_HUGE

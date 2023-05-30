@@ -75,10 +75,10 @@ const NewEventForm = () => {
           end: '',
           capacity: 7,
         });
-        showAlert('Event created!');
+        showAlert('Event created!', 'success');
       });
     } catch (err) {
-      console.log(err);
+      showAlert(err.response.data.message, 'error');
     }
   };
 
