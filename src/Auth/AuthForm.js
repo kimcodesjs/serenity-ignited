@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
 import axios from 'axios';
 import { AuthContext } from '../Context/AuthContext';
@@ -12,6 +12,7 @@ const useStyles = createUseStyles({
     //justifyContent: 'center',
     alignItems: 'center',
     //minHeight: '100vh',
+    transition: 'opacity ease-in-out 1s',
   },
   form: {
     display: 'flex',
@@ -72,14 +73,14 @@ const useStyles = createUseStyles({
   },
 });
 
-const AuthForm = () => {
+const AuthForm = ({ style }) => {
   const classes = useStyles();
 
   const [error, setError] = useState(null);
   const [authFlow, setAuthFlow] = useState(
     useLocation().state !== null ? useLocation().state.authFlow : 'log-in'
   );
-  const { login, signup } = useContext(AuthContext);
+  const { authChange } = useContext(AuthContext);
 
   // New User Authentication
   const handleSignUp = async (e) => {
@@ -98,7 +99,7 @@ const AuthForm = () => {
       if (error) {
         setError(null);
       }
-      signup(data);
+      authChange(data, 'signup');
     } else {
       setError('Passwords must match.');
     }
@@ -112,7 +113,7 @@ const AuthForm = () => {
       password: document.getElementById('password-input').value,
     };
 
-    login(data);
+    authChange(data, 'login');
   };
 
   const handleForgotPassword = async (e) => {
@@ -140,7 +141,11 @@ const AuthForm = () => {
   };
 
   return (
-    <div id="authentication-form-container" className={classes.authContainer}>
+    <div
+      id="authentication-form-container"
+      className={classes.authContainer}
+      style={style}
+    >
       <form id="auth-form" className={classes.form}>
         {authFlow === 'sign-up' && (
           <>

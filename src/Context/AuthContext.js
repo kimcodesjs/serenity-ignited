@@ -38,53 +38,35 @@ function AuthProvider(props) {
       });
       if (res.data.status === 'success') {
         setUser(null);
-        showAlert('Logged out successfully!');
+        showAlert('Logged out successfully!', 'success');
         navigate('/');
       }
     } catch (err) {
-      console.log(err.response.data.message);
+      showAlert(err.response.data.message);
     }
   };
 
-  const signup = async (data) => {
+  const authChange = async (data, authType) => {
     try {
       await axios({
         method: 'POST',
-        url: `http://127.0.0.1:3000/api/v1/users/signup`,
+        url: `http://127.0.0.1:3000/api/v1/users/${authType}`,
         withCredentials: true,
         data,
       }).then((res) => {
-        showAlert('Success!');
         setUser(res.data.user);
-        location.pathname === '/login' && navigate(-1, { replace: true });
+        location.pathname === '/login' &&
+          setTimeout(() => navigate(-1, { replace: true }), 3000);
       });
     } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const login = async (data) => {
-    try {
-      await axios({
-        method: 'POST',
-        url: `http://127.0.0.1:3000/api/v1/users/login`,
-        withCredentials: true,
-        data,
-      }).then((res) => {
-        showAlert('Success!');
-        setUser(res.data.user);
-        location.pathname === '/login' && navigate(-1, { replace: true });
-      });
-    } catch (err) {
-      console.log(err);
+      showAlert(err.response.data.message, 'error');
     }
   };
 
   const value = {
     user,
     logout,
-    login,
-    signup,
+    authChange,
   };
   return <AuthContext.Provider value={value} {...props} />;
 }

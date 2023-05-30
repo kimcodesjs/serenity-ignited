@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import AuthForm from './AuthForm';
 import { createUseStyles } from 'react-jss';
+import { Transition } from 'react-transition-group';
+import { AuthContext } from '../Context/AuthContext';
+import AuthChange from './AuthChange';
 
 const useStyles = createUseStyles({
   container: {
@@ -10,7 +13,7 @@ const useStyles = createUseStyles({
       'linear-gradient(to bottom, rgba(56, 17, 17, .72), rgba(60, 23, 89, .0))',
     display: 'flex',
     flexDirection: 'column',
-    //justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   background: {
@@ -35,38 +38,57 @@ const useStyles = createUseStyles({
     maskImage: 'linear-gradient(black 10%, transparent)',
   },
   logo: {
+    //position: 'absolute',
+    marginBottom: '50px',
     filter: 'drop-shadow(5px 5px 1px #443356)',
     width: '200px',
     height: 'auto',
     marginTop: '50px',
-    '@media (max-width: 450px)': {
-      width: '200px',
+    '@media (max-width: 400px)': {
+      width: '175px',
       height: 'auto',
-    },
-  },
-  h1: {
-    marginBottom: '0px',
-    fontFamily: "'Clicker Script', cursive",
-    fontSize: '65px',
-    color: 'white',
-    textShadow: '#e5d7d7 1px 0px 5px',
-    filter: 'drop-shadow(2px 2px 1px #443356)',
-    '@media (max-width: 450px)': {
-      fontSize: '55px',
+      top: '0vh',
     },
   },
 });
 const Authentication = () => {
   const classes = useStyles();
+  const nodeRef = useRef(null);
+  const { user } = useContext(AuthContext);
 
+  const transitionStyles = {
+    entering: { opacity: 0 },
+    entered: { opacity: 1 },
+    exiting: { opacity: 0 },
+    exited: { opacity: 0 },
+  };
   return (
     <div className={classes.container}>
       <img src="/4.png" className={classes.background} id="stars-back" />
       <img src="/2.png" className={classes.foreground} id="stars-front" />
       <img src="/logo-no-text.png" className={classes.logo} id="logo" />
-      <h1 className={classes.h1}>Welcome!</h1>
-      <br />
-      <AuthForm />
+
+      <Transition
+        in={user === null ? true : false}
+        timeout={1000}
+        appear={true}
+        nodeRef={nodeRef}
+        // unmountOnExit={true}
+      >
+        {(state) => <AuthForm style={{ ...transitionStyles[state] }} />}
+      </Transition>
+      {user !== null && (
+        <Transition
+          in={user === null ? false : true}
+          timeout={1000}
+          appear={true}
+          nodeRef={nodeRef}
+        >
+          {(state) => (
+            <AuthChange user={user} style={{ ...transitionStyles[state] }} />
+          )}
+        </Transition>
+      )}
     </div>
   );
 };

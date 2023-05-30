@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../Context/AuthContext';
 import AccessDenied from './AccessDenied';
 
-const RequireAdmin = ({ children, isAdmin }) => {
-  return isAdmin ? children : <AccessDenied adminOnly={true} />;
+const RequireAdmin = ({ children }) => {
+  const { user } = useContext(AuthContext);
+  return user && user.role === 'admin' ? (
+    children
+  ) : (
+    <AccessDenied adminOnly={true} />
+  );
 };
 
 export default RequireAdmin;
