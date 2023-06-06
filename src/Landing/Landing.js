@@ -428,9 +428,16 @@ const Landing = () => {
           </div>
           <h2>Upcoming Meditations</h2>
           <div className={classes.cardContainer}>
-            {meditations.map((event) => {
-              return <EventCard event={event} key={event._id} />;
-            })}
+            {meditations.length !== 0 ? (
+              meditations.map((event) => {
+                return <EventCard event={event} key={event._id} />;
+              })
+            ) : (
+              <p className={classes.moduleText}>
+                Looks like we don't have any meditation events coming up -
+                please check back soon for updates!
+              </p>
+            )}
           </div>
         </div>
 
