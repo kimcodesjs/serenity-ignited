@@ -472,15 +472,7 @@ const Landing = () => {
             Access Bars healing session can help to release negative thought
             patterns and limiting beliefs and allow mental clarity.
           </p>
-          <div className={classes.buttonContainer}>
-            <button className={classes.button}>Book a Session</button>
-            <span className={classes.buttonSpacer}>OR</span>
-            <button className={classes.button}>Learn More</button>
-          </div>
-        </div>
-        <h1 className={classes.sectionTitle}>Coming Soon...</h1>
-        <div className={classes.moduleContainer}>
-          <h1 className={classes.moduleTitle}>Sound Healing</h1>
+          <h2 className={classes.moduleSubtitle}>Sound Healing</h2>
           <p className={classes.moduleText}>
             You may already be familiar with the powerful effects of sound
             frequencies as they are the basis for modern day meditation music
@@ -488,19 +480,15 @@ const Landing = () => {
             session. Through the use of a variety of instruments such as Tibetan
             singing bowls, tuning forks, and drums, an atmosphere of specific
             vibratory resonance is applied to the physical and etheric body,
-            restoring harmony and balance within each. These sessions may:
+            restoring harmony and balance within each.
           </p>
-          <ul>
-            <li className={classes.listItem}>Cultivate deep relaxation</li>
-            <li className={classes.listItem}>Clear energetic blockages</li>
-            <li className={classes.listItem}>
-              Ease physical tension and strain
-            </li>
-            <li className={classes.listItem}>
-              Support mental, emotional, and spiritual well-being
-            </li>
-          </ul>
+          <div className={classes.buttonContainer}>
+            <button className={classes.button}>Book a Session</button>
+            <span className={classes.buttonSpacer}>OR</span>
+            <button className={classes.button}>Learn More</button>
+          </div>
         </div>
+        <h1 className={classes.sectionTitle}>Coming Soon...</h1>
         <div className={classes.moduleContainer}>
           <h1 className={classes.moduleTitle}>Workshops</h1>
           <p className={classes.moduleText}>
