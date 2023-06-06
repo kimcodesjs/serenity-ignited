@@ -1,5 +1,3 @@
-const nodemailer = require('nodemailer');
-const pug = require('pug');
 const { convert } = require('html-to-text');
 const sgMail = require('@sendgrid/mail');
 const Session = require('../models/sessionModel');
@@ -12,6 +10,7 @@ module.exports = class Email {
   constructor(user, url) {
     this.to = user.email;
     this.firstName = user.firstName;
+    this.lastName = user.lastName;
     this.url = url;
     this.from = `Serenity Ignited <${process.env.EMAIL_FROM}`;
   }
@@ -63,6 +62,30 @@ module.exports = class Email {
       },
     };
     sgMail.send(mailOptions);
+    this.notifyAdminSession(session, appointment);
+  }
+
+  async notifyAdminSession(session, appointment) {
+    const mailOptions = {
+      from: 'do-not-reply@serenityignited.com',
+      to: 'becky@serenityignited.com',
+      templateId: 'd-cc0177c831ad48b7819addd0ce996c12',
+      dynamicTemplateData: {
+        fullName: `${this.firstName} ${this.lastName}`,
+        email: this.to,
+        modality: session.modality,
+        name: session.name,
+        connection: appointment.connection,
+        dateTimeString: `${Interval.fromISO(appointment.time).toLocaleString({
+          weekday: 'short',
+          month: 'short',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+        })}`,
+      },
+    };
+    sgMail.send(mailOptions);
   }
 
   async sendEventConfirm(eventId, purchase) {
@@ -82,6 +105,28 @@ module.exports = class Email {
         })}`,
         quantity: purchase.quantity,
         purchaseTotal: purchase.total,
+      },
+    };
+    sgMail.send(mailOptions);
+    this.notifyAdminEvent(event, purchase.quantity);
+  }
+
+  async notifyAdminEvent(event, quantity) {
+    const mailOptions = {
+      from: 'do-not-reply@serenityignited.com',
+      to: 'becky@serenityignited.com',
+      templateId: 'd-b6a49c181a524de0a8b5b36075b0508f',
+      dynamicTemplateData: {
+        eventName: event.name,
+        dateTimeString: `${Interval.fromISO(event.time).toLocaleString({
+          weekday: 'short',
+          month: 'short',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+        })}`,
+        fullName: `${this.firstName} ${this.lastName}`,
+        quantity,
       },
     };
     sgMail.send(mailOptions);
