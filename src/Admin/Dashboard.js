@@ -1,10 +1,66 @@
 import React, { useState } from 'react';
+import { createUseStyles } from 'react-jss';
 import Overview from './Overview';
-import ReikiAdmin from './ReikiAdmin';
+import PractitionerAdmin from './PractitionerAdmin';
 import EventAdmin from './EventAdmin';
 
+const useStyles = createUseStyles({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
+    width: '100vw',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  header: {
+    position: 'absolute',
+    top: '0',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    background:
+      'radial-gradient(ellipse at top, rgba(64, 69, 178, .92) 1%, transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, .92), transparent)',
+    borderRadius: '0% 0% 100% 100%',
+    width: '100%',
+    height: '12.5vh',
+    filter: 'drop-shadow(2px 2px 1px #4045b2)',
+    zIndex: 1,
+    transition: 'all ease-in-out 1s',
+    overflow: 'hidden',
+    '@media (max-width: 300px)': {
+      justifyContent: 'normal',
+    },
+  },
+  headerTitle: {
+    //filter: 'drop-shadow(2px 2px 1px #443356)',
+    padding: '5px',
+    paddingLeft: '10px',
+    paddingRight: '10px',
+    fontSize: '60px',
+    fontFamily: "'Clicker Script', cursive",
+    textShadow: '#e5d7d7 1px 0px 5px',
+    //background:
+    //'radial-gradient(ellipse at top, rgba(232, 232, 185, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
+    filter: 'drop-shadow(2px 2px 1px #443356)',
+    borderRadius: '30px',
+    color: 'white',
+    '@media (max-width: 1400px)': {
+      fontSize: '60px',
+    },
+    '@media (max-width: 1000px)': {
+      fontSize: '46px',
+    },
+    '@media (max-width: 300px)': {
+      fontSize: '26px',
+    },
+  },
+});
 const Dashboard = () => {
   const [active, setActive] = useState('reiki');
+
+  const classes = useStyles();
 
   const onClick = (e) => {
     if (e.target.innerHTML === 'Overview' && active !== 'overview') {
@@ -18,14 +74,19 @@ const Dashboard = () => {
       setActive('events');
     }
   };
+
   return (
-    <div>
-      <h1>Admin Dashboard</h1>
-      <button onClick={onClick}>Overview</button>
-      <button onClick={onClick}>Serenity In Healing</button>
-      <button onClick={onClick}>Events</button>
+    <div className={classes.container}>
+      <div className={classes.header}>
+        <h1 className={classes.headerTitle}>Admin Dashboard</h1>
+      </div>
+      <div>
+        <button onClick={onClick}>Overview</button>
+        <button onClick={onClick}>Serenity In Healing</button>
+        <button onClick={onClick}>Events</button>
+      </div>
       {active === 'overview' ? <Overview /> : null}
-      {active === 'reiki' ? <ReikiAdmin /> : null}
+      {active === 'reiki' ? <PractitionerAdmin /> : null}
       {active === 'events' ? <EventAdmin /> : null}
     </div>
   );

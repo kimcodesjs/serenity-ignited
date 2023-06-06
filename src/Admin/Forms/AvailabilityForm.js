@@ -1,142 +1,131 @@
-import React, {useState} from 'react'
-import {DateTime, Interval, Info} from 'luxon'
-import Calendar from 'react-calendar'
-import { createUseStyles } from 'react-jss'
+import React, { useState } from 'react';
+import { DateTime, Interval, Info } from 'luxon';
+import Calendar from 'react-calendar';
+import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles({
-    container: {
-        width: '100%',
-        justifyContent: 'center',
-        display: 'inline-flex'
-    },
-    availabilityOptions: {
-        paddingLeft: '10px'
-    },
-    calendar: {
-        
+  container: {
+    width: '100%',
+    justifyContent: 'center',
+    display: 'inline-flex',
+  },
+  availabilityOptions: {
+    paddingLeft: '10px',
+  },
+  calendar: {},
+});
+
+const AvailabilityForm = () => {
+  // on option change -> show time range picker
+  // add appointment buffer setting
+  // store/fetch user settings in db
+
+  const [disabledDays, setDisabledDays] = useState([]);
+  const [disabledDates, setDisabledDates] = useState([]);
+  const [activeWeekday, setActiveWeekday] = useState('Monday');
+  const [activeDate, setActiveDate] = useState(new Date());
+  //classes = useStyles() -> convert class component to function component?
+
+  const getDisabledDates = ({ activeStartDate, date, view }) => {
+    if (date.getDay() === 0 && disabledDays.includes('Sunday')) {
+      return true;
+    } else if (date.getDay() === 1 && disabledDays.includes('Monday')) {
+      return true;
+    } else if (date.getDay() === 2 && disabledDays.includes('Tuesday')) {
+      return true;
+    } else if (date.getDay() === 3 && disabledDays.includes('Wednesday')) {
+      return true;
+    } else if (date.getDay() === 4 && disabledDays.includes('Thursday')) {
+      return true;
+    } else if (date.getDay() === 5 && disabledDays.includes('Friday')) {
+      return true;
+    } else if (date.getDay() === 6 && disabledDays.includes('Saturday')) {
+      return true;
+    } else if (disabledDates.includes(date.toISOString())) {
+      return true;
     }
-    
-})
+  };
 
-class AvailabilityForm extends React.Component {
-    // on option change -> show time range picker
-    // add appointment buffer setting
-    // store/fetch user settings in db
+  const updateDisabledDays = () => {
+    !disabledDays.includes(activeWeekday)
+      ? setDisabledDays((prev) => [...prev, activeWeekday])
+      : setDisabledDays((prev) => prev.filter((day) => day !== activeWeekday));
+  };
 
-    constructor() {
-		super()
-		this.state = {
-            disabledDays: [],
-            disabledDates: [],
-            aciveWeekday: 'Monday',
-            activeDate: new Date
-        }
-        
-    }
-  
-    //classes = useStyles() -> convert class component to function component?
+  //   const updateActiveWeekday = (e) => {
+  //     setActiveWeekday(e.target.value)
+  //     this.setState({
+  //       activeWeekday: e.target.value,
+  //     });
+  //   };
 
-    getDisabledDates = ({activeStartDate, date, view }) => {
-       
-        if (date.getDay() === 0 && this.state.disabledDays.includes('Sunday')) {
-            return true
-        } else if (date.getDay() === 1 && this.state.disabledDays.includes('Monday')) {
-            return true
-        } else if (date.getDay() === 2 && this.state.disabledDays.includes('Tuesday')) {
-            return true
-        } else if (date.getDay() === 3 && this.state.disabledDays.includes('Wednesday')) {
-            return true
-        } else if (date.getDay() === 4 && this.state.disabledDays.includes('Thursday')) {
-            return true
-        } else if (date.getDay() === 5 && this.state.disabledDays.includes('Friday')) {
-            return true
-        } else if (date.getDay() === 6 && this.state.disabledDays.includes('Saturday')) {
-            return true
-        } else if (this.state.disabledDates.includes(date.toISOString())) {
-            return true
-        }
-    }
+  //   const updateActiveDate = (value) => {
+  //     this.setState({
+  //       activeDate: value,
+  //     });
+  //   };
 
-    updateDisabledDays = () => {
-        !this.state.disabledDays.includes(this.state.aciveWeekday) ? 
-            this.setState({
-                disabledDays: [...this.state.disabledDays, this.state.aciveWeekday]
-            }):
-            this.setState({
-                disabledDays: this.state.disabledDays.filter(day => day !== this.state.aciveWeekday)
-            }) 
-    }
+  const updateDisabledDates = () => {
+    let activeISO = activeDate.toISOString();
+    !disabledDates.includes(activeISO)
+      ? setDisabledDates((prev) => [...prev, activeISO])
+      : setDisabledDates((prev) => prev.filter((date) => date !== activeISO));
+  };
+  // add enable date functionality to My Days Off
+  return (
+    <div>
+      <h3> Your availability:</h3>
 
-    updateActiveWeekday = (e) => {
-        this.setState({
-            aciveWeekday: e.target.value
-        })
-    }
+      <div>
+        <Calendar
+          tileDisabled={getDisabledDates}
+          calendarType="US"
+          minDate={new Date()}
+          onChange={setActiveDate}
+          activeDate={activeDate}
+        />
+      </div>
 
-    updateActiveDate = (value) => {
-        
-        this.setState({
-            activeDate: value
-        })
-        
-    }
-
-    updateDisabledDates = () => {
-        let activeISO = this.state.activeDate.toISOString()
-        !this.state.disabledDates.includes(activeISO) ? 
-            this.setState({
-                disabledDates: [...this.state.disabledDates, activeISO]
-            }):
-            this.setState({
-                disabledDates: this.state.disabledDates.filter(date => date !== activeISO)
-            })
-
-        console.log(this.state.disabledDates)
-    }
-    // add enable date functionality to My Days Off 
-    render () {
-        return (
+      <div>
+        <h4>Block Specific Dates</h4>
         <div>
-            <h3>{this.props.practitioner}'s availability:</h3> 
-            
-            <div>
-                <Calendar 
-                    tileDisabled={this.getDisabledDates}
-                    calendarType='US'
-                    minDate={new Date()}
-                    onChange={this.updateActiveDate}/>
-            </div>
-
-            <div>
-                <h3>Manage Availability</h3>
-                <p>{this.state.activeDate.toLocaleDateString(undefined, {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}</p>
-                <button onClick={this.updateDisabledDates}>{this.state.disabledDates.includes(this.state.activeDate) ? 'enable' : 'disable'}</button>
-
-                <select onChange={this.updateActiveWeekday}>
-                    {Info.weekdays().map(day => {
-                    return (
-                        <option value={day} key={day}>{day}</option>  
-                    )
-                    })}
-                </select>
-
-                <button onClick={this.updateDisabledDays}>{this.state.disabledDays.includes(this.state.aciveWeekday) ? 'enable' : 'disable'}</button>
-                <h4>My Days Off</h4>
-                {
-                this.state.disabledDates.map(date => {
-                    return (
-                        <p key={date} >{new Date(date).toLocaleDateString(undefined, {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}</p>
-                    )
-                })
-                }
-            <div>
-                
-            </div>
-            </div>
+          <span>
+            {DateTime.fromJSDate(activeDate).toLocaleString(DateTime.DATE_HUGE)}
+            :{' '}
+          </span>
+          <button onClick={updateDisabledDates} id="change-blocked-status">
+            {disabledDates.includes(activeDate) ? 'enable' : 'disable'}
+          </button>
         </div>
-    
-        )
-    }
-}
+        <h4>My Days Off</h4>
+        <ul>
+          {disabledDates.map((date) => {
+            return (
+              <li key={date}>
+                {DateTime.fromISO(date).toLocaleString(DateTime.DATE_HUGE)}
+              </li>
+            );
+          })}
+        </ul>
+        <br />
+        <select onChange={(e) => setActiveWeekday(e.target.value)}>
+          {Info.weekdays().map((day) => {
+            return (
+              <option value={day} key={day}>
+                {day}
+              </option>
+            );
+          })}
+        </select>
 
-export default AvailabilityForm
+        <button onClick={updateDisabledDays}>
+          {disabledDays.includes(activeWeekday) ? 'enable' : 'disable'}
+        </button>
+
+        <div></div>
+      </div>
+    </div>
+  );
+};
+
+export default AvailabilityForm;
