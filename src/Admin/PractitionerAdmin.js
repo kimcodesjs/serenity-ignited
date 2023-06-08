@@ -20,13 +20,11 @@ const ReikiAdmin = () => {
   };
   return (
     <div>
-      <h2>Manage Availability and Appointments </h2>
       {/* <button onClick={onClick}>Becky</button>
       <button onClick={onClick} disabled={true}>
         New Practitioner
       </button> */}
       <AvailabilityForm practitioner={activePractitioner} />
-      <h3>Manage Appointment Types</h3>
       {/* {!activePractitioner ? <NewPractitioner /> : null} */}
     </div>
   );

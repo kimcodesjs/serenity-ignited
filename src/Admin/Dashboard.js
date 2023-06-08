@@ -10,12 +10,12 @@ const useStyles = createUseStyles({
     flexDirection: 'column',
     height: '100vh',
     width: '100vw',
-    justifyContent: 'center',
+    //justifyContent: 'center',
     alignItems: 'center',
   },
   header: {
-    position: 'absolute',
-    top: '0',
+    //position: 'absolute',
+    //top: '0',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -28,16 +28,15 @@ const useStyles = createUseStyles({
     filter: 'drop-shadow(2px 2px 1px #4045b2)',
     zIndex: 1,
     transition: 'all ease-in-out 1s',
-    overflow: 'hidden',
     '@media (max-width: 300px)': {
       justifyContent: 'normal',
     },
   },
   headerTitle: {
     //filter: 'drop-shadow(2px 2px 1px #443356)',
-    padding: '5px',
-    paddingLeft: '10px',
-    paddingRight: '10px',
+    // padding: '5px',
+    // paddingLeft: '10px',
+    // paddingRight: '10px',
     fontSize: '60px',
     fontFamily: "'Clicker Script', cursive",
     textShadow: '#e5d7d7 1px 0px 5px',
@@ -55,6 +54,14 @@ const useStyles = createUseStyles({
     '@media (max-width: 300px)': {
       fontSize: '26px',
     },
+  },
+  adminMenu: {
+    paddingTop: '20px',
+    justifyContent: 'center',
+  },
+  menuButton: {
+    fontSize: '20px',
+    margin: '5px',
   },
 });
 const Dashboard = () => {
@@ -80,10 +87,16 @@ const Dashboard = () => {
       <div className={classes.header}>
         <h1 className={classes.headerTitle}>Admin Dashboard</h1>
       </div>
-      <div>
-        <button onClick={onClick}>Overview</button>
-        <button onClick={onClick}>Serenity In Healing</button>
-        <button onClick={onClick}>Events</button>
+      <div className={classes.adminMenu}>
+        <button className={classes.menuButton} onClick={onClick}>
+          Overview
+        </button>
+        <button className={classes.menuButton} onClick={onClick}>
+          Availability
+        </button>
+        <button className={classes.menuButton} onClick={onClick}>
+          Events
+        </button>
       </div>
       {active === 'overview' ? <Overview /> : null}
       {active === 'reiki' ? <PractitionerAdmin /> : null}
