@@ -18,16 +18,7 @@ const ReikiAdmin = () => {
       setActivePractitioner(e.target.innerHTML);
     }
   };
-  return (
-    <div>
-      {/* <button onClick={onClick}>Becky</button>
-      <button onClick={onClick} disabled={true}>
-        New Practitioner
-      </button> */}
-      <AvailabilityForm practitioner={activePractitioner} />
-      {/* {!activePractitioner ? <NewPractitioner /> : null} */}
-    </div>
-  );
+  return <AvailabilityForm practitioner={activePractitioner} />;
 };
 
 export default ReikiAdmin;

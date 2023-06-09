@@ -8,8 +8,8 @@ const useStyles = createUseStyles({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100vh',
-    width: '100vw',
+    height: '100%',
+    width: '100%',
     //justifyContent: 'center',
     alignItems: 'center',
   },
@@ -20,6 +20,7 @@ const useStyles = createUseStyles({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
     background:
       'radial-gradient(ellipse at top, rgba(64, 69, 178, .92) 1%, transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, .92), transparent)',
     borderRadius: '0% 0% 100% 100%',
@@ -45,6 +46,7 @@ const useStyles = createUseStyles({
     filter: 'drop-shadow(2px 2px 1px #443356)',
     borderRadius: '30px',
     color: 'white',
+    margin: 'auto',
     '@media (max-width: 1400px)': {
       fontSize: '60px',
     },

@@ -5,9 +5,10 @@ import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles({
   sectionContainer: {
-    width: '100vw',
+    width: '500px',
+    maxWidth: '80%',
     height: '85vh',
-    maxWidth: '500px',
+    margin: '20px',
   },
   sectionTitle: {
     textAlign: 'center',
@@ -17,17 +18,43 @@ const useStyles = createUseStyles({
     justifyContent: 'center',
     textAlign: 'center',
   },
+  formSection: {
+    display: 'flex',
+    alignItems: 'center',
+    //justifyContent: 'center',
+    width: '400px',
+    maxWidth: '100%',
+    margin: 'auto',
+  },
+  formItem: {
+    marginRight: '5px',
+    borderRadius: '10px',
+  },
   blockedDates: {
     width: '100%',
     height: '150px',
   },
+  ul: {
+    paddingInlineStart: '0px',
+    display: 'flex',
+    flexFlow: 'row wrap',
+    marginTop: '0px',
+  },
   li: {
     cursor: 'pointer',
     backgroundColor: 'lightgray',
+    listStyleType: 'none',
+    width: 'fit-content',
+    borderRadius: '10px',
+    padding: '5px',
+    margin: '5px',
+    select: 'none',
   },
-  weekdaySelect: {
+  select: {
     fontFamily: 'Didact Gothic',
     marginRight: '10px',
+    borderRadius: '10px',
+    padding: '5px',
   },
 });
 
@@ -99,21 +126,25 @@ const AvailabilityForm = () => {
           activeDate={activeDate}
         />
       </div>
-
-      <div>
-        <h4>Block/Unblock By Date:</h4>
-        <div>
-          <span>
-            {DateTime.fromISO(activeDate).toLocaleString(DateTime.DATE_HUGE)}:{' '}
-          </span>
-          <button onClick={updateDisabledDates} id="change-blocked-status">
-            {disabledDates.includes(activeDate) ? 'unblock' : 'block'}
-          </button>
-        </div>
-        <div className={classes.blockedDates}>
-          <h4>My Days Off</h4>
-          <ul>
-            {disabledDates.map((date) => {
+      <div className={classes.formSection}>
+        {/* <h4 className={classes.formItem}>Block/Unblock By Date |</h4> */}
+        <h4 className={classes.formItem}>
+          {DateTime.fromISO(activeDate).toLocaleString(DateTime.DATE_HUGE)}
+          {' >'}
+        </h4>
+        <button
+          className={classes.formItem}
+          onClick={updateDisabledDates}
+          id="change-blocked-status"
+        >
+          {disabledDates.includes(activeDate) ? 'unblock' : 'block'}
+        </button>
+      </div>
+      <div className={classes.formSection}>
+        {/* <h4>Days Off</h4> */}
+        <ul className={classes.ul}>
+          {disabledDates.length !== 0 ? (
+            disabledDates.map((date) => {
               return (
                 <li
                   key={date}
@@ -123,29 +154,31 @@ const AvailabilityForm = () => {
                   {DateTime.fromISO(date).toLocaleString(DateTime.DATE_HUGE)}
                 </li>
               );
-            })}
-          </ul>
-        </div>
-        <br />
-        <div>
-          <h4>Block/Unblock Weekday:</h4>
-          <select
-            className={classes.weekdaySelect}
-            onChange={(e) => setActiveWeekday(e.target.value)}
-          >
-            {Info.weekdays().map((day) => {
-              return (
-                <option value={day} key={day}>
-                  {day}
-                </option>
-              );
-            })}
-          </select>
+            })
+          ) : (
+            <li className={classes.li}>blocked dates will display here</li>
+          )}
+        </ul>
+      </div>
+      <br />
+      <div className={classes.formSection}>
+        {/* <h4 className={classes.formItem}>Block/Unblock Weekday:</h4> */}
+        <select
+          className={classes.select}
+          onChange={(e) => setActiveWeekday(e.target.value)}
+        >
+          {Info.weekdays().map((day) => {
+            return (
+              <option value={day} key={day}>
+                {day}
+              </option>
+            );
+          })}
+        </select>
 
-          <button onClick={updateDisabledDays}>
-            {disabledDays.includes(activeWeekday) ? 'unblock' : 'block'}
-          </button>
-        </div>
+        <button className={classes.formItem} onClick={updateDisabledDays}>
+          {disabledDays.includes(activeWeekday) ? 'unblock' : 'block'}
+        </button>
       </div>
     </div>
   );
