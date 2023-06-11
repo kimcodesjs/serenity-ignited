@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import Overview from './Overview';
-import PractitionerAdmin from './PractitionerAdmin';
+import AvailabilityForm from './Forms/AvailabilityForm';
 import EventAdmin from './EventAdmin';
 
 const useStyles = createUseStyles({
@@ -64,10 +64,11 @@ const useStyles = createUseStyles({
   menuButton: {
     fontSize: '20px',
     margin: '5px',
+    borderRadius: '10px',
   },
 });
 const Dashboard = () => {
-  const [active, setActive] = useState('reiki');
+  const [active, setActive] = useState('availability');
 
   const classes = useStyles();
 
@@ -75,10 +76,10 @@ const Dashboard = () => {
     if (e.target.innerHTML === 'Overview' && active !== 'overview') {
       setActive('overview');
     } else if (
-      e.target.innerHTML === 'Serenity In Healing' &&
-      active !== 'reiki'
+      e.target.innerHTML === 'Availability' &&
+      active !== 'availability'
     ) {
-      setActive('reiki');
+      setActive('availability');
     } else if (e.target.innerHTML === 'Events' && active !== 'events') {
       setActive('events');
     }
@@ -101,7 +102,7 @@ const Dashboard = () => {
         </button>
       </div>
       {active === 'overview' ? <Overview /> : null}
-      {active === 'reiki' ? <PractitionerAdmin /> : null}
+      {active === 'availability' ? <AvailabilityForm /> : null}
       {active === 'events' ? <EventAdmin /> : null}
     </div>
   );
