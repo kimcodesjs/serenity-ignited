@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { DateTime, Interval, Info } from 'luxon';
 import Calendar from 'react-calendar';
 import { createUseStyles } from 'react-jss';
+import { AdminContext } from '../../Context/AdminContext';
 
 const useStyles = createUseStyles({
   sectionContainer: {
@@ -86,53 +87,50 @@ const AvailabilityForm = () => {
   // add appointment buffer setting
   // store/fetch user settings in db
 
-  const [disabledDays, setDisabledDays] = useState([]);
-  const [disabledDates, setDisabledDates] = useState([]);
+  const { practitionerData, updatePractitionerData } = useContext(AdminContext);
+
+  const [blockedDays, setBlockedDays] = useState(practitionerData.blockedDays);
+  const [blockedDates, setBlockedDates] = useState(
+    practitionerData.blockedDates
+  );
+  const [workingHours, setWorkingHours] = useState(
+    practitionerData.workingHours
+  );
   const [activeWeekday, setActiveWeekday] = useState('Monday');
   const [activeDate, setActiveDate] = useState(new Date().toISOString());
-  const [workingHours, setWorkingHours] = useState({
-    weekday: {
-      start: {},
-      end: {},
-    },
-    weekend: {
-      start: {},
-      end: {},
-    },
-  });
 
   const classes = useStyles();
 
-  const getDisabledDates = ({ date }) => {
-    if (date.getDay() === 0 && disabledDays.includes('Sunday')) {
+  const getBlockedDates = ({ date }) => {
+    if (date.getDay() === 0 && blockedDays.includes('Sunday')) {
       return true;
-    } else if (date.getDay() === 1 && disabledDays.includes('Monday')) {
+    } else if (date.getDay() === 1 && blockedDays.includes('Monday')) {
       return true;
-    } else if (date.getDay() === 2 && disabledDays.includes('Tuesday')) {
+    } else if (date.getDay() === 2 && blockedDays.includes('Tuesday')) {
       return true;
-    } else if (date.getDay() === 3 && disabledDays.includes('Wednesday')) {
+    } else if (date.getDay() === 3 && blockedDays.includes('Wednesday')) {
       return true;
-    } else if (date.getDay() === 4 && disabledDays.includes('Thursday')) {
+    } else if (date.getDay() === 4 && blockedDays.includes('Thursday')) {
       return true;
-    } else if (date.getDay() === 5 && disabledDays.includes('Friday')) {
+    } else if (date.getDay() === 5 && blockedDays.includes('Friday')) {
       return true;
-    } else if (date.getDay() === 6 && disabledDays.includes('Saturday')) {
+    } else if (date.getDay() === 6 && blockedDays.includes('Saturday')) {
       return true;
-    } else if (disabledDates.includes(date.toISOString())) {
+    } else if (blockedDates.includes(date.toISOString())) {
       return true;
     }
   };
 
-  const updateDisabledDays = () => {
-    !disabledDays.includes(activeWeekday)
-      ? setDisabledDays((prev) => [...prev, activeWeekday])
-      : setDisabledDays((prev) => prev.filter((day) => day !== activeWeekday));
+  const updateBlockedDays = () => {
+    !blockedDays.includes(activeWeekday)
+      ? setBlockedDays((prev) => [...prev, activeWeekday])
+      : setBlockedDays((prev) => prev.filter((day) => day !== activeWeekday));
   };
 
-  const updateDisabledDates = () => {
-    !disabledDates.includes(activeDate)
-      ? setDisabledDates((prev) => [...prev, activeDate])
-      : setDisabledDates((prev) => prev.filter((date) => date !== activeDate));
+  const updateBlockedDates = () => {
+    !blockedDates.includes(activeDate)
+      ? setBlockedDates((prev) => [...prev, activeDate])
+      : setBlockedDates((prev) => prev.filter((date) => date !== activeDate));
   };
 
   const createTimeSlots = () => {
@@ -156,7 +154,7 @@ const AvailabilityForm = () => {
       <h2 className={classes.sectionTitle}>Manage Your Availability</h2>
       <div className={classes.calendar}>
         <Calendar
-          tileDisabled={getDisabledDates}
+          tileDisabled={getBlockedDates}
           calendarType="US"
           minDate={new Date()}
           onChange={(val) => setActiveDate(val.toISOString())}
@@ -171,15 +169,15 @@ const AvailabilityForm = () => {
         </h4>
         <button
           className={classes.formButton}
-          onClick={updateDisabledDates}
+          onClick={updateBlockedDates}
           id="change-blocked-status"
         >
-          {disabledDates.includes(activeDate) ? 'unblock' : 'block'}
+          {blockedDates.includes(activeDate) ? 'unblock' : 'block'}
         </button>
         <div className={classes.blockedDates}>
           <ul className={classes.ul}>
-            {disabledDates.length !== 0 ? (
-              disabledDates.map((date) => {
+            {blockedDates.length !== 0 ? (
+              blockedDates.map((date) => {
                 return (
                   <li
                     key={date}
@@ -209,8 +207,8 @@ const AvailabilityForm = () => {
           })}
         </select>
 
-        <button className={classes.formButton} onClick={updateDisabledDays}>
-          {disabledDays.includes(activeWeekday) ? 'unblock' : 'block'}
+        <button className={classes.formButton} onClick={updateBlockedDays}>
+          {blockedDays.includes(activeWeekday) ? 'unblock' : 'block'}
         </button>
       </div>
       <div className={classes.formSection}>
