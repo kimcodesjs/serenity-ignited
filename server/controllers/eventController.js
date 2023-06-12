@@ -15,7 +15,7 @@ exports.createEvent = catchAsync(async (req, res, next) => {
       max: req.body.capacity,
     },
   });
-  res.status(201).json({
+  res.status(200).json({
     status: 'success',
     data: newEvent,
   });
@@ -28,7 +28,7 @@ exports.getAllEvents = catchAsync(async (req, res, next) => {
     let eventDate = DateTime.fromISO(event.start).valueOf();
     if (currentDate < eventDate) return event;
   });
-  res.status(201).json({
+  res.status(200).json({
     status: 'success',
     data: futureEvents,
   });
@@ -36,7 +36,7 @@ exports.getAllEvents = catchAsync(async (req, res, next) => {
 
 exports.getEvent = catchAsync(async (req, res, next) => {
   const event = await Event.findById(req.params.id);
-  res.status(201).json({
+  res.status(200).json({
     status: 'success',
     data: event,
   });

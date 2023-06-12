@@ -82,3 +82,5 @@ const practitionerSchema = new mongoose.Schema({
 });
 
 const PractitionerData = mongoose.model('Practitioner', practitionerSchema);
+
+module.exports = PractitionerData;
