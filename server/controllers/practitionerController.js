@@ -13,6 +13,13 @@ exports.getPractitionerData = catchAsync(async (req, res, next) => {
 });
 
 exports.postPractitionerData = catchAsync(async (req, res, next) => {
+  const existing = await PractitionerData.find({
+    user: req.user._id,
+  });
+  if (existing.length !== 0)
+    return next(
+      new AppError('This user has existing data, please update instead!', 400)
+    );
   const newPractitionerData = await PractitionerData.create({
     user: req.user._id,
     blockedDates: req.body.blockedDates,
@@ -34,7 +41,7 @@ exports.updatePractitionerData = catchAsync(async (req, res, next) => {
     }
   );
   if (!updatedData)
-    next(new AppError('No practitioner data found with that id!', 404));
+    return next(new AppError('No practitioner data found with that id!', 404));
   res.status(200).json({
     status: 'success',
     data: updatedData,
