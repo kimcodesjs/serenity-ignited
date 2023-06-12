@@ -10,6 +10,7 @@ import Menu from './Menu/Menu';
 import RequireAdmin from './Auth/RequireAdmin';
 import { AuthProvider } from './Context/AuthContext';
 import { EventProvider } from './Context/EventContext';
+import { AdminProvider } from './Context/AdminContext';
 const Landing = React.lazy(() => import('./Landing/Landing'));
 const Info = React.lazy(() => import('./Info/Info'));
 const Booking = React.lazy(() => import('./Booking/Booking'));
@@ -63,9 +64,11 @@ const App = () => {
                   <Route
                     path="admin"
                     element={
-                      <RequireAdmin>
-                        <Admin />
-                      </RequireAdmin>
+                      <AdminProvider>
+                        <RequireAdmin>
+                          <Admin />
+                        </RequireAdmin>
+                      </AdminProvider>
                     }
                   />
                   <Route path="/:userID/my-sessions" element={<MySessions />} />

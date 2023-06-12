@@ -28,24 +28,24 @@ const practitionerSchema = new mongoose.Schema({
   workingHours: {
     weekday: {
       start: {
-        hours: {
+        hour: {
           type: Number,
           required: true,
           default: 18,
         },
-        minutes: {
+        minute: {
           type: Number,
           required: true,
           default: 30,
         },
       },
       end: {
-        hours: {
+        hour: {
           type: Number,
           required: true,
           default: 21,
         },
-        minutes: {
+        minute: {
           type: Number,
           required: true,
           default: 0,
@@ -54,24 +54,24 @@ const practitionerSchema = new mongoose.Schema({
     },
     weekend: {
       start: {
-        hours: {
+        hour: {
           type: Number,
           required: true,
           default: 10,
         },
-        minutes: {
+        minute: {
           type: Number,
           required: true,
           default: 0,
         },
       },
       end: {
-        hours: {
+        hour: {
           type: Number,
           required: true,
           default: 20,
         },
-        minutes: {
+        minute: {
           type: Number,
           required: true,
           default: 0,

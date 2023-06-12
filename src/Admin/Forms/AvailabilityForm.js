@@ -143,10 +143,24 @@ const AvailabilityForm = () => {
     return timeslots;
   };
 
+  // For lack of a better word, type refers to 'weekday' or 'weekend'; key is 'start' or 'end'
   const updateWorkingHours = (type, key, value) => {
     let modifiedState = Object.assign({}, workingHours);
     modifiedState[type][key] = value;
     setWorkingHours(modifiedState);
+  };
+
+  const isSelected = (type, key) => {
+    const current = {
+      hour: workingHours[type][key].hour,
+      minute: workingHours[type][key].minute,
+    };
+    const match = createTimeSlots().find(
+      (timeslot) =>
+        timeslot[key].hour === current.hour &&
+        timeslot[key].minute === current.minute
+    );
+    return match[key].toISO();
   };
 
   return (
@@ -221,6 +235,7 @@ const AvailabilityForm = () => {
               minute: DateTime.fromISO(e.target.value).minute,
             });
           }}
+          value={isSelected('weekday', 'start')}
         >
           {createTimeSlots().map((timeslot, index) => {
             return (
@@ -239,6 +254,7 @@ const AvailabilityForm = () => {
               minute: DateTime.fromISO(e.target.value).minute,
             });
           }}
+          value={isSelected('weekday', 'end')}
         >
           {createTimeSlots().map((timeslot, index) => {
             return (
@@ -257,6 +273,7 @@ const AvailabilityForm = () => {
               minute: DateTime.fromISO(e.target.value).minute,
             });
           }}
+          value={isSelected('weekend', 'start')}
         >
           {createTimeSlots().map((timeslot, index) => {
             return (
@@ -275,6 +292,7 @@ const AvailabilityForm = () => {
               minute: DateTime.fromISO(e.target.value).minute,
             });
           }}
+          value={isSelected('weekend', 'end')}
         >
           {createTimeSlots().map((timeslot, index) => {
             return (
