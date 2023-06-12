@@ -4,16 +4,16 @@ const receiptSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
-    require: [true, 'Please specify who this receipt belongs to.'],
+    required: [true, 'Please specify who this receipt belongs to.'],
   },
   price: {
     type: Number,
-    require: true,
+    required: true,
   },
   quantity: Number,
   category: {
     type: String,
-    require: true,
+    required: true,
     enum: ['event', 'appointment'],
   },
   timestamps: true,

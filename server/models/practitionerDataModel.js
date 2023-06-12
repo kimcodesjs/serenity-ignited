@@ -4,7 +4,7 @@ const practitionerSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
-    require: true,
+    required: [true, 'Please specify the user to which this data belongs.'],
   },
   blockedDays: {
     type: [String],
@@ -20,10 +20,12 @@ const practitionerSchema = new mongoose.Schema({
       ],
     },
     default: [],
+    required: true,
   },
   blockedDates: {
     type: [String],
     default: [],
+    required: true,
   },
   workingHours: {
     weekday: {

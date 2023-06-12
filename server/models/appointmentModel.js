@@ -4,28 +4,31 @@ const appointmentSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
-    require: [true, 'An Appointment must belong to a User.'],
+    required: [true, 'An Appointment must belong to a User.'],
   },
   session: {
     type: mongoose.Schema.ObjectId,
     ref: 'Session',
-    require: [true, 'An Appointment must specify the Session to be scheduled.'],
+    required: [
+      true,
+      'An Appointment must specify the Session to be scheduled.',
+    ],
   },
   connection: {
     type: String,
-    require: true,
+    required: true,
   },
   price: {
     type: Number,
-    require: true,
+    required: true,
   },
   date: {
     type: String,
-    require: true,
+    required: true,
   },
   time: {
     type: String,
-    require: true,
+    required: true,
   },
   paid: {
     type: Boolean,

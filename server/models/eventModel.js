@@ -7,34 +7,34 @@ const eventSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    require: [true, 'Please provide a name for the event.'],
+    required: [true, 'Please provide a name for the event.'],
   },
   description: {
     type: String,
-    require: [true, 'Please provide a description for the event.'],
+    required: [true, 'Please provide a description for the event.'],
   },
   slug: String,
   start: {
     type: String,
-    require: true,
+    required: true,
   },
   end: {
     type: String,
-    require: true,
+    required: true,
   },
   price: {
     type: Number,
-    require: [true, 'Please specify the price for this event.'],
+    required: [true, 'Please specify the price for this event.'],
   },
   capacity: {
     max: {
       type: Number,
-      require: true,
+      required: true,
       default: 7,
     },
     available: {
       type: Number,
-      require: true,
+      required: true,
       default: 7,
     },
   },
