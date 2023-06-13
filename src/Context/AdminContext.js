@@ -25,12 +25,16 @@ function AdminProvider(props) {
   }, []);
 
   const updatePractitionerData = async (updates) => {
+    console.log(updates);
     try {
       await axios({
         method: 'PATCH',
         url: `http://127.0.0.1:3000/api/v1/users/practitioner-data`,
         withCredentials: true,
-        updates,
+        data: updates,
+      }).then((res) => {
+        console.log(res.data.data);
+        setData(res.data.data);
       });
     } catch (err) {
       showAlert(err.response.data.message, 'error');

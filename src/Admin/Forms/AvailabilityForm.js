@@ -1,91 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { DateTime, Interval, Info } from 'luxon';
 import Calendar from 'react-calendar';
+import adminStyles from '../adminStyles';
 import { createUseStyles } from 'react-jss';
 import { AdminContext } from '../../Context/AdminContext';
+import { showAlert } from '../../alert';
 
-const useStyles = createUseStyles({
-  sectionContainer: {
-    width: '500px',
-    maxWidth: '80%',
-    //height: '85vh',
-    //margin: '20px',
-  },
-  sectionTitle: {
-    textAlign: 'center',
-  },
-  calendar: {
-    display: 'flex',
-    justifyContent: 'center',
-    textAlign: 'center',
-  },
-  formSection: {
-    display: 'flex',
-    flexFlow: 'row wrap',
-    alignItems: 'center',
-    //justifyContent: 'center',
-    width: '100%',
-    maxWidth: '400px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    border: '1px dotted gray',
-    borderRadius: '10px',
-    //padding: '10px',
-    marginTop: '20px',
-  },
-  fsHeading: {
-    width: '400px',
-    margin: '10px 5px 0px 10px',
-  },
-  h4: {
-    margin: '10px 5px 10px 10px',
-  },
-  formButton: {
-    borderRadius: '10px',
-    cursor: 'pointer',
-  },
-  blockedDates: {
-    width: '400px',
-  },
-  ul: {
-    paddingInlineStart: '0px',
-    display: 'flex',
-    flexFlow: 'row wrap',
-    marginTop: '0px',
-    marginBottom: '5px',
-    marginLeft: '10px',
-  },
-  li: {
-    cursor: 'pointer',
-    backgroundColor: 'lightgray',
-    listStyleType: 'none',
-    width: 'fit-content',
-    borderRadius: '10px',
-    padding: '5px',
-    marginRight: '5px',
-    marginBottom: '5px',
-    select: 'none',
-  },
-  select: {
-    fontFamily: 'Didact Gothic',
-    margin: '10px',
-    borderRadius: '10px',
-    padding: '5px',
-  },
-  submitButton: {
-    display: 'block',
-    borderRadius: '10px',
-    fontSize: '20px',
-    margin: '10px auto',
-    cursor: 'pointer',
-  },
-});
+const useStyles = createUseStyles(adminStyles);
 
 const AvailabilityForm = () => {
   // sort blocked dates in ascending order
   // show only blocked dates for current month
   // add appointment buffer setting
-  // store/fetch user settings in db
 
   const { practitionerData, updatePractitionerData } = useContext(AdminContext);
 
@@ -163,6 +89,20 @@ const AvailabilityForm = () => {
     return match[key].toISO();
   };
 
+  const handleSubmit = async () => {
+    const submit = document.getElementById('submit-button');
+    submit.disabled = true;
+    let availabilityUpdates = {
+      blockedDates,
+      blockedDays,
+      workingHours,
+    };
+    await updatePractitionerData(availabilityUpdates).then(() => {
+      showAlert('Availability updated!', 'success');
+      submit.disabled = false;
+    });
+  };
+
   return (
     <div className={classes.sectionContainer}>
       <h2 className={classes.sectionTitle}>Manage Your Availability</h2>
@@ -176,7 +116,6 @@ const AvailabilityForm = () => {
         />
       </div>
       <div className={classes.formSection}>
-        {/* <h4 className={classes.formItem}>Block/Unblock By Date |</h4> */}
         <h4 className={classes.h4}>
           {DateTime.fromISO(activeDate).toLocaleString(DateTime.DATE_HUGE)}
           {' >'}
@@ -207,7 +146,6 @@ const AvailabilityForm = () => {
             )}
           </ul>
         </div>
-        {/* <h4 className={classes.formItem}>Block/Unblock Weekday:</h4> */}
         <select
           className={classes.select}
           onChange={(e) => setActiveWeekday(e.target.value)}
@@ -303,7 +241,13 @@ const AvailabilityForm = () => {
           })}
         </select>
       </div>
-      <button className={classes.submitButton}>Update Availability</button>
+      <button
+        className={classes.submitButton}
+        id="submit-button"
+        onClick={handleSubmit}
+      >
+        Update Availability
+      </button>
     </div>
   );
 };
