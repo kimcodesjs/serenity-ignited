@@ -31,9 +31,22 @@ function EventProvider(props) {
     fetchEvents();
   }, []);
 
+  const createEvent = async (formData) => {
+    try {
+      await axios({
+        method: 'POST',
+        url: 'http://127.0.0.1:3000/api/v1/events/create-event',
+        withCredentials: true,
+        data: formData,
+      });
+    } catch (err) {
+      showAlert(err.response.data.message, 'error');
+    }
+  };
   const value = {
     workshops,
     meditations,
+    createEvent,
   };
   return <EventContext.Provider value={value} {...props} />;
 }

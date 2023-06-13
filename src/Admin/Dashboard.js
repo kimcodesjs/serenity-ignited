@@ -68,7 +68,7 @@ const useStyles = createUseStyles({
   },
 });
 const Dashboard = () => {
-  const [active, setActive] = useState('availability');
+  const [active, setActive] = useState('events');
 
   const classes = useStyles();
 
