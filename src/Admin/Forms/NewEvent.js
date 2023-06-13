@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Calendar from 'react-calendar';
 import { DateTime, Duration, Interval } from 'luxon';
-import axios from 'axios';
+import { EventContext } from '../../Context/EventContext';
 import { showAlert } from '../../alert';
+import { createUseStyles } from 'react-jss';
+import adminStyles from '../adminStyles';
 
+const useStyles = createUseStyles(adminStyles);
 const NewEventForm = () => {
   const [activeDate, setActiveDate] = useState(DateTime.now());
   const [timeslots, setTimeslots] = useState([]);
@@ -16,6 +19,10 @@ const NewEventForm = () => {
     end: '',
     capacity: 7,
   });
+
+  const classes = useStyles();
+
+  const { createEvent } = useContext(EventContext);
 
   useEffect(() => {
     // Working Hours: Weekdays, 6pm - 9 pm; Weekend, 12pm - 8pm
@@ -56,139 +63,160 @@ const NewEventForm = () => {
     });
   };
 
-  const createEvent = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios({
-        method: 'POST',
-        url: 'http://127.0.0.1:3000/api/v1/events/create-event',
-        withCredentials: true,
-        data: formData,
-      }).then(() => {
-        console.log('Event created!');
-        setFormData({
-          name: '',
-          description: '',
-          category: 'meditation',
-          price: 10,
-          start: '',
-          end: '',
-          capacity: 7,
-        });
-        showAlert('Event created!', 'success');
+    await createEvent(formData).then(() => {
+      setFormData({
+        name: '',
+        description: '',
+        category: 'meditation',
+        price: 10,
+        start: '',
+        end: '',
+        capacity: 7,
       });
-    } catch (err) {
-      showAlert(err.response.data.message, 'error');
-    }
+      showAlert('Event created!', 'success');
+    });
   };
-
   return (
     <>
-      <form onSubmit={createEvent}>
-        <Calendar
-          calendarType="US"
-          onChange={updateActiveDate}
-          minDate={new Date()}
-        />
-        <label htmlFor="category">Category:</label>
-        <select
-          id="category"
-          onChange={(e) => {
-            updateFormData('category', e.target.value);
-          }}
-          required
-        >
-          <option value="meditation">Meditation</option>
-          <option value="workshop">Workshop</option>
-        </select>
-        <br />
-        <label htmlFor="name">Name Your Event:</label>
-        <input
-          type="text"
-          id="name"
-          value={formData.name}
-          onChange={(e) => {
-            updateFormData('name', e.target.value);
-          }}
-          required
-        />
-        <br />
-        <label htmlFor="description">Description:</label>
-        <input
-          type="text"
-          id="description"
-          value={formData.description}
-          onChange={(e) => {
-            updateFormData('description', e.target.value);
-          }}
-          required
-        />
-        <br />
-        <label htmlFor="price">Price:</label>
-        <input
-          type="number"
-          id="price"
-          value={formData.price}
-          onChange={(e) => {
-            updateFormData('price', Number(e.target.value));
-          }}
-          required
-        />
-        <br />
-        <label htmlFor="start">Start:</label>
-        <select
-          id="start"
-          onChange={(e) => {
-            updateFormData('start', e.target.value);
-          }}
-          value={formData.start}
-          required
-        >
-          {timeslots.map((timeslot, index) => {
-            return (
-              <option key={index} value={timeslot.start.toISO()}>
-                {timeslot.start.toLocaleString(DateTime.TIME_SIMPLE)}
-              </option>
-            );
-          })}
-        </select>
-        <br />
-        <label htmlFor="end">End:</label>
-        <select
-          id="end"
-          onChange={(e) => {
-            updateFormData('end', e.target.value);
-          }}
-          value={formData.end}
-          required
-        >
-          {timeslots.map((timeslot, index) => {
-            return (
-              <option key={index} value={timeslot.end.toISO()}>
-                {timeslot.end.toLocaleString(DateTime.TIME_SIMPLE)}
-              </option>
-            );
-          })}
-        </select>
-        <br />
-        <label htmlFor="capacity">Max Capacity:</label>
-        <select
-          id="capacity"
-          onChange={(e) => {
-            updateFormData('capacity', e.target.value);
-          }}
-          value={formData.capacity}
-          required
-        >
-          <option>7</option>
-          <option>6</option>
-          <option>5</option>
-          <option>4</option>
-          <option>3</option>
-          <option>2</option>
-          <option>1</option>
-        </select>
-        <button type="submit">Submit</button>
+      <form onSubmit={handleSubmit}>
+        <div className={classes.formSection}>
+          <h3 className={classes.fsHeading}>Event Details</h3>
+          <div className={classes.fsRow}>
+            <label htmlFor="category" className={classes.label}>
+              Category:
+            </label>
+            <select
+              className={classes.select}
+              id="category"
+              onChange={(e) => {
+                updateFormData('category', e.target.value);
+              }}
+              required
+            >
+              <option value="meditation">Meditation</option>
+              <option value="workshop">Workshop</option>
+            </select>
+          </div>
+          <div className={classes.fsRow}>
+            <label htmlFor="name" className={classes.label}>
+              Name:
+            </label>
+            <input
+              type="text"
+              className={classes.textInput}
+              id="name"
+              value={formData.name}
+              onChange={(e) => {
+                updateFormData('name', e.target.value);
+              }}
+              required
+            />
+          </div>
+          <div className={classes.fsRow}>
+            <label htmlFor="description" className={classes.label}>
+              Description:
+            </label>
+            <input
+              type="textarea"
+              className={classes.textInput}
+              id="description"
+              value={formData.description}
+              onChange={(e) => {
+                updateFormData('description', e.target.value);
+              }}
+              required
+            />
+          </div>
+          <div className={classes.fsRow}>
+            <label htmlFor="start" className={classes.label}>
+              Start:
+            </label>
+            <select
+              className={classes.select}
+              id="start"
+              onChange={(e) => {
+                updateFormData('start', e.target.value);
+              }}
+              value={formData.start}
+              required
+            >
+              {timeslots.map((timeslot, index) => {
+                return (
+                  <option key={index} value={timeslot.start.toISO()}>
+                    {timeslot.start.toLocaleString(DateTime.TIME_SIMPLE)}
+                  </option>
+                );
+              })}
+            </select>
+            <label htmlFor="end" className={classes.label}>
+              End:
+            </label>
+            <select
+              className={classes.select}
+              id="end"
+              onChange={(e) => {
+                updateFormData('end', e.target.value);
+              }}
+              value={formData.end}
+              required
+            >
+              {timeslots.map((timeslot, index) => {
+                return (
+                  <option key={index} value={timeslot.end.toISO()}>
+                    {timeslot.end.toLocaleString(DateTime.TIME_SIMPLE)}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className={classes.fsRow}>
+            <label htmlFor="price" className={classes.label}>
+              Price:
+            </label>
+            <input
+              type="number"
+              className={classes.numInput}
+              id="price"
+              value={formData.price}
+              onChange={(e) => {
+                updateFormData('price', Number(e.target.value));
+              }}
+              required
+            />
+            <label htmlFor="capacity" className={classes.label}>
+              Max Capacity:
+            </label>
+            <select
+              className={classes.select}
+              id="capacity"
+              onChange={(e) => {
+                updateFormData('capacity', e.target.value);
+              }}
+              value={formData.capacity}
+              required
+            >
+              <option>7</option>
+              <option>6</option>
+              <option>5</option>
+              <option>4</option>
+              <option>3</option>
+              <option>2</option>
+              <option>1</option>
+            </select>
+          </div>
+        </div>
+        <div className={classes.calendar}>
+          <Calendar
+            calendarType="US"
+            onChange={updateActiveDate}
+            minDate={new Date()}
+          />
+        </div>
+        <button type="submit" className={classes.submitButton}>
+          Submit
+        </button>
       </form>
     </>
   );
