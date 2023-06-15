@@ -2,12 +2,15 @@ import React, { useState, useEffect, useContext } from 'react';
 import Calendar from 'react-calendar';
 import { DateTime, Duration, Interval } from 'luxon';
 import { EventContext } from '../../Context/EventContext';
+import { AdminContext } from '../../Context/AdminContext';
 import { showAlert } from '../../alert';
 import { createUseStyles } from 'react-jss';
 import adminStyles from '../adminStyles';
 
 const useStyles = createUseStyles(adminStyles);
-const NewEventForm = () => {
+const EventForm = ({ event }) => {
+  const classes = useStyles();
+
   const [activeDate, setActiveDate] = useState(DateTime.now());
   const [timeslots, setTimeslots] = useState([]);
   const [formData, setFormData] = useState({
@@ -20,31 +23,57 @@ const NewEventForm = () => {
     capacity: 7,
   });
 
-  const classes = useStyles();
-
   const { createEvent } = useContext(EventContext);
+  const { workingHours } = useContext(AdminContext);
 
   useEffect(() => {
-    // Working Hours: Weekdays, 6pm - 9 pm; Weekend, 12pm - 8pm
-    let workingHours;
+    {
+      event &&
+        setFormData({
+          name: event.name,
+          description: event.description,
+          category: event.category,
+          price: event.price,
+          start: event.start,
+          end: event.end,
+          capacity: event.capacity,
+        });
+
+      !event &&
+        setFormData({
+          name: '',
+          description: '',
+          category: 'meditation',
+          price: 10,
+          start: '',
+          end: '',
+          capacity: 7,
+        });
+    }
+  }, [event]);
+
+  useEffect(() => {
+    let workingInterval;
+    // weekend hours
     if (activeDate.weekday === 6 || activeDate.weekday === 7) {
-      workingHours = Interval.fromDateTimes(
-        activeDate.set({ hour: 12, minute: 0, second: 0 }),
-        activeDate.set({ hour: 20, minute: 0, second: 0 })
+      workingInterval = Interval.fromDateTimes(
+        activeDate.set(workingHours.weekend.start),
+        activeDate.set(workingHours.weekend.end)
       );
+      // weekday hours
     } else {
-      workingHours = Interval.fromDateTimes(
-        activeDate.set({ hour: 18, minute: 0, second: 0 }),
-        activeDate.set({ hour: 21, minute: 0, second: 0 })
+      workingInterval = Interval.fromDateTimes(
+        activeDate.set(workingHours.weekday.start),
+        activeDate.set(workingHours.weekday.end)
       );
     }
 
-    createTimeSlots(workingHours);
+    createTimeSlots(workingInterval);
   }, [activeDate]);
 
-  const createTimeSlots = (workingHours) => {
+  const createTimeSlots = (interval) => {
     // workingHours is a luxon Interval
-    const timeslots = workingHours.splitBy({ minutes: 15 });
+    const timeslots = interval.splitBy({ minutes: 15 });
     updateFormData('start', timeslots[0].start.toISO());
     updateFormData('end', timeslots[0].end.toISO());
     setTimeslots(timeslots);
@@ -222,4 +251,4 @@ const NewEventForm = () => {
   );
 };
 
-export default NewEventForm;
+export default EventForm;

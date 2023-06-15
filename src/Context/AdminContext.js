@@ -6,6 +6,9 @@ const AdminContext = createContext(null);
 
 function AdminProvider(props) {
   const [practitionerData, setData] = useState(null);
+  // workingHours is included in practitionerData,
+  // separated out for the components that only need the hours
+  const [workingHours, setWorkingHours] = useState(null);
 
   useEffect(() => {
     const getPractitionerData = async () => {
@@ -16,6 +19,7 @@ function AdminProvider(props) {
           withCredentials: true,
         }).then((res) => {
           setData(res.data.data[0]);
+          setWorkingHours(res.data.data[0].workingHours);
         });
       } catch (err) {
         console.log(err);
@@ -35,6 +39,7 @@ function AdminProvider(props) {
       }).then((res) => {
         console.log(res.data.data);
         setData(res.data.data);
+        setWorkingHours(res.data.data.workingHours);
       });
     } catch (err) {
       showAlert(err.response.data.message, 'error');
@@ -42,6 +47,7 @@ function AdminProvider(props) {
   };
   const value = {
     practitionerData,
+    workingHours,
     updatePractitionerData,
   };
 

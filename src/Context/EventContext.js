@@ -38,6 +38,10 @@ function EventProvider(props) {
         url: 'http://127.0.0.1:3000/api/v1/events/create-event',
         withCredentials: true,
         data: formData,
+      }).then((res) => {
+        res.data.data.category === 'meditation'
+          ? setMeditations((prev) => [...prev, res.data.data])
+          : setWorkshops((prev) => [...prev, res.data.data]);
       });
     } catch (err) {
       showAlert(err.response.data.message, 'error');
