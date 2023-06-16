@@ -13,6 +13,7 @@ exports.createEvent = catchAsync(async (req, res, next) => {
     price: req.body.price,
     capacity: {
       max: req.body.capacity,
+      available: req.body.capacity,
     },
   });
   res.status(200).json({

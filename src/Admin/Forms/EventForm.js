@@ -11,7 +11,7 @@ const useStyles = createUseStyles(adminStyles);
 const EventForm = ({ event }) => {
   const classes = useStyles();
 
-  const [activeDate, setActiveDate] = useState(DateTime.now());
+  const [activeDate, setActiveDate] = useState(DateTime.now().toISO());
   const [timeslots, setTimeslots] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
@@ -23,12 +23,12 @@ const EventForm = ({ event }) => {
     capacity: 7,
   });
 
-  const { createEvent } = useContext(EventContext);
+  const { createEvent, updateEvent } = useContext(EventContext);
   const { workingHours } = useContext(AdminContext);
 
   useEffect(() => {
     {
-      event &&
+      if (event) {
         setFormData({
           name: event.name,
           description: event.description,
@@ -38,8 +38,8 @@ const EventForm = ({ event }) => {
           end: event.end,
           capacity: event.capacity,
         });
-
-      !event &&
+        setActiveDate(event.start);
+      } else {
         setFormData({
           name: '',
           description: '',
@@ -49,22 +49,25 @@ const EventForm = ({ event }) => {
           end: '',
           capacity: 7,
         });
+        setActiveDate(DateTime.now().toISO());
+      }
     }
   }, [event]);
 
   useEffect(() => {
     let workingInterval;
+    const activeDT = DateTime.fromISO(activeDate);
     // weekend hours
-    if (activeDate.weekday === 6 || activeDate.weekday === 7) {
+    if (activeDT.weekday === 6 || activeDT.weekday === 7) {
       workingInterval = Interval.fromDateTimes(
-        activeDate.set(workingHours.weekend.start),
-        activeDate.set(workingHours.weekend.end)
+        activeDT.set(workingHours.weekend.start),
+        activeDT.set(workingHours.weekend.end)
       );
       // weekday hours
     } else {
       workingInterval = Interval.fromDateTimes(
-        activeDate.set(workingHours.weekday.start),
-        activeDate.set(workingHours.weekday.end)
+        activeDT.set(workingHours.weekday.start),
+        activeDT.set(workingHours.weekday.end)
       );
     }
 
@@ -74,13 +77,16 @@ const EventForm = ({ event }) => {
   const createTimeSlots = (interval) => {
     // workingHours is a luxon Interval
     const timeslots = interval.splitBy({ minutes: 15 });
-    updateFormData('start', timeslots[0].start.toISO());
-    updateFormData('end', timeslots[0].end.toISO());
+    if (!event) {
+      updateFormData('start', timeslots[0].start.toISO());
+      updateFormData('end', timeslots[0].end.toISO());
+    }
+
     setTimeslots(timeslots);
   };
 
   const updateActiveDate = (value) => {
-    setActiveDate(DateTime.fromJSDate(value));
+    setActiveDate(DateTime.fromJSDate(value).toISO());
   };
 
   const updateFormData = (key, value) => {
@@ -94,24 +100,31 @@ const EventForm = ({ event }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await createEvent(formData).then(() => {
-      setFormData({
-        name: '',
-        description: '',
-        category: 'meditation',
-        price: 10,
-        start: '',
-        end: '',
-        capacity: 7,
-      });
-      showAlert('Event created!', 'success');
-    });
+    event === null &&
+      (await createEvent(formData).then((res) => {
+        setFormData({
+          name: '',
+          description: '',
+          category: 'meditation',
+          price: 10,
+          start: '',
+          end: '',
+          capacity: 7,
+        });
+        showAlert('Event created!', 'success');
+      }));
+    event !== null &&
+      (await updateEvent(formData, event._id).then(() => {
+        showAlert('Event udpated!', 'success');
+      }));
   };
   return (
     <>
       <form onSubmit={handleSubmit}>
         <div className={classes.formSection}>
-          <h3 className={classes.fsHeading}>Event Details</h3>
+          <h3 className={classes.fsHeading}>
+            {event ? event.name : 'New Event'}
+          </h3>
           <div className={classes.fsRow}>
             <label htmlFor="category" className={classes.label}>
               Category:
@@ -241,6 +254,7 @@ const EventForm = ({ event }) => {
             calendarType="US"
             onChange={updateActiveDate}
             minDate={new Date()}
+            value={activeDate}
           />
         </div>
         <button type="submit" className={classes.submitButton}>

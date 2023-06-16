@@ -4,7 +4,7 @@ const authController = require('../controllers/authController');
 const squareController = require('../controllers/squareController');
 const router = express.Router();
 
-router.get('/get-all-events', eventController.getAllEvents);
+router.get('/', eventController.getAllEvents);
 router.get('/:id', eventController.getEvent);
 
 // Routes are protected with auth
@@ -17,6 +17,6 @@ router.post(
 
 // Routes are protected with auth and resctricted to Admin Users
 router.use(authController.restrictTo('admin'));
-router.post('/create-event', eventController.createEvent);
+router.post('/', eventController.createEvent);
 router.patch('/:id', eventController.updateEvent);
 module.exports = router;

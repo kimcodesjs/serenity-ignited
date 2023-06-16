@@ -60,6 +60,8 @@ const adminStyles = {
     backgroundColor: 'lightgray',
     listStyleType: 'none',
     width: 'fit-content',
+    minWidth: '40px',
+    textAlign: 'center',
     borderRadius: '10px',
     padding: '5px',
     marginRight: '5px',
