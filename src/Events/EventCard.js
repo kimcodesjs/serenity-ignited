@@ -30,7 +30,9 @@ const EventCard = ({ event }) => {
   const classes = useStyles();
 
   const onClick = () => {
-    navigate(`/events/${event._id}`);
+    navigate(`/events/${event._id}`, {
+      state: { event },
+    });
   };
 
   return (
