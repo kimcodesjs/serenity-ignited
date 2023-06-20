@@ -52,12 +52,13 @@ const App = () => {
                   <Route path="booking" element={<Booking />} />
 
                   <Route path="events" element={<Events />}>
+                    <Route index element={<AllEvents />} />
                     <Route path=":eventId" element={<EventPage />} />
+
                     <Route
-                      path="events/purchase-confirmation"
+                      path=":eventId/purchase-confirmation"
                       element={<PurchaseConfirmation />}
                     />
-                    <Route index element={<AllEvents />} />
                   </Route>
                   <Route path="contact-me" element={<ContactMe />} />
                   <Route path="about-me" element={<AboutMe />} />
