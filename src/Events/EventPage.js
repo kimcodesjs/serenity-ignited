@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link, useLocation } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import axios from 'axios';
 import { createUseStyles } from 'react-jss';
 import { showAlert } from '../alert';
 import { AuthContext } from '../Context/AuthContext';
+import { EventContext } from '../Context/EventContext';
 
 const useStyles = createUseStyles({
   pageTitle: {
@@ -87,31 +88,14 @@ const useStyles = createUseStyles({
 });
 
 const EventPage = () => {
-  const [event, setEvent] = useState({});
+  const event = useLocation().state.event;
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState(false);
 
-  let { eventId } = useParams();
   const navigate = useNavigate();
   const classes = useStyles();
   const user = useContext(AuthContext);
-
-  useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        await axios({
-          method: 'GET',
-          url: `http://127.0.0.1:3000/api/v1/events/${eventId}`,
-        }).then((res) => {
-          setEvent(res.data.data);
-        });
-      } catch (err) {
-        console.log(err);
-        setError(true);
-      }
-    };
-    fetchEvent();
-  }, []);
+  const { submitPurchase } = useContext(EventContext);
 
   useEffect(() => {
     const setupPaymentForm = async () => {
@@ -127,39 +111,22 @@ const EventPage = () => {
         .addEventListener('click', async () => {
           try {
             const tokenResult = await card.tokenize();
-            let token;
+            let paymentToken;
             if (tokenResult.status === 'OK') {
-              token = tokenResult.token;
+              paymentToken = tokenResult.token;
             } else {
               throw new Error(
                 'Could not validate card details. Please try again!'
               );
             }
 
-            await axios({
-              method: 'POST',
-              url: `http://127.0.0.1:3000/api/v1/events/purchase-ticket`,
-              withCredentials: true,
-              data: {
-                user: user._id,
-                squareId: user.squareId,
-                event: event._id,
-                //price: Number(event.price * quantity),
-                price: event.price * quantity,
-                //quantity: Number(quantity),
-                quantity,
-                paymentToken: token,
-              },
-            })
-              .then(() => {
-                navigate('/events/purchase-confirmation', { state: { event } });
-              })
-              .catch((err) => {
-                throw new Error(err.response.data.message);
+            await submitPurchase(event, quantity, paymentToken).then(() => {
+              navigate(`/events/${event._id}/purchase-confirmation`, {
+                state: { event },
               });
+            });
           } catch (err) {
-            console.log(err);
-            showAlert('error', `Error: ${err.message}`);
+            showAlert(`Error: ${err.message}`, 'error');
           }
         });
     };
@@ -188,6 +155,7 @@ const EventPage = () => {
         <label htmlFor="quantity">Quantity: </label>
         <select
           name="quantity"
+          id="quantity"
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
         >
