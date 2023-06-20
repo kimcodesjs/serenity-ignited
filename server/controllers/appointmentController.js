@@ -14,10 +14,7 @@ exports.createAppointment = catchAsync(async (req, res, next) => {
     paid: true,
   });
   new Email(req.user).sendAppointmentConfirm(newAppointment);
-  res.status(201).json({
-    status: 'success',
-    data: newAppointment,
-  });
+  next();
 });
 
 exports.getUserAppointments = catchAsync(async (req, res, next) => {

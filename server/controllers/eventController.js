@@ -46,20 +46,27 @@ exports.getEvent = catchAsync(async (req, res, next) => {
 exports.purchaseTicket = catchAsync(async (req, res, next) => {
   const event = await Event.findById(req.body.event);
 
+  // check event capacity
   if (event.capacity.available - req.body.quantity < 0) {
-    new AppError('This event is sold out!', '400');
+    return next(new AppError('This event is sold out!', '400'));
   }
+
+  // check event has not passed
+  let currentDate = DateTime.now().valueOf();
+  let eventDate = DateTime.fromISO(event.start).valueOf();
+  if (currentDate > eventDate)
+    return next(new AppError('Event has already passed!', 400));
+
   const purchase = {
     quantity: req.body.quantity,
     purchaseTotal: req.body.price,
   };
   new Email(req.user).sendEventConfirm(req.body.event, purchase);
   event.capacity.available = event.capacity.available - req.body.quantity;
-  event.save();
+  event.attendees.push(req.user._id);
+  await event.save();
 
-  res.status(201).json({
-    status: 'success',
-  });
+  next();
 });
 
 exports.updateEvent = catchAsync(async (req, res, next) => {

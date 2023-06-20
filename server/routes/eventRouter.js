@@ -11,8 +11,8 @@ router.get('/:id', eventController.getEvent);
 router.use(authController.protect);
 router.post(
   '/purchase-ticket',
-  squareController.createPayment,
-  eventController.purchaseTicket
+  eventController.purchaseTicket,
+  squareController.createPayment
 );
 
 // Routes are protected with auth and resctricted to Admin Users

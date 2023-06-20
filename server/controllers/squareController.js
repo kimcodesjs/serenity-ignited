@@ -34,10 +34,12 @@ exports.createPayment = catchAsync(async (req, res, next) => {
         amount: req.body.price * 100,
         currency: 'USD',
       },
-      customerId: req.body.squareId,
+      customerId: req.user.squareId,
       statementDescriptionIdentifier: 'Serenity Ignited LLC',
     });
-    next();
+    res.status(201).json({
+      status: 'success',
+    });
   } catch (err) {
     console.log(err);
     next(squareErrorHandler.formatError(err));

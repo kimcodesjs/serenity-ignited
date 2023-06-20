@@ -9,8 +9,8 @@ router.use(authController.protect);
 
 router.post(
   '/create-appointment',
-  squareController.createPayment,
-  appointmentController.createAppointment
+  appointmentController.createAppointment,
+  squareController.createPayment
 );
 router.get('/get-my-appointments', appointmentController.getUserAppointments);
 router.patch('/:id', appointmentController.updateAppointment);
