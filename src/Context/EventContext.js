@@ -68,11 +68,30 @@ function EventProvider(props) {
       showAlert(err.response.data.message, 'error');
     }
   };
+
+  const submitPurchase = async (event, quantity, paymentToken) => {
+    try {
+      await axios({
+        method: 'POST',
+        url: `http://127.0.0.1:3000/api/v1/events/purchase-ticket`,
+        withCredentials: true,
+        data: {
+          event: event._id,
+          price: event.price * quantity,
+          quantity,
+          paymentToken,
+        },
+      });
+    } catch (err) {
+      showEAlert(err.response.data.message, 'error');
+    }
+  };
   const value = {
     workshops,
     meditations,
     createEvent,
     updateEvent,
+    submitPurchase,
   };
   return <EventContext.Provider value={value} {...props} />;
 }
