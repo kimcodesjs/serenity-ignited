@@ -171,7 +171,6 @@ const SessionConfirmation = ({ session, connection, schedule, user }) => {
               throw new Error(err.response.data.message);
             });
         } catch (err) {
-          console.log(err);
           showAlert('error', `Error: ${err.message}`);
         }
       });

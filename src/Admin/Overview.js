@@ -17,7 +17,7 @@ const Overview = () => {
           setAppointments(res.data.data);
         });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     fetchAppointments();

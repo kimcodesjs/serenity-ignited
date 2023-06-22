@@ -136,7 +136,7 @@ const AuthForm = ({ style }) => {
           'Success! Check your email for a link to reset your password.'
         );
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 

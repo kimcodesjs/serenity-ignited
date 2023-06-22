@@ -77,7 +77,7 @@ const Booking = () => {
           setSessions(res.data.data);
         });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     fetchSessions();

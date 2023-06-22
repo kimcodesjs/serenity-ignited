@@ -118,7 +118,7 @@ const Scheduler = ({ setSchedule, duration }) => {
         }
       }
     }
-    console.log('new timeslots generated');
+    // console.log('new timeslots generated');
     setTimeslots(filteredTimeslots);
   };
 
@@ -149,7 +149,7 @@ const Scheduler = ({ setSchedule, duration }) => {
             Please select a timeslot.
           </option>
           {availableTimeslots.map((timeslot, index) => {
-            console.log('new timeslot mapped');
+            // console.log('new timeslot mapped');
             return (
               <option key={index} value={timeslot.toISO()}>
                 {timeslot.start.toLocaleString(DateTime.TIME_SIMPLE)} -{' '}

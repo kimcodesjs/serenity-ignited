@@ -41,7 +41,6 @@ exports.createPayment = catchAsync(async (req, res, next) => {
       status: 'success',
     });
   } catch (err) {
-    console.log(err);
     next(squareErrorHandler.formatError(err));
   }
 });

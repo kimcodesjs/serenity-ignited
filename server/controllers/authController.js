@@ -77,7 +77,6 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   try {
     const resetURL = `${req.headers.origin}/reset-password/${resetToken}`;
     //fix broken link...^^^
-    console.log(req.headers);
     await new Email(user, resetURL).sendPasswordReset();
 
     res.status(200).json({
@@ -97,7 +96,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.resetPassword = catchAsync(async (req, res, next) => {
-  console.log(req.originalUrl);
+  // console.log(req.originalUrl);
   // 1) Get user based on the token
   const hashedToken = crypto
     .createHash('sha256')

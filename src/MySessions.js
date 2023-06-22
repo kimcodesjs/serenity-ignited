@@ -97,7 +97,7 @@ const MySessions = () => {
           setUserAppointments(res.data.data);
         });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     getAppointments();
@@ -110,10 +110,10 @@ const MySessions = () => {
         url: `http://127.0.0.1:3000/api/v1/appointments/${id}`,
         withCredentials: true,
       }).then((res) => {
-        console.log(res);
+        // console.log(res);
       });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 

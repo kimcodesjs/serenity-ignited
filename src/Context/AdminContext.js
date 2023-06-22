@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { showAlert } from '../alert';
 
@@ -22,14 +22,13 @@ function AdminProvider(props) {
           setWorkingHours(res.data.data[0].workingHours);
         });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     getPractitionerData();
   }, []);
 
   const updatePractitionerData = async (updates) => {
-    console.log(updates);
     try {
       await axios({
         method: 'PATCH',
@@ -37,7 +36,6 @@ function AdminProvider(props) {
         withCredentials: true,
         data: updates,
       }).then((res) => {
-        console.log(res.data.data);
         setData(res.data.data);
         setWorkingHours(res.data.data.workingHours);
       });

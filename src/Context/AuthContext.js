@@ -23,7 +23,7 @@ function AuthProvider(props) {
           }
         });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     getAuthStatus();

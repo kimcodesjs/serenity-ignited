@@ -58,7 +58,6 @@ const ResetPassword = () => {
     if (password === passwordConfirm) {
       setError(null);
       try {
-        console.log('hello from the try block?');
         const res = await axios({
           method: 'PATCH',
           url: `http://127.0.0.1:3000/api/v1/users/resetPassword/${token}`,
@@ -69,7 +68,7 @@ const ResetPassword = () => {
         });
         res.data.status === 'success' && navigate('/');
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     } else {
       setError('Passwords must match.');
