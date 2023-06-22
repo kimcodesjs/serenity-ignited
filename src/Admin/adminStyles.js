@@ -30,7 +30,7 @@ const adminStyles = {
   },
   fsHeading: {
     width: '400px',
-    margin: '10px 5px 0px 10px',
+    margin: '10px 5px 5px 10px',
   },
   fsRow: {
     width: '400px',
@@ -57,7 +57,7 @@ const adminStyles = {
   },
   li: {
     cursor: 'pointer',
-    backgroundColor: 'lightgray',
+    backgroundColor: '#c8c9e9',
     listStyleType: 'none',
     width: 'fit-content',
     minWidth: '40px',

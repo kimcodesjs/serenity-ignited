@@ -1,11 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Calendar from 'react-calendar';
 import axios from 'axios';
 import { DateTime } from 'luxon';
+import { createUseStyles } from 'react-jss';
+import adminStyles from './adminStyles';
 
-const Overview = () => {
-  const [appointments, setAppointments] = useState(null);
+const useStyles = createUseStyles(adminStyles);
 
+const Overview = ({
+  setActiveEvent,
+  setActiveView,
+  meditations,
+  workshops,
+}) => {
+  const [appointments, setAppointments] = useState([]);
+  const classes = useStyles();
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
@@ -23,26 +32,65 @@ const Overview = () => {
     fetchAppointments();
   }, []);
 
+  const onEventClick = (e, category) => {
+    if (!category) return setActiveEvent(null);
+    let event = category.find((event) => event._id === e.target.id);
+    setActiveEvent(event ? event : null);
+    setActiveView('events');
+  };
   // how will appointments be sorted?
 
   return (
-    <div>
-      <h2>Overview</h2>
-      <h3>Upcoming Appointments</h3>
-      <Calendar
-      //tileDisabled={getDisabledDates}
-      />
-      {appointments
-        ? appointments.map((appointment) => (
-            <div key={appointment._id}>
-              <p>
-                {`${appointment.user.firstName} ${appointment.user.lastName}, ${appointment.session.name}`}
-              </p>
-            </div>
-          ))
-        : null}
-      <br />
-      <p>Sales Data</p>
+    <div className={classes.sectionContainer}>
+      <h2 className={classes.sectionTitle}>Overview</h2>
+      <div className={classes.formSection}>
+        <h3 className={classes.fsHeading}>Upcoming Appointments</h3>
+        <ul className={classes.ul}>
+          {appointments.map((appointment) => (
+            <li className={classes.li} key={appointment._id}>
+              {`${appointment.user.firstName} ${appointment.user.lastName}, ${appointment.session.name}`}
+            </li>
+          ))}
+          {appointments.length === 0 && (
+            <li className={classes.li}>
+              Workshops and Meditations will display here!
+            </li>
+          )}
+        </ul>
+      </div>
+      <div className={classes.formSection}>
+        <h3 className={classes.fsHeading}>Upcoming Events</h3>
+        <ul className={classes.ul}>
+          {meditations.map((event) => (
+            <li
+              key={event._id}
+              id={event._id}
+              className={classes.li}
+              onClick={(e) => onEventClick(e, meditations)}
+            >
+              {`${DateTime.fromISO(event.start).toLocaleString(
+                DateTime.DATE_HUGE
+              )}: ${event.name}`}
+            </li>
+          ))}
+          {workshops.map((event) => (
+            <li
+              key={event._id}
+              className={classes.li}
+              onClick={(e) => onEventClick(e, workshops)}
+            >
+              {`${DateTime.fromISO(event.start).toLocaleString(
+                DateTime.DATE_HUGE
+              )}: ${event.name}`}
+            </li>
+          ))}
+          {meditations.length === 0 && workshops.length === 0 && (
+            <li className={classes.li}>
+              Workshops and Meditations will display here!
+            </li>
+          )}
+        </ul>
+      </div>
     </div>
   );
 };

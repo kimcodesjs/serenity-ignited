@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
+import { DateTime } from 'luxon';
 import Overview from './Overview';
 import AvailabilityForm from './Forms/AvailabilityForm';
 import EventAdmin from './EventAdmin';
+import { EventContext } from '../Context/EventContext';
 
 const useStyles = createUseStyles({
   container: {
@@ -10,12 +12,9 @@ const useStyles = createUseStyles({
     flexDirection: 'column',
     height: '100%',
     width: '100%',
-    //justifyContent: 'center',
     alignItems: 'center',
   },
   header: {
-    //position: 'absolute',
-    //top: '0',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -34,15 +33,9 @@ const useStyles = createUseStyles({
     },
   },
   headerTitle: {
-    //filter: 'drop-shadow(2px 2px 1px #443356)',
-    // padding: '5px',
-    // paddingLeft: '10px',
-    // paddingRight: '10px',
     fontSize: '60px',
     fontFamily: "'Clicker Script', cursive",
     textShadow: '#e5d7d7 1px 0px 5px',
-    //background:
-    //'radial-gradient(ellipse at top, rgba(232, 232, 185, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
     filter: 'drop-shadow(2px 2px 1px #443356)',
     borderRadius: '30px',
     color: 'white',
@@ -67,21 +60,25 @@ const useStyles = createUseStyles({
     borderRadius: '10px',
   },
 });
+
 const Dashboard = () => {
-  const [active, setActive] = useState('events');
+  const [activeView, setActiveView] = useState('overview');
+  const [activeEvent, setActiveEvent] = useState(null);
+  const { meditations, workshops } = useContext(EventContext);
 
   const classes = useStyles();
 
   const onClick = (e) => {
-    if (e.target.innerHTML === 'Overview' && active !== 'overview') {
-      setActive('overview');
+    if (e.target.innerHTML === 'Overview' && activeView !== 'overview') {
+      setActiveView('overview');
     } else if (
       e.target.innerHTML === 'Availability' &&
-      active !== 'availability'
+      activeView !== 'availability'
     ) {
-      setActive('availability');
-    } else if (e.target.innerHTML === 'Events' && active !== 'events') {
-      setActive('events');
+      setActiveView('availability');
+    } else if (e.target.innerHTML === 'Events' && activeView !== 'events') {
+      setActiveEvent(null);
+      setActiveView('events');
     }
   };
 
@@ -101,9 +98,16 @@ const Dashboard = () => {
           Events
         </button>
       </div>
-      {active === 'overview' ? <Overview /> : null}
-      {active === 'availability' ? <AvailabilityForm /> : null}
-      {active === 'events' ? <EventAdmin /> : null}
+      {activeView === 'overview' && (
+        <Overview
+          setActiveView={setActiveView}
+          setActiveEvent={setActiveEvent}
+          meditations={meditations}
+          workshops={workshops}
+        />
+      )}
+      {activeView === 'availability' && <AvailabilityForm />}
+      {activeView === 'events' && <EventAdmin activeEvent={activeEvent} />}
     </div>
   );
 };
