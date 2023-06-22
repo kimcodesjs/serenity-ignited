@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Calendar from 'react-calendar';
-import { DateTime, Duration, Interval } from 'luxon';
+import { DateTime, Interval } from 'luxon';
 import { EventContext } from '../../Context/EventContext';
 import { AdminContext } from '../../Context/AdminContext';
 import { showAlert } from '../../alert';
@@ -55,6 +55,7 @@ const EventForm = ({ event }) => {
   }, [event]);
 
   useEffect(() => {
+    if (!workingHours) return;
     let workingInterval;
     const activeDT = DateTime.fromISO(activeDate);
     // weekend hours
@@ -70,12 +71,11 @@ const EventForm = ({ event }) => {
         activeDT.set(workingHours.weekday.end)
       );
     }
-
     createTimeSlots(workingInterval);
   }, [activeDate]);
 
   const createTimeSlots = (interval) => {
-    // workingHours is a luxon Interval
+    // interval must be Luxon Interval
     const timeslots = interval.splitBy({ minutes: 15 });
     if (!event) {
       updateFormData('start', timeslots[0].start.toISO());
@@ -101,7 +101,7 @@ const EventForm = ({ event }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     event === null &&
-      (await createEvent(formData).then((res) => {
+      (await createEvent(formData).then(() => {
         setFormData({
           name: '',
           description: '',
