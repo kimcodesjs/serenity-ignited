@@ -226,6 +226,9 @@ const useStyles = createUseStyles({
   cardContainer: {
     display: 'flex',
     flexFlow: 'row',
+    '@media (max-width: 400px)': {
+      flexFlow: 'column',
+    },
   },
   button: {
     //width: '150px',
@@ -428,7 +431,7 @@ const Landing = () => {
           </div>
           <h2>Upcoming Meditations</h2>
           <div className={classes.cardContainer}>
-            {meditations.length !== 0 ? (
+            {meditations && meditations.length !== 0 ? (
               meditations.map((event) => {
                 return <EventCard event={event} key={event._id} />;
               })
