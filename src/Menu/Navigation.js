@@ -4,6 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthContext';
 
 const useStyles = createUseStyles({
+  navMenu: {
+    display: 'inline-flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    opacity: 1,
+    transition: 'opacity 2s',
+    overflow: 'hidden',
+  },
   menuLogo: {
     filter: 'drop-shadow(5px 5px 1px #443356)',
     width: '280px',
@@ -11,32 +19,29 @@ const useStyles = createUseStyles({
     marginTop: '25px',
     right: '5px',
   },
-  navMenu: {
-    height: '700px',
-    display: 'inline-flex',
-    flexDirection: 'column',
-    opacity: 1,
-    transition: 'opacity 2s',
-    overflow: 'hidden',
-  },
   navLink: {
     textDecoration: 'none',
     padding: '10px',
     textAlign: 'center',
-    color: 'black',
-    fontSize: '30px',
-    textShadow: '#381111 1px 0px 5px',
+    color: '#fdbd00',
+    fontSize: '38px',
+    //textShadow: '#381111 1px 0px 5px',
+    textShadow: '#e5d7d7 1px 0px 5px',
+    fontFamily: "'Euphoria Script', cursive",
   },
   span: {
     padding: '10px',
     cursor: 'pointer',
     textAlign: 'center',
-    fontSize: '30px',
-    textShadow: '#381111 1px 0px 5px',
+    color: '#fdbd00',
+    fontSize: '38px',
+    //textShadow: '#381111 1px 0px 5px',
+    textShadow: '#e5d7d7 1px 0px 5px',
     '-webkit-user-select': 'none' /* Safari */,
     '-moz-user-select': 'none' /* Firefox */,
     '-ms-user-select': 'none' /* IE10+/Edge */,
     userSelect: 'none',
+    fontFamily: "'Euphoria Script', cursive",
   },
 });
 
