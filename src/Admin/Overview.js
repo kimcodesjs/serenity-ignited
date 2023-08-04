@@ -52,9 +52,7 @@ const Overview = ({
             </li>
           ))}
           {appointments.length === 0 && (
-            <li className={classes.li}>
-              Workshops and Meditations will display here!
-            </li>
+            <li className={classes.li}>No upcoming appointments yet...</li>
           )}
         </ul>
       </div>
