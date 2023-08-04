@@ -215,7 +215,7 @@ const EventForm = ({ event }) => {
           </div>
           <div className={classes.fsRow}>
             <label htmlFor="price" className={classes.label}>
-              Price:
+              Price (USD):
             </label>
             <input
               type="number"
