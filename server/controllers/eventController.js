@@ -24,11 +24,14 @@ exports.createEvent = catchAsync(async (req, res, next) => {
 
 exports.getAllEvents = catchAsync(async (req, res, next) => {
   const events = await Event.find(req.query);
+
+  // filter for future events only
   const futureEvents = events.filter((event) => {
     let currentDate = DateTime.now().valueOf();
     let eventDate = DateTime.fromISO(event.start).valueOf();
     if (currentDate < eventDate) return event;
   });
+
   res.status(200).json({
     status: 'success',
     data: futureEvents,
