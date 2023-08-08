@@ -10,7 +10,7 @@ const useStyles = createUseStyles({
     borderRadius: '10px',
     margin: '20px',
     background:
-      'radial-gradient(ellipse at top, rgba(185, 221, 232, .92) 1%, rgba(207, 194, 213, .4)), radial-gradient(ellipse at bottom, rgba(185, 221, 232, .92), transparent)',
+      'radial-gradient(ellipse at top, rgba(185, 221, 232, .92) 1%, rgba(207, 194, 213, .4)), url("/4.png"), radial-gradient(ellipse at bottom, rgba(185, 221, 232, .92), transparent)',
     textShadow: '#e5d7d7 1px 0px 5px',
     textAlign: 'start',
     filter: 'drop-shadow(2px 2px 1px #443356)',
