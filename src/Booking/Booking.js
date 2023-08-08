@@ -115,16 +115,15 @@ const Booking = () => {
           {view === 3 && (
             <Scheduler setSchedule={setSchedule} duration={session.duration} />
           )}
-          {(view === 4) & (user !== null) ? (
+          {view === 4 && user !== null && (
             <SessionConfirmation
               user={user}
               session={session}
               connection={connection.name}
               schedule={schedule}
             />
-          ) : (
-            <AuthPrompt />
           )}
+          {view === 4 && user == null && <AuthPrompt />}
         </div>
       )}
       <img src="Chakra Mandala.png" className={classes.imgLeft} />
