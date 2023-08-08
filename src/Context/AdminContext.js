@@ -15,11 +15,10 @@ function AdminProvider(props) {
       try {
         await axios({
           method: 'GET',
-          url: `http://127.0.0.1:3000/api/v1/users/practitioner-data`,
-          withCredentials: true,
+          url: `http://127.0.0.1:3000/api/v1/practitioners/6487bb6d6cd84d6d6859954c`,
         }).then((res) => {
-          setData(res.data.data[0]);
-          setWorkingHours(res.data.data[0].workingHours);
+          setData(res.data.data);
+          setWorkingHours(res.data.data.workingHours);
         });
       } catch (err) {
         // console.log(err);
@@ -32,7 +31,7 @@ function AdminProvider(props) {
     try {
       await axios({
         method: 'PATCH',
-        url: `http://127.0.0.1:3000/api/v1/users/practitioner-data`,
+        url: `http://127.0.0.1:3000/api/v1/practitioners/6487bb6d6cd84d6d6859954c`,
         withCredentials: true,
         data: updates,
       }).then((res) => {

@@ -4,7 +4,7 @@ const AppError = require('../utils/appError');
 
 // Admin / Practitioner
 exports.getPractitionerData = catchAsync(async (req, res, next) => {
-  const data = await PractitionerData.find({ user: req.user._id });
+  const data = await PractitionerData.findById(req.params.id);
   data &&
     res.status(200).json({
       status: 'success',
