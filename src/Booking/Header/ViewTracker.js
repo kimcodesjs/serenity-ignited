@@ -35,6 +35,10 @@ const useStyles = createUseStyles({
     filter: 'drop-shadow(2px 2px 1px #443356)',
     borderRadius: '30px',
     color: 'white',
+    WebkitUserSelect: 'none' /* Safari */,
+    MozUserSelect: 'none' /* Firefox */,
+    msUserSelect: 'none' /* IE10+/Edge */,
+    userSelect: 'none' /* Standard */,
     '@media (max-width: 1400px)': {
       fontSize: '46px',
     },
