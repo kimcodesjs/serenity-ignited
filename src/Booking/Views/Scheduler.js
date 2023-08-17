@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
 import Calendar from 'react-calendar';
 import { DateTime, Duration, Interval } from 'luxon';
+import { BookingContext } from '../../Context/BookingContext';
 
 const useStyles = createUseStyles({
   viewContainer: {
@@ -71,29 +72,42 @@ const Scheduler = ({ setSchedule, duration }) => {
   const [activeTimeslot, setActiveTimeslot] = useState(null);
   const [availableTimeslots, setTimeslots] = useState([]);
 
+  const { availability, appointments } = useContext(BookingContext);
+
+  // triggers createTimeslots when active date is changed
   useEffect(() => {
-    // Existing bookings to be fetched from database
-    let currentBookings = [
-      Interval.fromDateTimes(
-        DateTime.fromISO('2021-11-19T18:30:00'),
-        DateTime.fromISO('2021-11-19T18:45:00').plus({ minutes: 15 })
-      ),
-      Interval.fromDateTimes(
-        DateTime.fromISO('2021-11-19T19:30:00'),
-        DateTime.fromISO('2021-11-19T19:45:00').plus({ minutes: 15 })
-      ),
-      //
-      //
-    ];
-    // Working hours to be fetched from database
-    let workingHours = Interval.fromDateTimes(
-      activeDate.set({ hour: 18, minute: 0, second: 0 }),
-      activeDate.set({ hour: 21, minute: 0, second: 0 })
+    // Existing bookings
+    let currentBookings = appointments.map((appointment) =>
+      Interval.fromISO(appointment)
     );
+
+    // [
+    //   Interval.fromDateTimes(
+    //     DateTime.fromISO('2021-11-19T18:30:00'),
+    //     DateTime.fromISO('2021-11-19T18:45:00').plus({ minutes: 15 })
+    //   ),
+    //   Interval.fromDateTimes(
+    //     DateTime.fromISO('2021-11-19T19:30:00'),
+    //     DateTime.fromISO('2021-11-19T19:45:00').plus({ minutes: 15 })
+    //   ),
+    // ];
+
+    // Working hours
+    let workingHours;
+    activeDate.weekday === 0 || activeDate.weekday === 6
+      ? (workingHours = Interval.fromDateTimes(
+          activeDate.set(availability.workingHours.weekend.start),
+          activeDate.set(availability.workingHours.weekend.end)
+        ))
+      : (workingHours = Interval.fromDateTimes(
+          activeDate.set(availability.workingHours.weekday.start),
+          activeDate.set(availability.workingHours.weekday.end)
+        ));
 
     createTimeSlots(duration, currentBookings, workingHours);
   }, [activeDate]);
 
+  // sets active date/time for session
   useEffect(() => {
     activeTimeslot &&
       setSchedule({
@@ -102,7 +116,46 @@ const Scheduler = ({ setSchedule, duration }) => {
       });
   }, [activeDate, activeTimeslot]);
 
-  // createTimeSlots
+  const getBlockedDates = ({ date }) => {
+    if (date.getDay() === 0 && availability.blockedDays.includes('Sunday')) {
+      return true;
+    } else if (
+      date.getDay() === 1 &&
+      availability.blockedDays.includes('Monday')
+    ) {
+      return true;
+    } else if (
+      date.getDay() === 2 &&
+      availability.blockedDays.includes('Tuesday')
+    ) {
+      return true;
+    } else if (
+      date.getDay() === 3 &&
+      availability.blockedDays.includes('Wednesday')
+    ) {
+      return true;
+    } else if (
+      date.getDay() === 4 &&
+      availability.blockedDays.includes('Thursday')
+    ) {
+      return true;
+    } else if (
+      date.getDay() === 5 &&
+      availability.blockedDays.includes('Friday')
+    ) {
+      return true;
+    } else if (
+      date.getDay() === 6 &&
+      availability.blockedDays.includes('Saturday')
+    ) {
+      return true;
+    } else if (availability.blockedDates.includes(date.toISOString())) {
+      return true;
+    }
+  };
+
+  // generate available timeslots based on session duration
+  // taking into account existing bookings and that days working hours
   const createTimeSlots = (duration, bookings, workingHours) => {
     const sessionLength = Duration.fromObject(duration);
     const timeslots = workingHours.splitBy(sessionLength);
@@ -118,7 +171,6 @@ const Scheduler = ({ setSchedule, duration }) => {
         }
       }
     }
-    // console.log('new timeslots generated');
     setTimeslots(filteredTimeslots);
   };
 
@@ -163,6 +215,7 @@ const Scheduler = ({ setSchedule, duration }) => {
         calendarType="US"
         onChange={updateActiveDate}
         minDate={new Date()}
+        tileDisabled={getBlockedDates}
       />
     </div>
   );
