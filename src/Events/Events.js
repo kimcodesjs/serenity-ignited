@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useRef, useContext } from 'react';
 import { EventContext } from '../Context/EventContext';
 import { Transition } from 'react-transition-group';
 import { Outlet } from 'react-router-dom';
 import { createUseStyles } from 'react-jss';
-import axios from 'axios';
 
 const useStyles = createUseStyles({
   container: {
