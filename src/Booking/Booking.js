@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
-import axios from 'axios';
 import ViewTransition from './Views/ViewTransition';
 import BookingHeader from './Header/BookingHeader';
 import Session from './Views/Session';
@@ -9,6 +8,7 @@ import Scheduler from './Views/Scheduler';
 import SessionConfirmation from './Views/SessionConfirmation';
 import AuthPrompt from './Views/AuthPrompt';
 import { AuthContext } from '../Context/AuthContext';
+import { BookingContext } from '../Context/BookingContext';
 
 const useStyles = createUseStyles({
   bookingContent: {
@@ -40,15 +40,16 @@ const useStyles = createUseStyles({
 });
 
 const Booking = () => {
-  const [sessions, setSessions] = useState(null);
+  // const [sessions, setSessions] = useState(null);
   const [session, setSession] = useState(null);
   const [connection, setConnection] = useState(null);
   const [schedule, setSchedule] = useState(null);
   const [allowNextView, setAllowStatus] = useState(false);
   const [view, updateView] = useState(null);
+  const { user } = useContext(AuthContext);
+  const { sessions } = useContext(BookingContext);
 
   const classes = useStyles();
-  const { user } = useContext(AuthContext);
 
   // controls if a user is able to move to next step
   useEffect(() => {
@@ -65,23 +66,6 @@ const Booking = () => {
       setAllowStatus(false);
     }
   }, [session, connection, schedule, view]);
-
-  // fetch Sessions from database
-  useEffect(() => {
-    const fetchSessions = async () => {
-      try {
-        await axios({
-          method: 'GET',
-          url: `http://127.0.0.1:3000/api/v1/sessions/get-all-sessions`,
-        }).then((res) => {
-          setSessions(res.data.data);
-        });
-      } catch (err) {
-        // console.log(err);
-      }
-    };
-    fetchSessions();
-  }, []);
 
   // reset connection and schedule selections if session selection changes to prevent accidental booking w/ invalid selections
   useEffect(() => {
