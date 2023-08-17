@@ -6,8 +6,6 @@ const AdminContext = createContext(null);
 
 function AdminProvider(props) {
   const [practitionerData, setData] = useState(null);
-  // workingHours is included in practitionerData,
-  // separated out for the components that only need the hours
   const [workingHours, setWorkingHours] = useState(null);
 
   useEffect(() => {
