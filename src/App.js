@@ -11,6 +11,7 @@ import RequireAdmin from './Auth/RequireAdmin';
 import { AuthProvider } from './Context/AuthContext';
 import { EventProvider } from './Context/EventContext';
 import { AdminProvider } from './Context/AdminContext';
+import { BookingProvider } from './Context/BookingContext';
 const Landing = React.lazy(() => import('./Landing/Landing'));
 const Info = React.lazy(() => import('./Info/Info'));
 const Booking = React.lazy(() => import('./Booking/Booking'));
@@ -49,7 +50,14 @@ const App = () => {
                 <Routes>
                   <Route path="/" element={<Landing />} />
                   <Route path="/info/*" element={<Info />} />
-                  <Route path="booking" element={<Booking />} />
+                  <Route
+                    path="booking"
+                    element={
+                      <BookingProvider>
+                        <Booking />
+                      </BookingProvider>
+                    }
+                  />
 
                   <Route path="events" element={<Events />}>
                     <Route index element={<AllEvents />} />
