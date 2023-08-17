@@ -33,16 +33,18 @@ exports.getUserAppointments = catchAsync(async (req, res, next) => {
 exports.getAllAppointments = catchAsync(async (req, res, next) => {
   const appointments = await Appointment.find();
 
-  // filter for future appointments only
-  const futureAppointments = appointments.filter((appointment) => {
-    let currentDate = DateTime.now().valueOf();
-    let appointmentDate = DateTime.fromISO(appointment.date).valueOf();
-    if (currentDate < appointmentDate) return appointment;
-  });
+  // filter for future appointments and return dates only
+  const appointmentDates = appointments
+    .filter((appointment) => {
+      let currentDate = DateTime.now().valueOf();
+      let appointmentDate = DateTime.fromISO(appointment.date).valueOf();
+      if (currentDate < appointmentDate) return appointment;
+    })
+    .map((appointment) => appointment.time);
 
   res.status(201).json({
     status: 'success',
-    data: futureAppointments,
+    data: appointmentDates,
   });
 });
 
