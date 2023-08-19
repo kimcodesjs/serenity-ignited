@@ -7,6 +7,7 @@ const AdminContext = createContext(null);
 function AdminProvider(props) {
   const [practitionerData, setData] = useState(null);
   const [workingHours, setWorkingHours] = useState(null);
+  const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
     const getPractitionerData = async () => {
@@ -40,10 +41,30 @@ function AdminProvider(props) {
       showAlert(err.response.data.message, 'error');
     }
   };
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        await axios({
+          method: 'GET',
+          url: 'http://127.0.0.1:3000/api/v1/appointments/get-all-admin',
+          withCredentials: true,
+        }).then((res) => {
+          setAppointments(res.data.data);
+          console.log(res.data.data);
+        });
+      } catch (err) {
+        // console.log(err);
+      }
+    };
+    fetchAppointments();
+  }, []);
+
   const value = {
     practitionerData,
     workingHours,
     updatePractitionerData,
+    appointments,
   };
 
   return <AdminContext.Provider value={value} {...props} />;
