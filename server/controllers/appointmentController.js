@@ -1,7 +1,24 @@
 const catchAsync = require('../utils/catchAsync');
 const Appointment = require('../models/appointmentModel');
-const { DateTime } = require('luxon');
+const { DateTime, Interval } = require('luxon');
 const Email = require('../utils/email');
+
+exports.getAllAppointments = catchAsync(async (req, res, next) => {
+  const appointments = await Appointment.find();
+
+  // filter for future appointments and return dates only
+  const appointmentDates = appointments
+    .filter((appointment) => {
+      if (Interval.fromISO(appointment.time).isAfter(DateTime.now()))
+        return appointment;
+    })
+    .map((appointment) => appointment.time);
+
+  res.status(201).json({
+    status: 'success',
+    data: appointmentDates,
+  });
+});
 
 exports.createAppointment = catchAsync(async (req, res, next) => {
   const newAppointment = await Appointment.create({
@@ -30,24 +47,6 @@ exports.getUserAppointments = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAllAppointments = catchAsync(async (req, res, next) => {
-  const appointments = await Appointment.find();
-
-  // filter for future appointments and return dates only
-  const appointmentDates = appointments
-    .filter((appointment) => {
-      let currentDate = DateTime.now().valueOf();
-      let appointmentDate = DateTime.fromISO(appointment.date).valueOf();
-      if (currentDate < appointmentDate) return appointment;
-    })
-    .map((appointment) => appointment.time);
-
-  res.status(201).json({
-    status: 'success',
-    data: appointmentDates,
-  });
-});
-
 exports.updateAppointment = catchAsync(async (req, res, next) => {
   const appointment = await Appointment.findOneAndUpdate(
     req.params.id,
@@ -71,5 +70,21 @@ exports.deleteAppointment = catchAsync(async (req, res, next) => {
   res.status(204).json({
     status: 'success',
     data: null,
+  });
+});
+
+exports.getAllAdmin = catchAsync(async (req, res, next) => {
+  const appointments = await Appointment.find();
+
+  // filter for future appointments and return dates only
+  const futureAppointments = appointments.filter((appointment) => {
+    if (Interval.fromISO(appointment.time).isAfter(DateTime.now()))
+      return appointment;
+  });
+
+  console.log(futureAppointments);
+  res.status(201).json({
+    status: 'success',
+    data: futureAppointments,
   });
 });
