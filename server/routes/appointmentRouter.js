@@ -21,4 +21,6 @@ router.delete('/:id', appointmentController.deleteAppointment);
 // Routes are protected with auth and restricted to Admin Users
 router.use(authController.restrictTo('admin'));
 
+router.get('/get-all-admin', appointmentController.getAllAdmin);
+
 module.exports = router;
