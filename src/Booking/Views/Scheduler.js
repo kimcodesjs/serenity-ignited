@@ -165,7 +165,10 @@ const Scheduler = ({ setSchedule, duration }) => {
         if (timeslots[i].overlaps(bookings[j])) {
           break;
         } else {
-          if (j === bookings.length - 1) {
+          if (
+            j === bookings.length - 1 &&
+            timeslots[i].isAfter(DateTime.now())
+          ) {
             filteredTimeslots.push(timeslots[i]);
           }
         }
