@@ -4,6 +4,7 @@ import axios from 'axios';
 import { DateTime } from 'luxon';
 import { createUseStyles } from 'react-jss';
 import adminStyles from './adminStyles';
+import { AdminContext } from '../Context/AdminContext';
 
 const useStyles = createUseStyles(adminStyles);
 
@@ -13,24 +14,9 @@ const Overview = ({
   meditations,
   workshops,
 }) => {
-  const [appointments, setAppointments] = useState([]);
   const classes = useStyles();
-  useEffect(() => {
-    const fetchAppointments = async () => {
-      try {
-        await axios({
-          method: 'GET',
-          url: 'http://127.0.0.1:3000/api/v1/appointments/get-all-appointments',
-          withCredentials: true,
-        }).then((res) => {
-          setAppointments(res.data.data);
-        });
-      } catch (err) {
-        // console.log(err);
-      }
-    };
-    fetchAppointments();
-  }, []);
+
+  const { appointments } = useContext(AdminContext);
 
   const onEventClick = (e, category) => {
     if (!category) return setActiveEvent(null);
