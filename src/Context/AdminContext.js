@@ -51,7 +51,6 @@ function AdminProvider(props) {
           withCredentials: true,
         }).then((res) => {
           setAppointments(res.data.data);
-          console.log(res.data.data);
         });
       } catch (err) {
         // console.log(err);
