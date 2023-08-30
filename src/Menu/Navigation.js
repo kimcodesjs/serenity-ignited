@@ -88,7 +88,7 @@ const Navigation = ({ toggleMenu }) => {
           onClick={toggleMenu}
         />
       </Link>
-      <Link to="/info" className={classes.navLink} id="info">
+      <Link to="/learn-more" className={classes.navLink} id="info">
         Learn About Energy Healing
       </Link>
       <Link to="/booking" className={classes.navLink} id="book-a-session">
