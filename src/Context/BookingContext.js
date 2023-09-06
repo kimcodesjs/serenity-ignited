@@ -50,7 +50,6 @@ function BookingProvider(props) {
           url: `http://127.0.0.1:3000/api/v1/appointments/`,
         }).then((res) => {
           setAppointments(res.data.data);
-          console.log(res.data.data);
         });
       } catch (err) {
         // console.log(err);
