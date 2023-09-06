@@ -119,10 +119,14 @@ const useAppointmentCardStyles = createUseStyles({
   },
 });
 
-const SessionConfirmation = ({ session, connection, schedule, user }) => {
+const SessionConfirmation = ({
+  session,
+  connection,
+  schedule,
+  user,
+  updateView,
+}) => {
   const classes = useStyles();
-
-  const [sessionConfirmed, setConfirmation] = useState(false);
 
   useEffect(() => {
     const setupPaymentForm = async () => {
@@ -165,7 +169,7 @@ const SessionConfirmation = ({ session, connection, schedule, user }) => {
             },
           })
             .then(() => {
-              setConfirmation(true);
+              updateView(5);
             })
             .catch((err) => {
               throw new Error(err.response.data.message);
@@ -190,38 +194,22 @@ const SessionConfirmation = ({ session, connection, schedule, user }) => {
         time={schedule.time}
         useStyles={useAppointmentCardStyles}
       />
-      {sessionConfirmed === false && (
-        <>
-          <h3>Add your payment details to finalize your appointment.</h3>
-          <div id="card-container" className={classes.cardContainer}>
-            Loading...
-          </div>
-          <button
-            className={classes.buttonEnabled}
-            id="schedule-appointment"
-            // enabled={paymentMethod ? 'true' : 'false'}
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Schedule Appointment
-          </button>
-        </>
-      )}
-      {sessionConfirmed === true && (
-        <div>
-          <h3>
-            Thank you for allowing me to join you on your healing journey,{' '}
-            {user.firstName}! Here are some tips to keep in mind while preparing
-            for your session.
-          </h3>
-          <h4>
-            Please visit the{' '}
-            <Link to={`/${user.uid}/my-sessions`}>My Sessions</Link> page to
-            view your upcoming appointments and edit or reschedule if need be.
-          </h4>
+      <>
+        <h3>Add your payment details to finalize your appointment.</h3>
+        <div id="card-container" className={classes.cardContainer}>
+          Loading...
         </div>
-      )}
+        <button
+          className={classes.buttonEnabled}
+          id="schedule-appointment"
+          // enabled={paymentMethod ? 'true' : 'false'}
+          onClick={(e) => {
+            e.preventDefault();
+          }}
+        >
+          Schedule Appointment
+        </button>
+      </>
     </div>
   );
 };

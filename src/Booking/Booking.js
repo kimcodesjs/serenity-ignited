@@ -6,6 +6,7 @@ import Session from './Views/Session';
 import Connection from './Views/Connection';
 import Scheduler from './Views/Scheduler';
 import SessionConfirmation from './Views/SessionConfirmation';
+import Confirmed from './Confirmed';
 import AuthPrompt from './Views/AuthPrompt';
 import { AuthContext } from '../Context/AuthContext';
 import { BookingContext } from '../Context/BookingContext';
@@ -105,9 +106,11 @@ const Booking = () => {
               session={session}
               connection={connection.name}
               schedule={schedule}
+              updateView={updateView}
             />
           )}
           {view === 4 && user == null && <AuthPrompt />}
+          {view === 5 && <Confirmed user={user} />}
         </div>
       )}
       <img src="Chakra Mandala.png" className={classes.imgLeft} />

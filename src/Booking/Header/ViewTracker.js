@@ -76,13 +76,13 @@ const disabledArrowStyles = {
   transition: 'color ease-in .5s',
 };
 
-const ViewTracker = ({ view, updateView, allowNextView }) => {
+const ViewTracker = ({ view, updateView, allowNextView, confirmed }) => {
   const classes = useStyles();
   const nodeRef = useRef(null);
   const onArrowClick = (e) => {
-    if (e.target.id === 'previous-view' && view !== 1) {
+    if (e.target.id === 'previous-view' && view !== 1 && view !== 5) {
       updateView(view - 1);
-    } else if (e.target.id === 'next-view' && allowNextView) {
+    } else if (e.target.id === 'next-view' && allowNextView && view !== 5) {
       updateView(view + 1);
     }
   };
@@ -108,7 +108,7 @@ const ViewTracker = ({ view, updateView, allowNextView }) => {
         >
           <span
             className="material-symbols-outlined"
-            style={view === 1 ? disabledArrowStyles : arrowStyles}
+            style={view === 1 || view === 5 ? disabledArrowStyles : arrowStyles}
             id="previous-view"
             onClick={onArrowClick}
           >
@@ -118,6 +118,7 @@ const ViewTracker = ({ view, updateView, allowNextView }) => {
           {view === 2 && <h1 className={classes.viewTitle}>Connection</h1>}
           {view === 3 && <h1 className={classes.viewTitle}>Schedule</h1>}
           {view === 4 && <h1 className={classes.viewTitle}>Confirm</h1>}
+          {view === 5 && <h1 className={classes.viewTitle}>Thank You!</h1>}
           <span
             className="material-symbols-outlined"
             style={allowNextView ? arrowStyles : disabledArrowStyles}
