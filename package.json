@@ -8,11 +8,12 @@
     "serve": "live-server public/",
     "build": "webpack",
     "dev-server": "webpack serve",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "dependencies": {
     "@csstools/normalize.css": "^12.0.0",
     "@react-spring/web": "^9.7.1",
+    "@testing-library/user-event": "^14.4.3",
     "axios": "^1.2.2",
     "dotenv-webpack": "^8.0.1",
     "luxon": "^2.0.2",
