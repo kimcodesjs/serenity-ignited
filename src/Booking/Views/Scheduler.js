@@ -78,19 +78,8 @@ const Scheduler = ({ setSchedule, duration }) => {
   useEffect(() => {
     // Existing bookings
     let currentBookings = appointments.map((appointment) =>
-      Interval.fromISO(appointment)
+      addBuffer(Interval.fromISO(appointment))
     );
-
-    // [
-    //   Interval.fromDateTimes(
-    //     DateTime.fromISO('2021-11-19T18:30:00'),
-    //     DateTime.fromISO('2021-11-19T18:45:00').plus({ minutes: 15 })
-    //   ),
-    //   Interval.fromDateTimes(
-    //     DateTime.fromISO('2021-11-19T19:30:00'),
-    //     DateTime.fromISO('2021-11-19T19:45:00').plus({ minutes: 15 })
-    //   ),
-    // ];
 
     // Working hours
     let workingHours;
@@ -115,6 +104,12 @@ const Scheduler = ({ setSchedule, duration }) => {
         time: activeTimeslot,
       });
   }, [activeDate, activeTimeslot]);
+
+  const addBuffer = (bookingInterval) =>
+    Interval.fromDateTimes(
+      bookingInterval.start,
+      bookingInterval.end.plus({ minutes: 15 })
+    );
 
   const getBlockedDates = ({ date }) => {
     if (date.getDay() === 0 && availability.blockedDays.includes('Sunday')) {
@@ -159,6 +154,10 @@ const Scheduler = ({ setSchedule, duration }) => {
   const createTimeSlots = (duration, bookings, workingHours) => {
     const sessionLength = Duration.fromObject(duration);
     const timeslots = workingHours.splitBy(sessionLength);
+    if (bookings.length === 0) {
+      setTimeslots(timeslots);
+      return;
+    }
     const filteredTimeslots = [];
     for (let i = 0; i < timeslots.length; i++) {
       for (let j = 0; j < bookings.length; j++) {
