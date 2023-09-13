@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
+import { Link } from 'react-router-dom';
 import { EventContext } from '../Context/EventContext';
 import EventCard from '../Events/EventCard';
 
@@ -236,8 +237,11 @@ const useStyles = createUseStyles({
     marginTop: '15px',
     fontFamily: "'Clicker Script', cursive",
     fontSize: '30px',
+    fontWeight: 'bold',
     textShadow: '#e5d7d7 1px 0px 5px',
+    textDecoration: 'none',
     color: 'white',
+    // /padding: '10px',
     background:
       'radial-gradient(ellipse at top, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
     borderRadius: '30px',
@@ -486,9 +490,13 @@ const Landing = () => {
             restoring harmony and balance within each.
           </p>
           <div className={classes.buttonContainer}>
-            <button className={classes.button}>Book a Session</button>
+            <Link to="/booking" className={classes.button}>
+              Book a Session
+            </Link>
             <span className={classes.buttonSpacer}>OR</span>
-            <button className={classes.button}>Learn More</button>
+            <Link to="/learn-more" className={classes.button}>
+              Learn More
+            </Link>
           </div>
         </div>
         <h1 className={classes.sectionTitle}>Coming Soon...</h1>
