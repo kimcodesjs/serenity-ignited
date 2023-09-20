@@ -20,7 +20,6 @@ module.exports = {
       },
     ],
   },
-  plugins: [new Dotenv()],
   mode: 'production',
   devtool: 'eval-cheap-module-source-map',
 };
