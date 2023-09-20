@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "live-server public/",
-    "build": "webpack",
+    "build": "webpack --config ./webpack.config.prod.js",
     "dev-server": "webpack serve",
     "test": "jest --detectOpenHandles"
   },
