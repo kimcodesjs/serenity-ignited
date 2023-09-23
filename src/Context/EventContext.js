@@ -12,7 +12,7 @@ function EventProvider(props) {
       try {
         await axios({
           method: 'GET',
-          url: 'http://127.0.0.1:3000/api/v1/events/',
+          url: `${process.env.URL}/api/v1/events/`,
         }).then((res) => {
           const meditationEvents = [];
           const workshopEvents = [];
@@ -35,7 +35,7 @@ function EventProvider(props) {
     try {
       await axios({
         method: 'POST',
-        url: 'http://127.0.0.1:3000/api/v1/events/',
+        url: `${process.env.URL}/api/v1/events/`,
         withCredentials: true,
         data: formData,
       }).then((res) => {
@@ -52,7 +52,7 @@ function EventProvider(props) {
     try {
       await axios({
         method: 'PATCH',
-        url: `http://127.0.0.1:3000/api/v1/events/${id}`,
+        url: `${process.env.URL}/api/v1/events/${id}`,
         withCredentials: true,
         data: formData,
       }).then((res) => {
@@ -73,7 +73,7 @@ function EventProvider(props) {
     try {
       await axios({
         method: 'POST',
-        url: `http://127.0.0.1:3000/api/v1/events/purchase-ticket`,
+        url: `${process.env.URL}/api/v1/events/purchase-ticket`,
         withCredentials: true,
         data: {
           event: event._id,

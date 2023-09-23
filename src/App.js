@@ -4,7 +4,6 @@ import './alert.css';
 import '@csstools/normalize.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { createUseStyles } from 'react-jss';
-import axios from 'axios';
 import ScrollToTop from './Utilities/ScrollToTop';
 import Menu from './Menu/Menu';
 import RequireAdmin from './Auth/RequireAdmin';

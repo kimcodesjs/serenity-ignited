@@ -14,7 +14,7 @@ function AdminProvider(props) {
       try {
         await axios({
           method: 'GET',
-          url: `http://127.0.0.1:3000/api/v1/practitioners/6487bb6d6cd84d6d6859954c`,
+          url: `${process.env.URL}/api/v1/practitioners/6487bb6d6cd84d6d6859954c`,
         }).then((res) => {
           setData(res.data.data);
           setWorkingHours(res.data.data.workingHours);
@@ -30,7 +30,7 @@ function AdminProvider(props) {
     try {
       await axios({
         method: 'PATCH',
-        url: `http://127.0.0.1:3000/api/v1/practitioners/6487bb6d6cd84d6d6859954c`,
+        url: `${process.env.URL}/api/v1/practitioners/6487bb6d6cd84d6d6859954c`,
         withCredentials: true,
         data: updates,
       }).then((res) => {
@@ -47,7 +47,7 @@ function AdminProvider(props) {
       try {
         await axios({
           method: 'GET',
-          url: 'http://127.0.0.1:3000/api/v1/appointments/get-all-admin',
+          url: `${process.env.URL}/api/v1/appointments/get-all-admin`,
           withCredentials: true,
         }).then((res) => {
           setAppointments(res.data.data);

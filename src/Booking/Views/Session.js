@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import OptionCard from './OptionCard';
 import { createUseStyles } from 'react-jss';
-import axios from 'axios';
 
 const useStyles = createUseStyles({
   viewContainer: {

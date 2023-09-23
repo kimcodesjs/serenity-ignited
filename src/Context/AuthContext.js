@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { showAlert } from '../Utilties/alert';
+import { showAlert } from '../Utilities/alert';
 
 const AuthContext = createContext(null);
 
@@ -15,7 +15,7 @@ function AuthProvider(props) {
       try {
         await axios({
           method: 'GET',
-          url: `http://127.0.0.1:3000/api/v1/users/get-auth-status`,
+          url: `${process.env.URL}/api/v1/users/get-auth-status`,
           withCredentials: true,
         }).then((res) => {
           if (res.status === 200) {
@@ -33,7 +33,7 @@ function AuthProvider(props) {
     try {
       const res = await axios({
         method: 'POST',
-        url: 'http://127.0.0.1:3000/api/v1/users/logout',
+        url: `${process.env.URL}/api/v1/users/logout`,
         withCredentials: true,
       });
       if (res.data.status === 'success') {
@@ -50,7 +50,7 @@ function AuthProvider(props) {
     try {
       await axios({
         method: 'POST',
-        url: `http://127.0.0.1:3000/api/v1/users/${authType}`,
+        url: `${process.env.URL}/api/v1/users/${authType}`,
         withCredentials: true,
         data,
       }).then((res) => {
