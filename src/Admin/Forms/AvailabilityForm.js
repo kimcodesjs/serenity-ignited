@@ -4,7 +4,7 @@ import Calendar from 'react-calendar';
 import adminStyles from '../adminStyles';
 import { createUseStyles } from 'react-jss';
 import { AdminContext } from '../../Context/AdminContext';
-import { showAlert } from '../../alert';
+import { showAlert } from '../../Utilities/alert';
 
 const useStyles = createUseStyles(adminStyles);
 

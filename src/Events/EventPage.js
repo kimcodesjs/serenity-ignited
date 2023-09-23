@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link, useLocation } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import axios from 'axios';
 import { createUseStyles } from 'react-jss';
-import { showAlert } from '../alert';
+import { showAlert } from '../Utilities/alert';
 import { AuthContext } from '../Context/AuthContext';
 import { EventContext } from '../Context/EventContext';
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { showAlert } from '../alert';
+import { showAlert } from '../Utilities/alert';
 
 const useStyles = createUseStyles({
   form: {

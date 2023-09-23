@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { showAlert } from '../alert';
+import { showAlert } from '../Utilties/alert';
 
 const AuthContext = createContext(null);
 

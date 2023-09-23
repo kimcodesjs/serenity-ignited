@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
 import axios from 'axios';
 import { AuthContext } from '../Context/AuthContext';
-import { showAlert } from '../alert';
+import { showAlert } from '../Utilities/alert';
 import { useLocation } from 'react-router-dom';
 
 const useStyles = createUseStyles({

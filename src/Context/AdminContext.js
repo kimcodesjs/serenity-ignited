@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import { showAlert } from '../alert';
+import { showAlert } from '../Utilities/alert';
 
 const AdminContext = createContext(null);
 

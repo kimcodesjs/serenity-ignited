@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
-import { showAlert } from '../../alert';
+import { showAlert } from '../../Utilities/alert';
 import axios from 'axios';
 import AppointmentCard from './AppointmentCard';
 import { Link } from 'react-router-dom';

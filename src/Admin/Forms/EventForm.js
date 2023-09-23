@@ -3,7 +3,7 @@ import Calendar from 'react-calendar';
 import { DateTime, Interval } from 'luxon';
 import { EventContext } from '../../Context/EventContext';
 import { AdminContext } from '../../Context/AdminContext';
-import { showAlert } from '../../alert';
+import { showAlert } from '../../Utilities/alert';
 import { createUseStyles } from 'react-jss';
 import adminStyles from '../adminStyles';
 
