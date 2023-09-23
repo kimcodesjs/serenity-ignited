@@ -12,7 +12,7 @@ module.exports = class Email {
     this.firstName = user.firstName;
     this.lastName = user.lastName;
     this.url = url;
-    this.from = `Serenity Ignited <${process.env.EMAIL_FROM}`;
+    this.from = `Serenity Ignited <${process.env.EMAIL_FROM}>`;
   }
 
   async sendWelcome() {
@@ -68,7 +68,7 @@ module.exports = class Email {
   async notifyAdminSession(session, appointment) {
     const mailOptions = {
       from: 'do-not-reply@serenityignited.com',
-      to: 'becky@serenityignited.com',
+      to: `${process.env.EMAIL_TO_ADMIN}`,
       templateId: 'd-cc0177c831ad48b7819addd0ce996c12',
       dynamicTemplateData: {
         fullName: `${this.firstName} ${this.lastName}`,
@@ -114,7 +114,7 @@ module.exports = class Email {
   async notifyAdminEvent(event, quantity) {
     const mailOptions = {
       from: 'do-not-reply@serenityignited.com',
-      to: 'becky@serenityignited.com',
+      to: `${process.env.EMAIL_TO_ADMIN}`,
       templateId: 'd-b6a49c181a524de0a8b5b36075b0508f',
       dynamicTemplateData: {
         eventName: event.name,
