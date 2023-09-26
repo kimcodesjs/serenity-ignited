@@ -9,7 +9,6 @@ import SessionConfirmation from './Views/SessionConfirmation';
 import Confirmed from './Confirmed';
 import AuthPrompt from './Views/AuthPrompt';
 import { AuthContext } from '../Context/AuthContext';
-import { BookingContext } from '../Context/BookingContext';
 
 const useStyles = createUseStyles({
   bookingContent: {
@@ -48,7 +47,6 @@ const Booking = () => {
   const [allowNextView, setAllowStatus] = useState(false);
   const [view, updateView] = useState(null);
   const { user } = useContext(AuthContext);
-  const { sessions } = useContext(BookingContext);
 
   const classes = useStyles();
 
@@ -83,13 +81,7 @@ const Booking = () => {
       />
       {view !== null && (
         <div className={classes.bookingContent}>
-          {view === 1 && (
-            <Session
-              sessions={sessions}
-              setSession={setSession}
-              session={session}
-            />
-          )}
+          {view === 1 && <Session setSession={setSession} session={session} />}
           {view === 2 && (
             <Connection
               setConnection={setConnection}

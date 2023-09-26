@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import OptionCard from './OptionCard';
 import { createUseStyles } from 'react-jss';
+import { BookingContext } from '../../Context/BookingContext';
 
 const useStyles = createUseStyles({
   viewContainer: {
@@ -63,10 +64,16 @@ const useStyles = createUseStyles({
   },
 });
 
-const Session = ({ setSession, session, sessions }) => {
+const Session = ({ setSession, session }) => {
   const classes = useStyles();
 
   const [activeModality, setActiveModality] = useState('Reiki');
+  const [isLoading, setLoading] = useState(true);
+  const { sessions } = useContext(BookingContext);
+
+  useEffect(() => {
+    !sessions ? setLoading(true) : setLoading(false);
+  }, [sessions]);
 
   const displayOptions = () => {
     if (activeModality === 'Packages')
@@ -132,14 +139,18 @@ const Session = ({ setSession, session, sessions }) => {
         </label>
       </div>
       <div className={classes.optionContainer}>
-        {displayOptions().map((option) => (
-          <OptionCard
-            key={option._id}
-            option={option}
-            setActive={setSession}
-            active={session && session._id === option._id ? true : false}
-          />
-        ))}
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          displayOptions().map((option) => (
+            <OptionCard
+              key={option._id}
+              option={option}
+              setActive={setSession}
+              active={session && session._id === option._id ? true : false}
+            />
+          ))
+        )}
       </div>
     </div>
   );

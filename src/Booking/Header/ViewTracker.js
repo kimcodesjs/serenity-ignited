@@ -76,7 +76,7 @@ const disabledArrowStyles = {
   transition: 'color ease-in .5s',
 };
 
-const ViewTracker = ({ view, updateView, allowNextView, confirmed }) => {
+const ViewTracker = ({ view, updateView, allowNextView }) => {
   const classes = useStyles();
   const nodeRef = useRef(null);
   const onArrowClick = (e) => {
