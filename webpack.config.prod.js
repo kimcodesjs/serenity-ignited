@@ -21,11 +21,7 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new Dotenv({
-      path: path.resolve(__dirname, './.env'),
-    }),
-  ],
+  plugins: [new Dotenv()],
   mode: 'production',
   devtool: 'eval-cheap-module-source-map',
 };
