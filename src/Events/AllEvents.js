@@ -6,15 +6,22 @@ import { useOutletContext } from 'react-router-dom';
 const useStyles = createUseStyles({
   pageSubtitle: {
     width: '100%',
+    maxWidth: '700px',
     marginTop: '0px',
     marginBottom: '0px',
-    fontFamily: "'Euphoria Script', cursive",
+    //fontFamily: "'Euphoria Script', cursive",
     textAlign: 'center',
-    fontSize: '40px',
+    fontSize: '32px',
     '@media (max-width: 450px)': {
-      fontSize: '30px',
+      fontSize: '24px',
       textAlign: 'center',
     },
+  },
+  module: {
+    width: '100%',
+    maxWidth: '700px',
+    display: 'flex',
+    flexDirection: 'column',
   },
   moduleSubtitle: {
     margin: '0',
@@ -22,7 +29,6 @@ const useStyles = createUseStyles({
     fontSize: '20px',
   },
   moduleText: {
-    width: '100%',
     textAlign: 'justify',
     flexGrow: 2,
     fontSize: '18px',
@@ -35,6 +41,10 @@ const useStyles = createUseStyles({
   cardContainer: {
     display: 'flex',
     flexFlow: 'row',
+    overflowX: 'auto',
+    '@media (max-width: 450px)': {
+      //flexFlow: 'column',
+    },
   },
 });
 const AllEvents = () => {
@@ -45,7 +55,7 @@ const AllEvents = () => {
       <h2 className={classes.pageSubtitle}>
         Select an event to see the full description and reserve your spot!
       </h2>
-      <div>
+      <div className={classes.module}>
         <h2>Meditations</h2>
         <p className={classes.moduleSubtitle}>
           Coming together with the intention of cultivating inner peace and
@@ -61,7 +71,7 @@ const AllEvents = () => {
           })}
         </div>
       </div>
-      <div>
+      <div className={classes.module}>
         <h2>Workshops</h2>
         <p className={classes.moduleSubtitle}>
           We are still working on bringing workshops to Serenity Ignited! Is

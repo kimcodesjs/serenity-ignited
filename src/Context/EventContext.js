@@ -26,7 +26,7 @@ function EventProvider(props) {
           setWorkshops(workshopEvents);
         });
       } catch (err) {
-        showAlert(err.response.data.message, 'error');
+        showAlert('Uh oh, something went wrong loading event data.', 'error');
       }
     };
     fetchEvents();
@@ -45,7 +45,10 @@ function EventProvider(props) {
           : setWorkshops((prev) => [...prev, res.data.data]);
       });
     } catch (err) {
-      showAlert(err.response.data.message, 'error');
+      showAlert(
+        'Something went wrong, could not create the new event. Please try again!',
+        'error'
+      );
     }
   };
 

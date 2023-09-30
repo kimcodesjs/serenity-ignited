@@ -90,7 +90,7 @@ const useStyles = createUseStyles({
       paddingTop: '10vh',
     },
     '@media (max-width: 450px)': {
-      paddingTop: '12vh',
+      paddingTop: '15vh',
     },
   },
 });

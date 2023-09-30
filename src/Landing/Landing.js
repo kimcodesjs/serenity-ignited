@@ -183,8 +183,6 @@ const useStyles = createUseStyles({
     marginTop: '10px',
     marginBottom: '10px',
     padding: '20px',
-    display: 'flex',
-    flexFlow: 'column nowrap',
     borderRadius: '30px',
     //background:
     //  'radial-gradient(ellipse at top, rgba(232, 232, 185, 0) 1%, rgba(207, 194, 213, .4)), radial-gradient(ellipse at bottom, rgba(185, 221, 232, .92), transparent)',
@@ -227,9 +225,7 @@ const useStyles = createUseStyles({
   cardContainer: {
     display: 'flex',
     flexFlow: 'row',
-    '@media (max-width: 400px)': {
-      flexFlow: 'column',
-    },
+    overflowX: 'auto',
   },
   button: {
     //width: '150px',

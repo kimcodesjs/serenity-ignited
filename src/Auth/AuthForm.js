@@ -19,7 +19,7 @@ const useStyles = createUseStyles({
     flexDirection: 'column',
   },
   input: {
-    backgroundColor: 'white',
+    backgroundColor: '#fbfbec',
     borderColor: '#381111',
     borderLeft: 'none',
     borderRight: 'none',
@@ -204,6 +204,7 @@ const AuthForm = ({ style }) => {
         )}
         <button
           className={classes.button}
+          name="submit"
           onClick={authFlow === 'sign-up' ? handleSignUp : handleLogIn}
         >
           Submit

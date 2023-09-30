@@ -6,15 +6,11 @@ import { useNavigate } from 'react-router-dom';
 const useStyles = createUseStyles({
   eventCard: {
     marginRight: '15px',
-    //fontFamily: "'Clicker Script', cursive",
-    //fontSize: '30px',
     width: '180px',
     padding: '10px',
     textAlign: 'center',
     textShadow: '#e5d7d7 1px 0px 5px',
     color: 'white',
-    //background:
-    //  'radial-gradient(ellipse at top, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, .85), transparent)',
     backgroundImage:
       'radial-gradient(ellipse at top, rgba(64, 69, 178, .45), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, .45), transparent), url("Meditation Violet.jpg")',
     backgroundSize: 'cover',
@@ -22,6 +18,8 @@ const useStyles = createUseStyles({
     border: 'none',
     filter: 'drop-shadow(2px 2px 1px #443356)',
     cursor: 'pointer',
+    margin: '10px',
+    flexShrink: 0,
   },
 });
 

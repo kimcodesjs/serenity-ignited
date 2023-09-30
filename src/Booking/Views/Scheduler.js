@@ -38,21 +38,23 @@ const useStyles = createUseStyles({
     },
   },
   timeSlots: {
-    height: '125px',
-    width: '300px',
+    //height: '125px',
+    width: '400px',
     maxWidth: '80%',
     fontWeight: 'bold',
-    color: 'white',
+    //color: 'white',
     textShadow: '#e5d7d7 1px 0px 5px',
+    // background:
+    //   'radial-gradient(ellipse at top, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
     background:
-      'radial-gradient(ellipse at top, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
+      'radial-gradient(ellipse at top, rgba(232, 232, 185, .92) 1%, transparent), radial-gradient(ellipse at bottom, rgba(185, 221, 232, .92), transparent)',
     borderRadius: '10px',
     filter: 'drop-shadow(2px 2px 1px #443356)',
     marginBottom: '20px',
   },
   date: {
     '@media (max-width: 920px)': {
-      fontSize: '24px',
+      fontSize: '18px',
     },
   },
   timePicker: {
@@ -60,6 +62,7 @@ const useStyles = createUseStyles({
     borderRadius: '10px',
     border: 'none',
     padding: '5px',
+    marginBottom: '20px',
     '&:focus': {
       border: 'solid 1px #443356',
     },
@@ -154,11 +157,15 @@ const Scheduler = ({ setSchedule, duration }) => {
   const createTimeSlots = (duration, bookings, workingHours) => {
     const sessionLength = Duration.fromObject(duration);
     const timeslots = workingHours.splitBy(sessionLength);
+    const filteredTimeslots = [];
     if (bookings.length === 0) {
-      setTimeslots(timeslots);
+      setTimeslots(
+        timeslots.filter((timeslot) => {
+          if (timeslot.isAfter(DateTime.now())) return timeslot;
+        })
+      );
       return;
     }
-    const filteredTimeslots = [];
     for (let i = 0; i < timeslots.length; i++) {
       for (let j = 0; j < bookings.length; j++) {
         if (timeslots[i].overlaps(bookings[j])) {
