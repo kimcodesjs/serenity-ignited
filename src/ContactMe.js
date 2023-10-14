@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { createUseStyles } from 'react-jss';
+import axios from 'axios';
+import { showAlert } from './Utilities/alert';
 
 const useStyles = createUseStyles({
   contactContainer: {
@@ -7,15 +9,15 @@ const useStyles = createUseStyles({
       'radial-gradient(ellipse at top, rgba(232, 232, 185, .92), transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent), url("/4.png")',
     backgroundAttachment: 'fixed',
     backgroundSize: 'cover',
-    width: '100%',
-    minHeight: '100%',
+    width: '100vw',
+    minHeight: '100vh',
   },
   contactContent: {
     //width: '80%',
-    maxWidth: '960px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    '@media (max-width: 400px)': {
+    // maxWidth: '960px',
+    // marginLeft: 'auto',
+    // marginRight: 'auto',
+    '@media (max-width: 500px)': {
       maxWidth: '90%',
     },
   },
@@ -41,10 +43,13 @@ const useStyles = createUseStyles({
   header: {
     fontFamily: "'Over the Rainbow', cursive",
     marginTop: '0',
-    //paddingTop: '50px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     textShadow: '#381111 1px 0px 20px',
     textAlign: 'center',
-    '@media (max-width: 400px)': {
+    width: '80%',
+    maxWidth: '500px',
+    '@media (max-width: 500px)': {
       fontSize: '24px',
     },
   },
@@ -116,29 +121,28 @@ const useStyles = createUseStyles({
 
 const ContactMe = () => {
   const classes = useStyles();
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(null);
 
   const handleSubmit = async () => {
     const name = document.getElementById('name');
     const email = document.getElementById('email');
     const message = document.getElementById('message');
 
-    // REPLACE WITH BACKEND INTEGRATION
-    // await addDoc(collection(db, 'ContactSubmissions'), {
-    //     name: name.value,
-    //     email: email.value,
-    //     message: message.value
-    // }).then(() => {
-    //     console.log('Success! New Contact Submission has been logged in Firestore!')
-    //     setSuccess(true)
-    //     name.value = ''
-    //     email.value = ''
-    //     message.value = ''
-    // }).catch((error) => {
-    //     console.log(error)
-    //     setError('Something went wrong...')
-    // })
+    try {
+      await axios({
+        method: 'POST',
+        url: `${process.env.URL}/api/v1/users/submit-contact-form`,
+        data: {
+          name,
+          email,
+          body: message,
+        },
+      }).then((res) => {
+        res.data.status === 'success' && showAlert('Message sent!', 'success');
+      });
+    } catch (err) {
+      showAlert('Something went wrong...', 'error');
+      console.log(err);
+    }
   };
   return (
     <div className={classes.contactContainer}>
@@ -151,6 +155,7 @@ const ContactMe = () => {
           <label htmlFor="name" className={classes.label}>
             Your Name:
           </label>
+          <br />
           <input
             type="text"
             name="name"
@@ -162,6 +167,7 @@ const ContactMe = () => {
           <label htmlFor="email" className={classes.label}>
             Email:
           </label>
+          <br />
           <input
             type="email"
             name="email"
@@ -191,8 +197,6 @@ const ContactMe = () => {
           </button>
         </form>
         <br />
-        {success && <h3>Your message has been sent!</h3>}
-        {error && <h3>{error}</h3>}
         <img className={classes.img} src="Namaste.png" />
       </div>
     </div>

@@ -72,7 +72,7 @@ module.exports = class Email {
       templateId: 'd-cc0177c831ad48b7819addd0ce996c12',
       dynamicTemplateData: {
         fullName: `${this.firstName} ${this.lastName}`,
-        email: this.to,
+        email: process.env.EMAIL_TO_ADMIN,
         modality: session.modality,
         name: session.name,
         connection: appointment.connection,
@@ -115,7 +115,7 @@ module.exports = class Email {
     const mailOptions = {
       from: 'do-not-reply@serenityignited.com',
       to: `${process.env.EMAIL_TO_ADMIN}`,
-      templateId: 'd-b6a49c181a524de0a8b5b36075b0508f',
+      templateId: 'd-35c1805b96c54136b188c9e2acd90a75',
       dynamicTemplateData: {
         eventName: event.name,
         dateTimeString: `${Interval.fromISO(event.time).toLocaleString({
@@ -127,6 +127,20 @@ module.exports = class Email {
         })}`,
         fullName: `${this.firstName} ${this.lastName}`,
         quantity,
+      },
+    };
+    sgMail.send(mailOptions);
+  }
+
+  async notifyAdminContactSubmission(name, email, body) {
+    const mailOptions = {
+      from: 'do-not-reply@serenityignited.com',
+      to: `${process.env.EMAIL_TO_ADMIN}`,
+      templateId: 'd-bd8edffeee9943bf829846f3cdefe813',
+      dynamicTemplateData: {
+        name,
+        email,
+        body,
       },
     };
     sgMail.send(mailOptions);
