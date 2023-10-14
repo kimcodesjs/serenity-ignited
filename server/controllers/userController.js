@@ -7,7 +7,7 @@ exports.submitContactForm = catchAsync(async (req, res, next) => {
   new Email().notifyAdminContactSubmission(
     req.body.name,
     req.body.email,
-    req.body.body
+    req.body.message
   );
 
   res.status(204).json({

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import axios from 'axios';
 import { showAlert } from './Utilities/alert';
@@ -24,7 +24,7 @@ const useStyles = createUseStyles({
   logo: {
     display: 'block',
     width: '40%',
-    maxWidth: '730px',
+    maxWidth: '600px',
     height: 'auto',
     paddingRight: '50px',
     margin: 'auto',
@@ -120,13 +120,13 @@ const useStyles = createUseStyles({
 });
 
 const ContactMe = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
   const classes = useStyles();
 
   const handleSubmit = async () => {
-    const name = document.getElementById('name');
-    const email = document.getElementById('email');
-    const message = document.getElementById('message');
-
     try {
       await axios({
         method: 'POST',
@@ -134,10 +134,13 @@ const ContactMe = () => {
         data: {
           name,
           email,
-          body: message,
+          message,
         },
       }).then((res) => {
-        res.data.status === 'success' && showAlert('Message sent!', 'success');
+        res.status === 204 && showAlert('Message sent!', 'success');
+        setName('');
+        setEmail('');
+        setMessage('');
       });
     } catch (err) {
       showAlert('Something went wrong...', 'error');
@@ -162,6 +165,8 @@ const ContactMe = () => {
             id="name"
             className={classes.input}
             required
+            onChange={(e) => setName(e.target.value)}
+            value={name}
           />
           <br />
           <label htmlFor="email" className={classes.label}>
@@ -174,6 +179,8 @@ const ContactMe = () => {
             id="email"
             className={classes.input}
             required
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
           <br />
           <label htmlFor="message" className={classes.label}>
@@ -184,6 +191,8 @@ const ContactMe = () => {
             id="message"
             className={classes.textArea}
             required
+            onChange={(e) => setMessage(e.target.value)}
+            value={message}
           />
           <br />
           <button
@@ -197,7 +206,6 @@ const ContactMe = () => {
           </button>
         </form>
         <br />
-        <img className={classes.img} src="Namaste.png" />
       </div>
     </div>
   );

@@ -8,9 +8,9 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = class Email {
   constructor(user, url) {
-    this.to = user.email;
-    this.firstName = user.firstName;
-    this.lastName = user.lastName;
+    this.to = user ? user.email : '';
+    this.firstName = user ? user.firstName : '';
+    this.lastName = user ? user.lastName : '';
     this.url = url;
     this.from = `Serenity Ignited <${process.env.EMAIL_FROM}>`;
   }
@@ -133,6 +133,7 @@ module.exports = class Email {
   }
 
   async notifyAdminContactSubmission(name, email, body) {
+    console.log(email);
     const mailOptions = {
       from: 'do-not-reply@serenityignited.com',
       to: `${process.env.EMAIL_TO_ADMIN}`,
