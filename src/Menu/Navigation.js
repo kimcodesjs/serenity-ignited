@@ -49,6 +49,7 @@ const Navigation = ({ toggleMenu }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
+  console.log(user);
   // useEffect(() => {
   //   animateNavMenu();
   // }, [display]);
@@ -130,6 +131,11 @@ const Navigation = ({ toggleMenu }) => {
           id="my-sessions"
         >
           My Sessions
+        </Link>
+      )}
+      {user && user.role === 'admin' && (
+        <Link to="/admin" className={classes.navLink} id="admin">
+          Admin Settings
         </Link>
       )}
       {user && (
