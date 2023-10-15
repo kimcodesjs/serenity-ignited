@@ -49,10 +49,6 @@ const Navigation = ({ toggleMenu }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
-  console.log(user);
-  // useEffect(() => {
-  //   animateNavMenu();
-  // }, [display]);
 
   const handleLinkClicks = async (e) => {
     if (e.target.id === 'log-out') {
