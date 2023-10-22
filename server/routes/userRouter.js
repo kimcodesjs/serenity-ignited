@@ -14,6 +14,11 @@ router.post('/forgotPassword', authController.forgotPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
 router.post('/submit-contact-form', userController.submitContactForm);
 
+// Protected with Auth
+router.use(authController.protect);
+router.patch('/', userController.updateUser);
+
+// Protected with Auth and Restricted to Admin
 router.use(authController.protect, authController.restrictTo('admin'));
 router.get('/get-all-users'); // need to build user controller
 

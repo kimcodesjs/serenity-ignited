@@ -1,27 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import AppointmentCard from './Booking/Views/AppointmentCard';
-import { useParams } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../Context/UserContext';
+import { AuthContext } from '../Context/AuthContext';
+import AppointmentCard from '../Booking/Views/AppointmentCard';
+import Header from '../SharedComponents/Header';
 import { DateTime, Interval } from 'luxon';
 import { createUseStyles } from 'react-jss';
-import axios from 'axios';
 
 const useStyles = createUseStyles({
-  mySessions: {
-    background:
-      'radial-gradient(ellipse at top, rgba(232, 232, 185, .92), transparent), radial-gradient(ellipse at bottom, rgba(232, 232, 185, .92), transparent), url("/3.png")',
-    backgroundAttachment: 'fixed',
-    backgroundSize: 'cover',
-    paddingTop: '50px',
-    width: '100%',
-    minHeight: '100%',
+  container: {
+    width: '100vw',
+    minHeight: '100vh',
   },
-  h2: {
-    fontFamily: "'Over the Rainbow', cursive",
-    fontSize: '40px',
-    marginTop: 0,
-    marginLeft: '10%',
-  },
-  mySessionsContnent: {
+  mySessionsContent: {
     display: 'inline-flex',
     flexDirection: 'column',
     width: '80%',
@@ -69,58 +59,16 @@ const useAppointmentCardStyles = createUseStyles({
     fontWeight: 'bold',
   },
 });
-const MySessions = () => {
-  const [userAppointments, setUserAppointments] = useState([]);
+const UserAccount = () => {
+  const { userAppointments } = useContext(UserContext);
+  const { user } = useContext(AuthContext);
+
   const classes = useStyles();
 
-  // REPLACE WITH BACKEND INTEGRATION
-  // useEffect(async () => {
-  //     let appointments = []
-  //     await getDocs(query(collection(db, 'Appointments'), where('userID', '==', `${userID}`), orderBy('date'))).then((results) => {
-  //         results.forEach((doc) => {
-  //             appointments.push({
-  //                 data: doc.data(),
-  //                 id: doc.id
-  //             })
-  //         })
-  //         setUserAppointments(appointments)
-  //     })
-  // },[])
-  useEffect(() => {
-    const getAppointments = async () => {
-      try {
-        await axios({
-          method: 'GET',
-          url: 'http://127.0.0.1:3000/api/v1/appointments/get-my-appointments',
-          withCredentials: true,
-        }).then((res) => {
-          setUserAppointments(res.data.data);
-        });
-      } catch (err) {
-        // console.log(err);
-      }
-    };
-    getAppointments();
-  }, []);
-
-  const onCancel = async (id) => {
-    try {
-      await axios({
-        method: 'DELETE',
-        url: `http://127.0.0.1:3000/api/v1/appointments/${id}`,
-        withCredentials: true,
-      }).then((res) => {
-        // console.log(res);
-      });
-    } catch (err) {
-      // console.log(err);
-    }
-  };
-
   return (
-    <div className={classes.mySessions}>
-      <h2 className={classes.h2}>My Sessions</h2>
-      <div className={classes.mySessionsContnent}>
+    <div className={classes.container}>
+      <Header title="My Account" />
+      <div className={classes.mySessionsContent}>
         <div className={classes.apptCardContainer}>
           {userAppointments.length > 0 &&
             userAppointments.map((appointment) => {
@@ -145,4 +93,4 @@ const MySessions = () => {
   );
 };
 
-export default MySessions;
+export default UserAccount;
