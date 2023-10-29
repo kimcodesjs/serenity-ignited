@@ -25,7 +25,6 @@ function BookingProvider(props) {
     getPractitionerData();
   }, []);
 
-  // fetch Sessions from database
   useEffect(() => {
     const fetchSessions = async () => {
       try {

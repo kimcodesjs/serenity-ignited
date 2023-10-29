@@ -4,7 +4,7 @@ import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles({
   header: {
-    position: 'absolute',
+    //position: 'absolute',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
