@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Calendar from 'react-calendar';
 import { DateTime, Interval } from 'luxon';
+import { createUseStyles } from 'react-jss';
 import { EventContext } from '../../Context/EventContext';
 import { AdminContext } from '../../Context/AdminContext';
 import { showAlert } from '../../Utilities/alert';
-import { createUseStyles } from 'react-jss';
+import MyCalendar from '../../SharedComponents/MyCalendar';
+
 import adminStyles from '../adminStyles';
 
 const useStyles = createUseStyles(adminStyles);
@@ -24,7 +25,7 @@ const EventForm = ({ event }) => {
   });
 
   const { createEvent, updateEvent } = useContext(EventContext);
-  const { workingHours } = useContext(AdminContext);
+  const { workingHours, practitionerData } = useContext(AdminContext);
 
   useEffect(() => {
     {
@@ -250,11 +251,11 @@ const EventForm = ({ event }) => {
           </div>
         </div>
         <div className={classes.calendar}>
-          <Calendar
-            calendarType="US"
+          <MyCalendar
             onChange={updateActiveDate}
-            minDate={new Date()}
-            value={activeDate}
+            activeDate={activeDate}
+            blockedDates={practitionerData.blockedDates}
+            blockedDays={practitionerData.blockedDays}
           />
         </div>
         <button type="submit" className={classes.submitButton}>

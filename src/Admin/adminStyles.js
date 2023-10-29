@@ -6,11 +6,6 @@ const adminStyles = {
   sectionTitle: {
     textAlign: 'center',
   },
-  calendar: {
-    display: 'flex',
-    justifyContent: 'center',
-    textAlign: 'center',
-  },
   formSection: {
     display: 'flex',
     flexFlow: 'row wrap',
