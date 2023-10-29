@@ -19,9 +19,25 @@ const useStyles = createUseStyles({
     marginRight: '10%',
   },
   apptCardContainer: {
-    display: 'inline-flex',
+    // display: 'inline-flex',
+    // flexFlow: 'row wrap',
+    // width: '100%',
+    display: 'flex',
     flexFlow: 'row wrap',
+    alignItems: 'center',
     width: '100%',
+    maxWidth: '800px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    border: '1px dotted gray',
+    borderRadius: '10px',
+    marginTop: '10px',
+    marginBottom: '10px',
+    backgroundColor: 'aliceblue',
+  },
+  sectionHeading: {
+    width: '100%',
+    margin: '10px 5px 5px 10px',
   },
   apptEditContainer: {
     width: '50%',
@@ -40,6 +56,7 @@ const useAppointmentCardStyles = createUseStyles({
     textShadow: '#e5d7d7 1px 0px 5px',
     filter: 'drop-shadow(2px 2px 1px #443356)',
     userSelect: 'none',
+    borderRadius: '10px',
   },
   h4: {
     margin: 0,
@@ -70,6 +87,7 @@ const UserAccount = () => {
       <Header title="My Account" />
       <div className={classes.mySessionsContent}>
         <div className={classes.apptCardContainer}>
+          <h3 className={classes.sectionHeading}>Appointments</h3>
           {userAppointments.length > 0 &&
             userAppointments.map((appointment) => {
               return (
