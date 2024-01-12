@@ -1,5 +1,6 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { createUseStyles } from 'react-jss';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { EventContext } from '../Context/EventContext';
 import EventCard from '../Events/EventCard';
@@ -287,7 +288,9 @@ const useStyles = createUseStyles({
 const Landing = () => {
   const classes = useStyles();
 
-  const { meditations } = useContext(EventContext);
+  // const { meditations } = useContext(EventContext);
+  const [meditations, setMeditations] = useState([]);
+  const [workshops, setWorkshops] = useState([]);
 
   useEffect(() => {
     window.addEventListener('scroll', animateBackground);
@@ -296,6 +299,32 @@ const Landing = () => {
       window.removeEventListener('scroll', animateBackground);
       window.removeEventListener('scroll', animateQuote, true);
     };
+  }, []);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        await axios({
+          method: 'GET',
+          url: `http://127.0.0.1:3000/api/v1/events/`,
+        }).then((res) => {
+          const meditationEvents = [];
+          const workshopEvents = [];
+          console.log(res);
+          res.data.data.forEach((event) => {
+            event.category === 'meditation'
+              ? meditationEvents.push(event)
+              : workshopEvents.push(event);
+          });
+          setMeditations(meditationEvents);
+          setWorkshops(workshopEvents);
+        });
+      } catch (err) {
+        // showAlert('Uh oh, something went wrong loading event data.', 'error');
+        console.log(err);
+      }
+    };
+    fetchEvents();
   }, []);
 
   const animateBackground = () => {

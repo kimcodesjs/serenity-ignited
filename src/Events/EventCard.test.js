@@ -1,6 +1,6 @@
 import React from 'react';
 import EventCard from './EventCard';
-import { render, screen } from '../test-utils';
+import { render, screen } from '../Test Utilities/test-utils';
 import '@testing-library/jest-dom';
 
 let event = {
