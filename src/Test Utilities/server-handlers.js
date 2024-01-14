@@ -1,15 +1,56 @@
 import { http, HttpResponse } from 'msw';
-import { events } from './test-data-events';
+import {
+  events,
+  user,
+  practitioner,
+  sessions,
+  appointments,
+} from './test-data';
 
 const handlers = [
-  http.get(`http://127.0.0.1:3000/api/v1/events/`, async () => {
-    console.log('msw: get events response');
-    return HttpResponse.json(
-      {
-        data: events,
-      },
-      { status: 200 }
-    );
+  // Events
+  http.get(`*/api/v1/events/`, async () => {
+    return HttpResponse.json({
+      status: 200,
+      data: events,
+    });
+  }),
+
+  // Authentication
+  http.get(`*/api/server.use(
+    http.get(`*/api/v1/events/`, async () => {
+      return HttpResponse.json({
+        status: 200,
+        data: [],
+      });
+    })
+  );`, async () => {
+    return HttpResponse.json({
+      status: 200,
+      data: user,
+    });
+  }),
+
+  // Booking
+  http.get(`*/api/v1/practitioners/6487bb6d6cd84d6d6859954c`, async () => {
+    return HttpResponse.json({
+      status: 200,
+      data: practitioner,
+    });
+  }),
+
+  http.get(`*/api/v1/sessions/get-all-sessions`, async () => {
+    return HttpResponse.json({
+      status: 200,
+      data: sessions,
+    });
+  }),
+
+  http.get(`*/api/v1/appointments/`, async () => {
+    return HttpResponse.json({
+      status: 200,
+      data: appointments,
+    });
   }),
 ];
 

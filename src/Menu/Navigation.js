@@ -49,10 +49,6 @@ const Navigation = ({ toggleMenu }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
-  // console.log(user);
-  // useEffect(() => {
-  //   animateNavMenu();
-  // }, [display]);
 
   const handleLinkClicks = async (e) => {
     if (e.target.id === 'log-out') {
@@ -62,15 +58,6 @@ const Navigation = ({ toggleMenu }) => {
       toggleMenu();
     }
   };
-
-  // const animateNavMenu = () => {
-  //   const navMenu = document.getElementById('nav-menu');
-  //   if (display === 'nav-menu') {
-  //     navMenu.style.opacity = '1';
-  //   } else {
-  //     navMenu.style.opacity = '0';
-  //   }
-  // };
 
   return (
     <div
@@ -92,7 +79,12 @@ const Navigation = ({ toggleMenu }) => {
       <Link to="/learn-more" className={classes.navLink} id="info">
         Learn About Energy Healing
       </Link>
-      <Link to="/booking" className={classes.navLink} id="book-a-session">
+      <Link
+        to="/booking"
+        className={classes.navLink}
+        id="book-a-session"
+        data-testid="nav-link-booking"
+      >
         Book a Session
       </Link>
       <Link to="/events" className={classes.navLink} id="events">

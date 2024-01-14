@@ -1,6 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { createUseStyles } from 'react-jss';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { EventContext } from '../Context/EventContext';
 import EventCard from '../Events/EventCard';
@@ -288,8 +287,7 @@ const useStyles = createUseStyles({
 const Landing = () => {
   const classes = useStyles();
 
-  // const { meditations } = useContext(EventContext);
-  const [meditations, setMeditations] = useState([]);
+  const { meditations } = useContext(EventContext);
   const [workshops, setWorkshops] = useState([]);
 
   useEffect(() => {
@@ -299,32 +297,6 @@ const Landing = () => {
       window.removeEventListener('scroll', animateBackground);
       window.removeEventListener('scroll', animateQuote, true);
     };
-  }, []);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        await axios({
-          method: 'GET',
-          url: `http://127.0.0.1:3000/api/v1/events/`,
-        }).then((res) => {
-          const meditationEvents = [];
-          const workshopEvents = [];
-          console.log(res);
-          res.data.data.forEach((event) => {
-            event.category === 'meditation'
-              ? meditationEvents.push(event)
-              : workshopEvents.push(event);
-          });
-          setMeditations(meditationEvents);
-          setWorkshops(workshopEvents);
-        });
-      } catch (err) {
-        // showAlert('Uh oh, something went wrong loading event data.', 'error');
-        console.log(err);
-      }
-    };
-    fetchEvents();
   }, []);
 
   const animateBackground = () => {
@@ -515,11 +487,19 @@ const Landing = () => {
             restoring harmony and balance within each.
           </p>
           <div className={classes.buttonContainer}>
-            <Link to="/booking" className={classes.button}>
+            <Link
+              to="/booking"
+              className={classes.button}
+              data-testid="button-link-booking"
+            >
               Book a Session
             </Link>
             <span className={classes.buttonSpacer}>OR</span>
-            <Link to="/learn-more" className={classes.button}>
+            <Link
+              to="/learn-more"
+              className={classes.button}
+              data-testid="button-link-info"
+            >
               Learn More
             </Link>
           </div>
@@ -546,7 +526,9 @@ const Landing = () => {
             as a safe space to build their foundation.
           </p>
           <div className={classes.buttonContainer}>
-            <button className={classes.button}>Read More</button>
+            <button className={classes.button} data-testid="button-link-about">
+              Read More
+            </button>
           </div>
         </div>
       </div>
