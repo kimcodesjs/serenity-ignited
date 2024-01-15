@@ -17,14 +17,7 @@ const handlers = [
   }),
 
   // Authentication
-  http.get(`*/api/server.use(
-    http.get(`*/api/v1/events/`, async () => {
-      return HttpResponse.json({
-        status: 200,
-        data: [],
-      });
-    })
-  );`, async () => {
+  http.get(`*/api/v1/users/get-auth-status`, async () => {
     return HttpResponse.json({
       status: 200,
       data: user,

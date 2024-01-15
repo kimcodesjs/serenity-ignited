@@ -18,9 +18,7 @@ function AuthProvider(props) {
           url: `${process.env.URL}/api/v1/users/get-auth-status`,
           withCredentials: true,
         }).then((res) => {
-          if (res.status === 200) {
-            setUser(res.data.data);
-          }
+          res.status === 200 ? setUser(res.data.data) : setUser(null);
         });
       } catch (err) {
         // console.log(err);

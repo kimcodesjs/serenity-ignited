@@ -6,19 +6,19 @@ import { server } from '../Test Utilities/server';
 import { http, HttpResponse } from 'msw';
 import '@testing-library/jest-dom';
 
+server.use(
+  http.get(`*/api/v1/users/get-auth-status`, async () => {
+    return HttpResponse.json({
+      status: 204,
+    });
+  })
+);
+
 test('displays all nav links', async () => {
   render(
     <AuthProvider>
       <Menu />
     </AuthProvider>
-  );
-
-  server.use(
-    http.get(`*/api/v1/users/get-auth-status`, async () => {
-      return HttpResponse.json({
-        status: 204,
-      });
-    })
   );
 
   expect(
@@ -30,4 +30,15 @@ test('displays all nav links', async () => {
   expect(await screen.findByText(/about me/i)).toBeInTheDocument();
   expect(await screen.findByText(/log in/i)).toBeInTheDocument();
   expect(await screen.findByText(/sign up/i)).toBeInTheDocument();
+});
+
+test('navigation menu updates when user is logged in', async () => {
+  render(
+    <AuthProvider>
+      <Menu />
+    </AuthProvider>
+  );
+
+  expect(await screen.findByText(/log out/i)).toBeInTheDocument();
+  expect(await screen.findByText(/my sessions/i)).toBeInTheDocument();
 });

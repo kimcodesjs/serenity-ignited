@@ -80,6 +80,7 @@ const AuthForm = ({ style }) => {
   const [authFlow, setAuthFlow] = useState(
     useLocation().state !== null ? useLocation().state.authFlow : 'log-in'
   );
+
   const { authChange } = useContext(AuthContext);
 
   // New User Authentication
