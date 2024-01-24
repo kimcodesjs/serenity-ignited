@@ -10,8 +10,8 @@ router.post('/login', authController.login);
 router.post('/signup', squareController.creatCustomer, authController.signup);
 router.post('/logout', authController.logout);
 router.get('/get-auth-status', authController.isLoggedIn);
-router.post('/forgotPassword', authController.forgotPassword);
-router.patch('/resetPassword/:token', authController.resetPassword);
+router.post('/forgot-password', authController.forgotPassword);
+router.patch('/reset-password/:token', authController.resetPassword);
 router.post('/submit-contact-form', userController.submitContactForm);
 
 router.use(authController.protect, authController.restrictTo('admin'));

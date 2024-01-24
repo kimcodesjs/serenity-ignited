@@ -33,12 +33,13 @@ function AuthProvider(props) {
         method: 'POST',
         url: `${process.env.URL}/api/v1/users/logout`,
         withCredentials: true,
+      }).then((res) => {
+        if (res.data.status === 'success') {
+          setUser(null);
+          showAlert('Logged out successfully!', 'success');
+          navigate('/');
+        }
       });
-      if (res.data.status === 'success') {
-        setUser(null);
-        showAlert('Logged out successfully!', 'success');
-        navigate('/');
-      }
     } catch (err) {
       showAlert(err.response.data.message);
     }
@@ -57,14 +58,38 @@ function AuthProvider(props) {
           setTimeout(() => navigate(-1, { replace: true }), 3000);
       });
     } catch (err) {
-      showAlert(err.response.data.message, 'error');
+      err.response.data.message !== undefined
+        ? showAlert(err.response.data.message, 'error')
+        : showAlert('Something went wrong...', 'error');
     }
   };
 
+  const forgotPassword = async (email) => {
+    try {
+      await axios({
+        method: 'POST',
+        url: `http://127.0.0.1:3000/api/v1/users/forgot-password`,
+        data: {
+          email,
+        },
+      }).then((res) => {
+        (res.data.status === 'success') &
+          showAlert(
+            'Success! Check your email for a link to reset your password.',
+            'success'
+          );
+      });
+    } catch (err) {
+      err.response.data.message !== undefined
+        ? showAlert(err.response.data.message, 'error')
+        : showAlert('Something went wrong...', 'error');
+    }
+  };
   const value = {
     user,
     logout,
     authChange,
+    forgotPassword,
   };
   return <AuthContext.Provider value={value} {...props} />;
 }

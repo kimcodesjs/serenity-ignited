@@ -81,7 +81,7 @@ const AuthForm = ({ style }) => {
     useLocation().state !== null ? useLocation().state.authFlow : 'log-in'
   );
 
-  const { authChange } = useContext(AuthContext);
+  const { authChange, forgotPassword } = useContext(AuthContext);
 
   // New User Authentication
   const handleSignUp = async (e) => {
@@ -120,25 +120,13 @@ const AuthForm = ({ style }) => {
   const handleForgotPassword = async (e) => {
     e.preventDefault();
     const email = document.getElementById('email-input').value;
+
     if (email === '') {
       setError('Please provide your email address');
       return;
     }
-    try {
-      const res = await axios({
-        method: 'POST',
-        url: `http://127.0.0.1:3000/api/v1/users/forgotPassword`,
-        data: {
-          email,
-        },
-      });
-      (res.data.status === 'success') &
-        showAlert(
-          'Success! Check your email for a link to reset your password.'
-        );
-    } catch (err) {
-      // console.log(err);
-    }
+
+    forgotPassword(email);
   };
 
   return (
@@ -188,6 +176,7 @@ const AuthForm = ({ style }) => {
           className={classes.input}
           type="password"
           id="password-input"
+          data-testid="password"
           required
           placeholder="Password"
         />

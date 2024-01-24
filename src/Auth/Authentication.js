@@ -85,7 +85,10 @@ const Authentication = () => {
           nodeRef={nodeRef}
         >
           {(state) => (
-            <AuthChange user={user} style={{ ...transitionStyles[state] }} />
+            <AuthChange
+              firstName={user.firstName}
+              style={{ ...transitionStyles[state] }}
+            />
           )}
         </Transition>
       )}
