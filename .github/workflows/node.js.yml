@@ -21,7 +21,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
+    
+    - name: Test
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
@@ -29,3 +30,9 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    
+    - name: Deploy
+      if: github.ref == 'refs/heads/master'
+      env: 
+        deploy_url: ${{ secrets.FRONTEND_DEPLOY_HOOK }}
+    - run: curl "$deploy_url"
