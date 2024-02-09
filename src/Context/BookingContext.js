@@ -17,6 +17,7 @@ function BookingProvider(props) {
           url: `${process.env.URL}/api/v1/practitioners/6487bb6d6cd84d6d6859954c`,
         }).then((res) => {
           setData(res.data.data);
+          console.log(res.data.data);
         });
       } catch (err) {
         // console.log(err);

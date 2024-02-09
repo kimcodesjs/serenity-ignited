@@ -87,9 +87,10 @@ const handlers = [
   }),
 
   http.get(`*/api/v1/appointments/`, async () => {
+    let appointmentTimes = appointments.map((appointment) => appointment.time);
     return HttpResponse.json({
       status: 200,
-      data: appointments,
+      data: appointmentTimes,
     });
   }),
 ];

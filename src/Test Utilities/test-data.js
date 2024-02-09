@@ -65,7 +65,7 @@ const sessions = [
     name: 'Sample Session',
     modality: ['Reiki'],
     description:
-      'A short sample session for those who are interested in testing the waters.',
+      'A short session for those who are interested in testing the waters.',
     duration: {
       hours: 0,
       minutes: 20,
