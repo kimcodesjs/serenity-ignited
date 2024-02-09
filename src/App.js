@@ -11,6 +11,7 @@ import { AuthProvider } from './Context/AuthContext';
 import { EventProvider } from './Context/EventContext';
 import { AdminProvider } from './Context/AdminContext';
 import { BookingProvider } from './Context/BookingContext';
+import { UserProvider } from './Context/UserContext';
 const Landing = React.lazy(() => import('./Landing/Landing'));
 const Info = React.lazy(() => import('./Info/Info'));
 const Booking = React.lazy(() => import('./Booking/Booking'));
@@ -22,7 +23,7 @@ const PurchaseConfirmation = React.lazy(() =>
 );
 const AboutMe = React.lazy(() => import('./AboutMe'));
 const ContactMe = React.lazy(() => import('./ContactMe'));
-const MySessions = React.lazy(() => import('./MySessions'));
+const MySessions = React.lazy(() => import('./UserSettings/UserAccount'));
 const Admin = React.lazy(() => import('./Admin/Admin'));
 const ResetPassword = React.lazy(() => import('./Auth/ResetPassword'));
 const Authentication = React.lazy(() => import('./Auth/Authentication'));
@@ -79,7 +80,15 @@ const App = () => {
                       </AdminProvider>
                     }
                   />
-                  <Route path="/:userID/my-sessions" element={<MySessions />} />
+
+                  <Route
+                    path="/:userID/my-sessions"
+                    element={
+                      <UserProvider>
+                        <MySessions />
+                      </UserProvider>
+                    }
+                  />
                   <Route
                     path="/reset-password/:token"
                     element={<ResetPassword />}

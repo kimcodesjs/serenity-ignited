@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { DateTime, Interval, Info } from 'luxon';
-import Calendar from 'react-calendar';
 import adminStyles from '../adminStyles';
 import { createUseStyles } from 'react-jss';
 import { AdminContext } from '../../Context/AdminContext';
+import MyCalendar from '../../SharedComponents/MyCalendar';
 import { showAlert } from '../../Utilities/alert';
 
 const useStyles = createUseStyles(adminStyles);
@@ -26,26 +26,6 @@ const AvailabilityForm = () => {
   const [activeDate, setActiveDate] = useState(new Date().toISOString());
 
   const classes = useStyles();
-
-  const getBlockedDates = ({ date }) => {
-    if (date.getDay() === 0 && blockedDays.includes('Sunday')) {
-      return true;
-    } else if (date.getDay() === 1 && blockedDays.includes('Monday')) {
-      return true;
-    } else if (date.getDay() === 2 && blockedDays.includes('Tuesday')) {
-      return true;
-    } else if (date.getDay() === 3 && blockedDays.includes('Wednesday')) {
-      return true;
-    } else if (date.getDay() === 4 && blockedDays.includes('Thursday')) {
-      return true;
-    } else if (date.getDay() === 5 && blockedDays.includes('Friday')) {
-      return true;
-    } else if (date.getDay() === 6 && blockedDays.includes('Saturday')) {
-      return true;
-    } else if (blockedDates.includes(date.toISOString())) {
-      return true;
-    }
-  };
 
   const updateBlockedDays = () => {
     !blockedDays.includes(activeWeekday)
@@ -106,15 +86,13 @@ const AvailabilityForm = () => {
   return (
     <div className={classes.sectionContainer}>
       <h2 className={classes.sectionTitle}>Manage Your Availability</h2>
-      <div className={classes.calendar}>
-        <Calendar
-          tileDisabled={getBlockedDates}
-          calendarType="US"
-          minDate={new Date()}
-          onChange={(val) => setActiveDate(val.toISOString())}
-          activeDate={activeDate}
-        />
-      </div>
+      <MyCalendar
+        onChange={(val) => setActiveDate(val.toISOString())}
+        activeDate={activeDate}
+        blockedDates={blockedDates}
+        blockedDays={blockedDays}
+      />
+
       <div className={classes.formSection}>
         <h4 className={classes.h4}>
           {DateTime.fromISO(activeDate).toLocaleString(DateTime.DATE_HUGE)}

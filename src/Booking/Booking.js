@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
-import ViewTransition from './Views/ViewTransition';
 import BookingHeader from './Header/BookingHeader';
 import Session from './Views/Session';
 import Connection from './Views/Connection';

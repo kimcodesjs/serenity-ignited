@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { createUseStyles } from 'react-jss';
-import Calendar from 'react-calendar';
 import { DateTime, Duration, Interval } from 'luxon';
 import { BookingContext } from '../../Context/BookingContext';
+import MyCalendar from '../../SharedComponents/MyCalendar';
 
 const useStyles = createUseStyles({
   viewContainer: {
@@ -114,44 +114,6 @@ const Scheduler = ({ setSchedule, duration }) => {
       bookingInterval.end.plus({ minutes: 15 })
     );
 
-  const getBlockedDates = ({ date }) => {
-    if (date.getDay() === 0 && availability.blockedDays.includes('Sunday')) {
-      return true;
-    } else if (
-      date.getDay() === 1 &&
-      availability.blockedDays.includes('Monday')
-    ) {
-      return true;
-    } else if (
-      date.getDay() === 2 &&
-      availability.blockedDays.includes('Tuesday')
-    ) {
-      return true;
-    } else if (
-      date.getDay() === 3 &&
-      availability.blockedDays.includes('Wednesday')
-    ) {
-      return true;
-    } else if (
-      date.getDay() === 4 &&
-      availability.blockedDays.includes('Thursday')
-    ) {
-      return true;
-    } else if (
-      date.getDay() === 5 &&
-      availability.blockedDays.includes('Friday')
-    ) {
-      return true;
-    } else if (
-      date.getDay() === 6 &&
-      availability.blockedDays.includes('Saturday')
-    ) {
-      return true;
-    } else if (availability.blockedDates.includes(date.toISOString())) {
-      return true;
-    }
-  };
-
   // generate available timeslots based on session duration
   // taking into account existing bookings and that days working hours
   const createTimeSlots = (duration, bookings, workingHours) => {
@@ -220,11 +182,11 @@ const Scheduler = ({ setSchedule, duration }) => {
           })}
         </select>
       </div>
-      <Calendar
-        calendarType="US"
+      <MyCalendar
+        activeDate={activeDate}
         onChange={updateActiveDate}
-        minDate={new Date()}
-        tileDisabled={getBlockedDates}
+        blockedDates={availability.blockedDates}
+        blockedDays={availability.blockedDays}
       />
     </div>
   );

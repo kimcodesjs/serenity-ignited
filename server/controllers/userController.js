@@ -14,3 +14,9 @@ exports.submitContactForm = catchAsync(async (req, res, next) => {
     status: 'success',
   });
 });
+
+exports.updateUser = catchAsync(async (req, res, next) => {
+  res.status(200).json({
+    status: 'success',
+  });
+});

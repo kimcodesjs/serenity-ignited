@@ -88,7 +88,7 @@ function EventProvider(props) {
         },
       });
     } catch (err) {
-      showEAlert(err.response.data.message, 'error');
+      showAlert(err.response.data.message, 'error');
     }
   };
   const value = {
