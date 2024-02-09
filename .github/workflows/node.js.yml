@@ -32,6 +32,7 @@ jobs:
     - run: npm test
     
     - name: Deploy
+      uses: actions/checkout@v4
       if: github.ref == 'refs/heads/master'
       env: 
         deploy_url: ${{ secrets.FRONTEND_DEPLOY_HOOK }}
