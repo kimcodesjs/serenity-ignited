@@ -1,5 +1,6 @@
 import React from 'react';
 import Booking from './Booking';
+import { DateTime } from 'luxon';
 import { BookingProvider } from '../Context/BookingContext';
 import { AuthProvider } from '../Context/AuthContext';
 import { render, screen } from '../Test Utilities/test-utils';
@@ -50,7 +51,7 @@ test('transitions to each view after selection is made', async () => {
   await user.click(screen.getByText('arrow_circle_right'));
   expect(await screen.findByText(/connection/i));
 
-  // arrow should be disabled
+  // arrow should be disabled before next selection is made
   await user.click(screen.getByText('arrow_circle_right'));
   expect(await screen.findByText(/select how you would prefer to connect:/i));
 
@@ -59,7 +60,7 @@ test('transitions to each view after selection is made', async () => {
   await user.click(screen.getByText('arrow_circle_right'));
   expect(await screen.findByText(/schedule/i));
 
-  // arrow should be disabled
+  // arrow should be disabled before next selection is made
   await user.click(screen.getByText('arrow_circle_right'));
   expect(
     await screen.findByText(/when would you like to receive your healing\?/i)
@@ -67,4 +68,20 @@ test('transitions to each view after selection is made', async () => {
 
   // selection is made, arrow enabled
   await user.click(screen.getByText(/please select a timeslot./i));
+  await user.click(
+    screen.getByRole('button', {
+      name: `${DateTime.now()
+        .plus({ days: 1 })
+        .toLocaleString(DateTime.DATE_FULL)}`,
+    })
+  );
+
+  await userEvent.selectOptions(screen.getByRole('combobox'), [
+    '6:30 PM - 6:50 PM',
+  ]);
+  expect(
+    await screen.getByRole('option', { name: '6:30 PM - 6:50 PM' }).selected
+  ).toBe(true);
+  await user.click(screen.getByText('arrow_circle_right'));
+  expect(await screen.findByText(/please review your session details:/i));
 });

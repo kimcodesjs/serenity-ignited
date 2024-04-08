@@ -29,7 +29,7 @@ const user = {
 const practitioner = {
   _id: '6487bb6d6cd84d6d6859954c',
   user: '1234',
-  blockedDays: ['Sunday', 'Monday'],
+  blockedDays: [],
   blockedDates: [
     '2024-05-01T06:00:00.000Z',
     '2024-05-10T06:00:00.000Z',

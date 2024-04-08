@@ -71,7 +71,7 @@ const useStyles = createUseStyles({
 const Scheduler = ({ setSchedule, duration }) => {
   const classes = useStyles();
 
-  const [activeDate, setActiveDate] = useState(DateTime.now());
+  const [activeDate, setActiveDate] = useState(null);
   const [activeTimeslot, setActiveTimeslot] = useState(null);
   const [availableTimeslots, setTimeslots] = useState([]);
 
@@ -79,6 +79,8 @@ const Scheduler = ({ setSchedule, duration }) => {
 
   // triggers createTimeslots when active date is changed
   useEffect(() => {
+    // should not run if ActiveDate is null
+    if (!activeDate) return;
     // Existing bookings
     let currentBookings = appointments.map((appointment) =>
       addBuffer(Interval.fromISO(appointment))
@@ -157,7 +159,9 @@ const Scheduler = ({ setSchedule, duration }) => {
       <br />
       <div className={classes.timeSlots}>
         <h2 className={classes.date}>
-          {activeDate.toLocaleString(DateTime.DATE_HUGE)}
+          {activeDate
+            ? activeDate.toLocaleString(DateTime.DATE_HUGE)
+            : 'Select a date to get started.'}
         </h2>
 
         <select
@@ -174,7 +178,7 @@ const Scheduler = ({ setSchedule, duration }) => {
           {availableTimeslots.map((timeslot, index) => {
             // console.log('new timeslot mapped');
             return (
-              <option key={index} value={timeslot.toISO()}>
+              <option key={`timeslot-${index}`} value={timeslot.toISO()}>
                 {timeslot.start.toLocaleString(DateTime.TIME_SIMPLE)} -{' '}
                 {timeslot.end.toLocaleString(DateTime.TIME_SIMPLE)}
               </option>
