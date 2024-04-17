@@ -364,6 +364,7 @@ const Landing = () => {
 
   return (
     <>
+      <meta name="description" content="Using energy healing modalities such as Reiki, Access Consciousness, and Sound Healing, we strive to empower people to stand in their own sovereignty. Our group meditations provide a safe space for all."/>
       <div className={classes.header}>
         <img src="/4.png" className={classes.background} id="stars-back" />
         <img src="/2.png" className={classes.foreground} id="stars-front" />

@@ -52,6 +52,7 @@ const AboutMe = () => {
 
     return (
         <>
+        <meta name="description" content="My name is Becky, and I am a trained practitioner in Reiki, Access Consciousness, and Sound Healing. I'm excited to join you on your journey!" />
         <div className={classes.background}></div>
         <div className={classes.container}>
             <div className={classes.content}>

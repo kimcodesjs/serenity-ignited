@@ -149,6 +149,7 @@ const ContactMe = () => {
   };
   return (
     <div className={classes.contactContainer}>
+      <meta name="description" content="Struggling to find what you need, or have questions? I'm looking forward to hearing from you!"/>
       <div className={classes.contactContent}>
         <img className={classes.logo} src="serenity-ignited-logo.png" />
         <h1 className={classes.header}>
