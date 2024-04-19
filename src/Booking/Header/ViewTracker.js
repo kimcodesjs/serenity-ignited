@@ -111,6 +111,8 @@ const ViewTracker = ({ view, updateView, allowNextView }) => {
             style={view === 1 || view === 5 ? disabledArrowStyles : arrowStyles}
             id="previous-view"
             onClick={onArrowClick}
+            role='button'
+            aria-pressed='false'
           >
             arrow_circle_left
           </span>
@@ -124,6 +126,8 @@ const ViewTracker = ({ view, updateView, allowNextView }) => {
             style={allowNextView ? arrowStyles : disabledArrowStyles}
             id="next-view"
             onClick={onArrowClick}
+            role='button'
+            aria-pressed='false'
           >
             arrow_circle_right
           </span>
