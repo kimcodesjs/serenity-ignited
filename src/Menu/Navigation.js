@@ -69,7 +69,7 @@ const Navigation = ({ toggleMenu }) => {
   // };
 
   return (
-    <div
+    <nav
       id="nav-menu"
       className={classes.navMenu}
       onClick={(e) => {
@@ -140,7 +140,7 @@ const Navigation = ({ toggleMenu }) => {
           Log Out
         </span>
       )}
-    </div>
+    </nav>
   );
 };
 

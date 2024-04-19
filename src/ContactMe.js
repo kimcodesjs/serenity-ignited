@@ -155,7 +155,7 @@ const ContactMe = () => {
         <h1 className={classes.header}>
           I am looking forward to hearing from you!
         </h1>
-        <form className={classes.contactForm}>
+        <form className={classes.contactForm} aria-label='contact form'>
           <label htmlFor="name" className={classes.label}>
             Your Name:
           </label>
