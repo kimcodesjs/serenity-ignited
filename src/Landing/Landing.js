@@ -366,14 +366,15 @@ const Landing = () => {
     <>
       <meta name="description" content="Using energy healing modalities such as Reiki, Access Consciousness, and Sound Healing, we strive to empower people to stand in their own sovereignty. Our group meditations provide a safe space for all."/>
       <header className={classes.header}>
-        <img src="/4.png" className={classes.background} id="stars-back" />
-        <img src="/2.png" className={classes.foreground} id="stars-front" />
+        <img src="/4.png" className={classes.background} id="stars-back" alt=''/>
+        <img src="/2.png" className={classes.foreground} id="stars-front" alt=''/>
         <img
           src="serenity-ignited-logo.png"
           width="50%"
           height="auto"
           className={classes.logo}
           id="logo"
+          alt='Serenity Ignited logo showing a swirl of fire and water surrounding a glowing lotus flower.'
         />
         <p
           className={classes.greeting}
@@ -384,9 +385,9 @@ const Landing = () => {
           serenity.
         </p>
       </header>
-      <img src="clouds 3.jpg" className={classes.background2} id="clouds-2" />
-      <img src="clouds 4.jpg" className={classes.background2} id="clouds-1" />
-      <img src="horizon 2.jpg" className={classes.foreground2} id="landscape" />
+      <img src="clouds 3.jpg" className={classes.background2} id="clouds-2" alt=''/>
+      <img src="clouds 4.jpg" className={classes.background2} id="clouds-1" alt=''/>
+      <img src="horizon 2.jpg" className={classes.foreground2} id="landscape" alt=''/>
       <main className={classes.contentContainer}>
         <div className={classes.ehQuote}>
           <h2 className={classes.quoteText}>
@@ -404,7 +405,7 @@ const Landing = () => {
           <h3 className={classes.quoteAuth}>- Eric Micha'el Leventhal</h3>
         </div>
 
-        <img src="Chakra Mandala.png" className={classes.moduleImg} />
+        <img src="Chakra Mandala.png" className={classes.moduleImg} alt='' />
         <section aria-labelledby="our-services">
           <h1 className={classes.sectionTitle} id="our-services">Our Services</h1>
           <div className={classes.moduleContainer}>
