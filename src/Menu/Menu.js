@@ -70,12 +70,19 @@ const Menu = () => {
     const menu = document.getElementById('menu');
 
     if (!menuToggle) {
-      menu.style.right = '0';
-      menu.style.opacity = 1;
+      menu.style.display = 'inline-flex'
+      setTimeout(() => {
+        menu.style.right = '0';
+        menu.style.opacity = 1;
+      }, "100")
       setToggle(true);
     } else {
       menu.style.right = '-310px';
       menu.style.opacity = 0;
+      setTimeout(() => {
+        menu.style.display = 'none'
+      }, "1000")
+      
       setToggle(false);
     }
   };
@@ -89,6 +96,7 @@ const Menu = () => {
             className={classes.menuIcon}
             id="menu-icon"
             onClick={toggleMenu}
+            alt="menu toggle"
           />
         </div>
 
