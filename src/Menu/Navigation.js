@@ -83,6 +83,7 @@ const Navigation = ({ toggleMenu }) => {
           className={classes.menuLogo}
           id="menu-logo"
           onClick={toggleMenu}
+          alt="Navigate to Home Page"
         />
       </Link>
       <Link to="/learn-more" className={classes.navLink} id="info">
