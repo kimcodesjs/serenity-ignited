@@ -97,6 +97,9 @@ const Menu = () => {
             id="menu-icon"
             onClick={toggleMenu}
             alt="menu toggle"
+            role='button'
+            aria-pressed='false'
+            tabIndex='0'
           />
         </div>
 
