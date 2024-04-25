@@ -136,7 +136,7 @@ const Greeting = ({ updateView }) => {
   const textTransitionStyles = {
     entering: { opacity: 0 },
     entered: { opacity: 1 },
-    exiting: { opacity: 0 },
+    exiting: { opacity: 1 },
     exited: { opacity: 0 },
   };
   return (
@@ -146,7 +146,6 @@ const Greeting = ({ updateView }) => {
       appear={true}
       onExited={exitComponent}
       nodeRef={nodeRef}
-      unmountOnExit={true}
     >
       {(state) => (
         <div className={classes.greetingContainer}>
