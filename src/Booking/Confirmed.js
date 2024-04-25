@@ -53,7 +53,7 @@ const Confirmed = ({ user }) => {
         Visit the <Link to={`/${user.uid}/my-sessions`}>My Sessions</Link> page
         to view your upcoming appointments and edit or reschedule if need be.
       </h3>
-      <img src="/logo-no-text.png" className={classes.logo} id="logo" />
+      <img src="/logo-no-text.png" className={classes.logo} id="logo" alt='Serenity Ignited logo'/>
     </div>
   );
 };
