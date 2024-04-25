@@ -127,7 +127,10 @@ const Greeting = ({ updateView }) => {
   };
 
   const exitComponent = () => {
-    updateView(1);
+    setTimeout(() => {
+      updateView(1);
+    }, 1000)
+    
   };
 
   const textTransitionStyles = {
@@ -143,6 +146,7 @@ const Greeting = ({ updateView }) => {
       appear={true}
       onExited={exitComponent}
       nodeRef={nodeRef}
+      unmountOnExit={true}
     >
       {(state) => (
         <div className={classes.greetingContainer}>
