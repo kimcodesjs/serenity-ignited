@@ -227,6 +227,9 @@ const useStyles = createUseStyles({
     flexFlow: 'row',
     overflowX: 'auto',
   },
+  buttonContainer: {
+    marginTop: '20px'
+  },
   button: {
     //width: '150px',
     height: '60px',
@@ -237,7 +240,8 @@ const useStyles = createUseStyles({
     textShadow: '#e5d7d7 1px 0px 5px',
     textDecoration: 'none',
     color: 'white',
-    // /padding: '10px',
+    margin: '10px',
+    padding: '10px',
     background:
       'radial-gradient(ellipse at top, rgba(64, 69, 178, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
     borderRadius: '30px',
@@ -366,8 +370,14 @@ const Landing = () => {
     <>
       <meta name="description" content="Using energy healing modalities such as Reiki, Access Consciousness, and Sound Healing, we strive to empower people to stand in their own sovereignty. Our group meditations provide a safe space for all."/>
       <header className={classes.header}>
-        <img src="/4.png" className={classes.background} id="stars-back" alt=''/>
-        <img src="/2.png" className={classes.foreground} id="stars-front" alt=''/>
+        <picture>
+          <source srcset="4.webp" type="image/webp"/>
+          <img src="4.png" className={classes.background} id="stars-back" alt=''/>
+        </picture>
+        <picture>
+          <source srcset="2.webp" type="image/webp"/>
+          <img src="/2.png" className={classes.foreground} id="stars-front" alt=''/>
+        </picture>
         <img
           src="serenity-ignited-logo.png"
           width="50%"
@@ -385,9 +395,18 @@ const Landing = () => {
           serenity.
         </p>
       </header>
-      <img src="clouds 3.jpg" className={classes.background2} id="clouds-2" alt=''/>
-      <img src="clouds 4.jpg" className={classes.background2} id="clouds-1" alt=''/>
-      <img src="horizon 2.jpg" className={classes.foreground2} id="landscape" alt=''/>
+      <picture>
+        <source srcset="clouds 3.webp" type="image/webp" />
+        <img src="clouds 3.jpg" className={classes.background2} id="clouds-2" alt=''/>
+      </picture>
+      <picture>
+        <source srcset="clouds 4.webp" type="image/webp" />
+        <img src="clouds 4.jpg" className={classes.background2} id="clouds-1" alt=''/>
+      </picture>
+      <picture>
+        <source srcset="horizon 2.webp" type="image/webp" />
+        <img src="horizon 2.jpg" className={classes.foreground2} id="landscape" alt=''/>
+      </picture>
       <main className={classes.contentContainer}>
         <div className={classes.ehQuote}>
           <h2 className={classes.quoteText}>
@@ -512,7 +531,8 @@ const Landing = () => {
             </p>
           </div>
         </section>
-        <h1 className={classes.sectionTitle}>Our Mission</h1>
+        <section aria-labelledby="our-mission">
+        <h1 className={classes.sectionTitle} id="our-mission">Our Mission</h1>
         <div className={classes.moduleContainer}>
           <p className={classes.moduleText}>
             Serenity Ignited, LLC is committed to helping people ignite the fire
@@ -526,6 +546,7 @@ const Landing = () => {
             <button className={classes.button}>Read More</button>
           </div>
         </div>
+        </section>
       </main>
     </>
   );
