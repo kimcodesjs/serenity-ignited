@@ -53,7 +53,7 @@ const useStyles = createUseStyles({
 
 const arrowStyles = {
   margin: '10px',
-  filter: 'drop-shadow(2px 2px 1px #443356)',
+  filter: 'drop-shadow(3px 2px 1px #443356)',
   fontSize: '36px',
   cursor: 'pointer',
   WebkitUserSelect: 'none' /* Safari */,
@@ -61,18 +61,18 @@ const arrowStyles = {
   msUserSelect: 'none' /* IE10+/Edge */,
   userSelect: 'none' /* Standard */,
   transition: 'color ease-in-out .5s',
-  color: 'rgb(64, 69, 178)',
+  fill: 'rgb(64, 69, 178)',
 };
 
 const disabledArrowStyles = {
   margin: '10px',
-  filter: 'drop-shadow(2px 2px 1px #443356)',
+  // filter: 'drop-shadow(2px 2px 1px #443356)',
   fontSize: '36px',
   WebkitUserSelect: 'none' /* Safari */,
   MozUserSelect: 'none' /* Firefox */,
   msUserSelect: 'none' /* IE10+/Edge */,
   userSelect: 'none' /* Standard */,
-  color: 'gray',
+  fill: 'gray',
   transition: 'color ease-in .5s',
 };
 
@@ -106,31 +106,29 @@ const ViewTracker = ({ view, updateView, allowNextView }) => {
           className={classes.viewTracker}
           style={{ ...transitionStyles[state] }}
         >
-          <span
-            className="material-symbols-outlined"
+          <img
+            // className="material-symbols-outlined"
             style={view === 1 || view === 5 ? disabledArrowStyles : arrowStyles}
             id="previous-view"
             onClick={onArrowClick}
             role='button'
             aria-pressed='false'
-          >
-            arrow_circle_left
-          </span>
+            src={view === 1 || view === 5 ? "arrow_back_disabled.svg": "arrow_back_enabled.svg"}
+          />
           {view === 1 && <h1 className={classes.viewTitle}>Session</h1>}
           {view === 2 && <h1 className={classes.viewTitle}>Connection</h1>}
           {view === 3 && <h1 className={classes.viewTitle}>Schedule</h1>}
           {view === 4 && <h1 className={classes.viewTitle}>Confirm</h1>}
           {view === 5 && <h1 className={classes.viewTitle}>Thank You!</h1>}
-          <span
-            className="material-symbols-outlined"
+          <img
+            // className="material-symbols-outlined"
             style={allowNextView ? arrowStyles : disabledArrowStyles}
             id="next-view"
             onClick={onArrowClick}
             role='button'
             aria-pressed='false'
-          >
-            arrow_circle_right
-          </span>
+            src={allowNextView ? "arrow_forward_enabled" : "arrow_forward_disabled.svg"}
+          />
         </div>
       )}
     </Transition>
