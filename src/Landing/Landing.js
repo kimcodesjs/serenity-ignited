@@ -371,11 +371,11 @@ const Landing = () => {
       <meta name="description" content="Using energy healing modalities such as Reiki, Access Consciousness, and Sound Healing, we strive to empower people to stand in their own sovereignty. Our group meditations provide a safe space for all."/>
       <header className={classes.header}>
         <picture>
-          <source srcset="4.webp" type="image/webp"/>
+          <source srcSet="4.webp" type="image/webp"/>
           <img src="4.png" className={classes.background} id="stars-back" alt=''/>
         </picture>
         <picture>
-          <source srcset="2.webp" type="image/webp"/>
+          <source srcSet="2.webp" type="image/webp"/>
           <img src="/2.png" className={classes.foreground} id="stars-front" alt=''/>
         </picture>
         <img
@@ -396,15 +396,15 @@ const Landing = () => {
         </p>
       </header>
       <picture>
-        <source srcset="clouds 3.webp" type="image/webp" />
+        <source srcSet="clouds-3.webp" type="image/webp" />
         <img src="clouds 3.jpg" className={classes.background2} id="clouds-2" alt=''/>
       </picture>
       <picture>
-        <source srcset="clouds 4.webp" type="image/webp" />
+        <source srcSet="clouds-4.webp" type="image/webp" />
         <img src="clouds 4.jpg" className={classes.background2} id="clouds-1" alt=''/>
       </picture>
       <picture>
-        <source srcset="horizon 2.webp" type="image/webp" />
+        <source srcSet="horizon-2.webp" type="image/webp" />
         <img src="horizon 2.jpg" className={classes.foreground2} id="landscape" alt=''/>
       </picture>
       <main className={classes.contentContainer}>
