@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { Link } from 'react-router-dom';
 import { EventContext } from '../Context/EventContext';
@@ -288,6 +288,7 @@ const Landing = () => {
   const classes = useStyles();
 
   const { meditations } = useContext(EventContext);
+  const [workshops, setWorkshops] = useState([]);
 
   useEffect(() => {
     window.addEventListener('scroll', animateBackground);
@@ -486,11 +487,19 @@ const Landing = () => {
             restoring harmony and balance within each.
           </p>
           <div className={classes.buttonContainer}>
-            <Link to="/booking" className={classes.button}>
+            <Link
+              to="/booking"
+              className={classes.button}
+              data-testid="button-link-booking"
+            >
               Book a Session
             </Link>
             <span className={classes.buttonSpacer}>OR</span>
-            <Link to="/learn-more" className={classes.button}>
+            <Link
+              to="/learn-more"
+              className={classes.button}
+              data-testid="button-link-info"
+            >
               Learn More
             </Link>
           </div>
@@ -517,7 +526,9 @@ const Landing = () => {
             as a safe space to build their foundation.
           </p>
           <div className={classes.buttonContainer}>
-            <button className={classes.button}>Read More</button>
+            <button className={classes.button} data-testid="button-link-about">
+              Read More
+            </button>
           </div>
         </div>
       </div>

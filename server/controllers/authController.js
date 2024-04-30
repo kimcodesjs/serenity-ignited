@@ -21,6 +21,7 @@ const cookieOptions = {
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
+  // need to handle check for existing user...
   const newUser = await User.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -38,9 +39,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: 'success',
     token,
-    data: {
-      user: newUser,
-    },
+    user: newUser,
   });
 });
 
@@ -76,7 +75,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   try {
     const resetURL = `${req.headers.origin}/reset-password/${resetToken}`;
-    //fix broken link...^^^
+
     await new Email(user, resetURL).sendPasswordReset();
 
     res.status(200).json({

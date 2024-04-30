@@ -17,6 +17,7 @@ function EventProvider(props) {
         }).then((res) => {
           const meditationEvents = [];
           const workshopEvents = [];
+          // console.log(res);
           res.data.data.forEach((event) => {
             event.category === 'meditation'
               ? meditationEvents.push(event)

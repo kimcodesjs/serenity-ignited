@@ -4,7 +4,7 @@ export const hideAlert = () => {
   const el = document.querySelector('.alert');
   if (el) el.parentElement.removeChild(el);
 };
-// type is either success or error
+// status is either success or error
 export const showAlert = (msg, status) => {
   hideAlert();
   const html = document.createElement('div');
