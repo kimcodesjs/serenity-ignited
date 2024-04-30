@@ -67,7 +67,6 @@ const Events = () => {
   };
   return (
     <div className={classes.container}>
-      <meta name="description" content="Our workshops and weekly guided meditations provide a communal and welcoming atmosphere to explore our inner and outer worlds."/>
       <Header title="Events" />
       <Transition in={true} timeout={1000} appear={true} nodeRef={nodeRef}>
         {(state) => (

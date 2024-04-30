@@ -73,7 +73,6 @@ const Booking = () => {
 
   return (
     <>
-    <meta name="description" content="Schedule an energy healing session in the modality of your choosing. We provide various ways to connect, including in person or remote sessions."/>
       <BookingHeader
         updateView={updateView}
         view={view}
