@@ -21,13 +21,21 @@ const useStyles = createUseStyles({
   },
   navLink: {
     textDecoration: 'none',
-    padding: '10px',
+    padding: '5px',
+    margin: '10px',
     textAlign: 'center',
     color: '#fdbd00',
     fontSize: '38px',
     //textShadow: '#381111 1px 0px 5px',
     textShadow: '#e5d7d7 1px 0px 5px',
     fontFamily: "'Euphoria Script', cursive",
+    filter: 'drop-shadow(2px 2px 1px #443356)',
+    background:
+      'radial-gradient(ellipse at top, rgba(68, 51, 86, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
+    borderRadius: '30px',
+    
+    // backgroundColor: "#443356",
+    // borderRadius: '20px'
   },
   span: {
     padding: '10px',
@@ -77,29 +85,23 @@ const Navigation = ({ toggleMenu }) => {
         handleLinkClicks(e);
       }}
     >
-      <Link to="/">
-        <img
-          src="/serenity-ignited-logo.png"
-          className={classes.menuLogo}
-          id="menu-logo"
-          onClick={toggleMenu}
-          alt="Navigate to Home Page"
-        />
+      <Link to="/" className={classes.navLink}>
+        Home
       </Link>
       <Link to="/learn-more" className={classes.navLink} id="info">
-        Learn About Energy Healing
+        Learn More
       </Link>
       <Link to="/booking" className={classes.navLink} id="book-a-session">
-        Book a Session
+        Booking
       </Link>
       <Link to="/events" className={classes.navLink} id="events">
         Events
       </Link>
       <Link to="/contact-me" className={classes.navLink} id="contact-me">
-        Contact Me
+        Contact
       </Link>
       <Link to="/about-me" className={classes.navLink} id="about-me">
-        About Me
+        About
       </Link>
       {!user && (
         <Link
