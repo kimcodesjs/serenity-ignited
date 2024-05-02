@@ -150,7 +150,10 @@ const ContactMe = () => {
   return (
     <div className={classes.contactContainer}>
       <div className={classes.contactContent}>
-        <img className={classes.logo} src="serenity-ignited-logo.png" alt='Serenity Ignited logo'/>
+        <picture>
+          <source srcSet="chakra-mandala.webp" type="image/webp" />
+          <img className={classes.logo} src="serenity-ignited-logo.png" alt='Serenity Ignited logo'/>
+        </picture>
         <h1 className={classes.header}>
           I am looking forward to hearing from you!
         </h1>

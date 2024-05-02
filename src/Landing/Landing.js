@@ -350,13 +350,6 @@ const Landing = () => {
   const animateQuote = () => {
     const quoteText = document.querySelector('h2');
     const quoteAuth = document.querySelector('h3');
-    const quoteEmph1 = document.getElementById('emph-1');
-    const quoteEmph2 = document.getElementById('emph-2');
-
-    if (window.scrollY > 200) {
-      // quoteEmph1.style.opacity = 1
-      // quoteEmph2.style.opactiy = 1
-    }
 
     if (window.scrollY > 400) {
       quoteText.style.opacity = 1;
@@ -377,14 +370,17 @@ const Landing = () => {
           <source srcSet="2.webp" type="image/webp"/>
           <img src="/2.png" className={classes.foreground} id="stars-front" alt=''/>
         </picture>
-        <img
-          src="serenity-ignited-logo.png"
-          width="50%"
-          height="auto"
-          className={classes.logo}
-          id="logo"
-          alt='Serenity Ignited logo showing a swirl of fire and water surrounding a glowing lotus flower.'
-        />
+        <picture>
+          <source srcSet="serenity-ignited-logo.webp" type="image/webp"/>
+          <img
+            src="serenity-ignited-logo.png"
+            width="50%"
+            height="auto"
+            className={classes.logo}
+            id="logo"
+            alt='Serenity Ignited logo showing a swirl of fire and water surrounding a glowing lotus flower.'
+          />
+        </picture>
         <p
           className={classes.greeting}
           data-testid="landing-greeting"
@@ -423,7 +419,10 @@ const Landing = () => {
           <h3 className={classes.quoteAuth}>- Eric Micha'el Leventhal</h3>
         </div>
 
-        <img src="Chakra Mandala.png" className={classes.moduleImg} alt='' />
+        <picture>
+          <source srcSet="chakra-mandala.webp" type="image/webp" />
+          <img src="Chakra Mandala.png" className={classes.moduleImg} alt='' />
+        </picture>
         <section aria-labelledby="our-services">
           <h1 className={classes.sectionTitle} id="our-services">Our Services</h1>
           <div className={classes.moduleContainer}>
