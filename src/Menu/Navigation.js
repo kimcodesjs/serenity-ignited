@@ -67,15 +67,6 @@ const Navigation = ({ toggleMenu }) => {
     }
   };
 
-  // const animateNavMenu = () => {
-  //   const navMenu = document.getElementById('nav-menu');
-  //   if (display === 'nav-menu') {
-  //     navMenu.style.opacity = '1';
-  //   } else {
-  //     navMenu.style.opacity = '0';
-  //   }
-  // };
-
   return (
     <nav
       id="nav-menu"

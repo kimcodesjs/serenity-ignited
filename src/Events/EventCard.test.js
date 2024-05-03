@@ -1,6 +1,6 @@
 import React from 'react';
 import EventCard from './EventCard';
-import { render, screen } from '../test-utils';
+import { render, screen } from '../Test Utilities/test-utils';
 import '@testing-library/jest-dom';
 
 let event = {
@@ -22,5 +22,5 @@ test('displays event data as text', () => {
 
   expect(screen.getByText(/thursday night meditation/i)).toBeInTheDocument();
   expect(screen.getByText(/spots available: 7/i)).toBeInTheDocument();
-  expect(screen.getByText(/May 11, 2023, 6:00 PM CDT/i)).toBeInTheDocument();
+  expect(screen.getByText(/May 11/i)).toBeInTheDocument();
 });

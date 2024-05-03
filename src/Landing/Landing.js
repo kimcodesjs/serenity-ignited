@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { Link } from 'react-router-dom';
 import { EventContext } from '../Context/EventContext';
@@ -292,6 +292,7 @@ const Landing = () => {
   const classes = useStyles();
 
   const { meditations } = useContext(EventContext);
+  const [workshops, setWorkshops] = useState([]);
 
   useEffect(() => {
     window.addEventListener('scroll', animateBackground);
@@ -541,7 +542,9 @@ const Landing = () => {
             as a safe space to build their foundation.
           </p>
           <div className={classes.buttonContainer}>
-            <button className={classes.button}>Read More</button>
+            <button className={classes.button} data-testid="button-link-about">
+              Read More
+            </button>
           </div>
         </div>
         </section>

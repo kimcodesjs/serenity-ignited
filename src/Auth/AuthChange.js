@@ -31,12 +31,12 @@ const useStyles = createUseStyles({
   },
 });
 
-const AuthChange = ({ user, style }) => {
+const AuthChange = ({ firstName, style }) => {
   const classes = useStyles();
   return (
     <>
       <div className={classes.authMessage} id="auth-message" style={style}>
-        <h2 className={classes.h2}>Welcome, {user.firstName}!</h2>
+        <h2 className={classes.h2}>Welcome, {firstName}!</h2>
       </div>
     </>
   );

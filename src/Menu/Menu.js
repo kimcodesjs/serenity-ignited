@@ -98,6 +98,7 @@ const Menu = () => {
             src="logo-no-text.png"
             className={classes.menuIcon}
             id="menu-icon"
+            data-testid="menu-icon"
             onClick={toggleMenu}
             alt="menu toggle"
             role='button'
