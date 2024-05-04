@@ -1,8 +1,8 @@
 export default async (request, context) => {
     const response = await context.next()
     const page = await response.text()
-    const title = 'Events'
-    const description = 'Our workshops and weekly guided meditations provide a communal and welcoming atmosphere to explore our inner and outer worlds.'
+    const title = 'Log In'
+    const description = 'Log in or create an account to book and manage your healing sessions and attend events!'
     const updatedPage = page
         .replace(/{{META_DESCRIPTION}}/i, description)
         .replace(/{{OG_TITLE}}/i, title)
@@ -12,4 +12,4 @@ export default async (request, context) => {
     return new Response(updatedPage, response)
 }
 
-export const config = { path: "/events" }
+export const config = { path: "/login" }

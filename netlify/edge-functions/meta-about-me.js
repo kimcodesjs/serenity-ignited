@@ -4,7 +4,6 @@ export default async (request, context) => {
     const title = 'About Serenity Ignited'
     const description = 'My name is Becky, and I am a trained practitioner in Reiki, Access Consciousness, and Sound Healing. I\'m excited to join you on your journey!'
     const updatedPage = page
-        .replace(/{{META_TITLE}}/i, title)
         .replace(/{{META_DESCRIPTION}}/i, description)
         .replace(/{{OG_TITLE}}/i, title)
         .replace(/{{OG_DESCRIPTION}}/i, description)
