@@ -1,0 +1,19 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Washington",
+			"country": {
+				"code": "US",
+				"name": "United States"
+			},
+			"subdivision": {
+				"code": "VA",
+				"name": "Virginia"
+			},
+			"timezone": "America/New_York",
+			"latitude": 38.7095,
+			"longitude": -78.1539
+		},
+		"timestamp": 1714674691537
+	}
+}
