@@ -13,11 +13,10 @@ test('renders Landing component on initial render', async () => {
 test('renders Menu Icon and Navigation, successfully navigates', async () => {
   render(<App />);
 
-  expect(
-    await screen.findByText(/learn about energy healing/i)
-  ).toBeInTheDocument();
+  const user = userEvent.setup();
   expect(await screen.findByTestId('menu-icon')).toBeInTheDocument();
-  await userEvent.click(screen.getByTestId('nav-link-booking'));
+  await user.click(await screen.findByTestId('menu-icon'))
+  await userEvent.click(await screen.findByText(/booking/i));
   expect(
     await screen.findByText(/let\'s create your healing session/i)
   ).toBeInTheDocument();
