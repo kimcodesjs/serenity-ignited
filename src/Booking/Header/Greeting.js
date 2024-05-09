@@ -130,7 +130,6 @@ const Greeting = ({ updateView }) => {
     setTimeout(() => {
       updateView(1);
     }, 1000)
-    
   };
 
   const textTransitionStyles = {

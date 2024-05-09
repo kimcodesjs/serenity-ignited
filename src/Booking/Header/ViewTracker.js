@@ -107,7 +107,7 @@ const ViewTracker = ({ view, updateView, allowNextView }) => {
           style={{ ...transitionStyles[state] }}
         >
           <img
-            // className="material-symbols-outlined"
+            data-testid="arrow-back"
             style={view === 1 || view === 5 ? disabledArrowStyles : arrowStyles}
             id="previous-view"
             onClick={onArrowClick}
@@ -121,7 +121,7 @@ const ViewTracker = ({ view, updateView, allowNextView }) => {
           {view === 4 && <h1 className={classes.viewTitle}>Confirm</h1>}
           {view === 5 && <h1 className={classes.viewTitle}>Thank You!</h1>}
           <img
-            // className="material-symbols-outlined"
+            data-testid="arrow-forward"
             style={allowNextView ? arrowStyles : disabledArrowStyles}
             id="next-view"
             onClick={onArrowClick}
