@@ -53,20 +53,20 @@ test('transitions to each view after selection is made', async () => {
 
   // selection is made, arrow enabled
   await user.click(screen.getByText('Sample Session'));
-  await user.click(screen.getByText('arrow-forward'));
+  await user.click(screen.getByTestId('arrow-forward'));
   expect(await screen.findByText(/connection/i));
 
   // arrow should be disabled before next selection is made
-  await user.click(screen.getByText('arrow-forward'));
+  await user.click(screen.getByTestId('arrow-forward'));
   expect(await screen.findByText(/select how you would prefer to connect:/i));
 
   // selection is made, arrow enabled
   await user.click(screen.getByText('In Person'));
-  await user.click(screen.getByText('arrow-forward'));
+  await user.click(screen.getByTestId('arrow-forward'));
   expect(await screen.findByText(/schedule/i));
 
   // arrow should be disabled before next selection is made
-  await user.click(screen.getByText('arrow-forward'));
+  await user.click(screen.getByTestId('arrow-forward'));
   expect(
     await screen.findByText(/when would you like to receive your healing\?/i)
   );
