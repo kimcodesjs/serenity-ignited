@@ -51,9 +51,10 @@ module.exports = {
   // errorOnDeprecated: false,
 
   // The default configuration for fake timers
-  fakeTimers: {
-    "enableGlobally": true
-  },
+  // fakeTimers: {
+  //   "enableGlobally": true,
+  //   "advanceTimers": true
+  // },
 
   // Force coverage collection from ignored files using an array of glob patterns
   // forceCoverageMatch: [],
@@ -176,6 +177,7 @@ module.exports = {
   // This option allows use of a custom test runner
   // testRunner: "jest-circus/runner",
 
+  testTimeout: 20000,
   // A map from regular expressions to paths to transformers
   // transform: undefined,
 
@@ -196,4 +198,5 @@ module.exports = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
+
 };

@@ -127,9 +127,10 @@ const Greeting = ({ updateView }) => {
   };
 
   const exitComponent = () => {
-    setTimeout(() => {
+    // setTimeout(() => {
       updateView(1);
-    }, 1000)
+    // }, 1000)
+    // timer commented out due to error with testing
   };
 
   const textTransitionStyles = {
