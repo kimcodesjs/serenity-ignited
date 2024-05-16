@@ -1,4 +1,4 @@
-[[redirects]]
-  from = "/*"
-  to = "/"
-  status = 200
+[dev]
+command = "npm run dev-server"
+targetPort = 8080
+publish = "public"

@@ -78,8 +78,14 @@ const Events = () => {
           </div>
         )}
       </Transition>
-      <img src="/Chakra Mandala.png" className={classes.imgLeft} />
-      <img src="/Chakra Mandala.png" className={classes.imgRight} />
+      <picture>
+        <source srcSet="chakra-mandala.webp" type="image/webp" />
+        <img src="/Chakra Mandala.png" className={classes.imgLeft} />
+      </picture>
+      <picture>
+        <source srcSet="chakra-mandala.webp" type="image/webp" />
+        <img src="/Chakra Mandala.png" className={classes.imgRight} />
+      </picture>
     </div>
   );
 };

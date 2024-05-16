@@ -23,12 +23,12 @@ test('displays all nav links', async () => {
   );
 
   expect(
-    await screen.findByText(/learn about energy healing/i)
+    await screen.findByText(/learn more/i)
   ).toBeInTheDocument();
-  expect(await screen.findByText(/book a session/i)).toBeInTheDocument();
+  expect(await screen.findByText(/booking/i)).toBeInTheDocument();
   expect(await screen.findByText(/events/i)).toBeInTheDocument();
-  expect(await screen.findByText(/contact me/i)).toBeInTheDocument();
-  expect(await screen.findByText(/about me/i)).toBeInTheDocument();
+  expect(await screen.findByText(/contact/i)).toBeInTheDocument();
+  expect(await screen.findByText(/about/i)).toBeInTheDocument();
   expect(await screen.findByText(/log in/i)).toBeInTheDocument();
   expect(await screen.findByText(/sign up/i)).toBeInTheDocument();
 });

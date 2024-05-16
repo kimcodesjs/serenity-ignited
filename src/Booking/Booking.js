@@ -104,8 +104,15 @@ const Booking = () => {
           {view === 5 && <Confirmed user={user} />}
         </div>
       )}
-      <img src="Chakra Mandala.png" className={classes.imgLeft} />
-      <img src="Chakra Mandala.png" className={classes.imgRight} />
+      <picture>
+        <source srcSet="chakra-mandala.webp" type="image/webp" />
+        <img src="Chakra Mandala.png" className={classes.imgLeft} alt=''/>
+      </picture>
+      <picture>
+        <source srcSet="chakra-mandala.webp" type="image/webp" />
+        <img src="Chakra Mandala.png" className={classes.imgRight} alt=''/>
+      </picture>
+      
     </>
   );
 };

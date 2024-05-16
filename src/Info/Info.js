@@ -53,7 +53,8 @@ const LearningCenter = () => {
     const classes = useStyles()
     return (
         <>
-            <img src='stars-and-lake.jpg' className={classes.banner} />
+        <meta name="description" content="Energy Healing is the means by which we restore energetic harmony within ourselves to promote peace and well-being. Read about energy healing in detail, including descriptions of the modalities we use."/>            
+        <img src='stars-and-lake.jpg' className={classes.banner} />
             <h1 className={classes.h1}>Experience Serenity in Healing</h1>
             <p>Put simply, Energy Healing is the means by which we restore energetic harmony within ourselves, to promote peace and well-being. It is a holistic approach to healing the mind and body, predicated upon the understanding that they are connected energetically in a powerful way. This connection is intricate and dynamic, yet fragile in that an imbalance of the energies within us will manifest physical and mental ailments. Energy Healing practitioners work to restore balance to the energetic body, alleviating the symptoms we experience by treating the root cause.</p>
             <Link to='energy-healing' className={classes.button}>Learn More</Link>

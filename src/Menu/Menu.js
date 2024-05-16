@@ -18,7 +18,7 @@ const useStyles = createUseStyles({
     transitionDuration: '2s',
     transitionDelay: '1s',
     float: 'right',
-    width: '60px',
+    width: '75px',
     height: 'auto',
     filter: 'drop-shadow(2px 2px 1px #443356)',
     cursor: 'pointer',
@@ -26,11 +26,14 @@ const useStyles = createUseStyles({
   menuDiv: {
     display: 'inline-flex',
     flexDirection: 'column',
-    backgroundImage:
-      'linear-gradient(to bottom, rgba(56, 17, 17, .92), rgba(60, 23, 89, .5)),url("/3.png")',
+    // backgroundImage:
+    //   'linear-gradient(to bottom, rgba(56, 17, 17, .92), rgba(60, 23, 89, .5)),url("3.png")',
+      // backgroundImage:
+      // 'linear-gradient(to bottom, rgba(56, 17, 17, .75), rgba(60, 23, 89, .6))',
+    paddingTop: '85px',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    width: '300px',
+    width: '200px',
     height: '100%',
     borderRadius: '10px 0% 0% 10px',
     zIndex: 10,
@@ -38,7 +41,7 @@ const useStyles = createUseStyles({
     right: '-310px',
     opacity: 0,
     transition: 'right 1s, opacity 1s',
-    boxShadow: '-5px 2px 5px #443356',
+    // boxShadow: '-5px 2px 5px #443356',
   },
   authDiv: {
     marginTop: '100px',
@@ -70,12 +73,19 @@ const Menu = () => {
     const menu = document.getElementById('menu');
 
     if (!menuToggle) {
-      menu.style.right = '0';
-      menu.style.opacity = 1;
+      menu.style.display = 'inline-flex'
+      setTimeout(() => {
+        menu.style.right = '0';
+        menu.style.opacity = 1;
+      }, "100")
       setToggle(true);
     } else {
       menu.style.right = '-310px';
       menu.style.opacity = 0;
+      setTimeout(() => {
+        menu.style.display = 'none'
+      }, "1000")
+      
       setToggle(false);
     }
   };
@@ -85,11 +95,15 @@ const Menu = () => {
       <div id="sidebar">
         <div className={classes.menuToggle} id="menu-toggle">
           <img
-            src="/menu-icon.png"
+            src="logo-no-text.png"
             className={classes.menuIcon}
             id="menu-icon"
             data-testid="menu-icon"
             onClick={toggleMenu}
+            alt="menu toggle"
+            role='button'
+            aria-pressed='false'
+            tabIndex='0'
           />
         </div>
 

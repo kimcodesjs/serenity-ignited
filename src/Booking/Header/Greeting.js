@@ -127,13 +127,16 @@ const Greeting = ({ updateView }) => {
   };
 
   const exitComponent = () => {
-    updateView(1);
+    // setTimeout(() => {
+      updateView(1);
+    // }, 1000)
+    // timer commented out due to error with testing
   };
 
   const textTransitionStyles = {
     entering: { opacity: 0 },
     entered: { opacity: 1 },
-    exiting: { opacity: 0 },
+    exiting: { opacity: 1 },
     exited: { opacity: 0 },
   };
   return (
