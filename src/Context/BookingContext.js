@@ -14,7 +14,7 @@ function BookingProvider(props) {
       try {
         await axios({
           method: 'GET',
-          url: `${process.env.URL}/api/v1/practitioners/6487bb6d6cd84d6d6859954c`,
+          url: `${process.env.SERVER_URL}/api/v1/practitioners/6487bb6d6cd84d6d6859954c`,
         }).then((res) => {
           setData(res.data.data);
         });
@@ -30,7 +30,7 @@ function BookingProvider(props) {
       try {
         await axios({
           method: 'GET',
-          url: `${process.env.URL}/api/v1/sessions/get-all-sessions`,
+          url: `${process.env.SERVER_URL}/api/v1/sessions/get-all-sessions`,
         }).then((res) => {
           setSessions(res.data.data);
         });
@@ -46,7 +46,7 @@ function BookingProvider(props) {
       try {
         await axios({
           method: 'GET',
-          url: `${process.env.URL}/api/v1/appointments/`,
+          url: `${process.env.SERVER_URL}/api/v1/appointments/`,
         }).then((res) => {
           setAppointments(res.data.data);
         });

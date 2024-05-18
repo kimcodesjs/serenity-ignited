@@ -15,7 +15,7 @@ function AuthProvider(props) {
       try {
         await axios({
           method: 'GET',
-          url: `${process.env.URL}/api/v1/users/get-auth-status`,
+          url: `${process.env.SERVER_URL}/api/v1/users/get-auth-status`,
           withCredentials: true,
         }).then((res) => {
           res.status === 200 ? setUser(res.data.data) : setUser(null);
@@ -31,7 +31,7 @@ function AuthProvider(props) {
     try {
       const res = await axios({
         method: 'POST',
-        url: `${process.env.URL}/api/v1/users/logout`,
+        url: `${process.env.SERVER_URL}/api/v1/users/logout`,
         withCredentials: true,
       }).then((res) => {
         if (res.data.status === 'success') {
@@ -49,7 +49,7 @@ function AuthProvider(props) {
     try {
       await axios({
         method: 'POST',
-        url: `${process.env.URL}/api/v1/users/${authType}`,
+        url: `${process.env.SERVER_URL}/api/v1/users/${authType}`,
         withCredentials: true,
         data,
       }).then((res) => {
@@ -68,7 +68,7 @@ function AuthProvider(props) {
     try {
       await axios({
         method: 'POST',
-        url: `http://127.0.0.1:3000/api/v1/users/forgot-password`,
+        url: `${process.env.SERVER_URL}/api/v1/users/forgot-password`,
         data: {
           email,
         },

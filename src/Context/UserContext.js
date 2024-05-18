@@ -12,7 +12,7 @@ function UserProvider(props) {
       try {
         await axios({
           method: 'GET',
-          url: `${process.env.URL}/api/v1/appointments/get-my-appointments`,
+          url: `${process.env.SERVER_URL}/api/v1/appointments/get-my-appointments`,
           withCredentials: true,
         }).then((res) => {
           setUserAppointments(res.data.data);
@@ -28,7 +28,7 @@ function UserProvider(props) {
     try {
       await axios({
         method: 'DELETE',
-        url: `${process.env.URL}/api/v1/appointments/${id}`,
+        url: `${process.env.SERVER_URL}/api/v1/appointments/${id}`,
         withCredentials: true,
       }).then((res) => {
         setUserAppointments((prev) =>
@@ -45,7 +45,7 @@ function UserProvider(props) {
     try {
       await axios({
         method: 'PATCH',
-        url: `${process.env.URL}/api/v1/appointments/${id}`,
+        url: `${process.env.SERVER_URL}/api/v1/appointments/${id}`,
         withCredentials: true,
         data: updates,
       }).then((res) => {
@@ -64,7 +64,7 @@ function UserProvider(props) {
     try {
       await axios({
         method: 'PATCH',
-        url: `${process.env.URL}/api/v1/users`,
+        url: `${process.env.SERVER_URL}/api/v1/users`,
         withCredentials: true,
         data: updates,
       }).then((res) => {
