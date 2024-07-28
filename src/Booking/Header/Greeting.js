@@ -128,7 +128,7 @@ const Greeting = ({ updateView }) => {
 
   const exitComponent = () => {
     // setTimeout(() => {
-      updateView(1);
+    updateView(1);
     // }, 1000)
     // timer commented out due to error with testing
   };
@@ -161,7 +161,7 @@ const Greeting = ({ updateView }) => {
               id="greeting"
               style={{ ...textTransitionStyles[state] }}
             >
-              Let's create your healing session!
+              Experience Serenity in Healing
             </h1>
             <div
               className={classes.greetingText}
