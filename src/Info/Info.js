@@ -13,6 +13,7 @@ const useStyles = createUseStyles({
     backgroundAttachment: 'fixed',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
     //backgroundPosition: 'left 0 top -80px',
     '-webkit-mask-image':
       'linear-gradient(transparent, black 5%, black 95%, transparent)',
@@ -44,7 +45,7 @@ const useStyles = createUseStyles({
     textShadow: '#381111 1px 0px 4px',
     transitionProperty: 'opacity',
     transitionDuration: '2s',
-    '@media (max-width: 1150px)': {
+    '@media (max-width: 700px)': {
       fontSize: '40px',
     },
     // textShadow: '#381111 1px 0px 20px',
@@ -57,6 +58,9 @@ const useStyles = createUseStyles({
   },
   h2: {
     fontSize: '40px',
+    '@media (max-width: 700px)': {
+      fontSize: '30px',
+    },
   },
   textContainer: {
     marginLeft: '10%',
@@ -64,6 +68,9 @@ const useStyles = createUseStyles({
   },
   text: {
     fontSize: '24px',
+    '@media (max-width: 700px)': {
+      fontSize: '18px',
+    },
   },
 });
 
@@ -77,7 +84,10 @@ const LearningCenter = () => {
       />
       <div className={classes.banner}>
         <div className={classes.ehQuote}>
-          <h1 className={classes.h1}>Learn About Serenity in Healing</h1>
+          <h1 className={classes.h1}>
+            Learn About <br />
+            Serenity in Healing
+          </h1>
         </div>
       </div>
       <div className={classes.textContainer}>

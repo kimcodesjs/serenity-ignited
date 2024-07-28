@@ -22,11 +22,18 @@ const useStyles = createUseStyles({
   },
   h1: {
     fontSize: '40px',
+    '@media (max-width: 700px)': {
+      fontSize: '30px',
+    },
   },
   accessText: {
     marginLeft: '10%',
     marginRight: '10%',
+    paddingBottom: '10%',
     fontSize: '24px',
+    '@media (max-width: 700px)': {
+      fontSize: '18px',
+    },
   },
 });
 

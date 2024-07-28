@@ -21,11 +21,19 @@ const useStyles = createUseStyles({
   },
   h1: {
     fontSize: '40px',
+    '@media (max-width: 700px)': {
+      fontSize: '30px',
+    },
   },
   reikiTextBody: {
     marginLeft: '10%',
     marginRight: '10%',
+    marginBottom: '10%',
     fontSize: '24px',
+    fontSize: '24px',
+    '@media (max-width: 700px)': {
+      fontSize: '18px',
+    },
   },
 });
 
