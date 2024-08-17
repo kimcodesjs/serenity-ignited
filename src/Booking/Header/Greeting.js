@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { createUseStyles } from 'react-jss';
 import { Transition } from 'react-transition-group';
+import { Link } from 'react-router-dom';
 
 const useStyles = createUseStyles({
   greetingContainer: {
@@ -169,8 +170,11 @@ const Greeting = ({ updateView }) => {
               style={{ ...textTransitionStyles[state] }}
             >
               <p>
-                If you are new to energy healing, you may want to check out an
-                in-depth explanation of each modality before you book a session.
+                If you are new to energy healing, you may want to{' '}
+                <Link to="/learn-more">
+                  check out an in-depth explanation of each modality
+                </Link>{' '}
+                before you book a session.
               </p>
               <p>
                 Please get in touch with me if you would like to discuss what
