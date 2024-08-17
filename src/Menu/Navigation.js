@@ -33,23 +33,28 @@ const useStyles = createUseStyles({
     background:
       'radial-gradient(ellipse at top, rgba(68, 51, 86, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
     borderRadius: '30px',
-    
+
     // backgroundColor: "#443356",
     // borderRadius: '20px'
   },
   span: {
-    padding: '10px',
+    padding: '5px',
+    margin: '10px',
     cursor: 'pointer',
     textAlign: 'center',
     color: '#fdbd00',
     fontSize: '38px',
     //textShadow: '#381111 1px 0px 5px',
     textShadow: '#e5d7d7 1px 0px 5px',
+    filter: 'drop-shadow(2px 2px 1px #443356)',
     '-webkit-user-select': 'none' /* Safari */,
     '-moz-user-select': 'none' /* Firefox */,
     '-ms-user-select': 'none' /* IE10+/Edge */,
     userSelect: 'none',
     fontFamily: "'Euphoria Script', cursive",
+    background:
+      'radial-gradient(ellipse at top, rgba(68, 51, 86, .92), transparent), radial-gradient(ellipse at bottom, rgba(56, 17, 17, 1), transparent)',
+    borderRadius: '30px',
   },
 });
 
@@ -80,7 +85,7 @@ const Navigation = ({ toggleMenu }) => {
         Home
       </Link>
       <Link to="/learn-more" className={classes.navLink} id="info">
-        Learn More
+        Discover
       </Link>
       <Link to="/booking" className={classes.navLink} id="book-a-session">
         Booking
