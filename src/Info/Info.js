@@ -14,9 +14,7 @@ const useStyles = createUseStyles({
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
-    //backgroundPosition: 'left 0 top -80px',
-    '-webkit-mask-image':
-      'linear-gradient(transparent, black 5%, black 95%, transparent)',
+    '-webkit-mask-image': 'linear-gradient(black 95%, transparent)',
     maskImage: 'linear-gradient(transparent, black 5%, black 95%, transparent)',
     overflow: 'hidden',
     zIndex: '2',
@@ -36,7 +34,7 @@ const useStyles = createUseStyles({
   },
   h1: {
     fontFamily: "'Euphoria Script', cursive",
-    fontSize: '80px',
+    fontSize: '100px',
     width: '70%',
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -58,6 +56,7 @@ const useStyles = createUseStyles({
   },
   h2: {
     fontSize: '40px',
+    marginTop: 0,
     '@media (max-width: 700px)': {
       fontSize: '30px',
     },
@@ -85,7 +84,7 @@ const LearningCenter = () => {
       <div className={classes.banner}>
         <div className={classes.ehQuote}>
           <h1 className={classes.h1}>
-            Learn About <br />
+            Discover <br />
             Serenity in Healing
           </h1>
         </div>
