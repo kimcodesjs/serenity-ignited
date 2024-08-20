@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const Dotenv = require('dotenv-webpack');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.js',
@@ -24,11 +25,15 @@ module.exports = {
   },
   plugins: [
     new Dotenv(),
-    new webpack.EnvironmentPlugin([
-      'SQUARE_APP_ID',
-      'SQUARE_LOCATION_ID',
-      'SERVER_URL',
-    ]),
+    new webpack.DefinePlugin({
+      'process.env.SQUARE_APP_ID': JSON.stringify(process.env.SQUARE_APP_ID),
+      'process.env.SQUARE_LOCATION_ID': JSON.stringify(
+        process.env.SQUARE_LOCATION_ID
+      ),
+      'process.env.SERVER_URL': JSON.stringify(
+        'https://serenity-ignited.onrender.com'
+      ),
+    }),
   ],
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
