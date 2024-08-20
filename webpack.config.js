@@ -22,7 +22,14 @@ module.exports = {
       },
     ],
   },
-  plugins: [new Dotenv()],
+  plugins: [
+    new Dotenv(),
+    new webpack.EnvironmentPlugin([
+      'SQUARE_APP_ID',
+      'SQUARE_LOCATION_ID',
+      'SERVER_URL',
+    ]),
+  ],
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
   devServer: {
