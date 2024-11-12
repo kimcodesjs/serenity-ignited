@@ -155,7 +155,7 @@ const SessionConfirmation = ({
 
           await axios({
             method: 'POST',
-            url: `http://127.0.0.1:3000/api/v1/appointments/create-appointment`,
+            url: `${process.env.SERVER_URL}/api/v1/appointments/create-appointment`,
             withCredentials: true,
             data: {
               user: user._id,
