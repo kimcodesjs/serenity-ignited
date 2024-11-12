@@ -1,5 +1,6 @@
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
+// const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.js',
@@ -21,7 +22,20 @@ module.exports = {
       },
     ],
   },
-  plugins: [new Dotenv()],
+  plugins: [
+    new Dotenv({
+      systemvars: true,
+    }),
+    // new webpack.DefinePlugin({
+    //   'process.env.SQUARE_APP_ID': JSON.stringify(process.env.SQUARE_APP_ID),
+    //   'process.env.SQUARE_LOCATION_ID': JSON.stringify(
+    //     process.env.SQUARE_LOCATION_ID
+    //   ),
+    //   'process.env.SERVER_URL': JSON.stringify(
+    //     'https://serenity-ignited.onrender.com'
+    //   ),
+    // }),
+  ],
   mode: 'production',
   devtool: 'eval-cheap-module-source-map',
 };
