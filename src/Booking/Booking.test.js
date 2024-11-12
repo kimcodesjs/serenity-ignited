@@ -19,7 +19,7 @@ test('displays booking greeting', async () => {
   );
 
   expect(
-    await screen.findByText(/let\'s create your healing session!/i)
+    await screen.findByText(/experience serenity in healing/i)
   ).toBeInTheDocument();
   expect(await screen.findByText(/get started/i)).toBeInTheDocument();
 });
@@ -37,13 +37,13 @@ test('transitions to each view after selection is made', async () => {
 
   // transition from view to session view
   await user.click(await screen.findByText(/get started/i));
-  
+
   // advanceTimersByTime allows the timeout in exitComponent of Greeting.js
-  // to finalize UI changes that follow 
+  // to finalize UI changes that follow
   // jest.useFakeTimers()
   // jest.runAllTimers()
-  // ^^ Commented out, suspected bug with jest's timers not executing properly. 
-  
+  // ^^ Commented out, suspected bug with jest's timers not executing properly.
+
   expect(await screen.findByText('Session')).toBeInTheDocument();
   expect(
     await screen.findByText(/choose your healing session:/i)
