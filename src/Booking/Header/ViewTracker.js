@@ -111,9 +111,13 @@ const ViewTracker = ({ view, updateView, allowNextView }) => {
             style={view === 1 || view === 5 ? disabledArrowStyles : arrowStyles}
             id="previous-view"
             onClick={onArrowClick}
-            role='button'
-            aria-pressed='false'
-            src={view === 1 || view === 5 ? "arrow_back_disabled.svg": "arrow_back_enabled.svg"}
+            role="button"
+            aria-pressed="false"
+            src={
+              view === 1 || view === 5
+                ? 'arrow_back_disabled.svg'
+                : 'arrow_back_enabled.svg'
+            }
           />
           {view === 1 && <h1 className={classes.viewTitle}>Session</h1>}
           {view === 2 && <h1 className={classes.viewTitle}>Connection</h1>}
@@ -125,9 +129,13 @@ const ViewTracker = ({ view, updateView, allowNextView }) => {
             style={allowNextView ? arrowStyles : disabledArrowStyles}
             id="next-view"
             onClick={onArrowClick}
-            role='button'
-            aria-pressed='false'
-            src={allowNextView ? "arrow_forward_enabled" : "arrow_forward_disabled.svg"}
+            role="button"
+            aria-pressed="false"
+            src={
+              allowNextView
+                ? 'arrow_forward_enabled.svg'
+                : 'arrow_forward_disabled.svg'
+            }
           />
         </div>
       )}

@@ -15,9 +15,9 @@ test('renders Menu Icon and Navigation, successfully navigates', async () => {
 
   const user = userEvent.setup();
   expect(await screen.findByTestId('menu-icon')).toBeInTheDocument();
-  await user.click(await screen.findByTestId('menu-icon'))
+  await user.click(await screen.findByTestId('menu-icon'));
   await userEvent.click(await screen.findByText(/booking/i));
   expect(
-    await screen.findByText(/let\'s create your healing session/i)
+    await screen.findByText(/experience serenity in healing/i)
   ).toBeInTheDocument();
 });

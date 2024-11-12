@@ -22,9 +22,7 @@ test('displays all nav links', async () => {
     </AuthProvider>
   );
 
-  expect(
-    await screen.findByText(/learn more/i)
-  ).toBeInTheDocument();
+  expect(await screen.findByText(/discover/i)).toBeInTheDocument();
   expect(await screen.findByText(/booking/i)).toBeInTheDocument();
   expect(await screen.findByText(/events/i)).toBeInTheDocument();
   expect(await screen.findByText(/contact/i)).toBeInTheDocument();

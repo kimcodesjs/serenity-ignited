@@ -119,6 +119,7 @@ const useStyles = createUseStyles({
     flexDirection: 'column',
     justifyContent: 'center',
     textAlign: 'center',
+    marginBottom: '40vh',
     //color: 'white',
     width: '100%',
     height: '300px',
@@ -228,7 +229,7 @@ const useStyles = createUseStyles({
     overflowX: 'auto',
   },
   buttonContainer: {
-    marginTop: '20px'
+    marginTop: '20px',
   },
   button: {
     //width: '150px',
@@ -364,22 +365,32 @@ const Landing = () => {
     <>
       <header className={classes.header}>
         <picture>
-          <source srcSet="4.webp" type="image/webp"/>
-          <img src="4.png" className={classes.background} id="stars-back" alt=''/>
+          <source srcSet="4.webp" type="image/webp" />
+          <img
+            src="4.png"
+            className={classes.background}
+            id="stars-back"
+            alt=""
+          />
         </picture>
         <picture>
-          <source srcSet="2.webp" type="image/webp"/>
-          <img src="/2.png" className={classes.foreground} id="stars-front" alt=''/>
+          <source srcSet="2.webp" type="image/webp" />
+          <img
+            src="/2.png"
+            className={classes.foreground}
+            id="stars-front"
+            alt=""
+          />
         </picture>
         <picture>
-          <source srcSet="serenity-ignited-logo.webp" type="image/webp"/>
+          <source srcSet="serenity-ignited-logo.webp" type="image/webp" />
           <img
             src="serenity-ignited-logo.png"
             width="50%"
             height="auto"
             className={classes.logo}
             id="logo"
-            alt='Serenity Ignited logo showing a swirl of fire and water surrounding a glowing lotus flower.'
+            alt="Serenity Ignited logo showing a swirl of fire and water surrounding a glowing lotus flower."
           />
         </picture>
         <p
@@ -393,15 +404,30 @@ const Landing = () => {
       </header>
       <picture>
         <source srcSet="clouds-3.webp" type="image/webp" />
-        <img src="clouds 3.jpg" className={classes.background2} id="clouds-2" alt=''/>
+        <img
+          src="clouds 3.jpg"
+          className={classes.background2}
+          id="clouds-2"
+          alt=""
+        />
       </picture>
       <picture>
         <source srcSet="clouds-4.webp" type="image/webp" />
-        <img src="clouds 4.jpg" className={classes.background2} id="clouds-1" alt=''/>
+        <img
+          src="clouds 4.jpg"
+          className={classes.background2}
+          id="clouds-1"
+          alt=""
+        />
       </picture>
       <picture>
         <source srcSet="horizon-2.webp" type="image/webp" />
-        <img src="horizon 2.jpg" className={classes.foreground2} id="landscape" alt=''/>
+        <img
+          src="horizon 2.jpg"
+          className={classes.foreground2}
+          id="landscape"
+          alt=""
+        />
       </picture>
       <main className={classes.contentContainer}>
         <div className={classes.ehQuote}>
@@ -419,13 +445,10 @@ const Landing = () => {
           </h2>
           <h3 className={classes.quoteAuth}>- Eric Micha'el Leventhal</h3>
         </div>
-
-        <picture>
-          <source srcSet="chakra-mandala.webp" type="image/webp" />
-          <img src="Chakra Mandala.png" className={classes.moduleImg} alt='' />
-        </picture>
         <section aria-labelledby="our-services">
-          <h1 className={classes.sectionTitle} id="our-services">Our Services</h1>
+          <h1 className={classes.sectionTitle} id="our-services">
+            Our Services
+          </h1>
           <div className={classes.moduleContainer}>
             <h2 className={classes.moduleTitle}>Meditation Circles!</h2>
             <div>
@@ -435,19 +458,19 @@ const Landing = () => {
                 individual guidance in the energetic realm.
                 <br />
                 <br />
-                Anything from guided sessions to solely instrumental music will be
-                offered. Some sessions will focus on specific topics, like
+                Anything from guided sessions to solely instrumental music will
+                be offered. Some sessions will focus on specific topics, like
                 overcoming stress and anxiety, while others will be purely to
                 provide some peace and relaxation.
                 <br />
                 <br />
                 Whether you are a beginner, or have been meditating for decades,
-                you are welcome! Serenity Ignited is a safe, judgement-free space
-                for everyone to ignite the serenity within.
+                you are welcome! Serenity Ignited is a safe, judgement-free
+                space for everyone to ignite the serenity within.
                 <br />
                 <br />
-                We currently have room for only 7, so be sure to reserve your spot
-                in advance!
+                We currently have room for only 7, so be sure to reserve your
+                spot in advance!
               </p>
             </div>
             <h2>Upcoming Meditations</h2>
@@ -469,24 +492,24 @@ const Landing = () => {
             <h2 className={classes.moduleTitle}>Energy Healing</h2>
             <p className={classes.moduleText}>
               Put simply, Energy Healing is the means by which we restore
-              energetic harmony within ourselves, to promote peace and well-being.
-              It is a holistic approach to healing the mind and body, predicated
-              upon the understanding that they are connected energetically in a
-              powerful way. This connection is intricate and dynamic, yet fragile
-              in that an imbalance of the energies within us will manifest
-              physical and mental ailments. Energy Healing practitioners work to
-              restore balance to the energetic body, alleviating the symptoms we
-              experience by treating the root cause.
+              energetic harmony within ourselves, to promote peace and
+              well-being. It is a holistic approach to healing the mind and
+              body, predicated upon the understanding that they are connected
+              energetically in a powerful way. This connection is intricate and
+              dynamic, yet fragile in that an imbalance of the energies within
+              us will manifest physical and mental ailments. Energy Healing
+              practitioners work to restore balance to the energetic body,
+              alleviating the symptoms we experience by treating the root cause.
             </p>
             <h3 className={classes.moduleSubtitle}>Reiki</h3>
             <p className={classes.moduleText}>
               A large part of the benefits people see from receiving Reiki
               sessions stems from the cleansing of the Chakras. When they are
-              clear of blocks and negative energy, the body may be able to defend
-              itself against many issues. A Reiki healing session can help to
-              release emotional wounds, relax the body and mind, and energize you
-              when you feel drained, just to name a few of the many possible
-              benefits!
+              clear of blocks and negative energy, the body may be able to
+              defend itself against many issues. A Reiki healing session can
+              help to release emotional wounds, relax the body and mind, and
+              energize you when you feel drained, just to name a few of the many
+              possible benefits!
             </p>
             <h3 className={classes.moduleSubtitle}>Access Bars</h3>
             <p className={classes.moduleText}>
@@ -500,11 +523,11 @@ const Landing = () => {
             <p className={classes.moduleText}>
               You may already be familiar with the powerful effects of sound
               frequencies as they are the basis for modern day meditation music
-              and binaural beats. The same concepts are at play in a sound healing
-              session. Through the use of a variety of instruments such as Tibetan
-              singing bowls, tuning forks, and drums, an atmosphere of specific
-              vibratory resonance is applied to the physical and etheric body,
-              restoring harmony and balance within each.
+              and binaural beats. The same concepts are at play in a sound
+              healing session. Through the use of a variety of instruments such
+              as Tibetan singing bowls, tuning forks, and drums, an atmosphere
+              of specific vibratory resonance is applied to the physical and
+              etheric body, restoring harmony and balance within each.
             </p>
             <div className={classes.buttonContainer}>
               <Link to="/booking" className={classes.button}>
@@ -518,35 +541,43 @@ const Landing = () => {
           </div>
         </section>
         <section aria-labelledby="coming-soon">
-          <h1 className={classes.sectionTitle} id="coming-soon">Coming Soon...</h1>
+          <h1 className={classes.sectionTitle} id="coming-soon">
+            Coming Soon...
+          </h1>
           <div className={classes.moduleContainer}>
             <h2 className={classes.moduleTitle}>Workshops</h2>
             <p className={classes.moduleText}>
               We all have within us the ability to connect with our spiritual
-              nature and access tools to help us along our journey. Our single-day
-              workshops are designed to share knowledge, wisdom, and guidance,
-              aiding in the discovery and cultivation of these tools. Is there a
-              topic you'd like to learn more about? Please let us know!
+              nature and access tools to help us along our journey. Our
+              single-day workshops are designed to share knowledge, wisdom, and
+              guidance, aiding in the discovery and cultivation of these tools.
+              Is there a topic you'd like to learn more about? Please let us
+              know!
             </p>
           </div>
         </section>
         <section aria-labelledby="our-mission">
-        <h1 className={classes.sectionTitle} id="our-mission">Our Mission</h1>
-        <div className={classes.moduleContainer}>
-          <p className={classes.moduleText}>
-            Serenity Ignited, LLC is committed to helping people ignite the fire
-            within themselves to move forward from past traumas and bring
-            serenity to their lives. We strive to empower people to stand in
-            their own sovereignty, allowing them to embrace their true Self, and
-            to provide tools that sustain them on their journey forward as well
-            as a safe space to build their foundation.
-          </p>
-          <div className={classes.buttonContainer}>
-            <button className={classes.button} data-testid="button-link-about">
-              Read More
-            </button>
+          <h1 className={classes.sectionTitle} id="our-mission">
+            Our Mission
+          </h1>
+          <div className={classes.moduleContainer}>
+            <p className={classes.moduleText}>
+              Serenity Ignited, LLC is committed to helping people ignite the
+              fire within themselves to move forward from past traumas and bring
+              serenity to their lives. We strive to empower people to stand in
+              their own sovereignty, allowing them to embrace their true Self,
+              and to provide tools that sustain them on their journey forward as
+              well as a safe space to build their foundation.
+            </p>
+            <div className={classes.buttonContainer}>
+              <button
+                className={classes.button}
+                data-testid="button-link-about"
+              >
+                Read More
+              </button>
+            </div>
           </div>
-        </div>
         </section>
       </main>
     </>

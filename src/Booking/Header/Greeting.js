@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { createUseStyles } from 'react-jss';
 import { Transition } from 'react-transition-group';
+import { Link } from 'react-router-dom';
 
 const useStyles = createUseStyles({
   greetingContainer: {
@@ -128,7 +129,7 @@ const Greeting = ({ updateView }) => {
 
   const exitComponent = () => {
     // setTimeout(() => {
-      updateView(1);
+    updateView(1);
     // }, 1000)
     // timer commented out due to error with testing
   };
@@ -161,7 +162,7 @@ const Greeting = ({ updateView }) => {
               id="greeting"
               style={{ ...textTransitionStyles[state] }}
             >
-              Let's create your healing session!
+              Experience Serenity in Healing
             </h1>
             <div
               className={classes.greetingText}
@@ -169,8 +170,11 @@ const Greeting = ({ updateView }) => {
               style={{ ...textTransitionStyles[state] }}
             >
               <p>
-                If you are new to energy healing, you may want to check out an
-                in-depth explanation of each modality before you book a session.
+                If you are new to energy healing, you may want to{' '}
+                <Link to="/learn-more">
+                  check out an in-depth explanation of each modality
+                </Link>{' '}
+                before you book a session.
               </p>
               <p>
                 Please get in touch with me if you would like to discuss what
